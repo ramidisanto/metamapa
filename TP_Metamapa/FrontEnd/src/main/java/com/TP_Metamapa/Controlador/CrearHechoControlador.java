@@ -147,7 +147,7 @@ public class CrearHechoControlador {
             hechoParaBackend.setDescripcion(hechoFormData.getDescripcion());
             hechoParaBackend.setContenido(hechoFormData.getContenidoAdicional());
             hechoParaBackend.setContenido_multimedia(imageUrl);
-            hechoParaBackend.setFechaAcontecimiento(hechoFormData.getFechaAcontecimiento());
+            hechoParaBackend.setFechaAcontecimiento(hechoFormData.getFechaAcontecimiento().atStartOfDay());
             hechoParaBackend.setLocalidad(hechoFormData.getLocalidad());
             hechoParaBackend.setProvincia(hechoFormData.getProvincia());
             hechoParaBackend.setPais(hechoFormData.getPais());

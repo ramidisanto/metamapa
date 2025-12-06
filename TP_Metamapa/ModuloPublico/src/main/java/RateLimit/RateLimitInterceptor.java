@@ -4,16 +4,22 @@ import io.github.bucket4j.Bucket;
 import io.github.bucket4j.ConsumptionProbe;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
+
+
 
 @Component
 public class RateLimitInterceptor implements HandlerInterceptor {
 
     @Autowired
     private RateLimitService rateLimiterService;
+    // 1. Declarar el Logger
+    private static final Logger logger = LoggerFactory.getLogger(RateLimitInterceptor.class);
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
