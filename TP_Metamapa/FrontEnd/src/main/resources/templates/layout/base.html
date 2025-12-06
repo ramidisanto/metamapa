@@ -14,7 +14,10 @@
 
     <style>
         #map { height: 400px; width: 100%; border-radius: 0.375rem; border: 1px solid #d1d5db; }
+        /* Forzar visibilidad del mapa en navegar.html */
+        #mapa { min-height: 400px; width: 100%; z-index: 1; }
     </style>
+
     <link rel="icon" th:href="@{/images/logo.png}" type="image/png">
 
     <script>
@@ -31,9 +34,7 @@
     <div class="container mx-auto px-4 py-3 flex justify-between items-center">
         <div class="flex items-center gap-2">
             <img th:src="@{/images/logo.png}" alt="MetaMapa Logo" class="w-10 h-10">
-            <a th:href="@{/}" class="text-2xl font-bold text-pastel-blue-900 pt-3 tracking-tight dark:text-white">
-                MetaMapa
-            </a>
+            <a th:href="@{/}" class="text-2xl font-bold text-pastel-blue-900 pt-3 tracking-tight dark:text-white">MetaMapa</a>
         </div>
         <nav class="flex items-center gap-2 md:gap-4">
             <a th:href="@{/}" th:classappend="${activePage == 'inicio'} ? 'bg-pastel-blue-300 dark:bg-gray-700' : ''" class="px-4 py-2 rounded-md transition-colors hover:bg-pastel-blue-200 dark:text-gray-200 dark:hover:bg-gray-700">Inicio</a>
@@ -56,14 +57,14 @@
                 </div>
             </div>
             <div sec:authorize="isAnonymous()" class="flex gap-2">
-                <a th:href="@{/auth/login}" class="bg-pastel-blue-600 text-white px-3 py-1.5 rounded-md text-sm hover:bg-pastel-blue-700 dark:bg-blue-600">Iniciar Sesión</a>
-                <a th:href="@{/auth/register}" class="bg-white text-pastel-blue-600 px-3 py-1.5 rounded-md text-sm border border-pastel-blue-200 dark:bg-gray-700 dark:text-white dark:border-gray-600">Registrarse</a>
+                <a th:href="@{/auth/login}" class="bg-pastel-blue-600 text-white px-3 py-1.5 rounded-md text-sm hover:bg-pastel-blue-700 dark:bg-blue-600">Ingresar</a>
+                <a th:href="@{/auth/register}" class="bg-white text-pastel-blue-600 px-3 py-1.5 rounded-md text-sm border border-pastel-blue-200 dark:bg-gray-700 dark:text-white dark:border-gray-600">Registro</a>
             </div>
         </div>
     </div>
 </header>
 
-<main class="w-full flex justify-center my-8 flex-grow" th:fragment="content"></main>
+<main class="w-full flex justify-center my-8 flex-grow" layout:fragment="content"></main>
 
 <footer th:fragment="footer" class="bg-pastel-blue-200 mt-auto py-6 z-[1000] dark:bg-gray-800 dark:text-gray-400 text-center">
     <div class="container mx-auto px-4">
@@ -74,17 +75,10 @@
 <div th:fragment="scripts">
 
     <div style="position: fixed; bottom: 20px; left: 20px; z-index: 9999;">
-        <button id="theme-toggle" type="button"
-                style="width: 3rem; height: 3rem; display: flex; align-items: center; justify-content: center; border-radius: 9999px;"
+        <button id="theme-toggle" type="button" style="width: 3rem; height: 3rem; display: flex; align-items: center; justify-content: center; border-radius: 9999px;"
                 class="shadow-lg focus:outline-none transition-colors duration-300 bg-gray-200 text-gray-800 hover:bg-gray-300 dark:bg-gray-700 dark:text-yellow-300 dark:hover:bg-gray-600 border border-gray-300 dark:border-gray-600">
-
-            <svg id="theme-toggle-dark-icon" class="w-5 h-5 hidden" fill="currentColor" viewBox="0 0 20 20">
-                <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path>
-            </svg>
-
-            <svg id="theme-toggle-light-icon" class="w-5 h-5 hidden" fill="currentColor" viewBox="0 0 20 20">
-                <path fill-rule="evenodd" d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" clip-rule="evenodd"></path>
-            </svg>
+            <svg id="theme-toggle-dark-icon" class="w-5 h-5 hidden" fill="currentColor" viewBox="0 0 20 20"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
+            <svg id="theme-toggle-light-icon" class="w-5 h-5 hidden" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" clip-rule="evenodd"></path></svg>
         </button>
     </div>
 
@@ -106,7 +100,6 @@
             }
         }
 
-        // Cargar preferencia guardada
         if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
             aplicarTema(true);
         } else {
@@ -125,7 +118,6 @@
             });
         }
 
-        // Script para el menú de perfil (Dropdown)
         document.addEventListener('DOMContentLoaded', function() {
             const btn = document.getElementById('profile-menu-button');
             const menu = document.getElementById('profile-menu-dropdown');
@@ -138,5 +130,6 @@
 
     <th:block layout:fragment="scripts"></th:block>
 </div>
+
 </body>
 </html>
