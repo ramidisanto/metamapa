@@ -51,7 +51,7 @@ public class AuthService {
             return respuesta.getBody();
 
         } catch (Exception e) {
-            throw new RuntimeException("Error al conectar con el backend para crear hecho: " + e.getMessage(), e);
+            throw new RuntimeException("Error al conectar con el backend para iniciar sesion: " + e.getMessage(), e);
         }
     }
 

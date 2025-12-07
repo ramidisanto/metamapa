@@ -23,21 +23,49 @@ public class RateLimitInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        String ipAddress = request.getRemoteAddr();
-        Bucket tokenBucket = rateLimiterService.resolveBucket(ipAddress);
+        String ip = request.getHeader("X-Forwarded-For");
+        if (ip == null || ip.isEmpty() || "unknown".equalsIgnoreCase(ip)) {
+            ip = request.getRemoteAddr();
+        } else {
+            // A veces viene una lista "IP_Cliente, IP_Proxy1, IP_Proxy2", nos quedamos con la primera
+            ip = ip.split(",")[0].trim();
+        }
 
+        String uri = request.getRequestURI();
+        String bucketKey;
+        long limit;
+
+
+        if (uri.matches(".*/hechos/\\d+")) {
+            bucketKey = ip + "_DETAIL";
+            limit = 15;
+        }
+        else if (uri.contains("/buscar") || uri.endsWith("/hechos")) {
+            bucketKey = ip + "_SEARCH";
+            limit = 30;
+        }
+        else if (uri.contains("/paises") || uri.contains("/provincias") || uri.contains("/localidades") || uri.contains("/categorias") || uri.contains("/colecciones")) {
+            bucketKey = ip + "_AUX";
+            limit = 60;
+        }
+        else {
+            bucketKey = ip + "_DEFAULT";
+            limit = 20;
+        }
+
+        // --------------------------------------------
+
+        Bucket tokenBucket = rateLimiterService.resolveBucket(bucketKey, limit);
         ConsumptionProbe probe = tokenBucket.tryConsumeAndReturnRemaining(1);
 
         if (probe.isConsumed()) {
-            // Si hay tokens, agregamos un header informativo de cuántos le quedan
             response.addHeader("X-Rate-Limit-Remaining", String.valueOf(probe.getRemainingTokens()));
-            return true; // Continua la ejecución hacia el Controlador
+            return true;
         } else {
-            // Si no hay tokens, devolvemos HTTP 429 Too Many Requests
             long waitForRefill = probe.getNanosToWaitForRefill() / 1_000_000_000;
             response.addHeader("X-Rate-Limit-Retry-After-Seconds", String.valueOf(waitForRefill));
-            response.sendError(HttpStatus.TOO_MANY_REQUESTS.value(), "Has excedido el limite de solicitudes. Intenta de nuevo en " + waitForRefill + " segundos.");
-            return false; // Bloquea la petición
+            response.sendError(HttpStatus.TOO_MANY_REQUESTS.value(), "Has excedido el límite de solicitudes para esta acción.");
+            return false;
         }
     }
 }

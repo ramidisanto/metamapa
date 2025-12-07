@@ -13,18 +13,15 @@ import java.util.concurrent.ConcurrentHashMap;
 @Service
 public class RateLimitService {
 
-    // Cache para guardar los buckets de cada IP.
-    // En un entorno real de nube distribuida, esto debería ser Redis,
-    // pero para la entrega en memoria está bien.
     private final Map<String, Bucket> cache = new ConcurrentHashMap<>();
 
-    public Bucket resolveBucket(String apiKey) {
-        return cache.computeIfAbsent(apiKey, this::newBucket);
+    public Bucket resolveBucket(String key, long limitPerMinute) {
+        return cache.computeIfAbsent(key, k -> newBucket(limitPerMinute));
     }
 
-    private Bucket newBucket(String apiKey) {
-
-        Bandwidth limit = Bandwidth.classic(60, Refill.intervally(60, Duration.ofMinutes(1)));
+    private Bucket newBucket(long limitPerMinute) {
+        // Rellenamos "X" tokens cada 1 minuto
+        Bandwidth limit = Bandwidth.classic(limitPerMinute, Refill.intervally(limitPerMinute, Duration.ofMinutes(1)));
 
         return Bucket4j.builder()
                 .addLimit(limit)

@@ -1,6 +1,7 @@
 package com.keycloak.moduloauth.Config;
 
 import com.keycloak.moduloauth.RateLimit.RateLimitInterceptor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
@@ -8,20 +9,16 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @Configuration
 public class WebConfig implements WebMvcConfigurer {
 
-    private final IpAccessInterceptor ipAccessInterceptor;
-    private final RateLimitInterceptor rateLimitInterceptor;
+    @Autowired
+    private IpAccessInterceptor ipAccessInterceptor;
 
-    public WebConfig(IpAccessInterceptor ipAccessInterceptor, RateLimitInterceptor rateLimitInterceptor) {
-        this.ipAccessInterceptor = ipAccessInterceptor;
-        this.rateLimitInterceptor = rateLimitInterceptor;
-    }
+    @Autowired
+    private RateLimitInterceptor rateLimitInterceptor; // <--- Inyección directa
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        
-        registry.addInterceptor(ipAccessInterceptor)
-                .addPathPatterns("/**");
-        registry.addInterceptor(rateLimitInterceptor)
-                .addPathPatterns("/**");
+        // Registro explícito
+        registry.addInterceptor(ipAccessInterceptor).addPathPatterns("/**");
+        registry.addInterceptor(rateLimitInterceptor).addPathPatterns("/**");
     }
 }

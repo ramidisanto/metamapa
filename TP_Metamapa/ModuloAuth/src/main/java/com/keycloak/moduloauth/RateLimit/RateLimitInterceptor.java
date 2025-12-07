@@ -9,6 +9,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 
+import java.time.Duration;
+
 @Component
 public class RateLimitInterceptor implements HandlerInterceptor {
 
@@ -17,21 +19,62 @@ public class RateLimitInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        String ipAddress = request.getRemoteAddr();
-        Bucket tokenBucket = rateLimiterService.resolveBucket(ipAddress);
 
+        // --- LOG DE DEBUG ---
+        System.out.println(">>> [Interceptor] Nueva petición entrante!");
+        System.out.println(">>> URI: " + request.getRequestURI());
+        System.out.println(">>> Método: " + request.getMethod());
+
+        // 1. OBTENER IP REAL (Clave para despliegue en Nube/Render)
+        String ip = request.getHeader("X-Forwarded-For");
+        if (ip == null || ip.isEmpty() || "unknown".equalsIgnoreCase(ip)) {
+            ip = request.getRemoteAddr();
+        } else {
+            // A veces viene una lista "IP_Cliente, Proxy1, Proxy2", nos quedamos con la primera
+            ip = ip.split(",")[0].trim();
+        }
+
+        String uri = request.getRequestURI();
+        String bucketKey;
+        long limit;
+
+
+        // ZONA CRÍTICA: Login y Creación de Usuario
+        // Rutas: /auth/iniciar-sesion y /auth/create
+        if (uri.contains("/iniciar-sesion") || uri.contains("/create")) {
+            // Protección contra fuerza bruta y creación masiva de cuentas basura
+            bucketKey = ip + "_AUTH_CRITICAL";
+            limit = 10; // 10 intentos por minuto
+        }
+        // ZONA CONSULTA: Buscar usuarios o ver roles
+        // Rutas: /auth/search o /auth/role
+        else if (uri.contains("/search") || uri.contains("/role")) {
+            // Operaciones de lectura, permitimos más fluidez
+            bucketKey = ip + "_AUTH_READ";
+            limit = 50;
+        }
+        else {
+            // DEFAULT (Cualquier otra cosa no mapeada)
+            bucketKey = ip + "_AUTH_DEFAULT";
+            limit = 30;
+        }
+
+        // 3. CONSUMO DE TOKENS
+        Bucket tokenBucket = rateLimiterService.resolveBucket(bucketKey, limit);
         ConsumptionProbe probe = tokenBucket.tryConsumeAndReturnRemaining(1);
 
         if (probe.isConsumed()) {
-            // Si hay tokens, agregamos un header informativo de cuántos le quedan
+            System.out.println(">>> Petición ACEPTADA. Tokens restantes: " + probe.getRemainingTokens());
             response.addHeader("X-Rate-Limit-Remaining", String.valueOf(probe.getRemainingTokens()));
-            return true; // Continua la ejecución hacia el Controlador
+            return true;
         } else {
-            // Si no hay tokens, devolvemos HTTP 429 Too Many Requests
+            System.out.println(">>> Petición BLOQUEADA (429)");
             long waitForRefill = probe.getNanosToWaitForRefill() / 1_000_000_000;
             response.addHeader("X-Rate-Limit-Retry-After-Seconds", String.valueOf(waitForRefill));
-            response.sendError(HttpStatus.TOO_MANY_REQUESTS.value(), "Has excedido el limite de solicitudes. Intenta de nuevo en " + waitForRefill + " segundos.");
-            return false; // Bloquea la petición
+
+            // Mensaje personalizado de seguridad
+            response.sendError(HttpStatus.TOO_MANY_REQUESTS.value(), "Demasiados intentos de autenticación. Por seguridad, espere " + waitForRefill + " segundos.");
+            return false;
         }
     }
 }

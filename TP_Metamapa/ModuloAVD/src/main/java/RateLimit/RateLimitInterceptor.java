@@ -9,6 +9,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 
+import java.time.Duration;
+
 @Component
 public class RateLimitInterceptor implements HandlerInterceptor {
 
@@ -17,21 +19,47 @@ public class RateLimitInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        String ipAddress = request.getRemoteAddr();
-        Bucket tokenBucket = rateLimiterService.resolveBucket(ipAddress);
 
+        // 1. IP Real (Soporte Nube)
+        String ip = request.getHeader("X-Forwarded-For");
+        if (ip == null || ip.isEmpty() || "unknown".equalsIgnoreCase(ip)) {
+            ip = request.getRemoteAddr();
+        } else {
+            ip = ip.split(",")[0].trim();
+        }
+
+        String method = request.getMethod(); // GET, POST, PUT, DELETE...
+        String bucketKey;
+        long limit;
+
+        // 2. REGLAS PARA MODULO AVD
+        // Separamos operaciones de Lectura (inofensivas) de las de Escritura (críticas)
+
+        if ("GET".equalsIgnoreCase(method)) {
+            // ZONA DE LECTURA (Ver solicitudes, ver colecciones)
+            // Límite: 50 peticiones por minuto (ágil para administración)
+            bucketKey = ip + "_AVD_READ";
+            limit = 50;
+        } else {
+            // ZONA DE ESCRITURA (Crear, Borrar, Modificar, Aprobar)
+            // Métodos: POST, PUT, DELETE, PATCH
+            // Límite: 20 peticiones por minuto (seguridad estricta)
+            bucketKey = ip + "_AVD_WRITE";
+            limit = 20;
+        }
+
+        // 3. Consumo
+        Bucket tokenBucket = rateLimiterService.resolveBucket(bucketKey, limit);
         ConsumptionProbe probe = tokenBucket.tryConsumeAndReturnRemaining(1);
 
         if (probe.isConsumed()) {
-            // Si hay tokens, agregamos un header informativo de cuántos le quedan
             response.addHeader("X-Rate-Limit-Remaining", String.valueOf(probe.getRemainingTokens()));
-            return true; // Continua la ejecución hacia el Controlador
+            return true;
         } else {
-            // Si no hay tokens, devolvemos HTTP 429 Too Many Requests
             long waitForRefill = probe.getNanosToWaitForRefill() / 1_000_000_000;
             response.addHeader("X-Rate-Limit-Retry-After-Seconds", String.valueOf(waitForRefill));
-            response.sendError(HttpStatus.TOO_MANY_REQUESTS.value(), "Has excedido el limite de solicitudes. Intenta de nuevo en " + waitForRefill + " segundos.");
-            return false; // Bloquea la petición
+            response.sendError(HttpStatus.TOO_MANY_REQUESTS.value(), "Has excedido el límite de operaciones administrativas.");
+            return false;
         }
     }
 }

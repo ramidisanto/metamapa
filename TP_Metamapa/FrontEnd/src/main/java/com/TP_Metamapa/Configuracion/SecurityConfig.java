@@ -1,5 +1,6 @@
 package com.TP_Metamapa.Configuracion;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -14,7 +15,6 @@ import org.springframework.security.web.SecurityFilterChain;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
-
     @Bean
     public AuthenticationManager authManager(HttpSecurity http, CustomAuthProvider provider) throws Exception {
         return http.getSharedObject(AuthenticationManagerBuilder.class)

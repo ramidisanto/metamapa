@@ -72,12 +72,28 @@ public class CustomAuthProvider implements AuthenticationProvider {
             return new UsernamePasswordAuthenticationToken(username, password, authorities);
 
         } catch (RuntimeException e) {
-            e.printStackTrace();
-            if (e.getMessage().contains("Usuario o contraseña incorrectos") ||
-                    e.getMessage().contains("401")) {
+            String errorMsg = e.getMessage();
+            log.error(">>> ERROR EN AUTH PROVIDER: " + errorMsg);
+
+            // 1. Chequeo de Bloqueo (Primero este, por si acaso)
+            // Buscamos cualquier pista de un 429
+            if (errorMsg != null && (
+                    errorMsg.contains("429") ||
+                            errorMsg.contains("Too Many Requests") ||
+                            errorMsg.contains("límite") ||
+                            errorMsg.contains("limit")
+            )) {
+                log.warn("DETECTADO BLOQUEO 429");
+                throw new BadCredentialsException("BLOQUEO_RATELIMIT");
+            }
+
+            // 2. Chequeo de Credenciales (El normal)
+            if (errorMsg != null && (errorMsg.contains("Usuario o contraseña incorrectos") || errorMsg.contains("401"))) {
                 throw new BadCredentialsException("Usuario o contraseña incorrectos");
             }
-            throw new BadCredentialsException("Error en el sistema de autenticación: " + e.getMessage());
+
+            // 3. Otros errores
+            throw new BadCredentialsException("Error en el sistema de autenticación: " + errorMsg);
         }
     }
 
