@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<html lang="es">
 <head th:replace="~{layout/base :: head (title='Crear Colección - Metamapa')}">
     <title>Crear Colección</title>
 </head>
@@ -167,21 +167,11 @@
 <div th:replace="~{layout/base :: footer}"></div>
 
 <script>
-    // Mostrar campo de categoría personalizada
-    const categoriaSelect = document.getElementById('categoria');
-    const customDiv = document.getElementById('customCategoriaDiv');
-    if(categoriaSelect && customDiv) {
-        categoriaSelect.addEventListener('change', () => {
-            if(categoriaSelect.value === 'Otra') customDiv.classList.remove('hidden');
-            else customDiv.classList.add('hidden');
-        });
-    }
 
-    // Búsqueda y autocompletado de país, provincia y localidad (sin mapa)
     const buscarBtn = document.getElementById("buscarUbicacion");
     const inputBuscar = document.getElementById("searchDireccion");
 
-    if(buscarBtn) {
+    if (buscarBtn && inputBuscar) {
         buscarBtn.addEventListener("click", async () => {
             const query = inputBuscar.value.trim();
             if (!query) return alert("Por favor ingrese una dirección o ciudad para buscar.");
@@ -195,17 +185,20 @@
                     return;
                 }
 
-                // Tomamos el primer resultado
                 const { lat, lon } = data[0];
 
-                // Reverse geocoding para completar campos
                 const reverseRes = await fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lon}`);
                 const reverseData = await reverseRes.json();
                 const address = reverseData.address || {};
 
-                document.getElementById('localidad').value = address.city || address.town || address.village || '';
-                document.getElementById('provincia').value = address.state || '';
-                document.getElementById('pais').value = address.country || '';
+
+                const inputLocalidad = document.getElementById('criterioLocalidad');
+                const inputProvincia = document.getElementById('criterioProvincia');
+                const inputPais = document.getElementById('criterioPais');
+
+                if(inputLocalidad) inputLocalidad.value = address.city || address.town || address.village || '';
+                if(inputProvincia) inputProvincia.value = address.state || '';
+                if(inputPais) inputPais.value = address.country || '';
 
             } catch (err) {
                 console.error("Error en la búsqueda:", err);

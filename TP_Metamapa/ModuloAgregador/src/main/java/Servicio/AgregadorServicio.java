@@ -13,11 +13,13 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.web.util.UriComponentsBuilder;
 import org.springframework.web.client.RestTemplate;
 
+
 import java.time.LocalDate;
-import java.time.LocalDateTime ;
+import java.time.LocalDateTime;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -65,73 +67,68 @@ public class AgregadorServicio {
         String urlMetamapa = urlProxy + "/metamapa/hechos";
         String urlDinamica = urlBaseDinamica + "/dinamica/hechos";
         String urlEstatica = urlBaseEstatica + "/fuenteEstatica/hechos";
-       
 
         ResponseEntity<List<HechoDTOInput>> respuestaDinamica = restTemplate.exchange(
                 urlDinamica,
                 HttpMethod.GET,
                 null,
-                new ParameterizedTypeReference<List<HechoDTOInput>>() {
-                }
-        );
-
+                new ParameterizedTypeReference<>() {
+                });
 
         ResponseEntity<List<HechoDTOInput>> respuestaDemo = restTemplate.exchange(
                 urlDemo,
                 HttpMethod.GET,
                 null,
                 new ParameterizedTypeReference<>() {
-                }
-        );
+                });
 
         ResponseEntity<List<HechoDTOInput>> respuestaMetamapa = restTemplate.exchange(
                 urlMetamapa,
                 HttpMethod.GET,
                 null,
                 new ParameterizedTypeReference<>() {
-                }
-        );
+                });
 
         ResponseEntity<List<HechoDTOInput>> respuestaEstatica = restTemplate.exchange(
                 urlEstatica,
                 HttpMethod.GET,
                 null,
                 new ParameterizedTypeReference<>() {
-                }
-        );
+                });
         List<HechoDTOInput> hechosDTOTotales = new ArrayList<>();
-
-
 
         if (!respuestaDemo.getBody().isEmpty()) {
             List<HechoDTOInput> hechosDemo = this.setearOrigenCarga(respuestaDemo.getBody(), OrigenCarga.FUENTE_PROXY);
-            hechosDTOTotales.addAll(hechosDemo) ;
+            hechosDTOTotales.addAll(hechosDemo);
         }
 
         if (!respuestaDinamica.getBody().isEmpty()) {
-            List<HechoDTOInput> hechosDinamica = this.setearOrigenCarga(respuestaDinamica.getBody(), OrigenCarga.FUENTE_DINAMICA);
+            List<HechoDTOInput> hechosDinamica = this.setearOrigenCarga(respuestaDinamica.getBody(),
+                    OrigenCarga.FUENTE_DINAMICA);
             hechosDTOTotales.addAll(hechosDinamica);
         }
 
-
         if (!respuestaEstatica.getBody().isEmpty()) {
-            List<HechoDTOInput> hechosEstatica = this.setearOrigenCarga(respuestaEstatica.getBody(), OrigenCarga.FUENTE_ESTATICA);
-            hechosDTOTotales.addAll(hechosEstatica) ;
+            List<HechoDTOInput> hechosEstatica = this.setearOrigenCarga(respuestaEstatica.getBody(),
+                    OrigenCarga.FUENTE_ESTATICA);
+            hechosDTOTotales.addAll(hechosEstatica);
         }
 
         if (!respuestaMetamapa.getBody().isEmpty()) {
-            List<HechoDTOInput> hechosMetamapa = this.setearOrigenCarga(respuestaMetamapa.getBody(), OrigenCarga.FUENTE_PROXY);
-            hechosDTOTotales.addAll(hechosMetamapa) ;
+            List<HechoDTOInput> hechosMetamapa = this.setearOrigenCarga(respuestaMetamapa.getBody(),
+                    OrigenCarga.FUENTE_PROXY);
+            hechosDTOTotales.addAll(hechosMetamapa);
         }
 
+        UriComponentsBuilder urlCategoria = UriComponentsBuilder
+                .fromHttpUrl(urlNormalizador + "/normalizacion/categorias");
+        UriComponentsBuilder urlUbicacion = UriComponentsBuilder
+                .fromHttpUrl(urlNormalizador + "/normalizacion/ubicaciones");
+        UriComponentsBuilder urlTitulo = UriComponentsBuilder.fromHttpUrl(urlNormalizador + "/normalizacion/titulos");
 
-        UriComponentsBuilder urlCategoria = UriComponentsBuilder.fromHttpUrl( urlNormalizador + "/normalizacion/categorias");
-        UriComponentsBuilder urlUbicacion = UriComponentsBuilder.fromHttpUrl( urlNormalizador +"/normalizacion/ubicaciones");
-        UriComponentsBuilder urlTitulo = UriComponentsBuilder.fromHttpUrl( urlNormalizador +"/normalizacion/titulos");
+        for (HechoDTOInput hechoDTO : hechosDTOTotales) {
 
-        for (HechoDTOInput hechoDTO: hechosDTOTotales){
-
-            //CATEEGORIAAAAAA
+            // CATEEGORIAAAAAA
 
             String categoriaRequest = hechoDTO.getCategoria();
 
@@ -139,47 +136,44 @@ public class AgregadorServicio {
                     urlCategoria.toUriString(),
                     HttpMethod.POST,
                     new HttpEntity<>(categoriaRequest),
-                    String.class
-            );
+                    String.class);
             String categoriaNormalizada = categoriaResponse.getBody();
-
 
             if (categoriaNormalizada != null) {
                 hechoDTO.setCategoria(categoriaNormalizada); // solo guardamos el nombre
             }
 
-            //UBICACIOOOOONN
-            UbicacionDTOOutput ubicacionDTOOutput = new UbicacionDTOOutput(hechoDTO.getLatitud(), hechoDTO.getLongitud());
+            // UBICACIOOOOONN
+            UbicacionDTOOutput ubicacionDTOOutput = new UbicacionDTOOutput(hechoDTO.getLatitud(),
+                    hechoDTO.getLongitud());
 
             ResponseEntity<UbicacionDTOInput> UbicacionNormalizada = restTemplate.exchange(
                     urlUbicacion.toUriString(), // URL de tu API
                     HttpMethod.POST,
                     new HttpEntity<>(ubicacionDTOOutput),
-                    UbicacionDTOInput.class
-            );
+                    UbicacionDTOInput.class);
 
             hechoDTO.setPais(UbicacionNormalizada.getBody().getPais());
             hechoDTO.setProvincia(UbicacionNormalizada.getBody().getProvincia());
             hechoDTO.setLocalidad(UbicacionNormalizada.getBody().getLocalidad());
 
-            //TITULOOO
+            // TITULOOO
             String tituloRequest = hechoDTO.getTitulo();
             ResponseEntity<String> tituloResponse = restTemplate.exchange(
                     urlTitulo.toUriString(),
                     HttpMethod.POST,
                     new HttpEntity<>(tituloRequest),
-                    String.class
-            );
+                    String.class);
             String tituloNormalizado = tituloResponse.getBody();
             if (tituloNormalizado != null) {
                 hechoDTO.setTitulo(tituloNormalizado);
             }
         }
-        //if (!hechosDTOTotales.isEmpty()) {
-        List<Hecho> hechos = this.transaformarAHecho(hechosDTOTotales);
-        hechoRepositorio.saveAll(hechos);
-        this.actualizarColecciones();
-        //}
+        if (!hechosDTOTotales.isEmpty()) {
+            List<Hecho> hechos = this.transaformarAHecho(hechosDTOTotales);
+            hechoRepositorio.saveAll(hechos);
+            this.actualizarColecciones();
+        }
     }
 
     public List<Hecho> transaformarAHecho(List<HechoDTOInput> hechosDTO) {
@@ -189,8 +183,10 @@ public class AgregadorServicio {
             Provincia provincia = this.crearProvincia(hechoDTO.getProvincia(), pais);
             Localidad localidad = this.crearLocalidad(hechoDTO.getLocalidad(), provincia);
             Categoria categoria = this.crearCategoria(hechoDTO.getCategoria());
-            Ubicacion ubicacion = this.crearUbicacion(hechoDTO.getLatitud(), hechoDTO.getLongitud(), localidad, provincia, pais);
-            Contribuyente contribuyente = this.crearContribuyente(hechoDTO.getUsuario(), hechoDTO.getNombre(), hechoDTO.getApellido(), hechoDTO.getFecha_nacimiento());
+            Ubicacion ubicacion = this.crearUbicacion(hechoDTO.getLatitud(), hechoDTO.getLongitud(), localidad,
+                    provincia, pais);
+            Contribuyente contribuyente = this.crearContribuyente(hechoDTO.getUsuario(), hechoDTO.getNombre(),
+                    hechoDTO.getApellido(), hechoDTO.getFecha_nacimiento());
             Contenido contenido = this.crearContenido(hechoDTO.getContenido(), hechoDTO.getContenido_multimedia());
             Hecho hecho = new Hecho(
                     hechoDTO.getIdFuente(),
@@ -200,11 +196,11 @@ public class AgregadorServicio {
                     categoria,
                     hechoDTO.getFechaAcontecimiento(),
                     ubicacion,
-                    LocalDateTime .now(),
+                    LocalDateTime.now(),
                     OrigenCarga.valueOf(hechoDTO.getOrigen_carga().toUpperCase()),
                     true,
                     contribuyente,
-                    hechoDTO.getAnonimo() // el ? : funciona como un if(?) y else(:)
+                    hechoDTO.getAnonimo()
             );
 
             hechos.add(hecho);
@@ -213,10 +209,10 @@ public class AgregadorServicio {
         return hechos;
     }
 
-    public  Contenido crearContenido( String texto, String contenidoMultimedia){
+    public Contenido crearContenido(String texto, String contenidoMultimedia) {
 
         List<Contenido> contenido = contenidoRepositorio.findByTextoAndContenidoMultimedia(texto, contenidoMultimedia);
-        if(contenido == null || contenido.isEmpty()){
+        if (contenido == null || contenido.isEmpty()) {
             Contenido contenido2 = new Contenido(texto, contenidoMultimedia);
             contenidoRepositorio.save(contenido2);
             return contenido2;
@@ -225,11 +221,11 @@ public class AgregadorServicio {
     }
 
     public Contribuyente crearContribuyente(String usuario, String nombre, String apellido, LocalDate fechaNacimiento) {
-        if(usuario == null){
+        if (usuario == null) {
             return null;
         }
         Contribuyente contribuyente = contribuyenteRepositorio.findByUsuario(usuario);
-        if(contribuyente == null){
+        if (contribuyente == null) {
             contribuyente = new Contribuyente(usuario, nombre, apellido, fechaNacimiento);
             contribuyenteRepositorio.save(contribuyente);
         }
@@ -238,7 +234,7 @@ public class AgregadorServicio {
 
     public Categoria crearCategoria(String nombre) {
         Categoria categoria = categoriaRepositorio.findByNombre(nombre);
-        if(categoria == null){
+        if (categoria == null) {
             categoria = new Categoria(nombre);
             categoriaRepositorio.save(categoria);
         }
@@ -247,7 +243,7 @@ public class AgregadorServicio {
 
     public Pais crearPais(String nombre) {
         Pais pais = paisRepositorio.findByPais(nombre);
-        if(pais == null){
+        if (pais == null) {
             pais = new Pais(nombre);
             paisRepositorio.save(pais);
         }
@@ -256,7 +252,7 @@ public class AgregadorServicio {
 
     public Provincia crearProvincia(String nombre, Pais pais) {
         Provincia provincia = provinciaRepositorio.findByProvinciaAndPais(nombre, pais);
-        if(provincia == null){
+        if (provincia == null) {
             provincia = new Provincia(nombre, pais);
             provinciaRepositorio.save(provincia);
         }
@@ -265,76 +261,104 @@ public class AgregadorServicio {
 
     public Localidad crearLocalidad(String nombre, Provincia provincia) {
         Localidad localidad = localidadRepositorio.findByLocalidadAndProvincia(nombre, provincia);
-        if(localidad == null){
+        if (localidad == null) {
             localidad = new Localidad(nombre, provincia);
             localidadRepositorio.save(localidad);
         }
         return localidad;
     }
 
-    public Ubicacion crearUbicacion(Double latitud, Double longitud, Localidad localidad, Provincia provincia, Pais pais) {
+    public Ubicacion crearUbicacion(Double latitud, Double longitud, Localidad localidad, Provincia provincia,
+            Pais pais) {
         Ubicacion ubicacion = ubicacionRepositorio.findByLatitudAndLongitud(latitud, longitud);
-        if(ubicacion == null){
+        if (ubicacion == null) {
             ubicacion = new Ubicacion(localidad, provincia, pais, latitud, longitud);
             ubicacionRepositorio.save(ubicacion);
         }
         return ubicacion;
     }
 
+    @Transactional(propagation = Propagation.REQUIRES_NEW, timeout = 30)
     public void actualizarColecciones() {
         try {
-            for (Coleccion coleccion : coleccionRepositorio.findAll()) {
+            System.out.print("Iniciando actualización de colecciones");
+            List<Coleccion> colecciones = coleccionRepositorio.findAllWithRelations();
+            System.out.printf("Se encontraron {} colecciones para actualizar", colecciones.size());
+
+            if (colecciones.isEmpty()) {
+                System.out.print("No hay colecciones para actualizar, finalizando proceso");
+                return;
+            }
+
+            for (Coleccion coleccion : colecciones) {
+                System.out.printf("Actualizando colección ID: {} - Título: {}", coleccion.getId(), coleccion.getTitulo());
                 this.actualizarColeccion(coleccion);
             }
-        }catch (Exception e) {
-            throw new RuntimeException(e);
+            System.out.print("Actualización de colecciones completada exitosamente");
+        } catch (org.springframework.transaction.TransactionTimedOutException e) {
+            System.out.printf("Timeout al actualizar colecciones - La transacción excedió los 30 segundos", e);
+            throw new RuntimeException("Timeout al actualizar colecciones: " + e.getMessage(), e);
+        } catch (org.springframework.dao.DataAccessException e) {
+            System.out.printf("Error de acceso a datos al actualizar colecciones", e);
+            throw new RuntimeException("Error de base de datos al actualizar colecciones: " + e.getMessage(), e);
+        } catch (Exception e) {
+            System.out.printf("Error inesperado al actualizar colecciones", e);
+            throw new RuntimeException("Error al actualizar colecciones: " + e.getMessage(), e);
         }
     }
 
-    public void actualizarColeccion(Coleccion coleccion ) {
+    public void actualizarColeccion(Coleccion coleccion) {
+        System.out.printf("Procesando colección: {}", coleccion.getTitulo());
+
+        CriteriosDePertenencia criterio = coleccion.getCriterio_pertenencia();
+        if (criterio == null) {
+            System.out.printf("Colección {} no tiene criterios de pertenencia definidos", coleccion.getId());
+            return;
+        }
 
         List<Hecho> hechosCumplenCriterio = hechoRepositorio.filtrarHechos(
-                Optional.ofNullable(coleccion.getCriterio_pertenencia().getCategoria())
-                        .map(c->c.getNombre())
+                Optional.ofNullable(criterio.getCategoria())
+                        .map(c -> c.getNombre())
                         .orElse(null),
-                coleccion.getCriterio_pertenencia().getMultimedia(),
-                coleccion.getCriterio_pertenencia().getFechaCargaDesde(),
-                coleccion.getCriterio_pertenencia().getFechaCargaHasta(),
-                coleccion.getCriterio_pertenencia().getFechaAcontecimientoDesde(),
-                coleccion.getCriterio_pertenencia().getFechaAcontecimientoHasta(),
-                coleccion.getCriterio_pertenencia().getOrigen(),
-                coleccion.getCriterio_pertenencia().getTitulo(),
-                Optional.ofNullable(coleccion.getCriterio_pertenencia().getUbicacion())
+                criterio.getMultimedia(),
+                criterio.getFechaCargaDesde(),
+                criterio.getFechaCargaHasta(),
+                criterio.getFechaAcontecimientoDesde(),
+                criterio.getFechaAcontecimientoHasta(),
+                criterio.getOrigen(),
+                criterio.getTitulo(),
+                Optional.ofNullable(criterio.getUbicacion())
                         .map(u -> u.getPais())
                         .map(p -> p.getPais())
                         .orElse(null),
-                Optional.ofNullable(coleccion.getCriterio_pertenencia().getUbicacion())
+                Optional.ofNullable(criterio.getUbicacion())
                         .map(u -> u.getProvincia())
                         .map(p -> p.getProvincia())
                         .orElse(null),
-                Optional.ofNullable(coleccion.getCriterio_pertenencia().getUbicacion())
+                Optional.ofNullable(criterio.getUbicacion())
                         .map(u -> u.getLocalidad())
                         .map(l -> l.getLocalidad())
-                        .orElse(null)
-        );
-        if(coleccion.getHechos() != null){
+                        .orElse(null));
+
+        System.out.printf("Se encontraron {} hechos que cumplen el criterio para la colección {}",
+                hechosCumplenCriterio.size(), coleccion.getId());
+        if (coleccion.getHechos() != null) {
             Set<Long> idsExistentes = coleccion.getHechos()
                     .stream()
                     .map(Hecho::getId)
                     .collect(Collectors.toSet());
 
             List<Hecho> nuevosHechos = hechosCumplenCriterio.stream()
-                    .filter(h -> !idsExistentes.contains(h.getId())&&h.getVisible())
+                    .filter(h -> !idsExistentes.contains(h.getId()) && h.getVisible())
                     .toList();
 
             coleccion.agregarHechos(nuevosHechos);
             coleccionRepositorio.save(coleccion);
-        }else{
+        } else {
             coleccion.agregarHechos(hechosCumplenCriterio);
             coleccionRepositorio.save(coleccion);
         }
     }
-
 
     public List<HechoDTOInput> setearOrigenCarga(List<HechoDTOInput> hechosDTO, OrigenCarga origenCarga) {
         for (HechoDTOInput hechoDTO : hechosDTO) {
@@ -347,9 +371,9 @@ public class AgregadorServicio {
     @Transactional
     public void cargarColeccionConHechos(Long coleccionId) throws ColeccionNoEncontradaException {
 
-        Coleccion coleccion = coleccionRepositorio.findById(coleccionId).orElseThrow(ColeccionNoEncontradaException::new);
+        Coleccion coleccion = coleccionRepositorio.findById(coleccionId)
+                .orElseThrow(ColeccionNoEncontradaException::new);
         actualizarColeccion(coleccion);
     }
-
 
 }

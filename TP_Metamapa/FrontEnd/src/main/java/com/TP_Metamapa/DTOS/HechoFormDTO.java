@@ -10,7 +10,7 @@ public class HechoFormDTO {
     private String descripcion;
     private String contenidoAdicional;
     private String categoria;
-    private LocalDate fechaAcontecimiento; // Recibe 'yyyy-MM-dd' del form
+    private LocalDateTime fechaAcontecimiento; // Recibe 'yyyy-MM-dd' del form
     private Double latitud;
     private Double longitud;
     private String pais;

@@ -6,7 +6,6 @@ import Modelos.DTOs.CriterioDTO;
 import Modelos.DTOs.HechoDTO;
 import Modelos.Entidades.*;
 import Modelos.Entidades.Consenso.Consenso;
-import Modelos.Conversores.ConsensoConversor;
 import Modelos.Entidades.Consenso.ConsensoAbsoluta;
 import Modelos.Entidades.Consenso.ConsensoMayoriaSimple;
 import Modelos.Entidades.Consenso.ConsensoMultiplesMenciones;
@@ -21,8 +20,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpServerErrorException;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
-import java.time.LocalDateTime ;
-
 import java.time.LocalDateTime ;
 import java.util.ArrayList;
 import java.util.List;
@@ -50,10 +47,10 @@ public class ColeccionServicio {
     UbicacionRepositorio ubicacionRepositorio;
     @Autowired
     CriterioPertenenciaRepositorio criterioPertenenciaRepositorio;
+
     @Value("${url.agregador}")
     private String urlBaseAgregador;
 
-    String urlAgregador = urlBaseAgregador + "/agregador/colecciones/";
 
     public void crearColeccion(ColeccionDTO coleccionDTO) {
         Categoria categoria =  this.crearCategoria(coleccionDTO.getCriterio().getCategoria());
@@ -162,7 +159,8 @@ public class ColeccionServicio {
     }
 
     private void avisarAgregador (Long coleccionId) {
-        UriComponentsBuilder urlAgregador = UriComponentsBuilder.fromHttpUrl(urlBaseAgregador + coleccionId);
+        String urlAgregadorFinal = urlBaseAgregador + "/agregador/colecciones/";
+        UriComponentsBuilder urlAgregador = UriComponentsBuilder.fromHttpUrl(urlAgregadorFinal + coleccionId);
         ResponseEntity<String> respuestaAgregador =  restTemplate.exchange(
                 urlAgregador.toUriString(),
                 HttpMethod.POST,

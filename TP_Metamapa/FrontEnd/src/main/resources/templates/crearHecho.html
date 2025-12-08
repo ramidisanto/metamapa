@@ -1,120 +1,128 @@
 <!DOCTYPE html>
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="~{layout/base :: head (title='Crear Hecho')}"></head>
-<body class="bg-pastel-blue-50 flex flex-col min-h-screen transition-colors duration-300 dark:bg-gray-900 dark:text-white">
+<head th:replace="~{layout/base :: head (title='Crear Hecho - Metamapa')}"></head>
+<body class="bg-pastel-blue-50 flex flex-col min-h-screen"> <div th:replace="~{layout/base :: header}"></div>
 
-<div th:replace="~{layout/base :: header}"></div>
+<main class="container mx-auto px-4 py-8 flex-grow"> <div class="max-w-3xl mx-auto bg-white p-6 rounded-lg shadow-md border border-pastel-blue-200">
+    <h1 class="text-3xl font-bold text-pastel-blue-900 mb-6">Crear Nuevo Hecho</h1>
 
-<main class="container mx-auto px-4 py-8 flex-grow">
-    <div class="max-w-3xl mx-auto bg-white p-6 rounded-lg shadow-md border border-pastel-blue-200 dark:bg-gray-800 dark:border-gray-700">
-        <h1 class="text-3xl font-bold text-pastel-blue-900 mb-6 dark:text-white">Crear Nuevo Hecho</h1>
+    <div th:if="${errorMessage}" class="p-4 mb-4 text-sm text-red-700 bg-red-100 rounded-lg" role="alert">
+        <span class="font-medium">¡Error!</span> <span th:text="${errorMessage}"></span>
+    </div>
 
-        <div th:if="${errorMessage}" class="p-4 mb-4 text-sm text-red-700 bg-red-100 rounded-lg dark:bg-red-900 dark:text-red-200" role="alert">
-            <span class="font-medium">¡Error!</span> <span th:text="${errorMessage}"></span>
+    <form th:action="@{/crear-hecho}" th:object="${hechoForm}" method="post" enctype="multipart/form-data" class="space-y-4">
+
+        <div>
+            <label for="titulo" class="block text-sm font-medium text-gray-700">Título</label>
+            <input type="text" name="titulo" id="titulo" th:field="*{titulo}" required
+                   class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md"/>
         </div>
 
-        <form th:action="@{/crear-hecho}" th:object="${hechoForm}" method="post" enctype="multipart/form-data" class="space-y-4">
+        <div>
+            <label for="descripcion" class="block text-sm font-medium text-gray-700">Descripción</label>
+            <textarea name="descripcion" id="descripcion" th:field="*{descripcion}" rows="2" required
+                      class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md"></textarea>
+        </div>
 
+        <div>
+            <label for="contenidoAdicional" class="block text-sm font-medium text-gray-700">Contenido Adicional (Opcional)</label>
+            <textarea name="contenidoAdicional" id="contenidoAdicional" th:field="*{contenidoAdicional}" rows="4"
+                      class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md"></textarea>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
-                <label for="titulo" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Título</label>
-                <input type="text" name="titulo" id="titulo" th:field="*{titulo}" required
-                       class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-pastel-blue-500 focus:border-pastel-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white"/>
+                <label for="categoria" class="block text-sm font-medium text-gray-700">Categoría</label>
+                <select name="categoria" id="categoria" th:field="*{categoria}" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 rounded-md">
+                    <option value="" disabled selected>Selecciona una categoría</option>
+                    <option th:each="cat : ${categorias}"
+                            th:value="${cat}"
+                            th:text="${cat}"></option>
+                    <option value="Otra">Otra</option> </select>
             </div>
-
-            <div>
-                <label for="descripcion" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Descripción</label>
-                <textarea name="descripcion" id="descripcion" th:field="*{descripcion}" rows="2" required
-                          class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-pastel-blue-500 focus:border-pastel-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white"></textarea>
+            <div id="customCategoriaDiv" class="hidden">
+                <label for="customCategoria" class="block text-sm font-medium text-gray-700">Nueva Categoría</label>
+                <input type="text" name="customCategoria" id="customCategoria" th:field="*{customCategoria}"
+                       class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md"/>
             </div>
+        </div>
 
-            <div>
-                <label for="contenidoAdicional" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Contenido Adicional (Opcional)</label>
-                <textarea name="contenidoAdicional" id="contenidoAdicional" th:field="*{contenidoAdicional}" rows="4"
-                          class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-pastel-blue-500 focus:border-pastel-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white"></textarea>
+        <div>
+            <label for="fechaAcontecimiento" class="block text-sm font-medium text-gray-700">Fecha del Hecho</label>
+            <input type="datetime-local" name="fechaAcontecimiento" id="fechaAcontecimiento" th:field="*{fechaAcontecimiento}" required
+                   class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md"/>
+        </div>
+
+        <div>
+            <label class="block text-sm font-medium text-gray-700">Ubicación del Hecho</label>
+            <p class="text-xs text-gray-500 mb-2">Haz clic en el mapa o busca una dirección para marcar la ubicación.</p>
+            <div class="flex gap-2 mb-2">
+                <input type="text" id="searchInput" placeholder="Buscar dirección..."
+                       class="w-full px-3 py-2 border border-gray-300 rounded-md"/>
+                <button type="button" id="searchBtn" class="px-4 py-2 bg-pastel-blue-600 text-white rounded-md hover:bg-pastel-blue-700">Buscar</button>
             </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div id="map" class="h-96 w-full"></div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-2">
                 <div>
-                    <label for="categoria" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Categoría</label>
-                    <select name="categoria" id="categoria" th:field="*{categoria}" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 rounded-md focus:ring-pastel-blue-500 focus:border-pastel-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white">
-                        <option value="" disabled selected>Selecciona una categoría</option>
-                        <option th:each="cat : ${categorias}" th:value="${cat}" th:text="${cat}"></option>
-                        <option value="Otra">Otra</option>
-                    </select>
+                    <label for="localidad" class="block text-sm font-medium text-gray-700">Localidad</label>
+                    <input type="text" name="localidad" id="localidad" th:field="*{localidad}" required
+                           class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md"/>
                 </div>
-                <div id="customCategoriaDiv" class="hidden">
-                    <label for="customCategoria" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Nueva Categoría</label>
-                    <input type="text" name="customCategoria" id="customCategoria" th:field="*{customCategoria}"
-                           class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm dark:bg-gray-700 dark:border-gray-600 dark:text-white"/>
+                <div>
+                    <label for="provincia" class="block text-sm font-medium text-gray-700">Provincia</label>
+                    <input type="text" name="provincia" id="provincia" th:field="*{provincia}" required
+                           class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md"/>
+                </div>
+                <div>
+                    <label for="pais" class="block text-sm font-medium text-gray-700">País</label>
+                    <input type="text" name="pais" id="pais" th:field="*{pais}" required
+                           class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md"/>
                 </div>
             </div>
+            <input type="hidden" name="latitud" id="latitud" th:field="*{latitud}"/>
+            <input type="hidden" name="longitud" id="longitud" th:field="*{longitud}"/>
+        </div>
 
-            <div>
-                <label for="fechaAcontecimiento" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Fecha del Hecho</label>
-                <input type="date" name="fechaAcontecimiento" id="fechaAcontecimiento" th:field="*{fechaAcontecimiento}" required
-                       class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm dark:bg-gray-700 dark:border-gray-600 dark:text-white"/>
-            </div>
+        <div>
+            <label for="multimediaFile" class="block text-sm font-medium text-gray-700">Contenido Multimedia (Opcional)</label>
+            <input type="file" name="multimediaFile" id="multimediaFile" accept="image/*"
+                   class="mt-1 block w-full text-sm text-gray-500"/>
+        </div>
 
-            <div>
-                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300">Ubicación del Hecho</label>
-                <p class="text-xs text-gray-500 mb-2 dark:text-gray-400">Haz clic en el mapa o busca una dirección.</p>
+        <div class="flex items-center">
+            <input type="checkbox" name="anonimo" id="anonimo" value="true" th:field="*{anonimo}"
+                   class="h-4 w-4 border-gray-300 rounded"/>
+            <label for="anonimo" class="ml-2 block text-sm text-gray-900">Publicar como anónimo</label>
+            <input type="hidden" name="_anonimo" value="on"/> </div>
 
-                <div class="flex gap-2 mb-2">
-                    <input type="text" id="searchInput" placeholder="Buscar dirección..."
-                           class="w-full px-3 py-2 border border-gray-300 rounded-md dark:bg-gray-700 dark:border-gray-600 dark:text-white"/>
-                    <button type="button" id="searchBtn" class="px-4 py-2 bg-pastel-blue-600 text-white rounded-md hover:bg-pastel-blue-700 transition-colors">Buscar</button>
-                </div>
-
-                <div id="map" class="h-96 w-full rounded-md border border-gray-300 dark:border-gray-600 z-0"></div>
-
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-2">
-                    <div>
-                        <label for="localidad" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Localidad</label>
-                        <input type="text" name="localidad" id="localidad" th:field="*{localidad}" required
-                               class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md dark:bg-gray-700 dark:border-gray-600 dark:text-white"/>
-                    </div>
-                    <div>
-                        <label for="provincia" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Provincia</label>
-                        <input type="text" name="provincia" id="provincia" th:field="*{provincia}" required
-                               class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md dark:bg-gray-700 dark:border-gray-600 dark:text-white"/>
-                    </div>
-                    <div>
-                        <label for="pais" class="block text-sm font-medium text-gray-700 dark:text-gray-300">País</label>
-                        <input type="text" name="pais" id="pais" th:field="*{pais}" required
-                               class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md dark:bg-gray-700 dark:border-gray-600 dark:text-white"/>
-                    </div>
-                </div>
-                <input type="hidden" name="latitud" id="latitud" th:field="*{latitud}"/>
-                <input type="hidden" name="longitud" id="longitud" th:field="*{longitud}"/>
-            </div>
-
-            <div>
-                <label for="multimediaFile" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Contenido Multimedia (Opcional)</label>
-                <input type="file" name="multimediaFile" id="multimediaFile" accept="image/*"
-                       class="mt-1 block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-pastel-blue-50 file:text-pastel-blue-700 hover:file:bg-pastel-blue-100 dark:text-gray-400 dark:file:bg-gray-700 dark:file:text-gray-200"/>
-            </div>
-
-            <div class="flex items-center">
-                <input type="checkbox" name="anonimo" id="anonimo" value="true" th:field="*{anonimo}"
-                       class="h-4 w-4 border-gray-300 rounded text-pastel-blue-600 focus:ring-pastel-blue-500 dark:bg-gray-700 dark:border-gray-600"/>
-                <label for="anonimo" class="ml-2 block text-sm text-gray-900 dark:text-gray-300">Publicar como anónimo</label>
-                <input type="hidden" name="_anonimo" value="on"/>
-            </div>
-
-            <div class="flex justify-end items-center gap-4 pt-4">
-                <a th:href="@{/}" class="text-sm text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-200">Cancelar</a>
-                <button type="submit" class="px-6 py-3 bg-pastel-blue-600 text-white font-semibold rounded-md hover:bg-pastel-blue-700 transition-colors">
-                    Crear Hecho
-                </button>
-            </div>
-        </form>
-    </div>
+        <div class="flex justify-end items-center gap-4 pt-4">
+            <a th:href="@{/}" class="text-sm text-gray-600 hover:text-gray-900">Cancelar</a>
+            <button type="submit" class="px-6 py-3 bg-pastel-blue-600 text-white font-semibold rounded-md hover:bg-pastel-blue-700">
+                Crear Hecho
+            </button>
+        </div>
+    </form>
+</div>
 </main>
 
 <div th:replace="~{layout/base :: footer}"></div>
 
 <script th:inline="javascript">
     /*<![CDATA[*/
+    // --- Establecer fecha máxima (actual) ---
+    const fechaInput = document.getElementById('fechaAcontecimiento');
+    if (fechaInput) {
+         const now = new Date();
+    //     // Formatear a YYYY-MM-DDTHH:MM
+         const year = now.getFullYear();
+         const month = String(now.getMonth() + 1).padStart(2, '0');
+         const day = String(now.getDate()).padStart(2, '0');
+         const hours = String(now.getHours()).padStart(2, '0');
+         const minutes = String(now.getMinutes()).padStart(2, '0');
+         const maxDateTime = `${year}-${month}-${day}T${hours}:${minutes}`;
+         fechaInput.setAttribute('max', maxDateTime);
+    }
+
     // --- Lógica Categoría Personalizada ---
     const categoriaSelect = document.getElementById('categoria');
     const customDiv = document.getElementById('customCategoriaDiv');
@@ -162,32 +170,30 @@
         });
 
         // Búsqueda por dirección
-        if(searchBtn) {
-            searchBtn.addEventListener('click', function() {
-                const query = searchInput.value;
-                if(!query) return;
-                fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(query)}&limit=1`)
-                    .then(res => res.json())
-                    .then(results => {
-                        if(results.length > 0){
-                            const {lat, lon} = results[0];
-                            const latLng = [parseFloat(lat), parseFloat(lon)];
-                            map.setView(latLng, 14);
-                            fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lon}`)
-                                .then(res => res.json())
-                                .then(data => updateLocation(lat, lon, data.address || {}))
-                                .catch(err => console.error('Error Nominatim Reverse:', err));
-                        } else alert('No se encontró la dirección.');
-                    })
-                    .catch(err => console.error('Error Nominatim Search:', err));
-            });
-        }
+        searchBtn.addEventListener('click', function() {
+            const query = searchInput.value;
+            if(!query) return;
+            fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(query)}&limit=1`)
+                .then(res => res.json())
+                .then(results => {
+                    if(results.length > 0){
+                        const {lat, lon} = results[0];
+                        const latLng = [parseFloat(lat), parseFloat(lon)];
+                        map.setView(latLng, 14);
+                        // Llamamos a reverse geocoding para asegurar datos consistentes
+                        fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lon}`)
+                            .then(res => res.json())
+                            .then(data => updateLocation(lat, lon, data.address || {}))
+                            .catch(err => console.error('Error Nominatim Reverse:', err));
+                    } else alert('No se encontró la dirección.');
+                })
+                .catch(err => console.error('Error Nominatim Search:', err));
+        });
     } else {
-        console.error("Leaflet (L) no está definido.");
+        console.error("Leaflet (L) no está definido. Asegúrate de que la librería se cargó.");
     }
-   /*]]>*/
+    /*]]>*/
 </script>
 
-<div th:replace="~{layout/base :: scripts}"></div>
-</body>
+<div th:replace="~{layout/base :: scripts}"></div> </body>
 </html>

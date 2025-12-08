@@ -65,13 +65,13 @@
             </div>
         </div>
 
-        <div sec:authorize="!hasRole('admin_client_role')"  class="mt-8 pt-6 border-t border-pastel-blue-200 flex justify-end">
-            <a th:href="@{/crearSolicitud(idHecho=${hecho.idHecho})}"
-               class="inline-flex items-center gap-1.5 text-sm font-medium text-red-600 hover:text-red-900 hover:underline transition-colors">
+        <div sec:authorize="!hasRole('admin_client_role')"  class="mt-4 pt-3 border-t border-gray-200 dark:border-gray-700 flex justify-end">
+            <a th:href="@{/solicitarEliminacion/{id}(id=${hecho.idHecho})}"
+               class="inline-flex items-center gap-1.5 text-xs font-medium text-red-600 hover:text-red-900 transition-colors dark:text-red-400 dark:hover:text-red-300">
                 <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                    <path fill-rule="evenodd" d="M8.22 1.754a.75.75 0 011.56 0l.313 1.096A4.5 4.5 0 0013.9 5.86l1.04-.436a.75.75 0 01.976.516l.82 3.282a.75.75 0 01-.516.976l-1.04.436a4.5 4.5 0 00-3.013 3.013l.436 1.04a.75.75 0 01-.516.976l-3.282.82a.75.75 0 01-.976-.516l-.436-1.04a4.5 4.5 0 00-3.013-3.013l-1.04-.436a.75.75 0 01-.516-.976l.82-3.282a.75.75 0 01.976-.516l1.04.436A4.5 4.5 0 008.22 2.85l.313-1.096zM10 7.5a2.5 2.5 0 100 5 2.5 2.5 0 000-5z" clip-rule="evenodd" />
+                    <path fill-rule="evenodd" d="M8.75 1A2.75 2.75 0 006 3.75v.443c-.795.077-1.584.176-2.365.298a.75.75 0 10.23 1.482l.149-.022.841 10.518A2.75 2.75 0 007.596 19h4.807a2.75 2.75 0 002.742-2.53l.841-10.52.149.023a.75.75 0 00.23-1.482A41.03 41.03 0 0014 4.193V3.75A2.75 2.75 0 0011.25 1h-2.5zM10 4c.84 0 1.673.025 2.5.075V3.75c0-.69-.56-1.25-1.25-1.25h-2.5c-.69 0-1.25.56-1.25 1.25v.325C8.327 4.025 9.16 4 10 4zM8.58 7.72a.75.75 0 00-1.5.06l.3 7.5a.75.75 0 101.5-.06l-.3-7.5zm4.34.06a.75.75 0 10-1.5-.06l-.3 7.5a.75.75 0 101.5.06l.3-7.5z" clip-rule="evenodd" />
                 </svg>
-                Solicitar Eliminación
+                Solicitar eliminación
             </a>
         </div>
 
