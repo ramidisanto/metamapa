@@ -1,8 +1,5 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  // ESTA LÍNEA ES CRÍTICA PARA QUE FUNCIONE EL CAMBIO DE COLOR:
-  darkMode: 'class',
-
   content: [
     './src/main/resources/**/*.html',
   ],

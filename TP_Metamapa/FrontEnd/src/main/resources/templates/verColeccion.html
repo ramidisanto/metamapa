@@ -1,51 +1,86 @@
 <!DOCTYPE html>
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="~{layout/base :: head (title=${coleccion.titulo})}"></head>
-<body class="bg-pastel-blue-50 flex flex-col min-h-screen transition-colors duration-300 dark:bg-gray-900 dark:text-white">
+<body class="bg-pastel-blue-50 flex flex-col min-h-screen">
 
 <div th:replace="~{layout/base :: header}"></div>
 
 <main class="container mx-auto px-4 py-8 flex-grow">
 
-    <div th:if="${successMessage}" class="p-4 mb-6 text-sm text-green-700 bg-green-100 rounded-lg shadow dark:bg-green-900 dark:text-green-200" role="alert">
-        <span class="font-medium">¡Éxito!</span> <span th:text="${successMessage}"></span>
+    <div th:if="${successMessage}"
+         class="p-4 mb-6 text-sm text-green-700 bg-green-100 rounded-lg shadow"
+         role="alert">
+        <span class="font-medium">¡Éxito!</span>
+        <span th:text="${successMessage}"></span>
     </div>
-    <div th:if="${errorMessage}" class="p-4 mb-6 text-sm text-red-700 bg-red-100 rounded-lg shadow dark:bg-red-900 dark:text-red-200" role="alert">
-        <span class="font-medium">¡Error!</span> <span th:text="${errorMessage}"></span>
+    <div th:if="${errorMessage}"
+         class="p-4 mb-6 text-sm text-red-700 bg-red-100 rounded-lg shadow"
+         role="alert">
+        <span class="font-medium">¡Error!</span>
+        <span th:text="${errorMessage}"></span>
     </div>
 
     <div class="space-y-8">
         <div>
-            <a th:href="@{/admin(tab='collections')}" class="text-sm text-pastel-blue-600 hover:underline dark:text-pastel-blue-400">&larr; Volver a Gestionar Colecciones</a>
-            <h1 class="text-4xl font-bold text-pastel-blue-900 mt-2 dark:text-white" th:text="${coleccion.titulo}">Título</h1>
-            <p class="text-lg text-gray-600 mt-1 dark:text-gray-300" th:text="${coleccion.descripcion}">Descripción</p>
+            <a th:href="@{/admin(tab='collections')}" class="text-sm text-pastel-blue-600 hover:underline">&larr; Volver a Gestionar Colecciones</a>
+            <h1 class="text-4xl font-bold text-pastel-blue-900 mt-2" th:text="${coleccion.titulo}">Título de la Colección</h1>
+            <p class="text-lg text-gray-600 mt-1" th:text="${coleccion.descripcion}">Descripción de la colección.</p>
         </div>
 
-        <div class="bg-white p-6 rounded-lg shadow-md border border-pastel-blue-200 dark:bg-gray-800 dark:border-gray-700">
-            <h3 class="text-xl font-bold text-pastel-blue-800 dark:text-pastel-blue-300">Detalles</h3>
-            <div class="mt-4 text-sm space-y-2 text-gray-700 dark:text-gray-300">
-                <p><span class="font-semibold">Consenso:</span> <span th:text="${coleccion.consenso} ?: 'Ninguno'"></span></p>
+        <div class="bg-white p-6 rounded-lg shadow-md border border-pastel-blue-200">
+            <h3 class="text-xl font-bold text-pastel-blue-800">Detalles de la Colección</h3>
+            <div class="mt-4 text-sm space-y-2">
+                <p><span class="font-semibold">Criterio de Consenso:</span>
+                    <span th:text="${coleccion.consenso} ?: 'Ninguno'">MAYORIA_SIMPLE</span>
+                </p>
 
                 <div th:if="${coleccion.criterio != null}">
                     <p class="font-semibold mt-4">Criterios de Pertenencia:</p>
-                    <ul class="list-disc list-inside pl-4 space-y-1">
-                        <li th:if="${coleccion.criterio.titulo}"><strong>Título:</strong> <span th:text="${coleccion.criterio.titulo}"></span></li>
-                        <li th:if="${coleccion.criterio.categoria}"><strong>Categoría:</strong> <span th:text="${coleccion.criterio.categoria}"></span></li>
+                    <ul class="list-disc list-inside pl-4 text-gray-700 space-y-1">
+                        <li th:if="${coleccion.criterio.titulo != null and !coleccion.criterio.titulo.isEmpty()}">
+                            <strong>Título:</strong> <span th:text="${coleccion.criterio.titulo}"></span>
+                        </li>
+                        <li th:if="${coleccion.criterio.categoria != null and !coleccion.criterio.categoria.isEmpty()}">
+                            <strong>Categoría:</strong> <span th:text="${coleccion.criterio.categoria}"></span>
+                        </li>
+                        <li th:if="${coleccion.criterio.pais != null and !coleccion.criterio.pais.isEmpty()}">
+                            <strong>País:</strong> <span th:text="${coleccion.criterio.pais}"></span>
+                        </li>
+                        <li th:if="${coleccion.criterio.provincia != null and !coleccion.criterio.provincia.isEmpty()}">
+                            <strong>Provincia:</strong> <span th:text="${coleccion.criterio.provincia}"></span>
+                        </li>
+                        <li th:if="${coleccion.criterio.localidad != null and !coleccion.criterio.localidad.isEmpty()}">
+                            <strong>Localidad:</strong> <span th:text="${coleccion.criterio.localidad}"></span>
+                        </li>
+                        <li th:if="${coleccion.criterio.origen_carga != null and !coleccion.criterio.origen_carga.isEmpty()}">
+                            <strong>Origen de Carga:</strong> <span th:text="${coleccion.criterio.origen_carga}"></span>
+                        </li>
+                        <li th:if="${coleccion.criterio.contenido_multimedia != null}">
+                            <strong>Tiene Multimedia:</strong> <span th:text="${coleccion.criterio.contenido_multimedia ? 'Sí' : 'No'}"></span>
+                        </li>
+                        <li th:if="${coleccion.criterio.fechaAcontecimientoDesde != null}">
+                            <strong>Fecha de Acontecimiento desde:</strong> <span th:text="${#temporals.format(coleccion.criterio.fechaAcontecimientoDesde, 'dd/MM/yyyy')}"></span>
+                        </li>
+                        <li th:if="${coleccion.criterio.fechaAcontecimientoHasta != null}">
+                            <strong>Fecha de Acontecimiento hasta:</strong> <span th:text="${#temporals.format(coleccion.criterio.fechaAcontecimientoHasta, 'dd/MM/yyyy')}"></span>
+                        </li>
                     </ul>
                 </div>
             </div>
-
             <div class="mt-8">
-                <h2 class="text-2xl font-semibold text-pastel-blue-800 mb-4 dark:text-pastel-blue-300">Hechos (<span th:text="${coleccion.hechos.size()}">0</span>)</h2>
+                <h2 class="text-2xl font-semibold text-pastel-blue-800 mb-4">Hechos en esta Colección (<span th:text="${coleccion.hechos.size()}">0</span>)</h2>
                 <div class="space-y-4">
-                    <div th:if="${coleccion.hechos.isEmpty()}" class="text-center text-gray-500 py-8 dark:text-gray-400">
-                        <p>No hay hechos en esta colección.</p>
+                    <div th:if="${coleccion.hechos.isEmpty()}" class="text-center text-gray-500 py-8">
+                        <p>No hay hechos que coincidan con los criterios de esta colección.</p>
                     </div>
                     <div th:if="${!coleccion.hechos.isEmpty()}" th:each="hecho : ${coleccion.hechos}">
                         <div th:replace="~{fragments/hechoCard :: hechoCard(hecho=${hecho}, showOptions=false, showAdminActions = true, coleccionId=${coleccion.coleccionId})}"></div>
                     </div>
                 </div>
             </div>
+        </div>
+
+        <div>
         </div>
     </div>
 </main>

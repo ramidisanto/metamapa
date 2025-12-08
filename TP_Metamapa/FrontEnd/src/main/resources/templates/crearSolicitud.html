@@ -1,28 +1,95 @@
 <!DOCTYPE html>
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="~{layout/base :: head (title='Solicitud')}"></head>
-<body class="bg-pastel-blue-50 flex flex-col min-h-screen transition-colors duration-300 dark:bg-gray-900 dark:text-white">
+<head th:replace="~{layout/base :: head (title='Solicitud - Metamapa')}"></head>
+
+<body class="bg-pastel-blue-50 flex flex-col min-h-screen">
+
 <div th:replace="~{layout/base :: header}"></div>
 
 <main class="container mx-auto px-4 py-12 flex-grow">
-    <div class="w-full max-w-4xl mx-auto">
-        <h3 class="text-xl font-semibold text-pastel-blue-800 mb-4 dark:text-pastel-blue-300">Hecho seleccionado</h3>
-        <div class="shadow-md rounded-lg overflow-hidden border border-pastel-blue-200 dark:border-gray-700">
-            <div th:replace="~{fragments/hechoCard :: hechoCard(hecho=${hecho}, showOptions=false, showAdminActions=false, coleccionId=null)}"></div>
+
+    <div class="max-w-6xl mx-auto mb-10">
+        <div class="flex justify-between items-start mb-4">
+            <a th:href="@{/navegar}"
+               class="inline-flex items-center px-4 py-2 bg-pastel-blue-200 text-pastel-blue-900 font-medium rounded-lg hover:bg-pastel-blue-300 transition mt-2">
+                ← Volver a Navegar
+            </a>
+            <h2 class="text-4xl font-extrabold text-pastel-blue-900 flex-grow text-center">Solicitud de Eliminación</h2>
+            <div class="w-24"></div>
         </div>
 
-        <div class="mt-8 p-8 bg-white shadow-md rounded-xl border border-pastel-blue-200 dark:bg-gray-800 dark:border-gray-700">
-            <h3 class="text-2xl font-semibold text-pastel-blue-900 mb-6 text-center dark:text-white">Motivo</h3>
-            <form th:action="@{/crearSolicitud}" th:object="${solicitudDTO}" method="post">
-                <input type="hidden" th:field="*{idHecho}" />
-                <textarea th:field="*{motivo}" rows="7" class="w-full p-3 border border-gray-300 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white" placeholder="Motivo..." required></textarea>
-                <button type="submit" class="w-full py-3 mt-6 bg-pastel-blue-600 text-white font-semibold rounded-lg">Enviar</button>
-            </form>
+        <p class="text-gray-600 mt-2 text-center text-lg max-w-3xl mx-auto">
+            Completá el formulario para solicitar la eliminación de un hecho que consideres inapropiado o incorrecto.
+        </p>
+    </div>
+
+    <div class="max-w-6xl mx-auto space-y-8">
+
+        <div class="w-full max-w-4xl mx-auto">
+            <h3 class="text-xl font-semibold text-pastel-blue-800 mb-4">Hecho seleccionado</h3>
+
+            <div class="shadow-md rounded-lg overflow-hidden border border-pastel-blue-200">
+                <div th:replace="~{fragments/hechoCard :: hechoCard(hecho=${hecho}, showOptions=false, showAdminActions=false, coleccionId=null)}"></div>
+            </div>
+
+            <p class="mt-4 text-gray-500 text-sm">
+                Verificá que este sea el hecho correcto antes de enviar la solicitud.
+            </p>
+        </div>
+
+        <hr class="border-pastel-blue-200" />
+
+        <div class="w-full max-w-4xl mx-auto">
+            <div class="p-8 bg-white shadow-md rounded-xl border border-pastel-blue-200">
+
+                <h3 class="text-2xl font-semibold text-pastel-blue-900 mb-6 text-center">Motivo de la Solicitud</h3>
+
+                <form th:action="@{/crearSolicitud}" th:object="${solicitudDTO}" method="post">
+
+                    <input type="hidden" th:field="*{idHecho}" />
+
+                    <div class="space-y-6">
+
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2" for="motivo">
+                                Explicá por qué este hecho debería ser eliminado
+                            </label>
+                            <textarea id="motivo" th:field="*{motivo}" rows="7"
+                                      class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pastel-blue-500 focus:border-pastel-blue-500 transition resize-none text-gray-700 shadow-sm"
+                                      placeholder="Ej: contiene información falsa, lenguaje ofensivo, datos incorrectos..."
+                                      maxlength="500" required></textarea>
+                            <p class="text-xs text-gray-400 mt-1">Máximo 500 caracteres</p>
+                        </div>
+
+                        <button type="submit"
+                                class="w-full py-3 bg-pastel-blue-600 text-white font-semibold rounded-lg shadow-md hover:bg-pastel-blue-700 transition">
+                            Enviar solicitud
+                        </button>
+                    </div>
+
+                </form>
+            </div>
         </div>
     </div>
+
 </main>
 
 <div th:replace="~{layout/base :: footer}"></div>
+
+<script th:inline="javascript">
+    var errorMessage = /*[[${errorMessage}]]*/ '';
+
+    if (errorMessage) {
+        Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: errorMessage,
+            confirmButtonColor: '#4A8DC5'
+        });
+    }
+</script>
+
 <div th:replace="~{layout/base :: scripts}"></div>
+
 </body>
 </html>

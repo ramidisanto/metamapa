@@ -1,65 +1,102 @@
 <!DOCTYPE html>
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="~{layout/base :: head (title='Registro - Metamapa')}"></head>
-<body class="bg-pastel-blue-50 flex flex-col min-h-screen transition-colors duration-300 dark:bg-gray-900 dark:text-white">
+<head>
+    <meta charset="UTF-8">
+    <title>Registro - MetaMapa</title>
+    <link rel="icon" th:href="@{/images/logo.png}" type="image/png">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <script src="https://cdn.tailwindcss.com"></script>
 
-<div th:replace="~{layout/base :: header}"></div>
+    <style>
+        body {
+          background: linear-gradient(135deg, #e0f2fe, #bfdbfe);
+          font-family: 'Inter', sans-serif;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col">
 
 <main class="flex-grow flex items-center justify-center px-4 py-10">
-    <div class="bg-white shadow-lg rounded-2xl p-8 w-full max-w-md border border-pastel-blue-200 dark:bg-gray-800 dark:border-gray-700">
-        <a th:href="@{/}" class="inline-flex items-center px-4 py-2 mb-4 text-pastel-blue-900 font-medium rounded-lg transition dark:text-pastel-blue-300">← Volver</a>
+    <div class="bg-white shadow-lg rounded-2xl p-8 w-full max-w-md border border-pastel-blue-200">
+        <a th:href="@{/}"
+           class="inline-flex items-center px-4 py-2 mb-4 text-pastel-blue-900 font-medium rounded-lg transition">
+            ← Volver
+        </a>
         <div class="text-center mb-6">
             <img th:src="@{/images/logo.png}" alt="MetaMapa Logo" class="mx-auto w-16 h-16 mb-3">
-            <h1 class="text-2xl font-bold text-pastel-blue-900 dark:text-white">Crear cuenta</h1>
-            <p class="text-sm text-gray-500 mt-1 dark:text-gray-400">Regístrate para comenzar a usar MetaMapa</p>
+            <h1 class="text-2xl font-bold text-pastel-blue-900">Crear cuenta</h1>
+            <p class="text-sm text-gray-500 mt-1">Regístrate para comenzar a usar MetaMapa</p>
         </div>
 
         <form th:action="@{/auth/register}" th:object="${registerForm}" method="post" class="space-y-5">
+
+            <!-- Nombre de usuario -->
             <div>
-                <label class="block text-sm font-medium text-pastel-blue-800 mb-1 dark:text-pastel-blue-300">Usuario</label>
-                <input th:field="*{username}" type="text" required class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-pastel-blue-500 outline-none dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+                <label for="username" class="block text-sm font-medium text-pastel-blue-800 mb-1">Nombre de usuario</label>
+                <input th:field="*{username}" type="text" id="username" name="username" required
+                       class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-pastel-blue-500 focus:outline-none">
             </div>
 
+            <!-- Email -->
             <div>
-                <label class="block text-sm font-medium text-pastel-blue-800 mb-1 dark:text-pastel-blue-300">Email</label>
-                <input th:field="*{email}" type="email" required class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-pastel-blue-500 outline-none dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+                <label for="email" class="block text-sm font-medium text-pastel-blue-800 mb-1">Correo electrónico</label>
+                <input th:field="*{email}" type="email" id="email" name="email" required
+                       class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-pastel-blue-500 focus:outline-none">
             </div>
 
+            <!-- Nombre y Apellido -->
             <div class="grid grid-cols-2 gap-4">
                 <div>
-                    <label class="block text-sm font-medium text-pastel-blue-800 mb-1 dark:text-pastel-blue-300">Nombre</label>
-                    <input th:field="*{firstName}" type="text" required class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-pastel-blue-500 outline-none dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+                    <label for="firstName" class="block text-sm font-medium text-pastel-blue-800 mb-1">Nombre</label>
+                    <input th:field="*{firstName}" type="text" id="firstName" name="firstName" required
+                           class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-pastel-blue-500 focus:outline-none">
                 </div>
+
                 <div>
-                    <label class="block text-sm font-medium text-pastel-blue-800 mb-1 dark:text-pastel-blue-300">Apellido</label>
-                    <input th:field="*{lastName}" type="text" required class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-pastel-blue-500 outline-none dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+                    <label for="lastName" class="block text-sm font-medium text-pastel-blue-800 mb-1">Apellido</label>
+                    <input th:field="*{lastName}" type="text" id="lastName" name="lastName" required
+                           class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-pastel-blue-500 focus:outline-none">
                 </div>
             </div>
 
+            <!-- Fecha de nacimiento -->
             <div>
-                <label class="block text-sm font-medium text-pastel-blue-800 mb-1 dark:text-pastel-blue-300">Fecha de nacimiento</label>
-                <input th:field="*{birthdate}" type="date" required class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-pastel-blue-500 outline-none dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+                <label for="birthdate" class="block text-sm font-medium text-pastel-blue-800 mb-1">Fecha de nacimiento</label>
+                <input th:field="*{birthdate}" type="date" id="birthdate" name="birthdate" required
+                       class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-pastel-blue-500 focus:outline-none">
             </div>
 
+            <!-- Contraseña -->
             <div>
-                <label class="block text-sm font-medium text-pastel-blue-800 mb-1 dark:text-pastel-blue-300">Contraseña</label>
-                <input th:field="*{password}" type="password" required class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-pastel-blue-500 outline-none dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+                <label for="password" class="block text-sm font-medium text-pastel-blue-800 mb-1">Contraseña</label>
+                <input th:field="*{password}" type="password" id="password" name="password" required
+                       class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-pastel-blue-500 focus:outline-none">
             </div>
 
-            <div th:if="${errorMessage}" class="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-md text-sm dark:bg-red-900 dark:text-red-200 dark:border-red-800">
+            <!-- Mensajes -->
+            <div th:if="${successMessage}" class="text-green-600 text-sm text-center">
+                <span th:text="${successMessage}"></span>
+            </div>
+
+            <div th:if="${errorMessage}" class="text-red-600 text-sm text-center">
                 <span th:text="${errorMessage}"></span>
             </div>
 
-            <button type="submit" class="w-full bg-pastel-blue-600 hover:bg-pastel-blue-700 text-white font-semibold py-2 rounded-md transition-all">Registrarse</button>
-        </form>
+            <!-- Botón -->
+            <div>
+                <button type="submit"
+                        class="w-full bg-pastel-blue-600 hover:bg-pastel-blue-700 text-white font-semibold py-2 rounded-md transition-all">
+                    Registrarse
+                </button>
+            </div>
 
-        <p class="text-center text-sm text-gray-600 mt-4 dark:text-gray-400">
-            ¿Ya tienes cuenta? <a th:href="@{/auth/login}" class="text-pastel-blue-700 hover:underline font-medium dark:text-pastel-blue-400">Inicia sesión</a>
-        </p>
+            <p class="text-center text-sm text-gray-600">
+                ¿Ya tienes cuenta?
+                <a th:href="@{/auth/login}" class="text-pastel-blue-700 hover:underline font-medium">Inicia sesión</a>
+            </p>
+        </form>
     </div>
 </main>
 
-<div th:replace="~{layout/base :: footer}"></div>
-<div th:replace="~{layout/base :: scripts}"></div>
 </body>
 </html>
