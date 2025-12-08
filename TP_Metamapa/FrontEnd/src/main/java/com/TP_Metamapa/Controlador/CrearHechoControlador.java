@@ -48,26 +48,24 @@ public class CrearHechoControlador {
 
     @PostMapping("/crear-hecho")
     public String procesarCrearHecho(
-            @ModelAttribute("hechoForm") HechoFormDTO hechoFormData, // Recibe datos del form
-            @RequestParam(value = "multimediaFile", required = false) MultipartFile multimediaFile, // Recibe el archivo
-            Authentication authentication, // Obtiene el usuario logueado
+            @ModelAttribute("hechoForm") HechoFormDTO hechoFormData,
+            @RequestParam(value = "multimediaFile", required = false) MultipartFile multimediaFile,
+            Authentication authentication,
             HttpSession session,
             RedirectAttributes redirectAttributes,
-            Model model // Para volver a mostrar el form si hay error
+            Model model
     ) {
         System.out.println("ENTRO A CRER HECHO POST");
         String imageUrl;
         try {
-            // validar que el usuario este autenticado
+            // 1. Validar autenticación
             if (authentication == null || !authentication.isAuthenticated()) {
                 model.addAttribute("errorMessage", "Debes iniciar sesión para crear un hecho.");
                 return "redirect:/auth/login";
             }
-
-            // extraer username desde el Authentication
             String username = authentication.getName();
 
-            // recuperar el access token de la sesion
+            // 2. Validar sesión/tokens
             String accessToken = (String) session.getAttribute("accessToken");
             String refreshToken = (String) session.getAttribute("refreshToken");
 
@@ -76,68 +74,35 @@ public class CrearHechoControlador {
                 return "redirect:/auth/login";
             }
 
+            // 3. Obtener datos de usuario (con lógica de refresh token)
             UserDataDTO userData = null;
-
-            // obtener datos cuando el token se expiro
             try {
                 userData = authService.getUserData(username, accessToken);
-
             } catch (TokenExpiredException e) {
                 System.out.println("Token expirado. Intentando refrescar...");
-
                 if (refreshToken == null) {
-                    System.err.println("No hay refresh token disponible");
-                    model.addAttribute("errorMessage", "Tu sesión ha expirado. Por favor, inicia sesión nuevamente.");
                     return "redirect:/auth/login";
                 }
-
                 try {
-                    // refrescar el token
                     KeycloakTokenDTO newTokens = authService.refreshAccessToken(refreshToken);
+                    if (newTokens == null) throw new RuntimeException("No se pudo refrescar el token");
 
-                    if (newTokens == null) {
-                        throw new RuntimeException("No se pudo refrescar el token");
-                    }
-
-                    // actualizar tokens sesion
                     session.setAttribute("accessToken", newTokens.getAccess_token());
                     session.setAttribute("refreshToken", newTokens.getRefresh_token());
-
-                    System.out.println("token refrescado exitosamente");
-
-                    // reintentar obtener datos del usuario con el nuevo token
                     userData = authService.getUserData(username, newTokens.getAccess_token());
-
                 } catch (Exception refreshError) {
-                    System.err.println("Error al refrescar token: " + refreshError.getMessage());
-                    model.addAttribute("errorMessage", "Tu sesión ha expirado. Por favor, inicia sesión nuevamente.");
                     return "redirect:/auth/login";
                 }
             }
 
             if (userData == null) {
                 model.addAttribute("errorMessage", "No se pudo obtener la información del usuario.");
-                List<String> categorias = categoriaServicio.getCategoriasUnicas();
-                model.addAttribute("categorias", categorias);
+                model.addAttribute("categorias", categoriaServicio.getCategoriasUnicas());
                 return "crearHecho";
             }
 
-            String firstName = userData.getFirstName();
-            String lastName = userData.getLastName();
-            LocalDate birthdate = userData.getBirthdate();
-
-            System.out.println("auth: " + authentication);
-            System.out.println("usuario: " + username);
-            System.out.println("nombre: " + firstName);
-            System.out.println("apellido: " + lastName);
-            System.out.println("fecha nacimiento: " + birthdate);
-
-            // Validar que los datos del usuario estén completos
-            if (username == null || firstName == null || lastName == null) {
-                model.addAttribute("errorMessage", "Los datos del usuario son incompletos. Contacta al administrador.");
-                List<String> categorias = categoriaServicio.getCategoriasUnicas();
-                model.addAttribute("categorias", categorias);
-                return "crearHecho";
+            if (hechoFormData.getFechaAcontecimiento().isAfter(LocalDate.now().atStartOfDay())) {
+                throw new RuntimeException("La fecha del acontecimiento no puede ser futura.");
             }
 
             imageUrl = hechoServicio.guardarMultimediaLocalmente(multimediaFile);
@@ -154,34 +119,42 @@ public class CrearHechoControlador {
             hechoParaBackend.setLatitud(hechoFormData.getLatitud());
             hechoParaBackend.setLongitud(hechoFormData.getLongitud());
             hechoParaBackend.setUsuario(username);
-            hechoParaBackend.setNombre(firstName);
-            hechoParaBackend.setApellido(lastName);
-            hechoParaBackend.setFechaNacimiento(birthdate);
+            hechoParaBackend.setNombre(userData.getFirstName());
+            hechoParaBackend.setApellido(userData.getLastName());
+            hechoParaBackend.setFechaNacimiento(userData.getBirthdate());
             hechoParaBackend.setAnonimo(hechoFormData.isAnonimo());
 
-            if ("Otra".equals(hechoFormData.getCategoria()) && hechoFormData.getCustomCategoria() != null && !hechoFormData.getCustomCategoria().isEmpty()) {
+            if ("Otra".equals(hechoFormData.getCategoria()) && hechoFormData.getCustomCategoria() != null) {
                 hechoParaBackend.setCategoria(hechoFormData.getCustomCategoria());
             } else {
                 hechoParaBackend.setCategoria(hechoFormData.getCategoria());
             }
-            System.out.println("hecho que va para el back: " + hechoParaBackend);
-            System.out.println("VA A IR AL SERVICE DE EL FRINT PARA CREAR HECO");
+
+            // 5. Enviar al Backend (Aquí puede saltar la excepción del Servicio)
             hechoServicio.enviarHechoAlBackend(hechoParaBackend);
 
             redirectAttributes.addFlashAttribute("successMessage", "¡Hecho creado con éxito!");
             return "redirect:/hechos-pendientes";
 
         } catch (Exception e) {
+            // ==================================================================
+            // AQUÍ ESTÁ EL CAMBIO CLAVE:
+            // Usamos e.getMessage() directo porque el Servicio ya se encargó
+            // de ponerle el texto bonito que mandó el backend.
+            // ==================================================================
             System.err.println("Error procesando creación de hecho: " + e.getMessage());
-            e.printStackTrace();
-            model.addAttribute("errorMessage", "Error al crear el hecho: " + e.getMessage());
+
+            // Pasamos el mensaje limpio a la vista
+            model.addAttribute("errorMessage", e.getMessage());
+
+            // Recargamos categorías para que el form se vea bien al reintentar
             List<String> categorias = categoriaServicio.getCategoriasUnicas();
             model.addAttribute("categorias", categorias);
-            // El 'hechoForm' ya está en el modelo gracias a @ModelAttribute, así que los campos se rellenan
+
+            // Volvemos a la misma página (los datos del usuario se mantienen solos)
             return "crearHecho";
         }
     }
-
     @GetMapping("ver-hecho/{id}")
     public String verHecho(@PathVariable Long id, Model model) {
         // habría que hacer en lugar del service, una llamada al back

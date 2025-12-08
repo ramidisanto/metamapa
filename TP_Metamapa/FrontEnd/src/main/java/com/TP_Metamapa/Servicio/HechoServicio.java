@@ -12,6 +12,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.util.UriComponentsBuilder;
+import org.springframework.web.client.HttpClientErrorException;
+import org.springframework.web.client.HttpServerErrorException;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -108,7 +110,6 @@ public class HechoServicio {
     public void enviarHechoAlBackend(HechoDTOInput hechoParaBackend) {
 
         String url = urlDinamica + "/dinamica/hechos";
-
         HttpEntity<HechoDTOInput> requestEntity = new HttpEntity<>(hechoParaBackend);
 
         try {
@@ -119,8 +120,26 @@ public class HechoServicio {
                     new ParameterizedTypeReference<String>() {}
             );
 
+        } catch (HttpClientErrorException e) {
+            // Errores 4xx (400 Bad Request, 404 Not Found, etc.)
+            // El backend suele enviar el mensaje de error en el cuerpo de la respuesta
+            String mensajeDelBackend = e.getResponseBodyAsString();
+
+            // Si el mensaje viene vacio, usamos el status code
+            if (mensajeDelBackend == null || mensajeDelBackend.isEmpty()) {
+                mensajeDelBackend = "Error en la validación de datos (" + e.getStatusCode() + ")";
+            }
+
+            // Lanzamos una excepcion con el mensaje LIMPIO para que el controlador lo muestre
+            throw new RuntimeException(mensajeDelBackend);
+
+        } catch (HttpServerErrorException e) {
+            // Errores 5xx (500 Internal Server Error)
+            throw new RuntimeException("El servidor backend tuvo un problema interno: " + e.getResponseBodyAsString());
+
         } catch (Exception e) {
-            throw new RuntimeException("Error al conectar con el backend para crear hecho: " + e.getMessage(), e);
+            // Otros errores (conexión rechazada, timeout, etc.)
+            throw new RuntimeException("Error inesperado al conectar con el backend: " + e.getMessage(), e);
         }
     }
 
