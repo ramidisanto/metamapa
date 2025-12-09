@@ -91,7 +91,7 @@ public class AdminControlador {
             redirectAttributes.addFlashAttribute("successMessage", "¡Archivo '" + file.getOriginalFilename() + "' cargado exitosamente!");
 
         } catch (Exception e) {
-            redirectAttributes.addFlashAttribute("errorMessage", "Error al procesar el archivo: " + e.getMessage());
+            redirectAttributes.addFlashAttribute("errorMessage",  e.getMessage());
         }
         // Redirigimos de vuelta a la misma pestaña del admin
         return "redirect:/admin?tab=static";
@@ -189,12 +189,12 @@ public class AdminControlador {
         return "redirect:/admin/ver-coleccion/" + id;
     }
 
-    @PostMapping("/admin/colecciones/{idColeccion}/eliminar-hecho/{idHecho}")
-    public String eliminarHecho(@PathVariable Long idHecho, @PathVariable Long idColeccion ,RedirectAttributes redirectAttributes) {
-        hechoServicio.eliminarHechoDeColeccion(idColeccion, idHecho);
+    @PostMapping("/admin/eliminar-hecho/{idHecho}")
+    public String eliminarHecho(@PathVariable Long idHecho ,RedirectAttributes redirectAttributes) {
+        hechoServicio.eliminarHecho(idHecho);
 
-        redirectAttributes.addFlashAttribute("successMessage", "Hecho quitado de la colección exitosamente.");
+        redirectAttributes.addFlashAttribute("successMessage", "Hecho quitado exitosamente.");
 
-        return "redirect:/admin/ver-coleccion/" + idColeccion;
+        return "redirect:/admin" ;
     }
 }

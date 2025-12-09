@@ -15,6 +15,9 @@ import org.springframework.security.web.SecurityFilterChain;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
+    // 1. INYECTAR EL HANDLER
+    @Autowired
+    private CustomAuthenticationFailureHandler customAuthenticationFailureHandler;
     @Bean
     public AuthenticationManager authManager(HttpSecurity http, CustomAuthProvider provider) throws Exception {
         return http.getSharedObject(AuthenticationManagerBuilder.class)
@@ -32,9 +35,10 @@ public class SecurityConfig {
         http
                 .authorizeHttpRequests(authorize -> authorize
                         // paginas publicas (permitAll)
-                        .requestMatchers("/actuator/**", "/actuator/prometheus").permitAll()
+                        .requestMatchers("/actuator/**", "/actuator/prometheus", "/rate-limit-error").permitAll()
                         .requestMatchers(HttpMethod.GET, "/css/**", "/js/**", "/images/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/", "/navegar", "/estadisticas", "/ver-hecho/{id}", "/csv").permitAll()
+                        .requestMatchers("/auth/iniciar-sesion").permitAll()
                         .requestMatchers("/auth/login", "/auth/register").permitAll()
 
                         // administrador -> admin_client_role
@@ -53,7 +57,8 @@ public class SecurityConfig {
                         .loginPage("/auth/login")
                         .loginProcessingUrl("/login")
                         .defaultSuccessUrl("/", true)
-                        .failureUrl("/auth/login?error=true")
+                        //.failureUrl("/auth/login?error=true")
+                        .failureHandler(customAuthenticationFailureHandler)
                         .permitAll()
                     )
                     .logout(logout -> logout

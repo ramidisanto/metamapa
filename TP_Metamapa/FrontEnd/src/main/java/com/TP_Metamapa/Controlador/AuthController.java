@@ -69,9 +69,5 @@ public class AuthController {
 
     }
 
-    @GetMapping("/rate-limit-error")
-    public String rateLimitError() {
-        return "error/429";
-    }
 
 }

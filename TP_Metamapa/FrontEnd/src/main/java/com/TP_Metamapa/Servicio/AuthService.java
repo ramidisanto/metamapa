@@ -1,7 +1,10 @@
 package com.TP_Metamapa.Servicio;
 
+import ch.qos.logback.classic.Logger;
 import com.TP_Metamapa.DTOS.*;
 import com.TP_Metamapa.DTOS.UserDataDTO;
+import com.TP_Metamapa.Modelos.TokenExpiredException;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
@@ -14,6 +17,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+@Slf4j
 @Service
 public class AuthService {
 
@@ -32,26 +36,34 @@ public class AuthService {
     }
 
     public KeycloakTokenDTO login(LoginDTO loginDTO) {
-        System.out.println("llegue al service login");
-        System.out.println(loginDTO.toString());
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_JSON);
-        HttpEntity<LoginDTO> requestEntity = new HttpEntity<>(loginDTO, headers);
-        String urlCompleta = baseUrl.concat("/auth/iniciar-sesion");
-        System.out.println("peticion a : " + urlCompleta);
-
         try {
+            HttpHeaders headers = new HttpHeaders();
+            headers.setContentType(MediaType.APPLICATION_JSON);
+
+            HttpEntity<LoginDTO> requestEntity = new HttpEntity<>(loginDTO, headers);
+            String urlCompleta = baseUrl.concat("/auth/iniciar-sesion");
+
             ResponseEntity<KeycloakTokenDTO> respuesta = restTemplate.exchange(
                     urlCompleta,
                     HttpMethod.POST,
                     requestEntity,
                     KeycloakTokenDTO.class
             );
-            System.out.println("antes del return: " + respuesta.getBody());
+
+            if (respuesta.getStatusCode() == HttpStatus.TOO_MANY_REQUESTS) {
+                throw new RuntimeException("BLOQUEO_RATELIMIT");
+            }
+
+            if (!respuesta.getStatusCode().is2xxSuccessful()) {
+                throw new RuntimeException("Error de backend: " + respuesta.getStatusCode());
+            }
+
             return respuesta.getBody();
 
-        } catch (Exception e) {
-            throw new RuntimeException("Error al conectar con el backend para iniciar sesion: " + e.getMessage(), e);
+        } catch (Exception ex) {
+            // LOG CRUDO – fundamental para ver si el 429 se convierte en 401
+            log.error(">>> EXCEPCIÓN CRUDA RECIBIDA DESDE RESTTEMPLATE:", ex);
+            throw ex;
         }
     }
 
@@ -185,7 +197,7 @@ public class AuthService {
         } catch (HttpClientErrorException e) {
             if (e.getStatusCode() == HttpStatus.UNAUTHORIZED) {
                 System.err.println("Token expirado (401). Se necesita refresh.");
-                throw new com.TP_Metamapa.Modelos.TokenExpiredException("El token de acceso ha expirado");
+                throw new TokenExpiredException("El token de acceso ha expirado");
             }
             System.err.println("Error HTTP: " + e.getStatusCode());
             throw e;

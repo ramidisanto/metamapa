@@ -72,27 +72,34 @@ public class CustomAuthProvider implements AuthenticationProvider {
             return new UsernamePasswordAuthenticationToken(username, password, authorities);
 
         } catch (RuntimeException e) {
-            String errorMsg = e.getMessage();
-            log.error(">>> ERROR EN AUTH PROVIDER: " + errorMsg);
+            String errorMsg = (e.getMessage() != null) ? e.getMessage() : "";
 
-            // 1. Chequeo de Bloqueo (Primero este, por si acaso)
-            // Buscamos cualquier pista de un 429
-            if (errorMsg != null && (
-                    errorMsg.contains("429") ||
-                            errorMsg.contains("Too Many Requests") ||
-                            errorMsg.contains("límite") ||
-                            errorMsg.contains("limit")
-            )) {
-                log.warn("DETECTADO BLOQUEO 429");
+            log.error(">>> ERROR EN AUTH PROVIDER: {}", errorMsg);
+
+            String lowerMsg = errorMsg.toLowerCase();
+
+            // --- 1) Detectar bloqueo por rate limit (prioridad absoluta) ---
+            // Buscamos cualquier indicio de 429 en TODO el mensaje
+            if (lowerMsg.contains("429") ||
+                    lowerMsg.contains("too many requests") ||
+                    lowerMsg.contains("rate") ||
+                    lowerMsg.contains("límite") ||
+                    lowerMsg.contains("limit")||
+                    lowerMsg.contains("bloqueo_ratelimit")) {
+
+                log.warn(">>> BLOQUEO DETECTADO (429) – enviando código al Handler");
                 throw new BadCredentialsException("BLOQUEO_RATELIMIT");
             }
 
-            // 2. Chequeo de Credenciales (El normal)
-            if (errorMsg != null && (errorMsg.contains("Usuario o contraseña incorrectos") || errorMsg.contains("401"))) {
+            // --- 2) Error de credenciales inválidas (401) ---
+            if (lowerMsg.contains("401") ||
+                    lowerMsg.contains("unauthorized") ||
+                    lowerMsg.contains("usuario") && lowerMsg.contains("contraseña")) {
+
                 throw new BadCredentialsException("Usuario o contraseña incorrectos");
             }
 
-            // 3. Otros errores
+            // --- 3) Otros errores genéricos ---
             throw new BadCredentialsException("Error en el sistema de autenticación: " + errorMsg);
         }
     }

@@ -43,9 +43,25 @@ type HechoDTO {
 }
 
 type ColeccionDTO {
-    id: ID
-    nombre: String
+    coleccionId: ID
+    titulo: String
     descripcion: String
+    criterio: CriterioDTO
     hechos: [HechoDTO]
     consenso: String
+    hechosConsensuados: [HechoDTO]
+}
+
+type CriterioDTO{
+    titulo: String
+    contenido_multimedia: Boolean
+    categoria: String
+    fechaCargaDesde: String
+    fechaCargaHasta: String
+    localidad: String
+    provincia: String
+    pais: String
+    fechaAcontecimientoDesde: String
+    fechaAcontecimientoHasta: String
+    origen_carga: String
 }

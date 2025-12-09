@@ -61,8 +61,7 @@ public class EstaticaServicio {
             throw new RuntimeException(mensajeError); // Reenviamos solo el mensaje útil
 
         } catch (HttpServerErrorException e) {
-            throw new RuntimeException("Error en el servidor de estática: " + e.getResponseBodyAsString());
-
+            throw new RuntimeException("Error en el servidor de estática");
         } catch (Exception e) {
             throw new RuntimeException("Error al cargar el archivo: " + e.getMessage());
         }

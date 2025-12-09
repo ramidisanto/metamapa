@@ -73,7 +73,7 @@ public class RateLimitInterceptor implements HandlerInterceptor {
             response.addHeader("X-Rate-Limit-Retry-After-Seconds", String.valueOf(waitForRefill));
 
             // Mensaje personalizado de seguridad
-            response.sendError(HttpStatus.TOO_MANY_REQUESTS.value(), "Demasiados intentos de autenticación. Por seguridad, espere " + waitForRefill + " segundos.");
+            response.sendError(HttpStatus.TOO_MANY_REQUESTS.value(),"BLOQUEO_RATELIMIT: Demasiados intentos de autenticación. Espere " + waitForRefill + " segundos.");
             return false;
         }
     }

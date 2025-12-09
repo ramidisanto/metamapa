@@ -51,7 +51,9 @@ public class FuenteEstatica {
             importador.guardarCSV(originalFilename, file);
 
         } catch (Exception e) {
-           e.printStackTrace();
+            e.printStackTrace();
+            throw new Exception("Error al cargar archivo: " + e.getMessage());
+
         }
     }
 

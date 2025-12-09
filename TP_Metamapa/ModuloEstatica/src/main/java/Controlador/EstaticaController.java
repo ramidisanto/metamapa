@@ -37,7 +37,16 @@ public class EstaticaController {
             fuenteEstatica.cargarCSV(file);
             return ResponseEntity.ok("Archivo guardado correctamente.");
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.NO_CONTENT).body("No pudo cargarse el archivo. Error: " + e.getMessage() + "");
+            String mensaje = e.getMessage();
+            HttpStatus status;
+
+            if (mensaje.contains("validación") || mensaje.contains("invalid")) {
+                status = HttpStatus.BAD_REQUEST;
+            } else {
+                status = HttpStatus.INTERNAL_SERVER_ERROR;
+            }
+
+            return ResponseEntity.status(status).body("Error al cargar el archivo. Error: " + e.getMessage());
         }
     }
 }

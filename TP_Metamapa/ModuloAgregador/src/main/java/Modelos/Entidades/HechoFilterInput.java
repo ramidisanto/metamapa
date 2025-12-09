@@ -1,6 +1,7 @@
 package Modelos.Entidades; // O el paquete que prefieras
 
 import lombok.Data;
+
 import java.time.LocalDateTime;
 
 @Data

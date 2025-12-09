@@ -58,7 +58,9 @@ public class NavegadorControlador {
             Model model) {
 
         List<HechoDTO> hechosFiltrados = new ArrayList<>();
-
+        if ("limpiar".equals(accion)) {
+            return "redirect:/navegar";
+        }
         if ("buscarTexto".equals(accion) && textoLibre != null && !textoLibre.isBlank()) {
             hechosFiltrados = navegacionServicio.buscarPorTextoLibre(textoLibre);
         } else {

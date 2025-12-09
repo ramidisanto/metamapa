@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{layout/base :: head (title='Demasiadas Solicitudes')}"></head>
+<body class="bg-pastel-blue-50 flex flex-col min-h-screen">
+
+<div th:replace="~{layout/base :: header}"></div>
+
+<main class="container mx-auto px-6 py-8 flex-grow flex items-center justify-center">
+    <div class="max-w-md bg-white p-8 rounded-lg shadow-md border-t-4 border-red-500 text-center">
+
+        <div class="mb-4 text-red-500">
+            <svg class="w-16 h-16 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+            </svg>
+        </div>
+
+        <h1 class="text-3xl font-bold text-gray-800 mb-2">¡Epa! Vas muy rápido</h1>
+        <p class="text-lg text-gray-600 font-semibold mb-4">Error 429: Rate Limit Exceeded</p>
+
+        <p class="text-gray-500 mb-6">
+            Hemos detectado demasiados intentos de inicio de sesión o solicitudes desde tu conexión.
+            Por seguridad, te hemos puesto en una breve pausa.
+        </p>
+
+        <div class="bg-yellow-50 p-4 rounded text-sm text-yellow-800 mb-6 border border-yellow-200">
+            ⏳ Por favor, esperá <strong>1 minuto</strong> antes de volver a intentar.
+        </div>
+
+        <a th:href="@{/auth/login}" class="inline-block bg-pastel-blue-600 hover:bg-pastel-blue-700 text-white font-bold py-2 px-6 rounded transition duration-300">
+            Volver al Login
+        </a>
+    </div>
+</main>
+
+<div th:replace="~{layout/base :: footer}"></div>
+<div th:replace="~{layout/base :: scripts}"></div>
+
+</body>
+</html>

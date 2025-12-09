@@ -4,6 +4,7 @@ import Modelos.Entidades.DTOs.HechoDTOInput;
 import Modelos.Entidades.*;
 import Modelos.Entidades.DTOs.UbicacionDTOInput;
 import Modelos.Entidades.DTOs.UbicacionDTOOutput;
+import Modelos.Entidades.DTOs.*;
 import Modelos.Exceptions.ColeccionNoEncontradaException;
 import Repositorio.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -374,6 +375,99 @@ public class AgregadorServicio {
         Coleccion coleccion = coleccionRepositorio.findById(coleccionId)
                 .orElseThrow(ColeccionNoEncontradaException::new);
         actualizarColeccion(coleccion);
+    }
+
+
+    @Transactional(readOnly = true)
+    public List<HechoDTOoutput> filtrarHechos(
+
+            String categoria,
+            Boolean multimedia,
+            LocalDateTime fechaCargaDesde,
+            LocalDateTime fechaCargaHasta,
+            LocalDateTime fechaAcontecimientoDesde,
+            LocalDateTime fechaAcontecimientoHasta,
+            String origen,
+            String titulo,
+            String pais,
+            String provincia,
+            String localidad
+    ){
+
+        OrigenCarga origenEnum = null;
+        if(origen != null && !origen.isEmpty()) {
+            try {
+                origenEnum = OrigenCarga.valueOf(origen.toUpperCase());
+            } catch (IllegalArgumentException e) {
+                System.err.println("Origen de carga inválido: " + origen);
+            }
+        }
+
+            List<Hecho> hechosEntidad = hechoRepositorio.filtrarHechos(
+                    categoria,
+                    multimedia,
+                    fechaCargaDesde,
+                    fechaCargaHasta,
+                    fechaAcontecimientoDesde,
+                    fechaAcontecimientoHasta,
+                    origenEnum,
+                    titulo,
+                    pais,
+                    provincia,
+                    localidad
+            );
+
+            return hechosEntidad.stream()
+                    .map(this::convertirAHechoDTO)
+                    .collect(Collectors.toList());
+        }
+
+    public HechoDTOoutput convertirAHechoDTO(Hecho h) {
+
+        // Manejo de nulos para Ubicación
+        String calle = null, loc = null, prov = null, paisNom = null;
+        if (h.getUbicacion() != null) {
+            if (h.getUbicacion().getLocalidad() != null) loc = h.getUbicacion().getLocalidad().getLocalidad();
+            if (h.getUbicacion().getProvincia() != null) prov = h.getUbicacion().getProvincia().getProvincia();
+            if (h.getUbicacion().getPais() != null) paisNom = h.getUbicacion().getPais().getPais();
+        }
+
+        // Manejo de nulos para Contenido
+        String textoContenido = null;
+        String urlMultimedia = null;
+        if (h.getContenido() != null) {
+            textoContenido = h.getContenido().getTexto();
+            urlMultimedia = h.getContenido().getContenidoMultimedia();
+        }
+
+        // Manejo de nulos para Contribuyente (Tu entidad usa 'contribuyente', no 'autor')
+        String usuario = null, nombre = null, apellido = null;
+        LocalDate fechaNac = null;
+        if (h.getContribuyente() != null) { // <--- CORREGIDO: getContribuyente()
+            usuario = h.getContribuyente().getUsuario();
+            nombre = h.getContribuyente().getNombre();
+            apellido = h.getContribuyente().getApellido();
+            fechaNac = h.getContribuyente().getFecha_nacimiento();
+        }
+
+        // Construcción del DTO output
+        return new HechoDTOoutput(
+                h.getTitulo(),
+                h.getDescripcion(),
+                textoContenido,
+                urlMultimedia,
+                (h.getCategoria() != null) ? h.getCategoria().getNombre() : null,
+                h.getFecha(),
+                h.getFecha_carga(),
+                calle,
+                loc,
+                prov,
+                usuario,
+                nombre,
+                apellido,
+                fechaNac,
+                (h.getOrigen() != null) ? h.getOrigen().name() : null
+        );
     }
 
 }
