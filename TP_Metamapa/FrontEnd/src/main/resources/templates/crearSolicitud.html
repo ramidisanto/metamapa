@@ -6,14 +6,15 @@
 
 <div th:replace="~{layout/base :: header}"></div>
 
-<main class="container mx-auto px-4 py-12 flex-grow">
-
+<main class="container mx-auto px-4 pt-4 pb-12 flex-grow">
+    <a th:href="@{/navegar}"
+       class="inline-flex items-center px-4 py-2 bg-pastel-blue-200 text-pastel-blue-900 font-medium rounded-lg hover:bg-pastel-blue-300 transition -mt-4">
+        ← Volver a Navegar
+    </a>
     <div class="max-w-6xl mx-auto mb-10">
+
         <div class="flex justify-between items-start mb-4">
-            <a th:href="@{/navegar}"
-               class="inline-flex items-center px-4 py-2 bg-pastel-blue-200 text-pastel-blue-900 font-medium rounded-lg hover:bg-pastel-blue-300 transition mt-2">
-                ← Volver a Navegar
-            </a>
+
             <h2 class="text-4xl font-extrabold text-pastel-blue-900 flex-grow text-center">Solicitud de Eliminación</h2>
             <div class="w-24"></div>
         </div>
