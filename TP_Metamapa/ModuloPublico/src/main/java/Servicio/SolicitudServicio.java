@@ -15,13 +15,14 @@ import java.time.LocalDateTime ;
 
 
 @Service
-public class SolicitudServicio implements DetectorDeSpam {
+public class SolicitudServicio {
 
     @Autowired
     SolicitudRepositorio solicitudRepositorio;
     @Autowired
     HechoRepositorio  hechoRepositorio;
-
+    @Autowired
+    DetectorDeSpam detectorDeSpam;
 
     public void crearSolicitud(SolicitudDTOInput solicituddto){
         LocalDateTime fechaSolicitud =  LocalDateTime.now();
@@ -30,7 +31,8 @@ public class SolicitudServicio implements DetectorDeSpam {
         if(hecho == null){
             throw new SolicitudInvalidaException("Hecho con id " + solicituddto.getIdHecho() + " no existe.");
         }
-        if(!esSpam(motivo)){
+
+        if(!detectorDeSpam.esSpam(motivo)){
             Solicitud solicitud = new Solicitud(null, fechaSolicitud, motivo, hecho, Estado.PENDIENTE);
             solicitudRepositorio.save(solicitud);
         }
@@ -42,8 +44,5 @@ public class SolicitudServicio implements DetectorDeSpam {
     }
 
 
-    @Override
-    public boolean esSpam(String texto) {
-        return texto.length()>500;
-    }
+
 }

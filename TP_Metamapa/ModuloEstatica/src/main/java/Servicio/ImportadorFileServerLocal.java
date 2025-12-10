@@ -1,6 +1,7 @@
 package Servicio;
 
 import Modelos.Entidades.*;
+import Modelos.Exceptions.ValidacionError;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -91,12 +92,12 @@ public class ImportadorFileServerLocal implements Importador{
            numeroLinea++;
 
            if (lineaEncabezado == null) {
-               throw new Exception("El archivo CSV está vacío");
+               throw new ValidacionError("El archivo CSV está vacío");
            }
 
            String[] encabezado = lineaEncabezado.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)");
            if (!validador.validarEncabezado(encabezado)) {
-               throw new Exception(
+               throw new ValidacionError(
                        "Encabezado inválido. Se esperaba: Título,Descripción,Categoría,Latitud,Longitud,Fecha del hecho"
                );
            }
@@ -159,12 +160,13 @@ public class ImportadorFileServerLocal implements Importador{
                for (String error : erroresValidacion) {
                    mensajeError.append("- ").append(error).append("\n");
                }
-               throw new Exception(mensajeError.toString());
+               System.out.println(mensajeError.toString());
+               throw new ValidacionError("Formato del archivo inválido, debe respetar el formato especificado.");
            }
 
            // Si no se procesó ningún hecho válido
            if (hechos.getHechos().isEmpty()) {
-               throw new Exception("No se encontraron registros válidos en el archivo CSV");
+               throw new ValidacionError("No se encontraron registros válidos en el archivo CSV");
            }
 
            return hechos.getHechos();
@@ -229,12 +231,12 @@ public class ImportadorFileServerLocal implements Importador{
             } catch (Exception e) {
                 // Si la validación falla, eliminar el archivo
                 Files.deleteIfExists(filePath);
-                throw new Exception("Error de validación: " + e.getMessage());
+                throw new ValidacionError( e.getMessage());
             }
         } catch (Exception e) {
 
             e.printStackTrace();
-            throw new Exception("Error al cargar el archivo: " + e.getMessage());
+            throw e;
 
         }
     }

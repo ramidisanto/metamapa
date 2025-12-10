@@ -16,6 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -101,7 +102,7 @@ public class CrearHechoControlador {
                 return "crearHecho";
             }
 
-            if (hechoFormData.getFechaAcontecimiento().isAfter(LocalDate.now().atStartOfDay())) {
+            if (hechoFormData.getFechaAcontecimiento().isAfter(LocalDateTime.now())) {
                 throw new RuntimeException("La fecha del acontecimiento no puede ser futura.");
             }
 

@@ -278,7 +278,7 @@ services:
       SERVER_URL: http://keycloak:8080
       REALM_NAME: spring-boot-realm-pr
       RESOURSE_ID: spring-client-api-rest
-      CLIENT_SECRET: "R2rT5b3LHXFxbSOfRefRf6yyiFbxEBQD"
+      CLIENT_SECRET: "xTfZijyHm2TiqoFMYcmz4YfmBz8nvDTP"
       SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_ISSUER_URI: http://localhost:8080/realms/spring-boot-realm-pr
       SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_JWK_SET_URI: http://keycloak:8080/realms/spring-boot-realm-pr/protocol/openid-connect/certs
     restart: on-failure
@@ -316,6 +316,8 @@ services:
       AUTH_URL: http://moduloauth:9092
     ports:
       - "8088:8088"
+    volumes:
+      - ./archivos_fotos:/app/src/main/resources/static/images/hechos
     restart: on-failure
     healthcheck:
       test: "curl --fail --silent http://localhost:8088/actuator/health || exit 1"

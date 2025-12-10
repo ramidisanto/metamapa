@@ -6,7 +6,7 @@
 <main class="container mx-auto px-4 py-8 flex-grow"> <div class="max-w-3xl mx-auto bg-white p-6 rounded-lg shadow-md border border-pastel-blue-200">
     <h1 class="text-3xl font-bold text-pastel-blue-900 mb-6">Crear Nuevo Hecho</h1>
 
-    <div th:if="${errorMessage}" class="p-4 mb-4 text-sm text-red-700 bg-red-100 rounded-lg" role="alert">
+  <div th:if="${errorMessage}" class="p-4 mb-4 text-sm text-red-700 bg-red-100 rounded-lg" role="alert">
         <span class="font-medium">¡Error!</span> <span th:text="${errorMessage}"></span>
     </div>
 
@@ -59,7 +59,7 @@
             <p class="text-xs text-gray-500 mb-2">Haz clic en el mapa o busca una dirección para marcar la ubicación.</p>
             <div class="flex gap-2 mb-2">
                 <input type="text" id="searchInput" placeholder="Buscar dirección..."
-                       class="w-full px-3 py-2 border border-gray-300 rounded-md"/>
+                       required class="w-full px-3 py-2 border border-gray-300 rounded-md"/>
                 <button type="button" id="searchBtn" class="px-4 py-2 bg-pastel-blue-600 text-white rounded-md hover:bg-pastel-blue-700">Buscar</button>
             </div>
             <div id="map" class="h-96 w-full"></div>
@@ -67,16 +67,19 @@
                 <div>
                     <label for="localidad" class="block text-sm font-medium text-gray-700">Localidad</label>
                     <input type="text" name="localidad" id="localidad" th:field="*{localidad}" required
+                           readonly
                            class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md"/>
                 </div>
                 <div>
                     <label for="provincia" class="block text-sm font-medium text-gray-700">Provincia</label>
                     <input type="text" name="provincia" id="provincia" th:field="*{provincia}" required
+                           readonly
                            class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md"/>
                 </div>
                 <div>
                     <label for="pais" class="block text-sm font-medium text-gray-700">País</label>
                     <input type="text" name="pais" id="pais" th:field="*{pais}" required
+                           readonly
                            class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md"/>
                 </div>
             </div>

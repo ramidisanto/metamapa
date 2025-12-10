@@ -44,7 +44,7 @@ public class RateLimitInterceptor implements HandlerInterceptor {
         if (uri.contains("/iniciar-sesion") || uri.contains("/create")) {
             // Protección contra fuerza bruta y creación masiva de cuentas basura
             bucketKey = ip + "_AUTH_CRITICAL";
-            limit = 10; // 10 intentos por minuto
+            limit = 5; // 10 intentos por minuto
         }
         // ZONA CONSULTA: Buscar usuarios o ver roles
         // Rutas: /auth/search o /auth/role
@@ -70,10 +70,20 @@ public class RateLimitInterceptor implements HandlerInterceptor {
         } else {
             System.out.println(">>> Petición BLOQUEADA (429)");
             long waitForRefill = probe.getNanosToWaitForRefill() / 1_000_000_000;
-            response.addHeader("X-Rate-Limit-Retry-After-Seconds", String.valueOf(waitForRefill));
 
-            // Mensaje personalizado de seguridad
-            response.sendError(HttpStatus.TOO_MANY_REQUESTS.value(),"BLOQUEO_RATELIMIT: Demasiados intentos de autenticación. Espere " + waitForRefill + " segundos.");
+            response.setStatus(HttpStatus.TOO_MANY_REQUESTS.value());
+            response.setContentType("application/json");
+            response.setCharacterEncoding("UTF-8");
+
+            String body = "{"
+                    + "\"error\":\"BLOQUEO_RATELIMIT\","
+                    + "\"message\":\"Demasiados intentos de autenticación\","
+                    + "\"retry_after_seconds\":" + waitForRefill
+                    + "}";
+
+            response.getWriter().write(body);
+            response.flushBuffer(); // CORTA EL RESTO DEL CICLO, Spring no puede meter 401
+
             return false;
         }
     }

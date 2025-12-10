@@ -1,5 +1,6 @@
 package Controlador;
 import Modelos.DTOS.HechoDTO;
+import Modelos.Exceptions.ValidacionError;
 import Servicio.FuenteEstatica;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -39,14 +40,13 @@ public class EstaticaController {
         } catch (Exception e) {
             String mensaje = e.getMessage();
             HttpStatus status;
-
-            if (mensaje.contains("validación") || mensaje.contains("invalid")) {
+            if( e instanceof ValidacionError){
                 status = HttpStatus.BAD_REQUEST;
             } else {
                 status = HttpStatus.INTERNAL_SERVER_ERROR;
             }
 
-            return ResponseEntity.status(status).body("Error al cargar el archivo. Error: " + e.getMessage());
+            return ResponseEntity.status(status).body("Error al cargar el archivo. " + e.getMessage());
         }
     }
 }

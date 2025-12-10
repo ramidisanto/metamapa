@@ -525,6 +525,35 @@
       ],
       "notBefore": 0,
       "groups": []
+    },
+    {
+      "username": "admin",
+      "enabled": true,
+      "emailVerified": true,
+      "firstName": "Admin",
+      "lastName": "User",
+      "email": "admin@example.com",
+      "credentials": [
+        {
+          "type": "password",
+          "value": "admin",
+          "temporary": false
+        }
+      ],
+      "realmRoles": [
+        "default-roles-spring-boot-realm-pr"
+      ],
+      "clientRoles": {
+        "spring-client-api-rest": [
+          "admin_client_role"
+        ],
+        "realm-management" : [
+          "view-users",
+          "realm-admin",
+          "query-users",
+          "manage-users"
+        ]
+      }
     }
   ],
   "scopeMappings": [

@@ -52,7 +52,7 @@ public class FuenteEstatica {
 
         } catch (Exception e) {
             e.printStackTrace();
-            throw new Exception("Error al cargar archivo: " + e.getMessage());
+            throw e;
 
         }
     }

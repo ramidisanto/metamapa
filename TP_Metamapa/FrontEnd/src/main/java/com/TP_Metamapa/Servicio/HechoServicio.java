@@ -135,11 +135,11 @@ public class HechoServicio {
 
         } catch (HttpServerErrorException e) {
             // Errores 5xx (500 Internal Server Error)
-            throw new RuntimeException("El servidor backend tuvo un problema interno: " + e.getResponseBodyAsString());
+            throw new RuntimeException(e.getResponseBodyAsString());
 
         } catch (Exception e) {
             // Otros errores (conexión rechazada, timeout, etc.)
-            throw new RuntimeException("Error inesperado al conectar con el backend: " + e.getMessage(), e);
+            throw new RuntimeException("Error inesperado al conectar con el servidor: " + e.getMessage(), e);
         }
     }
 

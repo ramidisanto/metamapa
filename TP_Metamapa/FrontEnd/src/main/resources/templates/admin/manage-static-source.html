@@ -16,8 +16,13 @@
         <div class="bg-white p-6 rounded-lg shadow-md border">
             <p class="text-sm text-gray-600 mb-6">
                 Seleccione un archivo en formato CSV para importar nuevos hechos al sistema.
-                El archivo debe seguir el formato especificado: Título, Descripción, Categoría, Latitud, Longitud, Fecha del hecho.
+                El archivo debe respetar el siguiente formato:
             </p>
+
+            <ul class="list-disc list-inside text-sm text-gray-600 space-y-1">
+                <li>Los encabezados deben ser: Título, Descripción, Categoría, Latitud, Longitud, Fecha del hecho.</li>
+                <li>El formato de la fecha debe ser dd/MM/YYYY</li>
+            </ul>
 
             <form method="post" th:action="@{/admin/cargar-csv}" enctype="multipart/form-data" class="space-y-4">
                 <div>
@@ -36,13 +41,14 @@
                                   file:bg-pastel-blue-100 file:text-pastel-blue-700
                                   hover:file:bg-pastel-blue-200"/>
                 </div>
-                <div class="flex items-center gap-4">
+                <div class="flex justify-end gap-4">
                     <button type="submit"
                             class="px-6 py-2 bg-pastel-blue-600 text-white font-semibold rounded-md hover:bg-pastel-blue-700">
                         Cargar Archivo
                     </button>
                 </div>
             </form>
+        </div>
         </div>
     </div>
 </div>

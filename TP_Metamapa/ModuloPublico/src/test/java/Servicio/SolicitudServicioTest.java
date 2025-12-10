@@ -58,10 +58,4 @@ class SolicitudServicioTest {
         assertThrows(SolicitudInvalidaException.class, () -> solicitudServicio.crearSolicitud(dto));
     }
 
-    @Test
-    void esSpam_TextoLargo_DeberiaRetornarTrue() {
-        String texto = "a".repeat(501);
-        assertTrue(solicitudServicio.esSpam(texto));
-        assertFalse(solicitudServicio.esSpam("corto"));
-    }
 }

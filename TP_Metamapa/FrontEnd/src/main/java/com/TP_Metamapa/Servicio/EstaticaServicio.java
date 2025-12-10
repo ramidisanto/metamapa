@@ -63,7 +63,7 @@ public class EstaticaServicio {
         } catch (HttpServerErrorException e) {
             throw new RuntimeException("Error en el servidor de estática");
         } catch (Exception e) {
-            throw new RuntimeException("Error al cargar el archivo: " + e.getMessage());
+            throw new RuntimeException(e.getMessage());
         }
     }
 }

@@ -11,6 +11,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime ;
 import java.util.ArrayList;
 import java.util.List;
+import java.lang.Exception;
 
 @Service
 public class HechoServicio {
@@ -40,23 +41,28 @@ public class HechoServicio {
         this.ubicacionRepositorio = ubicacionRepositorio;
     }
 
-    public void crearHecho(HechoDTOInput dto) {
-        System.out.println("HECHO DTO INPUT, entre a CREAR HECHOS: ");
-        Categoria categoria = this.crearCategoria(dto.getCategoria());
-        Contenido contenido = new Contenido(dto.getContenido(),dto.getContenido_multimedia());
-        Pais pais = this.crearPais(dto.getPais());
-        Provincia provincia = this.crearProvincia(dto.getProvincia(), pais);
-        Localidad localidad = this.crearLocalidad(dto.getLocalidad(), provincia);
-        Ubicacion ubicacion = this.crearUbicacion(dto.getLatitud(), dto.getLongitud(), localidad, provincia, pais);
-        LocalDateTime fechaOcurrencia =  dto.getFechaAcontecimiento();
-        Contribuyente contribuyente = this.crearContribuyente(dto.getUsuario(), dto.getNombre(), dto.getApellido(), dto.getFechaNacimiento());
-        boolean anonimo = dto.getAnonimo();
+    public void crearHecho(HechoDTOInput dto) throws Exception {
+        try {
+            System.out.println("HECHO DTO INPUT, entre a CREAR HECHOS: ");
+            Categoria categoria = this.crearCategoria(dto.getCategoria());
+            Contenido contenido = new Contenido(dto.getContenido(), dto.getContenido_multimedia());
+            Pais pais = this.crearPais(dto.getPais());
+            Provincia provincia = this.crearProvincia(dto.getProvincia(), pais);
+            Localidad localidad = this.crearLocalidad(dto.getLocalidad(), provincia);
+            Ubicacion ubicacion = this.crearUbicacion(dto.getLatitud(), dto.getLongitud(), localidad, provincia, pais);
+            LocalDateTime fechaOcurrencia = dto.getFechaAcontecimiento();
+            Contribuyente contribuyente = this.crearContribuyente(dto.getUsuario(), dto.getNombre(), dto.getApellido(), dto.getFechaNacimiento());
+            boolean anonimo = dto.getAnonimo();
 
-        Hecho hecho = new Hecho(null,contribuyente.getId(), dto.getTitulo(), dto.getDescripcion(), contenido, categoria, fechaOcurrencia, ubicacion,
-                                contribuyente, anonimo, true, false);
+            Hecho hecho = new Hecho(null, contribuyente.getId(), dto.getTitulo(), dto.getDescripcion(), contenido, categoria, fechaOcurrencia, ubicacion,
+                    contribuyente, anonimo, true, false);
 
-        System.out.println("ANTES DE GURDAR EL HECHO -----------------------------------------------------------");
-        hechoRepositorio.save(hecho);
+            System.out.println("ANTES DE GURDAR EL HECHO -----------------------------------------------------------");
+            hechoRepositorio.save(hecho);
+        } catch( Exception e) {
+            System.out.println("ERROR CREANDO EL HECHO: " + e.getMessage());
+            throw new Exception(e.getMessage());
+        }
     }
 
     public Categoria crearCategoria(String nombre) {
@@ -83,7 +89,10 @@ public class HechoServicio {
         return contribuyente;
     }
 
-    public Pais crearPais(String nombre) {
+    public Pais crearPais(String nombre) throws Exception {
+        if (nombre == null || nombre.isEmpty() ) {
+            throw new Exception("El pais no debe ser vacío");
+        }
         Pais pais = paisRepositorio.findByPais(nombre);
         if(pais == null){
             pais = new Pais(nombre);
@@ -92,7 +101,10 @@ public class HechoServicio {
         return pais;
     }
 
-    public Provincia crearProvincia(String nombre, Pais pais) {
+    public Provincia crearProvincia(String nombre, Pais pais) throws Exception {
+        if (nombre == null || nombre.isEmpty() ) {
+            throw new Exception("La provincia no debe ser vacía");
+        }
         Provincia provincia = provinciaRepositorio.findByProvinciaAndPais(nombre, pais);
         if(provincia == null){
             provincia = new Provincia(nombre, pais);
@@ -101,7 +113,10 @@ public class HechoServicio {
         return provincia;
     }
 
-    public Localidad crearLocalidad(String nombre, Provincia provincia) {
+    public Localidad crearLocalidad(String nombre, Provincia provincia) throws Exception {
+        if (nombre == null || nombre.isEmpty() ) {
+            throw new Exception("La localidad no debe ser vacía");
+        }
         Localidad localidad = localidadRepositorio.findByLocalidadAndProvincia(nombre, provincia);
         if(localidad == null){
             localidad = new Localidad(nombre, provincia);

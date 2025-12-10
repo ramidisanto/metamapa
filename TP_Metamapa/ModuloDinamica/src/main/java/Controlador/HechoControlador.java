@@ -26,7 +26,7 @@ public class HechoControlador {
             hechoServicio.crearHecho(hechoDTO);
             return ResponseEntity.ok("Hecho creado exitosamente.");
         }catch (Exception e){
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error al crear el hecho");
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
         }
     }
 
