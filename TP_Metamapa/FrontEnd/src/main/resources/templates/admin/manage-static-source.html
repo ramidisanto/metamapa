@@ -1,56 +1,46 @@
 <!DOCTYPE html>
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
+
 <body>
-<div th:fragment="content">
-    <h2 class="text-2xl font-semibold text-gray-800">Cargar Nueva Fuente Estática (CSV)</h2>
+    <div th:fragment="content">
+        <h2 class="text-2xl font-semibold text-gray-800 dark:text-gray-200">Cargar Nueva Fuente Estática (CSV)</h2>
 
-    <div class="mt-6 max-w-xl mx-auto">
-        <!--
-        <div th:if="${successMessage}" class="p-4 mb-4 text-sm text-green-700 bg-green-100 rounded-lg" role="alert">
-            <span class="font-medium">¡Éxito!</span> <span th:text="${successMessage}"></span>
-        </div>
-        <div th:if="${errorMessage}" class="p-4 mb-4 text-sm text-red-700 bg-red-100 rounded-lg" role="alert">
-            <span class="font-medium">¡Error!</span> <span th:text="${errorMessage}"></span>
-        </div>
-        --->
-        <div class="bg-white p-6 rounded-lg shadow-md border">
-            <p class="text-sm text-gray-600 mb-6">
-                Seleccione un archivo en formato CSV para importar nuevos hechos al sistema.
-                El archivo debe respetar el siguiente formato:
-            </p>
+        <div class="mt-6 max-w-xl mx-auto">
+            <div
+                class="bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-soft border border-primary-200 dark:border-gray-700 transition-colors">
+                <p class="text-sm text-gray-600 dark:text-gray-100 mb-6">
+                    Seleccione un archivo en formato CSV para importar nuevos hechos al sistema.
+                    El archivo debe respetar el siguiente formato:
+                </p>
 
-            <ul class="list-disc list-inside text-sm text-gray-600 space-y-1">
-                <li>Los encabezados deben ser: Título, Descripción, Categoría, Latitud, Longitud, Fecha del hecho.</li>
-                <li>El formato de la fecha debe ser dd/MM/YYYY</li>
-            </ul>
+                <ul class="list-disc list-inside text-sm text-gray-600 dark:text-gray-100 space-y-1 mb-6">
+                    <li>Los encabezados deben ser: Título, Descripción, Categoría, Latitud, Longitud, Fecha del hecho.
+                    </li>
+                    <li>El formato de la fecha debe ser dd/MM/YYYY</li>
+                </ul>
 
-            <form method="post" th:action="@{/admin/cargar-csv}" enctype="multipart/form-data" class="space-y-4">
-                <div>
-                    <label for="csv-upload" class="block text-sm font-medium text-gray-700">
-                        Archivo CSV
-                    </label>
-                    <input type="file"
-                           name="file"
-                           id="csv-upload"
-                           accept=".csv"
-                           required
-                           class="mt-1 block w-full text-sm text-gray-500
+                <form method="post" th:action="@{/admin/cargar-csv}" enctype="multipart/form-data" class="space-y-4">
+                    <div>
+                        <label for="csv-upload" class="block text-sm font-medium text-gray-700 dark:text-gray-100 mb-2">
+                            Archivo CSV
+                        </label>
+                        <input type="file" name="file" id="csv-upload" accept=".csv" required class="block w-full text-sm text-gray-500 dark:text-gray-100
                                   file:mr-4 file:py-2 file:px-4
-                                  file:rounded-md file:border-0
+                                  file:rounded-xl file:border-0
                                   file:text-sm file:font-semibold
-                                  file:bg-pastel-blue-100 file:text-pastel-blue-700
-                                  hover:file:bg-pastel-blue-200"/>
-                </div>
-                <div class="flex justify-end gap-4">
-                    <button type="submit"
-                            class="px-6 py-2 bg-pastel-blue-600 text-white font-semibold rounded-md hover:bg-pastel-blue-700">
-                        Cargar Archivo
-                    </button>
-                </div>
-            </form>
-        </div>
+                                  file:bg-primary-100 dark:file:bg-primary-900/50 file:text-primary-700 dark:file:text-primary-300
+                                  hover:file:bg-primary-200 dark:hover:file:bg-primary-800/50 transition-colors" />
+                    </div>
+                    <div class="flex justify-end gap-4">
+                        <button type="submit"
+                            class="px-6 py-3 bg-gradient-to-r from-primary-600 to-primary-700 text-white font-semibold rounded-xl shadow-md hover:from-primary-700 hover:to-primary-800 hover:shadow-lg transition-all duration-300">
+                            Cargar Archivo
+                        </button>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
-</div>
 </body>
+
 </html>

@@ -1,134 +1,176 @@
 <!DOCTYPE html>
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
+
 <head th:replace="~{layout/base :: head (title='Estadísticas - Metamapa')}"></head>
-<body class="bg-pastel-blue-50 flex flex-col min-h-screen">
 
-<div th:replace="~{layout/base :: header}"></div>
+<body class="bg-primary-100 dark:bg-gray-900 flex flex-col min-h-screen transition-colors duration-300">
 
-<main class="container mx-auto px-6 lg:px-16 py-8 flex-grow">
-    <div class="space-y-8">
-        <div class="flex justify-between items-center mb-6">
-            <h1 class="text-3xl font-bold text-pastel-blue-900">Estadísticas</h1>
-            <a th:href="@{/csv}"
-               class="bg-pastel-blue-700 text-white font-bold py-2 px-4 rounded shadow-md hover:bg-pastel-blue-800 transition-colors">
-                Exportar
-            </a>
+    <div th:replace="~{layout/base :: header}"></div>
+
+    <main class="container mx-auto px-6 lg:px-16 py-8 flex-grow">
+        <div class="space-y-8">
+            <div class="flex justify-between items-center mb-6">
+                <h1 class="text-3xl font-bold text-primary-900 dark:text-primary-200">Estadísticas</h1>
+                <a th:href="@{/csv}"
+                    class="px-6 py-3 bg-gradient-to-r from-primary-600 to-primary-700 text-white font-medium rounded-xl shadow-md hover:from-primary-700 hover:to-primary-800 hover:shadow-lg transition-all duration-300">
+                    Exportar
+                </a>
+            </div>
+
+            <th:block th:if="${estadisticas != null}">
+
+                <div class="flex justify-center mb-8">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-3xl w-full">
+
+                        <div
+                            class="bg-white dark:bg-gray-800 rounded-2xl shadow-soft border border-primary-200 dark:border-gray-700 p-6 transition-colors">
+                            <h3
+                                class="text-lg font-bold text-primary-800 dark:text-primary-300 border-b border-primary-200 dark:border-gray-600 pb-2 mb-3">
+                                Categoría más Reportada</h3>
+                            <div class="text-center">
+                                <p class="text-3xl font-bold bg-gradient-to-r from-primary-600 to-accent-500 bg-clip-text text-transparent"
+                                    th:text="${estadisticas.categoriaConMasHechos}"></p>
+                            </div>
+                        </div>
+
+                        <div
+                            class="bg-white dark:bg-gray-800 rounded-2xl shadow-soft border border-primary-200 dark:border-gray-700 p-6 transition-colors">
+                            <h3
+                                class="text-lg font-bold text-primary-800 dark:text-primary-300 border-b border-primary-200 dark:border-gray-600 pb-2 mb-3">
+                                Solicitudes de Eliminación Spam</h3>
+                            <div class="text-center">
+                                <p class="text-4xl font-bold bg-gradient-to-r from-primary-600 to-accent-500 bg-clip-text text-transparent"
+                                    th:text="${estadisticas.cantidadSolicitudesSpam}"></p>
+                                <p class="text-md text-gray-600 dark:text-gray-400">solicitudes marcadas como spam</p>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="space-y-6 mt-8">
+
+                    <div
+                        class="bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-soft border border-primary-200 dark:border-gray-700 transition-colors">
+                        <h3
+                            class="text-lg font-bold text-primary-800 dark:text-primary-300 border-b border-primary-200 dark:border-gray-600 pb-2 mb-3">
+                            Provincia con más Hechos por Colección</h3>
+
+                        <div th:if="${!estadisticas.provinciaConMasHechosPorColeccion.isEmpty()}"
+                            class="mt-4 overflow-x-auto rounded-xl border border-primary-200 dark:border-gray-600">
+                            <table class="min-w-full divide-y divide-primary-200 dark:divide-gray-600 table-fixed">
+                                <thead class="bg-primary-100 dark:bg-gray-700">
+                                    <tr>
+                                        <th scope="col"
+                                            class="px-4 py-3 text-left text-xs font-semibold text-primary-800 dark:text-primary-300 uppercase tracking-wider w-1/2">
+                                            Colección
+                                        </th>
+                                        <th scope="col"
+                                            class="px-4 py-3 text-left text-xs font-semibold text-primary-800 dark:text-primary-300 uppercase tracking-wider w-1/2">
+                                            Provincia
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody class="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
+                                    <tr th:each="entry : ${estadisticas.provinciaConMasHechosPorColeccion}"
+                                        class="hover:bg-primary-50 dark:hover:bg-gray-700 transition-colors">
+                                        <td class="px-4 py-3 whitespace-nowrap text-sm font-semibold text-primary-900 dark:text-primary-200 w-1/2"
+                                            th:text="${mapaNombresColecciones.get(entry.key) ?: 'Colección ID: ' + entry.key}">
+                                        </td>
+                                        <td class="px-4 py-3 whitespace-nowrap text-sm text-left text-primary-700 dark:text-primary-400 w-1/2"
+                                            th:text="${entry.value}">
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <p th:if="${estadisticas.provinciaConMasHechosPorColeccion.isEmpty()}"
+                            class="text-center text-sm text-gray-500 dark:text-gray-400 py-4">No hay datos de provincias
+                            por colección.</p>
+                    </div>
+
+                    <div
+                        class="bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-soft border border-primary-200 dark:border-gray-700 transition-colors">
+                        <h3
+                            class="text-lg font-bold text-primary-800 dark:text-primary-300 border-b border-primary-200 dark:border-gray-600 pb-2 mb-3">
+                            Provincia con más Hechos por Categoría</h3>
+
+                        <div th:if="${!estadisticas.provinciaConMasHechosDeCategoria.isEmpty()}"
+                            class="mt-4 overflow-x-auto rounded-xl border border-primary-200 dark:border-gray-600">
+                            <table class="min-w-full divide-y divide-primary-200 dark:divide-gray-600 table-fixed">
+                                <thead class="bg-primary-100 dark:bg-gray-700">
+                                    <tr>
+                                        <th scope="col"
+                                            class="px-4 py-3 text-left text-xs font-semibold text-primary-800 dark:text-primary-300 uppercase tracking-wider w-1/2">
+                                            Categoría
+                                        </th>
+                                        <th scope="col"
+                                            class="px-4 py-3 text-left text-xs font-semibold text-primary-800 dark:text-primary-300 uppercase tracking-wider w-1/2">
+                                            Provincia con Más Hechos
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody class="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
+                                    <tr th:each="entry : ${estadisticas.provinciaConMasHechosDeCategoria}"
+                                        class="hover:bg-primary-50 dark:hover:bg-gray-700 transition-colors">
+                                        <td class="px-4 py-3 whitespace-nowrap text-sm font-semibold text-primary-900 dark:text-primary-200 w-1/2"
+                                            th:text="${entry.key}"></td>
+                                        <td class="px-4 py-3 whitespace-nowrap text-sm text-left text-primary-700 dark:text-primary-400 w-1/2"
+                                            th:text="${entry.value}"></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <p th:if="${estadisticas.provinciaConMasHechosDeCategoria.isEmpty()}"
+                            class="text-center text-sm text-gray-500 dark:text-gray-400 py-4">No hay datos de provincias
+                            por categoría.</p>
+                    </div>
+
+                    <div
+                        class="bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-soft border border-primary-200 dark:border-gray-700 transition-colors">
+                        <h3
+                            class="text-lg font-bold text-primary-800 dark:text-primary-300 border-b border-primary-200 dark:border-gray-600 pb-2 mb-3">
+                            Hora Pico por Categoría</h3>
+
+                        <div th:if="${!estadisticas.horaConMasHechosPorCategoria.isEmpty()}"
+                            class="mt-4 overflow-x-auto rounded-xl border border-primary-200 dark:border-gray-600">
+                            <table class="min-w-full divide-y divide-primary-200 dark:divide-gray-600 table-fixed">
+                                <thead class="bg-primary-100 dark:bg-gray-700">
+                                    <tr>
+                                        <th scope="col"
+                                            class="px-4 py-3 text-left text-xs font-semibold text-primary-800 dark:text-primary-300 uppercase tracking-wider w-1/2">
+                                            Categoría
+                                        </th>
+                                        <th scope="col"
+                                            class="px-4 py-3 text-left text-xs font-semibold text-primary-800 dark:text-primary-300 uppercase tracking-wider w-1/2">
+                                            Hora Pico
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody class="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
+                                    <tr th:each="entry : ${estadisticas.horaConMasHechosPorCategoria}"
+                                        class="hover:bg-primary-50 dark:hover:bg-gray-700 transition-colors">
+                                        <td class="px-4 py-3 whitespace-nowrap text-sm font-semibold text-primary-900 dark:text-primary-200 w-1/2"
+                                            th:text="${entry.key}"></td>
+                                        <td class="px-4 py-3 whitespace-nowrap text-sm text-left text-primary-700 dark:text-primary-400 w-1/2"
+                                            th:text="|${#numbers.formatInteger(entry.value, 2)}:00 hs|"></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <p th:if="${estadisticas.horaConMasHechosPorCategoria.isEmpty()}"
+                            class="text-center text-sm text-gray-500 dark:text-gray-400 py-4">No hay datos de hora pico
+                            por categoría.</p>
+                    </div>
+                </div>
+
+            </th:block>
         </div>
+    </main>
 
-        <th:block th:if="${estadisticas != null}">
-
-            <div class="flex justify-center mb-8">
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-3xl w-full">
-
-                    <div class="bg-white p-4 rounded-lg shadow-md border border-pastel-blue-200">
-                        <h3 class="text-lg font-bold text-pastel-blue-800 border-b border-pastel-blue-200 pb-2 mb-3">Categoría más Reportada</h3>
-                        <div class="text-center">
-                            <p class="text-3xl font-bold text-pastel-blue-700" th:text="${estadisticas.categoriaConMasHechos}"></p>
-                        </div>
-                    </div>
-
-                    <div class="bg-white p-4 rounded-lg shadow-md border border-pastel-blue-200">
-                        <h3 class="text-lg font-bold text-pastel-blue-800 border-b border-pastel-blue-200 pb-2 mb-3">Solicitudes de Eliminación Spam</h3>
-                        <div class="text-center">
-                            <p class="text-4xl font-bold text-pastel-blue-700" th:text="${estadisticas.cantidadSolicitudesSpam}"></p>
-                            <p class="text-md text-gray-600">solicitudes marcadas como spam</p>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-
-            <div class="space-y-6 mt-8">
-
-                <div class="bg-white p-4 rounded-lg shadow-md border border-pastel-blue-200">
-                    <h3 class="text-lg font-bold text-pastel-blue-800 border-b border-pastel-blue-200 pb-2 mb-3">Provincia con más Hechos por Colección</h3>
-
-                    <div th:if="${!estadisticas.provinciaConMasHechosPorColeccion.isEmpty()}" class="mt-4 overflow-x-auto rounded-lg border border-pastel-blue-300">
-                        <table class="min-w-full divide-y divide-pastel-blue-300 table-fixed">
-                            <thead class="bg-pastel-blue-100">
-                            <tr>
-                                <th scope="col" class="px-4 py-2 text-left text-xs font-medium text-pastel-blue-700 uppercase tracking-wider w-1/2">
-                                    Colección
-                                </th>
-                                <th scope="col" class="px-4 py-2 text-left text-xs font-medium text-pastel-blue-700 uppercase tracking-wider w-1/2">
-                                    Provincia
-                                </th>
-                            </tr>
-                            </thead>
-                            <tbody class="bg-white divide-y divide-gray-200">
-                            <tr th:each="entry : ${estadisticas.provinciaConMasHechosPorColeccion}" class="hover:bg-pastel-blue-50">
-                                <td class="px-4 py-3 whitespace-nowrap text-sm font-semibold text-pastel-blue-900 w-1/2"
-                                    th:text="${mapaNombresColecciones.get(entry.key) ?: 'Colección ID: ' + entry.key}">
-                                </td>
-                                <td class="px-4 py-3 whitespace-nowrap text-sm text-left text-pastel-blue-700 w-1/2"
-                                    th:text="${entry.value}">
-                                </td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <p th:if="${estadisticas.provinciaConMasHechosPorColeccion.isEmpty()}" class="text-center text-sm text-gray-500 py-4">No hay datos de provincias por colección.</p>
-                </div>
-
-                <div class="bg-white p-4 rounded-lg shadow-md border border-pastel-blue-200">
-                    <h3 class="text-lg font-bold text-pastel-blue-800 border-b border-pastel-blue-200 pb-2 mb-3">Provincia con más Hechos por Categoría</h3>
-
-                    <div th:if="${!estadisticas.provinciaConMasHechosDeCategoria.isEmpty()}" class="mt-4 overflow-x-auto rounded-lg border border-pastel-blue-300">
-                        <table class="min-w-full divide-y divide-pastel-blue-300 table-fixed">
-                            <thead class="bg-pastel-blue-100">
-                            <tr>
-                                <th scope="col" class="px-4 py-2 text-left text-xs font-medium text-pastel-blue-700 uppercase tracking-wider w-1/2">
-                                    Categoría
-                                </th>
-                                <th scope="col" class="px-4 py-2 text-left text-xs font-medium text-pastel-blue-700 uppercase tracking-wider w-1/2">
-                                    Provincia con Más Hechos
-                                </th>
-                            </tr>
-                            </thead>
-                            <tbody class="bg-white divide-y divide-gray-200">
-                            <tr th:each="entry : ${estadisticas.provinciaConMasHechosDeCategoria}" class="hover:bg-pastel-blue-50">
-                                <td class="px-4 py-3 whitespace-nowrap text-sm font-semibold text-pastel-blue-900 w-1/2" th:text="${entry.key}"></td>
-                                <td class="px-4 py-3 whitespace-nowrap text-sm text-left text-pastel-blue-700 w-1/2" th:text="${entry.value}"></td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <p th:if="${estadisticas.provinciaConMasHechosDeCategoria.isEmpty()}" class="text-center text-sm text-gray-500 py-4">No hay datos de provincias por categoría.</p>
-                </div>
-
-                <div class="bg-white p-4 rounded-lg shadow-md border border-pastel-blue-200">
-                    <h3 class="text-lg font-bold text-pastel-blue-800 border-b border-pastel-blue-200 pb-2 mb-3">Hora Pico por Categoría</h3>
-
-                    <div th:if="${!estadisticas.horaConMasHechosPorCategoria.isEmpty()}" class="mt-4 overflow-x-auto rounded-lg border border-pastel-blue-300">
-                        <table class="min-w-full divide-y divide-pastel-blue-300 table-fixed">
-                            <thead class="bg-pastel-blue-100">
-                            <tr>
-                                <th scope="col" class="px-4 py-2 text-left text-xs font-medium text-pastel-blue-700 uppercase tracking-wider w-1/2">
-                                    Categoría
-                                </th>
-                                <th scope="col" class="px-4 py-2 text-left text-xs font-medium text-pastel-blue-700 uppercase tracking-wider w-1/2">
-                                    Hora Pico
-                                </th>
-                            </tr>
-                            </thead>
-                            <tbody class="bg-white divide-y divide-gray-200">
-                            <tr th:each="entry : ${estadisticas.horaConMasHechosPorCategoria}" class="hover:bg-pastel-blue-50">
-                                <td class="px-4 py-3 whitespace-nowrap text-sm font-semibold text-pastel-blue-900 w-1/2" th:text="${entry.key}"></td>
-                                <td class="px-4 py-3 whitespace-nowrap text-sm text-left text-pastel-blue-700 w-1/2" th:text="|${#numbers.formatInteger(entry.value, 2)}:00 hs|"></td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <p th:if="${estadisticas.horaConMasHechosPorCategoria.isEmpty()}" class="text-center text-sm text-gray-500 py-4">No hay datos de hora pico por categoría.</p>
-                </div>
-            </div>
-
-        </th:block>
-    </div>
-</main>
-
-<div th:replace="~{layout/base :: footer}"></div>
-<div th:replace="~{layout/base :: scripts}"></div>
+    <div th:replace="~{layout/base :: footer}"></div>
+    <div th:replace="~{layout/base :: scripts}"></div>
 
 </body>
+
 </html>

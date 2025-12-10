@@ -1,27 +1,202 @@
+/* Content Wrapper - Responsive Padding */
 .content-wrapper {
-  padding-left: 7rem !important;   /* ajustá 4rem si querés otro tamaño */
-  padding-right: 7rem !important;
-  box-sizing: border-box;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+    box-sizing: border-box;
 }
 
+@media (min-width: 640px) {
+    .content-wrapper {
+        padding-left: 2.5rem;
+        padding-right: 2.5rem;
+    }
+}
+
+@media (min-width: 768px) {
+    .content-wrapper {
+        padding-left: 4rem;
+        padding-right: 4rem;
+    }
+}
+
+@media (min-width: 1024px) {
+    .content-wrapper {
+        padding-left: 7rem;
+        padding-right: 7rem;
+    }
+}
+
+/* Search Bar Container - Mobile First */
 .search-bar-container {
     display: flex;
-    align-items: center;
-    gap: 1rem;
+    flex-direction: column;
+    gap: 0.75rem;
     width: 100%;
 }
 
-.btn-filtros,
-.btn-buscar {
-    padding: 8px 14px !important;
-    font-size: 0.9rem;
-    white-space: nowrap;
+@media (min-width: 640px) {
+    .search-bar-container {
+        flex-direction: row;
+        align-items: center;
+        gap: 1rem;
+    }
 }
 
+/* Modern Button Styles */
+.btn-filtros,
+.btn-buscar {
+    padding: 0.625rem 1.25rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    white-space: nowrap;
+    border-radius: 0.75rem;
+    transition: all 0.3s ease;
+}
+
+.btn-filtros:hover,
+.btn-buscar:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(79, 70, 229, 0.25);
+}
+
+.btn-filtros:active,
+.btn-buscar:active {
+    transform: translateY(0);
+}
+
+/* Modern Search Input */
 .search-input {
     flex: 1;
     min-width: 0;
-    height: 40px;
+    height: 2.75rem;
+    padding: 0.5rem 1rem;
+    border-radius: 0.75rem;
+    border: 2px solid #e5e7eb;
+    transition: all 0.3s ease;
+    font-size: 0.875rem;
 }
 
+.search-input:focus {
+    border-color: #6366f1;
+    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+    outline: none;
+}
 
+.search-input:hover {
+    border-color: #c7d2fe;
+}
+
+/* Mobile Menu Styles */
+.mobile-menu {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(4px);
+    z-index: 999;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+}
+
+.mobile-menu.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.mobile-menu-content {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 80%;
+    max-width: 300px;
+    height: 100%;
+    background: white;
+    transform: translateX(100%);
+    transition: transform 0.3s ease;
+    padding: 1.5rem;
+    box-shadow: -10px 0 30px rgba(0, 0, 0, 0.1);
+}
+
+.mobile-menu.active .mobile-menu-content {
+    transform: translateX(0);
+}
+
+/* Hamburger Button */
+.hamburger {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    padding: 0.5rem;
+    cursor: pointer;
+    background: none;
+    border: none;
+}
+
+/* Hide hamburger on desktop (768px and up) */
+@media (min-width: 768px) {
+    .hamburger {
+        display: none !important;
+    }
+}
+
+.hamburger span {
+    display: block;
+    width: 24px;
+    height: 2px;
+    background: #312e81;
+    border-radius: 2px;
+    transition: all 0.3s ease;
+}
+
+/* Map Container Enhancement */
+#mapa,
+#map {
+    border-radius: 1rem !important;
+    border: 2px solid #e5e7eb !important;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+}
+
+/* Smooth Page Transitions */
+main {
+    animation: fadeIn 0.4s ease-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Table Improvements */
+table {
+    border-collapse: separate;
+    border-spacing: 0;
+}
+
+table th {
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-size: 0.75rem;
+}
+
+table tbody tr {
+    transition: background-color 0.2s ease;
+}
+
+/* Form Focus States */
+select:focus,
+textarea:focus {
+    border-color: #6366f1 !important;
+    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1) !important;
+    outline: none !important;
+}

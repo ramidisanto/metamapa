@@ -1,119 +1,123 @@
 <!DOCTYPE html>
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
+
 <head th:replace="~{layout/base :: head (title='Editar' + ${coleccion.titulo})}">
     <title>Editar Colección - MetaMapa</title>
 </head>
-<body class="bg-pastel-blue-50 flex flex-col min-h-screen">
-<div th:replace="~{layout/base :: header}"></div>
-<main class="container mx-auto px-4 py-8 flex-grow">
 
-    <div class="max-w-4xl mb-6">
-        <a th:href="@{/admin(tab='collections')}" class="flex items-center text-sm text-gray-600 hover:text-gray-900 mb-6">
-            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
-            </svg>
-            Volver a Panel de Administración
-        </a>
-    </div>
+<body class="bg-primary-100 dark:bg-gray-900 flex flex-col min-h-screen transition-colors duration-300">
+    <div th:replace="~{layout/base :: header}"></div>
+    <main class="container mx-auto px-4 py-8 flex-grow">
+
+        <div class="max-w-4xl mb-6">
+            <a th:href="@{/admin(tab='collections')}"
+                class="flex items-center text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200 mb-6 transition-colors">
+                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+                </svg>
+                Volver a Panel de Administración
+            </a>
+        </div>
 
 
-    <div class="bg-white rounded-lg shadow-sm border border-gray-200">
-        <div class="px-6 py-5 border-b border-gray-200">
-            <h2 class="text-xl font-semibold text-gray-900">Editar Colección</h2>
-            <p class="mt-1 text-sm text-gray-600" th:text="${coleccion.titulo}">
-                Titulo de la colección
+        <div
+            class="bg-white dark:bg-gray-800 rounded-2xl shadow-soft border border-primary-200 dark:border-gray-700 transition-colors">
+            <div class="px-6 py-5 border-b border-primary-200 dark:border-gray-700">
+                <h2 class="text-xl font-semibold text-gray-900 dark:text-gray-100">Editar Colección</h2>
+                <p class="mt-1 text-sm text-gray-600 dark:text-gray-400" th:text="${coleccion.titulo}">
+                    Titulo de la colección
+                </p>
+            </div>
+
+            <div class="px-6 py-6">
+                <!-- Información de la colección (solo lectura) -->
+                <div class="mb-6 pb-6 border-b border-gray-200 dark:border-gray-700">
+                    <div class="space-y-3">
+                        <div>
+                            <p class="text-sm font-medium text-primary-600 dark:text-primary-400">Titulo</p>
+                            <p class="mt-1 text-sm text-gray-900 dark:text-gray-100" th:text="${coleccion.titulo}">
+                                Incendios en Argentina 2025
+                            </p>
+                        </div>
+                        <div>
+                            <p class="text-sm font-medium text-primary-600 dark:text-primary-400">Descripción</p>
+                            <p class="mt-1 text-sm text-gray-900 dark:text-gray-100" th:text="${coleccion.descripcion}">
+                                Seguimiento de focos de incendios durante 2025
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Formulario de edición -->
+                <form th:action="@{/admin/editar-coleccion/{id}/consenso(id=${coleccion.coleccionId})}"
+                    th:object="${consensoDTO}" method="post">
+
+                    <div class="space-y-6">
+                        <!-- Criterio de Consenso -->
+                        <div>
+                            <label for="criterioConsenso"
+                                class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                                Criterio de Consenso
+                            </label>
+                            <p class="text-sm text-gray-600 dark:text-gray-400 mb-3">
+                                El algoritmo de consenso determina cómo se validan los hechos cuando provienen de
+                                múltiples fuentes.
+                            </p>
+                            <select id="criterioConsenso" th:field="*{estrategia}"
+                                class="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500 dark:focus:border-primary-400 transition-all">
+                                <option value="MAYORIA_SIMPLE">Mayoria simple</option>
+                                <option value="ABSOLUTA">Absoluta</option>
+                                <option value="MULTIPLES_MENCIONES">Multiples menciones</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Action Buttons -->
+                    <div class="flex justify-end space-x-3 mt-8 pt-6 border-t border-gray-200 dark:border-gray-700">
+                        <a th:href="@{/admin(tab='collections')}"
+                            class="px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-xl hover:bg-gray-50 dark:hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 transition-all">
+                            Cancelar
+                        </a>
+                        <button type="submit"
+                            class="px-4 py-2 text-sm font-medium text-white bg-gradient-to-r from-primary-600 to-primary-700 rounded-xl shadow-md hover:from-primary-700 hover:to-primary-800 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 flex items-center transition-all">
+                            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4" />
+                            </svg>
+                            Guardar Cambios
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Additional Info Card -->
+        <div
+            class="mt-6 bg-primary-50 dark:bg-primary-900/30 border border-primary-200 dark:border-primary-700 rounded-xl p-4 transition-colors">
+            <p class="text-sm text-primary-800 dark:text-primary-300">
+                <strong>Nota:</strong> Los cambios en el criterio de consenso afectarán cómo se validan los nuevos
+                hechos en esta colección.
             </p>
         </div>
 
-        <div class="px-6 py-6">
-            <!-- Información de la colección (solo lectura) -->
-            <div class="mb-6 pb-6 border-b border-gray-200">
-                <div class="space-y-3">
-                    <div>
-                        <p class="text-sm font-medium text-gray-500">Titulo</p>
-                        <p class="mt-1 text-sm text-gray-900" th:text="${coleccion.titulo}">
-                            Incendios en Argentina 2025
-                        </p>
-                    </div>
-                    <div>
-                        <p class="text-sm font-medium text-gray-500">Descripción</p>
-                        <p class="mt-1 text-sm text-gray-900" th:text="${coleccion.descripcion}">
-                            Seguimiento de focos de incendios durante 2025
-                        </p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Formulario de edición -->
-            <form th:action="@{/admin/editar-coleccion/{id}/consenso(id=${coleccion.coleccionId})}"
-                  th:object="${consensoDTO}"
-                  method="post">
-
-                <div class="space-y-6">
-                    <!-- Criterio de Consenso -->
-                    <div>
-                        <label for="criterioConsenso" class="block text-sm font-medium text-gray-700 mb-2">
-                            Criterio de Consenso
-                        </label>
-                        <p class="text-sm text-gray-600 mb-3">
-                            El algoritmo de consenso determina cómo se validan los hechos cuando provienen de múltiples fuentes.
-                        </p>
-                        <select
-                                id="criterioConsenso"
-                                th:field="*{estrategia}"
-                                class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                        >
-                            <option value="MAYORIA_SIMPLE">Mayoria simple</option>
-                            <option value="ABSOLUTA">Absoluta</option>
-                            <option value="MULTIPLES_MENCIONES">Multiples menciones</option>
-                        </select>
-                    </div>
-                </div>
-
-                <!-- Action Buttons -->
-                <div class="flex justify-end space-x-3 mt-8 pt-6 border-t border-gray-200">
-                    <a th:href="@{/admin(tab='collections')}"
-                       class="px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
-                        Cancelar
-                    </a>
-                    <button
-                            type="submit"
-                            class="px-4 py-2 text-sm font-medium text-white bg-blue-500 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 flex items-center"
-                    >
-                        <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4"/>
-                        </svg>
-                        Guardar Cambios
-                    </button>
-                </div>
-            </form>
+        <!-- Mensaje de éxito (si existe) -->
+        <div th:if="${mensaje}"
+            class="mt-6 bg-accent-50 dark:bg-accent-900/30 border border-accent-200 dark:border-accent-700 rounded-xl p-4 transition-colors">
+            <p class="text-sm text-accent-800 dark:text-accent-300" th:text="${mensaje}">
+                Criterio de consenso actualizado correctamente
+            </p>
         </div>
-    </div>
 
-    <!-- Additional Info Card -->
-    <div class="mt-6 bg-blue-50 border border-blue-200 rounded-lg p-4">
-        <p class="text-sm text-blue-800">
-            <strong>Nota:</strong> Los cambios en el criterio de consenso afectarán cómo se validan los nuevos hechos en esta colección.
-        </p>
-    </div>
-
-    <!-- Mensaje de éxito (si existe) -->
-    <div th:if="${mensaje}"
-         class="mt-6 bg-green-50 border border-green-200 rounded-lg p-4">
-        <p class="text-sm text-green-800" th:text="${mensaje}">
-            Criterio de consenso actualizado correctamente
-        </p>
-    </div>
-
-    <!-- Mensaje de error (si existe) -->
-    <div th:if="${error}"
-         class="mt-6 bg-red-50 border border-red-200 rounded-lg p-4">
-        <p class="text-sm text-red-800" th:text="${error}">
-            Error al actualizar el criterio de consenso
-        </p>
-    </div>
-</main>
-<div th:replace="~{layout/base :: footer}"></div>
-<div th:replace="~{layout/base :: scripts}"></div>
+        <!-- Mensaje de error (si existe) -->
+        <div th:if="${error}"
+            class="mt-6 bg-red-50 dark:bg-red-900/30 border border-red-200 dark:border-red-700 rounded-xl p-4 transition-colors">
+            <p class="text-sm text-red-800 dark:text-red-300" th:text="${error}">
+                Error al actualizar el criterio de consenso
+            </p>
+        </div>
+    </main>
+    <div th:replace="~{layout/base :: footer}"></div>
+    <div th:replace="~{layout/base :: scripts}"></div>
 </body>
+
 </html>

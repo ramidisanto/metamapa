@@ -1,109 +1,139 @@
 <!DOCTYPE html>
 <html lang="es" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security6">
+
 <head th:replace="~{layout/base :: head (title=${hecho.titulo})}"></head>
-<body class="bg-pastel-blue-50 flex flex-col min-h-screen">
 
-<div th:replace="~{layout/base :: header}"></div>
+<body class="bg-primary-100 dark:bg-gray-900 flex flex-col min-h-screen transition-colors duration-300">
 
-<main class="container mx-auto px-4 py-8 flex-grow">
-    <div class="max-w-4xl mx-auto bg-white p-6 rounded-lg shadow-md border border-pastel-blue-200">
-        <a href="javascript:history.back()" class="text-sm text-pastel-blue-600 hover:underline">&larr; Volver</a>
+    <div th:replace="~{layout/base :: header}"></div>
 
-        <h1 class="text-3xl font-bold text-pastel-blue-900 mt-4 mb-3" th:text="${hecho.titulo}">Título del Hecho</h1>
-        <p class="text-gray-700 mb-6" th:text="${hecho.descripcion}">Descripción del hecho</p>
-
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div>
-                <h2 class="text-xl font-semibold text-pastel-blue-800 mb-2">Detalles del Hecho</h2>
-                <ul class="space-y-1 text-sm">
-                    <li><strong>Categoría:</strong>
-                        <span class="bg-pastel-blue-100 text-pastel-blue-800 px-2 py-1 rounded-full text-xs font-semibold"
-                              th:text="${hecho.categoria}"></span>
-                    </li>
-                    <li><strong>Fecha del Acontecimiento:</strong> <span th:text="${hecho.fechaAcontecimiento.toLocalDate()}"></span></li>
-                    <li><strong>Fecha de Carga:</strong> <span th:text="${hecho.fechaCarga.toLocalDate()}"></span></li>
-                    <li><strong>Origen:</strong> <span th:text="${hecho.origen_carga}"></span></li>
-                </ul>
-            </div>
-
-            <div>
-                <h2 class="text-xl font-semibold text-pastel-blue-800 mb-2">Ubicación</h2>
-                <ul class="space-y-1 text-sm">
-                    <li><strong>País:</strong> <span th:text="${hecho.pais}"></span></li>
-                    <li><strong>Provincia:</strong> <span th:text="${hecho.provincia}"></span></li>
-                    <li><strong>Localidad:</strong> <span th:text="${hecho.localidad}"></span></li>
-                    <li th:if="${hecho.latitud != null and hecho.longitud != null}">
-                        <strong>Coordenadas:</strong>
-                        <span th:text="${hecho.latitud}"></span>,
-                        <span th:text="${hecho.longitud}"></span>
-                    </li>
-                </ul>
-            </div>
-        </div>
-
-        <div th:if="${hecho.contenido}" class="mt-8">
-            <h2 class="text-xl font-semibold text-pastel-blue-800 mb-2">Contenido Adicional</h2>
-            <p class="text-gray-700 whitespace-pre-wrap" th:text="${hecho.contenido}"></p>
-            <div th:if="${hecho.contenido == null or hecho.contenido.isEmpty()}">
-                <p class="text-gray-500 italic">No hay contenido adicional.</p>
-            </div>
-        </div>
-
-        <div th:if="${hecho.contenido_multimedia}" class="mt-8">
-            <h2 class="text-xl font-semibold text-pastel-blue-800 mb-2">Contenido Multimedia</h2>
-            <img th:src="@{${hecho.contenido_multimedia}}" alt="Contenido multimedia"
-                 class="rounded-lg border border-gray-300 shadow-md max-h-96 mx-auto"/>
-        </div>
-
-        <div class="mt-8">
-            <div th:if="${hecho.origen_carga.equals(origenDinamica.name())}">
-                <h2 class="text-xl font-semibold text-pastel-blue-800 mb-2">Contribuyente</h2>
-                <p th:if="${hecho.anonimo}" class="italic text-gray-600">Este hecho fue reportado de forma anónima.</p>
-                <p th:if="${!hecho.anonimo}" class="text-gray-700">
-                    Reportado por: <strong th:text="${hecho.usuario}"></strong>
-                </p>
-            </div>
-        </div>
-
-        <div sec:authorize="!hasRole('admin_client_role')"  class="mt-4 pt-3 border-t border-gray-200 dark:border-gray-700 flex justify-end">
-            <a th:href="@{/solicitarEliminacion/{id}(id=${hecho.idHecho})}"
-               class="inline-flex items-center gap-1.5 text-xs font-medium text-red-600 hover:text-red-900 transition-colors dark:text-red-400 dark:hover:text-red-300">
-                <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                    <path fill-rule="evenodd" d="M8.75 1A2.75 2.75 0 006 3.75v.443c-.795.077-1.584.176-2.365.298a.75.75 0 10.23 1.482l.149-.022.841 10.518A2.75 2.75 0 007.596 19h4.807a2.75 2.75 0 002.742-2.53l.841-10.52.149.023a.75.75 0 00.23-1.482A41.03 41.03 0 0014 4.193V3.75A2.75 2.75 0 0011.25 1h-2.5zM10 4c.84 0 1.673.025 2.5.075V3.75c0-.69-.56-1.25-1.25-1.25h-2.5c-.69 0-1.25.56-1.25 1.25v.325C8.327 4.025 9.16 4 10 4zM8.58 7.72a.75.75 0 00-1.5.06l.3 7.5a.75.75 0 101.5-.06l-.3-7.5zm4.34.06a.75.75 0 10-1.5-.06l-.3 7.5a.75.75 0 101.5.06l.3-7.5z" clip-rule="evenodd" />
+    <main class="container mx-auto px-4 py-8 flex-grow">
+        <div class="max-w-4xl mx-auto card p-8">
+            <a href="javascript:history.back()"
+                class="inline-flex items-center gap-2 text-sm text-primary-600 hover:text-primary-700 font-medium transition-colors">
+                <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                    stroke-width="1.5" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18" />
                 </svg>
-                Solicitar eliminación
+                Volver
             </a>
+
+            <h1 class="text-3xl font-bold bg-gradient-to-r from-primary-600 to-primary-800 dark:from-primary-400 dark:to-primary-600 bg-clip-text text-transparent"
+                th:text="${hecho.titulo}">
+                Título del Hecho</h1>
+            <p class="text-gray-700 dark:text-gray-200 mb-6" th:text="${hecho.descripcion}">Descripción del hecho</p>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                    <h2
+                        class="text-xl font-bold bg-gradient-to-r from-primary-600 to-primary-800 dark:from-primary-400 dark:to-primary-600 bg-clip-text text-transparent">
+                        Detalles del Hecho</h2>
+                    <ul class="space-y-1 text-sm">
+                        <li><strong>Categoría:</strong>
+                            <span class="badge badge-primary" th:text="${hecho.categoria}"></span>
+                        </li>
+                        <li><strong>Fecha del Acontecimiento:</strong> <span
+                                th:text="${hecho.fechaAcontecimiento.toLocalDate()}"></span></li>
+                        <li><strong>Fecha de Carga:</strong> <span th:text="${hecho.fechaCarga.toLocalDate()}"></span>
+                        </li>
+                        <li><strong>Origen:</strong> <span th:text="${hecho.origen_carga}"></span></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h2
+                        class="text-xl font-bold bg-gradient-to-r from-primary-600 to-primary-800 dark:from-primary-400 dark:to-primary-600 bg-clip-text text-transparent">
+                        Ubicación</h2>
+                    <ul class="space-y-1 text-sm">
+                        <li><strong>País:</strong> <span th:text="${hecho.pais}"></span></li>
+                        <li><strong>Provincia:</strong> <span th:text="${hecho.provincia}"></span></li>
+                        <li><strong>Localidad:</strong> <span th:text="${hecho.localidad}"></span></li>
+                        <li th:if="${hecho.latitud != null and hecho.longitud != null}">
+                            <strong>Coordenadas:</strong>
+                            <span th:text="${hecho.latitud}"></span>,
+                            <span th:text="${hecho.longitud}"></span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div th:if="${hecho.contenido}" class="mt-8">
+                <h2
+                    class="text-xl font-bold bg-gradient-to-r from-primary-600 to-primary-800 dark:from-primary-400 dark:to-primary-600 bg-clip-text text-transparent">
+                    Contenido Adicional</h2>
+                <p class="text-gray-700 dark:text-gray-200 whitespace-pre-wrap" th:text="${hecho.contenido}"></p>
+                <div th:if="${hecho.contenido == null or hecho.contenido.isEmpty()}">
+                    <p class="text-gray-500 dark:text-gray-400 italic">No hay contenido adicional.</p>
+                </div>
+            </div>
+
+            <div th:if="${hecho.contenido_multimedia}" class="mt-8">
+                <h2
+                    class="text-xl font-bold bg-gradient-to-r from-primary-600 to-primary-800 dark:from-primary-400 dark:to-primary-600 bg-clip-text text-transparent">
+                    Contenido Multimedia</h2>
+                <img th:src="@{${hecho.contenido_multimedia}}" alt="Contenido multimedia"
+                    class="rounded-lg border border-gray-300 shadow-md max-h-96 mx-auto" />
+            </div>
+
+            <div class="mt-8">
+                <div th:if="${hecho.origen_carga.equals(origenDinamica.name())}">
+                    <h2
+                        class="text-xl font-bold bg-gradient-to-r from-primary-600 to-primary-800 dark:from-primary-400 dark:to-primary-600 bg-clip-text text-transparent">
+                        Contribuyente</h2>
+                    <p th:if="${hecho.anonimo}" class="italic text-gray-600 dark:text-gray-300">Este hecho fue reportado
+                        de forma anónima.
+                    </p>
+                    <p th:if="${!hecho.anonimo}" class="text-gray-700 dark:text-gray-200">
+                        Reportado por: <strong th:text="${hecho.usuario}"></strong>
+                    </p>
+                </div>
+            </div>
+
+            <div sec:authorize="!hasRole('admin_client_role')"
+                class="mt-4 pt-3 border-t border-gray-200 dark:border-gray-700 flex justify-end">
+                <a th:href="@{/solicitarEliminacion/{id}(id=${hecho.idHecho})}"
+                    class="inline-flex items-center gap-1.5 text-xs font-medium text-red-600 hover:text-red-900 transition-colors dark:text-red-400 dark:hover:text-red-300">
+                    <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd"
+                            d="M8.75 1A2.75 2.75 0 006 3.75v.443c-.795.077-1.584.176-2.365.298a.75.75 0 10.23 1.482l.149-.022.841 10.518A2.75 2.75 0 007.596 19h4.807a2.75 2.75 0 002.742-2.53l.841-10.52.149.023a.75.75 0 00.23-1.482A41.03 41.03 0 0014 4.193V3.75A2.75 2.75 0 0011.25 1h-2.5zM10 4c.84 0 1.673.025 2.5.075V3.75c0-.69-.56-1.25-1.25-1.25h-2.5c-.69 0-1.25.56-1.25 1.25v.325C8.327 4.025 9.16 4 10 4zM8.58 7.72a.75.75 0 00-1.5.06l.3 7.5a.75.75 0 101.5-.06l-.3-7.5zm4.34.06a.75.75 0 10-1.5-.06l-.3 7.5a.75.75 0 101.5.06l.3-7.5z"
+                            clip-rule="evenodd" />
+                    </svg>
+                    Solicitar eliminación
+                </a>
+            </div>
+
+
+            <div th:if="${hecho.latitud != null and hecho.longitud != null}" class="mt-10">
+                <h2
+                    class="text-xl font-bold bg-gradient-to-r from-primary-600 to-primary-800 dark:from-primary-400 dark:to-primary-600 bg-clip-text text-transparent">
+                    Ubicación en el mapa</h2>
+                <div id="map" class="h-96 rounded-md border border-gray-300"></div>
+            </div>
         </div>
+    </main>
 
+    <div th:replace="~{layout/base :: footer}"></div>
 
-        <div th:if="${hecho.latitud != null and hecho.longitud != null}" class="mt-10">
-            <h2 class="text-xl font-semibold text-pastel-blue-800 mb-3">Ubicación en el mapa</h2>
-            <div id="map" class="h-96 rounded-md border border-gray-300"></div>
-        </div>
-    </div>
-</main>
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+        const lat = /*[[${hecho.latitud}]]*/ null;
+        const lon = /*[[${hecho.longitud}]]*/ null;
+        const localidad = /*[[${hecho.localidad}]]*/ 'Ubicación';
 
-<div th:replace="~{layout/base :: footer}"></div>
+        if (lat && lon) {
+            const map = L.map('map').setView([lat, lon], 13);
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '&copy; OpenStreetMap'
+            }).addTo(map);
 
-<script th:inline="javascript">
-    /*<![CDATA[*/
-    const lat = /*[[${hecho.latitud}]]*/ null;
-    const lon = /*[[${hecho.longitud}]]*/ null;
-    const localidad = /*[[${hecho.localidad}]]*/ 'Ubicación';
+            L.marker([lat, lon]).addTo(map)
+                .bindPopup(localidad)
+                .openPopup();
+        }
+        /*]]>*/
+    </script>
 
-    if (lat && lon) {
-        const map = L.map('map').setView([lat, lon], 13);
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            attribution: '&copy; OpenStreetMap'
-        }).addTo(map);
-
-        L.marker([lat, lon]).addTo(map)
-            .bindPopup(localidad)
-            .openPopup();
-    }
-    /*]]>*/
-</script>
-
-<div th:replace="~{layout/base :: scripts}"></div>
+    <div th:replace="~{layout/base :: scripts}"></div>
 </body>
+
 </html>

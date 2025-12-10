@@ -1,85 +1,140 @@
 <!DOCTYPE html>
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Iniciar Sesión - MetaMapa</title>
     <link rel="icon" th:href="@{/images/logo.png}" type="image/png">
     <link rel="stylesheet" th:href="@{/css/style.css}">
-    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" th:href="@{/css/custom.css}">
 
     <style>
         body {
-            background: linear-gradient(135deg, #e0f2fe, #bfdbfe);
-            font-family: 'Inter', sans-serif;
+            background: linear-gradient(-45deg, #eef2ff, #e0e7ff, #ecfdf5, #d1fae5);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+        }
+
+        .dark body {
+            background: linear-gradient(-45deg, #1f2937, #111827, #0f172a, #1e1b4b);
+        }
+
+        @keyframes gradientBG {
+            0% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+
+            100% {
+                background-position: 0% 50%;
+            }
         }
     </style>
+
+    <!-- Theme initialization -->
+    <script>
+        (function () {
+            const theme = localStorage.getItem('theme') || 'light';
+            if (theme === 'dark') {
+                document.documentElement.classList.add('dark');
+            }
+        })();
+    </script>
 </head>
+
 <body class="min-h-screen flex flex-col">
 
-<!-- Contenido principal -->
-<main class="flex-grow flex items-center justify-center px-4 py-10">
-    <div class="bg-white shadow-lg rounded-2xl p-8 w-full max-w-md border border-pastel-blue-200">
-        <a th:href="@{/}"
-           class="inline-flex items-center px-4 py-2 mb-4  text-pastel-blue-900 font-medium rounded-lg transition">
-            ← Volver
-        </a>
-        <div class="text-center mb-6">
-            <img th:src="@{/images/logo.png}" alt="MetaMapa Logo" class="mx-auto w-16 h-16 mb-3">
-            <h1 class="text-2xl font-bold text-pastel-blue-900">Iniciar Sesión</h1>
-            <p class="text-sm text-gray-500 mt-1">Accede a tu cuenta para continuar</p>
-        </div>
+    <!-- Main Content -->
+    <main class="flex-grow flex items-center justify-center px-4 py-10">
+        <div
+            class="bg-white/90 dark:bg-gray-800/90 backdrop-blur-xl shadow-soft-lg rounded-3xl p-8 md:p-10 w-full max-w-md border border-white/60 dark:border-gray-700 animate-fade-in">
+            <a th:href="@{/}"
+                class="inline-flex items-center gap-2 px-4 py-2 mb-6 text-primary-700 dark:text-primary-400 font-medium rounded-xl hover:bg-primary-50 dark:hover:bg-gray-700 transition-colors">
+                <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                    stroke-width="1.5" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18" />
+                </svg>
+                Volver
+            </a>
 
-        <div th:if="${errorMessage}"
-             class="mb-4 p-4 bg-red-100 border border-red-400 text-red-700 rounded-lg flex items-start gap-3">
-            <span th:text="${errorMessage}">Error message</span>
-        </div>
-
-        <div th:if="${successMessage}"
-             class="mb-4 p-4 bg-green-100 border border-green-400 text-green-700 rounded-lg flex items-start gap-3">
-            <span th:text="${successMessage}">Success message</span>
-        </div>
-
-        <form th:action="@{/login}" th:object="${credenciales}" method="post" class="space-y-5">
-            <!-- Usuario -->
-            <div>
-                <label for="username" class="block text-sm font-medium text-pastel-blue-800 mb-1">Usuario</label>
-                <input th:field="*{username}" type="text" id="username" name="username" required
-                       class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-pastel-blue-500 focus:outline-none">
-            </div>
-
-            <!-- Contraseña -->
-            <div>
-                <label for="password" class="block text-sm font-medium text-pastel-blue-800 mb-1">Contraseña</label>
-                <div class="relative">
-                <input th:field="*{password}" type="password" id="password" name="password" required
-                       class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-pastel-blue-500 focus:outline-none">
-                    <button type="button" onclick="togglePassword()"
-                            class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700 focus:outline-none">
-                        <svg id="eyeOffIcon" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l3.59 3.59m0 0A9.953 9.953 0 0112 5c4.478 0 8.268 2.943 9.543 7a10.025 10.025 0 01-4.132 5.411m0 0L21 21" />
-                        </svg>
-                        <svg id="eyeIcon" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 hidden" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
-                        </svg>
-                    </button>
+            <div class="text-center mb-8">
+                <div
+                    class="w-20 h-20 mx-auto mb-4 from-primary-500 to-primary-700 rounded-2xl flex items-center justify-center shadow-lg">
+                    <img th:src="@{/images/logo.png}" alt="MetaMapa Logo" class="w-14 h-14">
                 </div>
+                <h1
+                   class="text-3xl font-bold bg-gradient-to-r from-primary-600 to-primary-800 dark:from-primary-400 dark:to-primary-600 bg-clip-text text-transparent">
+                    Iniciar Sesión</h1>
+                <p class="text-gray-500 mt-2">Accede a tu cuenta para continuar</p>
             </div>
 
-            <div>
-                <button type="submit"
-                        class="w-full bg-pastel-blue-600 hover:bg-pastel-blue-700 text-white font-semibold py-2 rounded-md transition-all">
+            <div th:if="${errorMessage}" class="alert alert-error mb-6 animate-fade-in">
+                <svg class="w-5 h-5 flex-shrink-0" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                    stroke-width="1.5" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                        d="M12 9v3.75m9-.75a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9 3.75h.008v.008H12v-.008Z" />
+                </svg>
+                <span th:text="${errorMessage}">Error message</span>
+            </div>
+
+            <div th:if="${successMessage}" class="alert alert-success mb-6 animate-fade-in">
+                <svg class="w-5 h-5 flex-shrink-0" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                    stroke-width="1.5" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                        d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                </svg>
+                <span th:text="${successMessage}">Success message</span>
+            </div>
+
+            <form th:action="@{/login}" th:object="${credenciales}" method="post" class="space-y-5">
+                <!-- Username -->
+                <div>
+                    <label for="username" class="input-label">Usuario</label>
+                    <input th:field="*{username}" type="text" id="username" name="username" required class="input"
+                        placeholder="Ingresa tu usuario">
+                </div>
+
+                <!-- Password -->
+                <div>
+                    <label for="password" class="input-label">Contraseña</label>
+                    <div class="relative">
+                        <input th:field="*{password}" type="password" id="password" name="password" required
+                            class="input pr-12" placeholder="Ingresa tu contraseña">
+                        <button type="button" onclick="togglePassword()"
+                            class="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 hover:text-primary-600 focus:outline-none transition-colors">
+                            <svg id="eyeOffIcon" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 24 24"
+                                stroke="currentColor" stroke-width="2" fill="none">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l3.59 3.59m0 0A9.953 9.953 0 0112 5c4.478 0 8.268 2.943 9.543 7a10.025 10.025 0 01-4.132 5.411m0 0L21 21" />
+                            </svg>
+                            <svg id="eyeIcon" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 hidden"
+                                viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-primary w-full py-3.5 text-lg mt-6">
                     Entrar
                 </button>
-            </div>
 
-            <p class="text-center text-sm text-gray-600">
-                ¿No tienes cuenta?
-                <a th:href="@{/auth/register}" class="text-pastel-blue-700 hover:underline font-medium">Regístrate</a>
-            </p>
-        </form>
-    </div>
-</main>
+                <p class="text-center text-sm text-gray-600 pt-4">
+                    ¿No tienes cuenta?
+                    <a th:href="@{/auth/register}"
+                        class="text-primary-600 hover:text-primary-700 font-semibold hover:underline">Regístrate</a>
+                </p>
+            </form>
+        </div>
+    </main>
+
     <script>
         function togglePassword() {
             const passwordInput = document.getElementById('password');
@@ -98,4 +153,5 @@
         }
     </script>
 </body>
+
 </html>
