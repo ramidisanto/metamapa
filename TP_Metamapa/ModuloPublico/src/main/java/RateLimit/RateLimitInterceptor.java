@@ -38,7 +38,7 @@ public class RateLimitInterceptor implements HandlerInterceptor {
 
         if (uri.matches(".*/hechos/\\d+")) {
             bucketKey = ip + "_DETAIL";
-            limit = 15;
+            limit = 20;
         }
         else if (uri.contains("/buscar") || uri.endsWith("/hechos")) {
             bucketKey = ip + "_SEARCH";

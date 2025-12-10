@@ -24,7 +24,7 @@ public class RateLimitService {
 
     private Bucket newBucket(String apiKey) {
 
-        Bandwidth limit = Bandwidth.classic(60, Refill.intervally(60, Duration.ofMinutes(1)));
+        Bandwidth limit = Bandwidth.classic(80, Refill.intervally(80, Duration.ofMinutes(1)));
         return Bucket4j.builder()
                 .addLimit(limit)
                 .build();
