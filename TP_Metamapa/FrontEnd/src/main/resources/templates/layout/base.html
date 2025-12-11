@@ -42,12 +42,15 @@
 <body>
 
     <header th:fragment="header"
-        class="bg-gradient-to-r from-primary-50 via-white to-primary-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 shadow-soft sticky top-0 z-[1000] border-b border-primary-100 dark:border-gray-700 transition-colors duration-300">
+        class="bg-gradient-to-r from-primary-50 via-white to-primary-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 shadow-soft sticky top-0 z-[900] border-b border-primary-100 dark:border-gray-700 transition-colors duration-300">
         <div class="container mx-auto px-4 py-3 flex justify-between items-center">
             <!-- Logo -->
             <div class="flex items-center gap-3">
                 <div class="w-11 h-11 flex items-center justify-center">
-                    <img th:src="@{/images/logo.png}" alt="MetaMapa Logo" class="w-10 h-10">
+                    <img th:src="@{/images/logo.png}" alt="MetaMapa Logo"
+                         class="w-10 h-10 block dark:hidden">
+                    <img th:src="@{/images/logo-dark.png}" alt="MetaMapa Logo"
+                         class="w-10 h-10 hidden dark:block">
                 </div>
                 <a th:href="@{/}"
                     class="text-2xl font-bold bg-gradient-to-r from-primary-700 to-primary-900 dark:from-primary-400 dark:to-primary-300 bg-clip-text text-transparent tracking-tight hover:from-primary-800 hover:to-primary-950 transition-all">

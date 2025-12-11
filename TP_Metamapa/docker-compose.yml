@@ -278,7 +278,7 @@ services:
       SERVER_URL: http://keycloak:8080
       REALM_NAME: spring-boot-realm-pr
       RESOURSE_ID: spring-client-api-rest
-      CLIENT_SECRET: "kJOsXBtDmRWBHrHCwgWcBgib9ASBRnWP"
+      CLIENT_SECRET: "jm9QSSzLotO1TLBcIZg4GUAPwHkZVTvN"
       SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_ISSUER_URI: http://localhost:8080/realms/spring-boot-realm-pr
       SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_JWK_SET_URI: http://keycloak:8080/realms/spring-boot-realm-pr/protocol/openid-connect/certs
     restart: on-failure
