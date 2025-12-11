@@ -1,6 +1,11 @@
 type Query {
     listarHechos(filtro: HechoFilterInput): [HechoDTO]
     listarColecciones: [ColeccionDTO]
+    listarPaises: [String]
+    listarProvincias: [String]
+    listarLocalidades: [String]
+    listarCategorias: [String]
+    obtenerHecho(id: ID!): HechoDTO
 }
 
 input HechoFilterInput {
@@ -16,6 +21,7 @@ input HechoFilterInput {
     provincia: String
     localidad: String
     navegacionCurada: Boolean
+    busquedaGeneral: String
 }
 
 type HechoDTO {

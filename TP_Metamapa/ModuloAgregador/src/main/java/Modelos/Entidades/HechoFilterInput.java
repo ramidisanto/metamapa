@@ -21,4 +21,6 @@ public class HechoFilterInput {
     private String provincia;
     private String localidad;
     private Boolean navegacionCurada;
+
+    private String busquedaGeneral;
 }

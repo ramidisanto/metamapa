@@ -37,7 +37,7 @@ public class NavegadorControlador {
     PaisServicio paisServicio;
     @Autowired
     NavegacionServicio navegacionServicio;
-
+    /*
     @GetMapping("/navegar")
     public String navegar(
             @RequestParam(required = false) String categoria,
@@ -74,24 +74,6 @@ public class NavegadorControlador {
         List<String> listaLocalidades = localidadServicio.getLocalidadesUnicas();
         List<ColeccionDTO> colecciones = coleccionServicio.getColecciones();
         OrigenCarga[] origenesDeCarga = OrigenCarga.values();
-//        List<String> listaCategorias = List.of("Cultura", "Historia", "Incendio Forestal");
-//        List<String> listaPaises = List.of("Argentina", "Uruguay", "Chile");
-//        List<String> listaProvincias = List.of("Buenos Aires", "Córdoba", "Santa Fe");
-//        List<String> listaLocalidades = List.of("Lomas de Zamora", "La Plata", "Rosario");
-//        HechoDTO hecho1 = new HechoDTO(1L, 101L, "Incendio en bosque", "Un gran incendio forestal afectó la zona sur.", "El incendio comenzó en horas de la tarde y se extendió rápidamente.", "imagen_incendio.jpg", "Desastre natural", LocalDateTime.of(2023, 5, 20, 16, 30), LocalDateTime.now(), "Bariloche", "Río Negro", "Argentina", -41.1335, -71.3103, "usuario123", "Juan", "Pérez", LocalDateTime.of(1990, 3, 15, 0, 0), false, true, "App móvil");
-//        HechoDTO hecho2 = new HechoDTO(2L, 102L, "Marcha por los derechos laborales", "Manifestación pacífica en el centro.", "Cientos de personas se reunieron para reclamar mejoras salariales.", "video_marcha.mp4", "Protesta social", LocalDateTime.of(2024, 9, 1, 10, 0), LocalDateTime.now(), "Córdoba", "Córdoba", "Argentina", -31.4201, -64.1888, "usuario456", "María", "González", LocalDateTime.of(1985, 8, 22, 0, 0), true, true, "Sitio web");
-//        HechoDTO hecho3 = new HechoDTO(3L, 103L, "Lanzamiento de satélite nacional", "Evento histórico en el ámbito tecnológico.", "Argentina lanzó su nuevo satélite de comunicaciones desde Cabo Cañaveral.", "foto_satélite.jpg", "Tecnología", LocalDateTime.of(2025, 4, 10, 14, 0), LocalDateTime.now(), "Cabo Cañaveral", "Florida", "Estados Unidos", 28.3922, -80.6077, "usuario789", "Lucía", "Martínez", LocalDateTime.of(1992, 12, 5, 0, 0), false, false, "Carga institucional");
-//
-//        hechosFiltrados.add(hecho1);
-//        hechosFiltrados.add(hecho2);
-//        hechosFiltrados.add(hecho3);
-
-        // Lista fija desde nuestro Enum
-
-//        List<ColeccionDTO> colecciones = new ArrayList<>();
-//        ColeccionDTO coleccionDTO = new ColeccionDTO(1L, "Colección de Prueba", "Descripción de prueba",null, null, null, null);
-//        colecciones.add(coleccionDTO);
-
 
         model.addAttribute("hechos", hechosFiltrados);
         model.addAttribute("categorias", listaCategorias);
@@ -124,5 +106,37 @@ public class NavegadorControlador {
 
     }
 
+
+    */
+    @GetMapping("/navegar")
+    public String navegar(Model model) {
+
+        // 1. Cargar datos auxiliares para los filtros (Dropdowns / Selects)
+        // Mantenemos esto aquí para que Thymeleaf renderice las opciones del menú
+        // y el usuario vea algo apenas carga la página.
+        List<String> listaCategorias = categoriaServicio.getCategoriasUnicas();
+        List<String> listaPaises = paisServicio.getPaisesUnicos();
+        List<String> listaProvincias = provinciaServicio.getProvinciasUnicas();
+        List<String> listaLocalidades = localidadServicio.getLocalidadesUnicas();
+        List<ColeccionDTO> colecciones = coleccionServicio.getColecciones();
+        OrigenCarga[] origenesDeCarga = OrigenCarga.values();
+
+        // 2. Pasamos las listas al modelo
+        model.addAttribute("categorias", listaCategorias);
+        model.addAttribute("paises", listaPaises);
+        model.addAttribute("provincias", listaProvincias);
+        model.addAttribute("localidades", listaLocalidades);
+        model.addAttribute("origenesDeCarga", origenesDeCarga);
+        model.addAttribute("colecciones", colecciones);
+
+        // 3. Configuración visual
+        model.addAttribute("activePage", "navegar");
+
+        // 4. ¡IMPORTANTE! YA NO enviamos la lista de "hechos".
+        // El HTML debe tener un contenedor vacío (ej: <div id="listaHechos">)
+        // y el JavaScript que hicimos antes se encargará de llenarlo llamando a GraphQL.
+
+        return "navegar";
+    }
 
 }

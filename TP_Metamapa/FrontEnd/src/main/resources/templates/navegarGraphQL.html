@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{layout/base :: head (title='Navegar - Metamapa')}"></head>
+
+<body class="bg-primary-100 dark:bg-gray-900 flex flex-col min-h-screen transition-colors duration-300">
+
+    <div th:replace="~{layout/base :: header}"></div>
+
+    <main class="w-full flex justify-center my-8 flex-grow">
+        <div class="content-wrapper w-full max-w-screen-xl px-6 md:px-10 lg:px-16 flex flex-col">
+            <form method="get" th:action="@{/navegar}" class="flex-grow flex flex-col">
+
+                <div class="flex flex-col gap-6 h-[calc(100vh-12rem)]">
+
+                    <div class="search-bar-container">
+                        <button type="button" id="toggleFiltros"
+                            class="btn-filtros bg-pastel-blue-600 text-white font-semibold rounded-md hover:bg-pastel-blue-700 flex items-center gap-2">
+                            <img th:src="@{/images/filtro.png}" alt="Icono filtro" class="w-4 h-4">
+                            <span id="toggleText">Mostrar Filtros</span>
+                        </button>
+
+                        <input type="text" name="textoLibre" id="inputBusqueda" th:value="${filtrosActuales.textoLibre}"
+                            placeholder="Búsqueda por texto libre..."
+                            class="search-input border rounded-lg pl-3 pr-4 text-sm" />
+
+                        <button type="submit" name="accion" value="buscarTexto"
+                            class="btn-buscar bg-pastel-blue-600 text-white font-medium rounded-md hover:bg-pastel-blue-700 text-sm">
+                            Buscar
+                        </button>
+                    </div>
+
+
+
+                    <div class="flex flex-col md:flex-row gap-6 flex-grow min-h-0">
+
+                        <div id="filtrosPanel"
+                            class="hidden md:w-1/3 lg:w-1/4 bg-white/95 dark:bg-gray-800/95 backdrop-blur-sm p-5 rounded-2xl shadow-soft border border-primary-200 dark:border-gray-700 flex-col transition-all duration-300 overflow-x-hidden">
+                            <h3 class="text-xl font-bold text-primary-900 dark:text-primary-200 mb-4 flex-shrink-0">
+                                Filtros Avanzados</h3>
+                            <div class="space-y-4 overflow-y-auto flex-grow px-2 overflow-x-hidden">
+                                <div>
+                                    <label for="titulo"
+                                        class="block text-sm font-medium text-gray-700 dark:text-gray-300">Título</label>
+                                    <input type="text" name="titulo" id="titulo" th:value="${filtrosActuales.titulo}"
+                                        class="mt-1 block w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-primary-500 dark:focus:ring-primary-400 sm:text-sm" />
+                                </div>
+
+                                <div>
+                                    <label for="coleccionSelect"
+                                        class="block text-sm font-medium text-gray-700 dark:text-gray-300">Colección</label>
+                                    <select name="coleccionId" id="coleccionSelect"
+                                        class="mt-1 block w-full px-3 py-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 rounded-md shadow-sm focus:outline-none focus:ring-primary-500 dark:focus:ring-primary-400 sm:text-sm">
+                                        <option value="">Ninguna</option>
+                                        <option th:each="col : ${colecciones}" th:value="${col.coleccionId}"
+                                            th:text="${col.titulo}"
+                                            th:selected="${col.coleccionId.toString() == filtrosActuales.coleccionId.toString()}">
+                                        </option>
+                                    </select>
+                                </div>
+
+                                <div id="navegacionCuradaContainer"
+                                    th:classappend="${(filtrosActuales.coleccionId == null) ? 'hidden' : ''}"
+                                    class="transition-all">
+                                    <label for="navegacionCurada"
+                                        class="block text-sm font-medium text-gray-700 dark:text-gray-300">Modo de
+                                        Navegación</label>
+                                    <select name="navegacionCurada" id="navegacionCurada"
+                                        class="mt-1 block w-full px-3 py-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 rounded-md shadow-sm focus:outline-none focus:ring-primary-500 dark:focus:ring-primary-400 sm:text-sm">
+                                        <option value="false" th:selected="${!filtrosActuales.navegacionCurada}">
+                                            Irrestricta</option>
+                                        <option value="true" th:selected="${filtrosActuales.navegacionCurada}">Curada
+                                        </option>
+                                    </select>
+                                </div>
+
+                                <div>
+                                    <label for="categoria"
+                                        class="block text-sm font-medium text-gray-700 dark:text-gray-300">Categoría</label>
+                                    <select name="categoria" id="categoria"
+                                        class="mt-1 block w-full px-3 py-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 rounded-md shadow-sm focus:outline-none focus:ring-primary-500 dark:focus:ring-primary-400 sm:text-sm">
+                                        <option value="">Todas</option>
+                                        <option th:each="cat : ${categorias}" th:value="${cat}" th:text="${cat}"
+                                            th:selected="${cat == filtrosActuales.categoria}">
+                                        </option>
+                                    </select>
+                                </div>
+
+                                <div>
+                                    <label for="contenidoMultimedia"
+                                        class="block text-sm font-medium text-gray-700 dark:text-gray-300">Contenido
+                                        Multimedia</label>
+                                    <select name="contenidoMultimedia" id="contenidoMultimedia"
+                                        class="mt-1 block w-full px-3 py-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 rounded-md shadow-sm focus:outline-none focus:ring-primary-500 dark:focus:ring-primary-400 sm:text-sm">
+                                        <option value="" th:selected="${filtrosActuales.contenidoMultimedia == null}">
+                                            Sin Filtro</option>
+                                        <option value="true"
+                                            th:selected="${filtrosActuales.contenidoMultimedia == true}">Sí</option>
+                                        <option value="false"
+                                            th:selected="${filtrosActuales.contenidoMultimedia == false}">No</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300">Fecha de
+                                        Carga</label>
+                                    <div class="flex items-center gap-2 mb-2">
+                                        <p class="block text-sm font-medium text-gray-700 dark:text-gray-300 w-16">Desde
+                                        </p>
+                                        <input type="date" name="fechaCargaDesde" id="fechaCargaDesde"
+                                            th:value="${filtrosActuales.fechaCargaDesde}"
+                                            class="block px-2 py-1 border rounded-md text-sm dark:bg-gray-700 dark:border-gray-600 dark:text-white" />
+                                    </div>
+                                    <div class="flex items-center gap-2">
+                                        <p class="block text-sm font-medium text-gray-700 dark:text-gray-300 w-16">Hasta
+                                        </p>
+                                        <input type="date" name="fechaCargaHasta"
+                                            th:value="${filtrosActuales.fechaCargaHasta}"
+                                            class="block px-2 py-1 border rounded-md text-sm dark:bg-gray-700 dark:border-gray-600 dark:text-white" />
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300">Fecha
+                                        Acontecimiento</label>
+                                    <div class="flex items-center gap-2 mb-2">
+                                        <p class="block text-sm font-medium text-gray-700 dark:text-gray-300 w-16">Desde
+                                        </p>
+                                        <input type="date" name="fechaHechoDesde" id="fechaHechoDesde"
+                                            th:value="${filtrosActuales.fechaHechoDesde}"
+                                            class="block px-2 py-1 border rounded-md text-sm dark:bg-gray-700 dark:border-gray-600 dark:text-white" />
+                                    </div>
+                                    <div class="flex items-center gap-2">
+                                        <p class="block text-sm font-medium text-gray-700 dark:text-gray-300 w-16">Hasta
+                                        </p>
+                                        <input type="date" name="fechaHechoHasta" id="fechaHechoHasta"
+                                            th:value="${filtrosActuales.fechaHechoHasta}"
+                                            class="block px-2 py-1 border rounded-md text-sm dark:bg-gray-700 dark:border-gray-600 dark:text-white" />
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <label for="origen"
+                                        class="block text-sm font-medium text-gray-700 dark:text-gray-300">Origen
+                                        Carga</label>
+                                    <select name="origen" id="origen"
+                                        class="mt-1 block w-full px-3 py-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 rounded-md shadow-sm focus:outline-none focus:ring-primary-500 dark:focus:ring-primary-400 sm:text-sm">
+                                        <option value="">Todos</option>
+                                        <option th:each="o : ${origenesDeCarga}" th:value="${o.name()}" th:text="${o}"
+                                            th:selected="${o.name() == filtrosActuales.origen}">
+                                        </option>
+                                    </select>
+                                </div>
+
+                                <div>
+                                    <label
+                                        class="block text-sm font-medium text-gray-700 dark:text-gray-300">Ubicación</label>
+                                    <div class="space-y-2 mt-1">
+                                        <select name="pais" id="pais"
+                                            class="block w-full px-3 py-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 rounded-md sm:text-sm">
+                                            <option value="">Todos los Países</option>
+                                            <option th:each="p : ${paises}" th:value="${p}" th:text="${p}"
+                                                th:selected="${p == filtrosActuales.pais}"></option>
+                                        </select>
+                                        <select name="provincia" id="provincia"
+                                            class="block w-full px-3 py-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 rounded-md sm:text-sm">
+                                            <option value="">Todas las Provincias</option>
+                                            <option th:each="p : ${provincias}" th:value="${p}" th:text="${p}"
+                                                th:selected="${p == filtrosActuales.provincia}"></option>
+                                        </select>
+                                        <select name="localidad" id="localidad"
+                                            class="block w-full px-3 py-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 rounded-md sm:text-sm">
+                                            <option value="">Todas las Localidades</option>
+                                            <option th:each="l : ${localidades}" th:value="${l}" th:text="${l}"
+                                                th:selected="${l == filtrosActuales.localidad}"></option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="flex gap-2 mt-6 flex-shrink-0 -mx-4 px-4">
+                                <button type="submit" name="accion" value="filtrar" class="flex-1 btn btn-primary">
+                                    Buscar
+                                </button>
+                                <button type="submit" name="accion" value="limpiar" class="flex-1 btn btn-secondary">
+                                    Limpiar
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Contenido Principal -->
+                        <div id="contenidoPrincipal"
+                            class="w-full flex flex-col gap-4 min-h-0 transition-all duration-300">
+
+
+
+                            <div class="flex-grow flex flex-col gap-4 min-h-0">
+
+                                <div class="flex-grow flex flex-col md:flex-row gap-4 min-h-0">
+
+                                    <!-- Mapa -->
+                                    <div id="mapaContainer"
+                                        class="md:w-1/2 rounded-lg shadow-lg border overflow-hidden h-full min-h-[300px] md:min-h-0">
+                                        <div id="mapa" class="w-full h-full bg-pastel-blue-100">
+
+                                        </div>
+                                    </div>
+
+                                    <!-- Resultados -->
+                                    <div id="resultadosContainer"
+                                        class="md:w-1/2 flex flex-col gap-4 h-full min-h-[300px] md:min-h-0 transition-all duration-300">
+                                        <h2
+                                            class="text-2xl font-bold text-primary-900 dark:text-primary-200 flex-shrink-0">
+                                            Resultados (<span th:text="${hechos.size()}">0</span>)</h2>
+                                        <div
+                                            class="flex-grow bg-white/95 dark:bg-gray-800/95 backdrop-blur-sm p-3 rounded-2xl shadow-soft border border-primary-200 dark:border-gray-700 overflow-y-auto min-h-0 scrollbar-thin">
+                                            <div th:if="${!hechos.isEmpty()}" class="space-y-3">
+                                                <div th:each="hecho : ${hechos}">
+                                                    <div
+                                                        th:replace="~{fragments/hechoCard :: hechoCard(hecho=${hecho}, showOptions=true, showAdminActions=${#authorization.expression('hasRole(''admin_client_role'')')}, coleccionId=null)}">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div th:if="${hechos.isEmpty()}"
+                                                class="flex items-center justify-center h-full">
+                                                <p class="text-center text-gray-500 dark:text-gray-400 p-8">No se
+                                                    encontraron hechos con
+                                                    los filtros aplicados.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </main>
+
+    <div th:replace="~{layout/base :: footer}"></div>
+
+    <div id="listaHechosContainer" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+    </div>
+
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+
+        // URL de tu Modulo Agregador (Ajusta el puerto según tu configuración)
+        const GRAPHQL_URL = 'http://localhost:8082/graphql';
+
+        async function buscarHechos() {
+            const titulo = document.getElementById('titulo').value || null;
+            const coleccion = document.getElementById('coleccionSelect') || null;
+            const pais = document.getElementById('pais').value || null;
+            const provincia = document.getElementById('provincia').value || null;
+            const localidad = document.getElementById('localidad').value || null;
+            const categoria = document.getElementById('categoria').value || null;
+            const fechaCargaDesde = document.getElementById('fechaCargaDesde').value || null;
+            const fechaCargaHasta = document.getElementById('fechaCargaHasta').value || null;
+            const fechaHechoDesde = document.getElementById('fechaHechoDesde').value || null;
+            const fechaHechoHasta = document.getElementById('fechaHechoHasta').value || null;
+            const contenidoMultimedia = document.getElementById('contenidoMultimedia').value || null;
+            const origenCarga = document.getElementById('origen').value || null;
+            const navegacionCurada = document.getElementById('navegacionCurada').value || null;
+
+            const query = `
+                query($filtro: HechoFilterInput) {
+                    listarHechos(filtro: $filtro) {
+                        titulo
+                        descripcion
+                        coleccion
+                        fechaHechoDesde
+                        fechaHechoHasta
+                        categoria
+                        pais
+                        provincia
+                        localidad
+                        fechaCargaDesde
+                        fechaCargaHasta
+                        contenidoMultimedia
+                        origenCarga
+                        navegacionCurada
+                    }
+                }
+            `;
+
+            const texto = document.getElementById('inputBusqueda').value;
+
+            const variables = {
+                filtro: {
+                    busquedaGeneral: texto,
+                    titulo: titulo,
+                    pais: pais,
+                    provincia: provincia,
+                    localidad: localidad,
+                    categoria: categoria,
+                    fechaCargaDesde: fechaCargaDesde,
+                    fechaCargaHasta: fechaCargaHasta,
+                    fechaHechoDesde: fechaHechoDesde,
+                    fechaHechoHasta: fechaHechoHasta,
+                    navegaciobCurada: navegacionCurada,
+                    origenCarga: origenCarga,
+                    contenidoMultimedia: contenidoMultimedia
+                    }
+            };
+
+            try {
+                const response = await fetch(GRAPHQL_URL, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        query: query,
+                        variables: variables
+                    })
+                });
+
+                const body = await response.json();
+
+                if (body.errors) {
+                    console.error("Errores GraphQL:", body.errors);
+                    alert("Error al buscar hechos.");
+                    return;
+                }
+
+                // 4. Renderizar los datos en el HTML
+                const hechos = body.data.listarHechos;
+                renderizarHechos(hechos);
+
+            } catch (error) {
+                console.error("Error de red:", error);
+                alert("No se pudo conectar con el servidor.");
+            }
+        }
+
+        // Función auxiliar para pintar las cards
+        function renderizarHechos(hechos) {
+            const contenedor = document.getElementById('listaHechosContainer');
+            contenedor.innerHTML = ''; // Limpiar resultados anteriores
+
+            if (hechos.length === 0) {
+                contenedor.innerHTML = '<p class="text-gray-500 col-span-full text-center">No se encontraron hechos.</p>';
+                return;
+            }
+
+            hechos.forEach(hecho => {
+                // Crear el HTML de la card dinámicamente
+                const card = document.createElement('div');
+                card.className = 'bg-white p-4 rounded shadow border border-gray-200';
+                card.innerHTML = `
+                    <h3 class="font-bold text-lg text-pastel-blue-800">${hecho.titulo}</h3>
+                    <span class="text-xs bg-blue-100 text-blue-800 px-2 py-1 rounded">${hecho.categoria || 'Sin categoría'}</span>
+                    <p class="text-gray-600 mt-2 text-sm">${hecho.descripcion || ''}</p>
+                    <div class="mt-2 text-xs text-gray-400">
+                        📍 ${hecho.localidad || ''}, ${hecho.pais || ''}
+                    </div>
+                `;
+                contenedor.appendChild(card);
+            });
+        }
+
+        // Hookear el botón de buscar
+        const btnBuscar = document.getElementById('btnBuscar'); // Asumiendo que tienes un botón con este ID
+        if(btnBuscar) {
+            btnBuscar.addEventListener('click', (e) => {
+                e.preventDefault(); // Evitar submit tradicional del form
+                buscarHechos();
+            });
+        }
+
+        // Carga inicial (opcional)
+        // buscarHechos();
+
+        /*]]>*/
+    </script>
+    <div th:replace="~{layout/base :: scripts}"></div>
+</body>
+
+</html>
