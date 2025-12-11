@@ -66,45 +66,12 @@ select:-webkit-autofill:focus {
     gap: 0.75rem;
     width: 100%;
 }
-
-/* Fix para controles de Leaflet - que estén por encima del header */
-.leaflet-top,
-.leaflet-bottom {
-    z-index: 1100 !important;
+header {
+    position: relative;
+    z-index: 1000; /* o un valor alto como 9999 */
 }
-
-.leaflet-control-zoom,
-.leaflet-control-layers,
-.leaflet-control-attribution {
-    z-index: 1100 !important;
-}
-
-.leaflet-pane {
-    z-index: 400;
-}
-
-.leaflet-tile-pane {
-    z-index: 200;
-}
-
-.leaflet-overlay-pane {
-    z-index: 400;
-}
-
-.leaflet-shadow-pane {
-    z-index: 500;
-}
-
-.leaflet-marker-pane {
-    z-index: 600;
-}
-
-.leaflet-tooltip-pane {
-    z-index: 650;
-}
-
-.leaflet-popup-pane {
-    z-index: 700;
+.leaflet-container {
+    z-index: 1 !important;
 }
 @media (min-width: 640px) {
     .search-bar-container {

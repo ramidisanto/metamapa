@@ -88,8 +88,10 @@
                         <button type="button" id="searchBtn"
                             class="px-6 py-3 bg-gradient-to-r from-primary-600 to-primary-700 text-white font-medium rounded-xl shadow-md hover:from-primary-700 hover:to-primary-800 hover:shadow-lg transition-all duration-300">Buscar</button>
                     </div>
-                    <div id="map" class="h-96 w-full rounded-xl border-2 border-gray-200 dark:border-gray-600"></div>
-                    <input type="hidden" name="latitud" id="latitud" th:field="*{latitud}" />
+                    <div class="h-96 w-full rounded-xl border-2 border-gray-200 dark:border-gray-600 relative z-0"
+                         style="isolation: isolate;">
+                        <div id="map" style="height: 100%;"></div>
+                    </div>                    <input type="hidden" name="latitud" id="latitud" th:field="*{latitud}" />
                     <input type="hidden" name="longitud" id="longitud" th:field="*{longitud}" />
                     <input type="hidden" name="pais" id="pais" th:field="*{pais}" />
                     <input type="hidden" name="provincia" id="provincia" th:field="*{provincia}" />
