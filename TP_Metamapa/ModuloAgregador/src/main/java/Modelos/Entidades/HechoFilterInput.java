@@ -6,14 +6,14 @@ import java.time.LocalDateTime;
 
 @Data
 public class HechoFilterInput {
-    private Long idColeccion;
+    private String idColeccion;
     private String categoria;
     private Boolean contenidoMultimedia;
 
-    private LocalDateTime fechaCargaDesde;
-    private LocalDateTime fechaCargaHasta;
-    private LocalDateTime fechaHechoDesde;
-    private LocalDateTime fechaHechoHasta;
+    private String fechaCargaDesde;
+    private String fechaCargaHasta;
+    private String fechaHechoDesde;
+    private String fechaHechoHasta;
 
     private String origenCarga;
     private String titulo;

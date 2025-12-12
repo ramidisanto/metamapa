@@ -32,7 +32,7 @@ public class AgregadorGraphQLServicio {
         if (filtro.getIdColeccion() != null /*&& !filtro.getIdColeccion().isEmpty()*/) {
             // Caso A: Buscar dentro de una colección específica
             //Long idCol = Long.parseLong(filtro.getIdColeccion());
-            Long idCol = filtro.getIdColeccion();
+            Long idCol = Long.parseLong(filtro.getIdColeccion());
             hechos = new ArrayList<>(coleccionRepositorio.findById(idCol)
                     .map(c -> c.getHechos())
                     .orElse(new ArrayList<>()));
@@ -49,17 +49,13 @@ public class AgregadorGraphQLServicio {
                 }
             }
 
-            /*
+
             LocalDateTime cargaDesde = parseFecha(filtro.getFechaCargaDesde());
             LocalDateTime cargaHasta = parseFecha(filtro.getFechaCargaHasta());
             LocalDateTime hechoDesde = parseFecha(filtro.getFechaHechoDesde()); // O getFechaAcontecimientoDesde
             LocalDateTime hechoHasta = parseFecha(filtro.getFechaHechoHasta());
-            */
 
-            LocalDateTime cargaDesde = filtro.getFechaCargaDesde();
-            LocalDateTime cargaHasta = filtro.getFechaCargaHasta();
-            LocalDateTime hechoDesde = filtro.getFechaHechoDesde();
-            LocalDateTime hechoHasta = filtro.getFechaHechoHasta();
+
 
             hechos = hechoRepositorio.filtrarHechos(
                     filtro.getCategoria(),
@@ -119,11 +115,15 @@ public class AgregadorGraphQLServicio {
 
     // Método PÚBLICO para que el servicio de Colecciones pueda reusarlo
     public HechoDTOoutput convertirAHechoDTO(Hecho h) {
-        String calle = null, loc = null, prov = null, pais = null;
+        String loc = null, prov = null, pais = null;
+        Double lat = null, lon = null;
+
         if (h.getUbicacion() != null) {
             if (h.getUbicacion().getLocalidad() != null) loc = h.getUbicacion().getLocalidad().getLocalidad();
             if (h.getUbicacion().getProvincia() != null) prov = h.getUbicacion().getProvincia().getProvincia();
             if (h.getUbicacion().getPais() != null) pais = h.getUbicacion().getPais().getPais();
+            lat = h.getUbicacion().getLatitud();
+            lon = h.getUbicacion().getLongitud();
         }
 
         String contenidoTxt = null, contenidoImg = null;
@@ -150,6 +150,7 @@ public class AgregadorGraphQLServicio {
                 h.getFecha(),
                 h.getFecha_carga(),
                 loc, prov, pais,
+                lat, lon,
                 usuario, nombre, apellido, nac,
                 (h.getOrigen() != null) ? h.getOrigen().name() : null
         );

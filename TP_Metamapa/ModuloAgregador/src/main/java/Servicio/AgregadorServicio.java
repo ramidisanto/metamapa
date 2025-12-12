@@ -425,11 +425,14 @@ public class AgregadorServicio {
     public HechoDTOoutput convertirAHechoDTO(Hecho h) {
 
         // Manejo de nulos para Ubicación
-        String calle = null, loc = null, prov = null, paisNom = null;
+        String loc = null, prov = null, pais = null;
+        Double latitud = null, longitud = null;
         if (h.getUbicacion() != null) {
             if (h.getUbicacion().getLocalidad() != null) loc = h.getUbicacion().getLocalidad().getLocalidad();
             if (h.getUbicacion().getProvincia() != null) prov = h.getUbicacion().getProvincia().getProvincia();
-            if (h.getUbicacion().getPais() != null) paisNom = h.getUbicacion().getPais().getPais();
+            if (h.getUbicacion().getPais() != null) pais = h.getUbicacion().getPais().getPais();
+            if (h.getUbicacion().getLatitud() != null) latitud = h.getUbicacion().getLatitud();
+            if (h.getUbicacion().getLongitud() != null) longitud = h.getUbicacion().getLongitud();
         }
 
         // Manejo de nulos para Contenido
@@ -459,9 +462,11 @@ public class AgregadorServicio {
                 (h.getCategoria() != null) ? h.getCategoria().getNombre() : null,
                 h.getFecha(),
                 h.getFecha_carga(),
-                calle,
                 loc,
                 prov,
+                pais,
+                latitud,
+                longitud,
                 usuario,
                 nombre,
                 apellido,

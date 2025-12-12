@@ -127,12 +127,15 @@ public class ColeccionServicio {
     public HechoDTOoutput convertirAHechoDTO(Hecho h) {
 
         // Manejo de nulos para Ubicación
-        String calle = null, loc = null, prov = null, paisNom = null;
+        String  loc = null, prov = null, pais = null;
+        Double lat = null, lon = null;
         if (h.getUbicacion() != null) {
             // calle = h.getUbicacion().getCalle(); // Si tu entidad Ubicacion tiene calle
             if (h.getUbicacion().getLocalidad() != null) loc = h.getUbicacion().getLocalidad().getLocalidad();
             if (h.getUbicacion().getProvincia() != null) prov = h.getUbicacion().getProvincia().getProvincia();
-            if (h.getUbicacion().getPais() != null) paisNom = h.getUbicacion().getPais().getPais();
+            if (h.getUbicacion().getPais() != null) pais = h.getUbicacion().getPais().getPais();
+            if (h.getUbicacion().getLatitud() != null) lat = h.getUbicacion().getLatitud();
+            if (h.getUbicacion().getLatitud() != null) lon = h.getUbicacion().getLongitud();
         }
 
         // Manejo de nulos para Contenido
@@ -162,9 +165,11 @@ public class ColeccionServicio {
                 (h.getCategoria() != null) ? h.getCategoria().getNombre() : null,
                 h.getFecha(),
                 h.getFecha_carga(),
-                calle,
                 loc,
                 prov,
+                pais,
+                lat,
+                lon,
                 usuario,
                 nombre,
                 apellido,

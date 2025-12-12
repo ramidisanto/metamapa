@@ -3,6 +3,7 @@ package Configuracion;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
 
 @Configuration
 public class WebConfig implements WebMvcConfigurer {
@@ -18,5 +19,14 @@ public class WebConfig implements WebMvcConfigurer {
         
         registry.addInterceptor(ipAccessInterceptor)
                 .addPathPatterns("/**"); 
+    }
+
+    @Override
+    public void addCorsMappings(CorsRegistry registry) {
+        registry.addMapping("/graphql")
+                .allowedOrigins("http://localhost:8088")
+                .allowedMethods("POST", "OPTIONS")
+                .allowedHeaders("*")
+                .allowCredentials(true);
     }
 }

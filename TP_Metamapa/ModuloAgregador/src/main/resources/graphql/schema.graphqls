@@ -1,11 +1,11 @@
 type Query {
-    listarHechos(filtro: HechoFilterInput): [HechoDTO]
+    listarHechos(filtro: HechoFilterInput): [HechoDTOoutput]
     listarColecciones: [ColeccionDTO]
     listarPaises: [String]
     listarProvincias: [String]
     listarLocalidades: [String]
     listarCategorias: [String]
-    obtenerHecho(id: ID!): HechoDTO
+    obtenerHecho(id: ID!): HechoDTOoutput
 }
 
 input HechoFilterInput {
@@ -14,17 +14,18 @@ input HechoFilterInput {
     titulo: String
     fechaCargaDesde: String
     fechaCargaHasta: String
-    fechaAcontecimientoDesde: String
-    fechaAcontecimientoHasta: String
+    fechaHechoDesde: String
+    fechaHechoHasta: String
     categoria: String
     pais: String
     provincia: String
     localidad: String
     navegacionCurada: Boolean
     busquedaGeneral: String
+    origenCarga: String
 }
 
-type HechoDTO {
+type HechoDTOoutput {
     idHecho: ID
     idFuente: ID
     titulo: String
@@ -45,7 +46,7 @@ type HechoDTO {
     fecha_nacimiento: String
     anonimo: Boolean
     visible: Boolean
-    origen_carga: String
+    origenCarga: String
 }
 
 type ColeccionDTO {
@@ -53,9 +54,9 @@ type ColeccionDTO {
     titulo: String
     descripcion: String
     criterio: CriterioDTO
-    hechos: [HechoDTO]
+    hechos: [HechoDTOoutput]
     consenso: String
-    hechosConsensuados: [HechoDTO]
+    hechosConsensuados: [HechoDTOoutput]
 }
 
 type CriterioDTO{
@@ -69,5 +70,5 @@ type CriterioDTO{
     pais: String
     fechaAcontecimientoDesde: String
     fechaAcontecimientoHasta: String
-    origen_carga: String
+    origenCarga: String
 }

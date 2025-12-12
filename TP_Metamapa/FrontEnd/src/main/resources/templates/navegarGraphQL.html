@@ -1,381 +1,455 @@
 <!DOCTYPE html>
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
 
-<head th:replace="~{layout/base :: head (title='Navegar - Metamapa')}"></head>
+<head th:replace="~{layout/base :: head (title='Navegar - Metamapa')}">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <style>
+        [x-cloak] { display: none !important; }
+        .scrollbar-thin::-webkit-scrollbar { width: 6px; }
+        .scrollbar-thin::-webkit-scrollbar-thumb { background-color: #cbd5e1; border-radius: 3px; }
+    </style>
+</head>
 
 <body class="bg-primary-100 dark:bg-gray-900 flex flex-col min-h-screen transition-colors duration-300">
 
-    <div th:replace="~{layout/base :: header}"></div>
+<div th:replace="~{layout/base :: header}"></div>
 
-    <main class="w-full flex justify-center my-8 flex-grow">
-        <div class="content-wrapper w-full max-w-screen-xl px-6 md:px-10 lg:px-16 flex flex-col">
-            <form method="get" th:action="@{/navegar}" class="flex-grow flex flex-col">
+<main class="w-full flex justify-center my-8 flex-grow">
+    <div class="content-wrapper w-full max-w-screen-xl px-6 md:px-10 lg:px-16 flex flex-col">
 
-                <div class="flex flex-col gap-6 h-[calc(100vh-12rem)]">
+        <div class="flex-grow flex flex-col h-[calc(100vh-12rem)]">
 
-                    <div class="search-bar-container">
-                        <button type="button" id="toggleFiltros"
-                            class="btn-filtros bg-pastel-blue-600 text-white font-semibold rounded-md hover:bg-pastel-blue-700 flex items-center gap-2">
-                            <img th:src="@{/images/filtro.png}" alt="Icono filtro" class="w-4 h-4">
-                            <span id="toggleText">Mostrar Filtros</span>
-                        </button>
+            <div class="search-bar-container mb-6 flex gap-4 items-center bg-white p-4 rounded-lg shadow-sm border border-gray-200 dark:bg-gray-800 dark:border-gray-700">
+                <button type="button" id="toggleFiltros"
+                        class="btn-filtros bg-pastel-blue-600 text-white font-semibold rounded-md hover:bg-pastel-blue-700 flex items-center gap-2 px-4 py-2 transition-colors">
+                    <img th:src="@{/images/filtro.png}" alt="Filtro" class="w-4 h-4 filter invert">
+                    <span id="toggleText">Mostrar Filtros</span>
+                </button>
 
-                        <input type="text" name="textoLibre" id="inputBusqueda" th:value="${filtrosActuales.textoLibre}"
-                            placeholder="Búsqueda por texto libre..."
-                            class="search-input border rounded-lg pl-3 pr-4 text-sm" />
+                <input type="text" id="inputBusqueda"
+                       placeholder="Búsqueda por texto libre..."
+                       class="search-input flex-grow border border-gray-300 rounded-lg pl-3 pr-4 py-2 text-sm dark:bg-gray-700 dark:border-gray-600 dark:text-white" />
 
-                        <button type="submit" name="accion" value="buscarTexto"
-                            class="btn-buscar bg-pastel-blue-600 text-white font-medium rounded-md hover:bg-pastel-blue-700 text-sm">
-                            Buscar
-                        </button>
+                <button type="button" id="btnBuscarTexto"
+                        class="btn-buscar bg-pastel-blue-600 text-white font-medium rounded-md hover:bg-pastel-blue-700 text-sm px-6 py-2">
+                    Buscar
+                </button>
+            </div>
+
+            <div class="flex flex-col md:flex-row gap-6 flex-grow min-h-0 relative">
+
+                <div id="filtrosPanel"
+                     class="hidden md:w-1/3 lg:w-1/4 bg-white/95 dark:bg-gray-800/95 backdrop-blur-sm p-5 rounded-2xl shadow-soft border border-primary-200 dark:border-gray-700 flex-col transition-all duration-300 overflow-hidden">
+
+                    <div class="flex justify-between items-center mb-4 flex-shrink-0">
+                        <h3 class="text-xl font-bold text-primary-900 dark:text-primary-200">Filtros Avanzados</h3>
                     </div>
 
+                    <div class="space-y-4 overflow-y-auto flex-grow px-1 scrollbar-thin">
 
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300">Título</label>
+                            <input type="text" id="titulo" class="mt-1 block w-full px-3 py-2 border rounded-md text-sm dark:bg-gray-700 dark:text-white" />
+                        </div>
 
-                    <div class="flex flex-col md:flex-row gap-6 flex-grow min-h-0">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300">Colección</label>
+                            <select id="coleccionSelect" class="mt-1 block w-full px-3 py-2 border rounded-md text-sm dark:bg-gray-700 dark:text-white">
+                                <option value="">Ninguna</option>
+                                <option th:each="col : ${colecciones}" th:value="${col.coleccionId}" th:text="${col.titulo}"></option>
+                            </select>
+                        </div>
 
-                        <div id="filtrosPanel"
-                            class="hidden md:w-1/3 lg:w-1/4 bg-white/95 dark:bg-gray-800/95 backdrop-blur-sm p-5 rounded-2xl shadow-soft border border-primary-200 dark:border-gray-700 flex-col transition-all duration-300 overflow-x-hidden">
-                            <h3 class="text-xl font-bold text-primary-900 dark:text-primary-200 mb-4 flex-shrink-0">
-                                Filtros Avanzados</h3>
-                            <div class="space-y-4 overflow-y-auto flex-grow px-2 overflow-x-hidden">
-                                <div>
-                                    <label for="titulo"
-                                        class="block text-sm font-medium text-gray-700 dark:text-gray-300">Título</label>
-                                    <input type="text" name="titulo" id="titulo" th:value="${filtrosActuales.titulo}"
-                                        class="mt-1 block w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-primary-500 dark:focus:ring-primary-400 sm:text-sm" />
-                                </div>
+                        <div id="navegacionCuradaContainer" class="hidden">
+                            <label class="flex items-center space-x-2 mt-2">
+                                <input type="checkbox" id="navegacionCurada" class="form-checkbox h-4 w-4 text-blue-600">
+                                <span class="text-sm text-gray-700 dark:text-gray-300">Navegación Curada</span>
+                            </label>
+                        </div>
 
-                                <div>
-                                    <label for="coleccionSelect"
-                                        class="block text-sm font-medium text-gray-700 dark:text-gray-300">Colección</label>
-                                    <select name="coleccionId" id="coleccionSelect"
-                                        class="mt-1 block w-full px-3 py-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 rounded-md shadow-sm focus:outline-none focus:ring-primary-500 dark:focus:ring-primary-400 sm:text-sm">
-                                        <option value="">Ninguna</option>
-                                        <option th:each="col : ${colecciones}" th:value="${col.coleccionId}"
-                                            th:text="${col.titulo}"
-                                            th:selected="${col.coleccionId.toString() == filtrosActuales.coleccionId.toString()}">
-                                        </option>
-                                    </select>
-                                </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300">Categoría</label>
+                            <select id="categoria" class="mt-1 block w-full px-3 py-2 border rounded-md text-sm dark:bg-gray-700 dark:text-white">
+                                <option value="">Todas</option>
+                                <option th:each="cat : ${categorias}" th:value="${cat}" th:text="${cat}"></option>
+                            </select>
+                        </div>
 
-                                <div id="navegacionCuradaContainer"
-                                    th:classappend="${(filtrosActuales.coleccionId == null) ? 'hidden' : ''}"
-                                    class="transition-all">
-                                    <label for="navegacionCurada"
-                                        class="block text-sm font-medium text-gray-700 dark:text-gray-300">Modo de
-                                        Navegación</label>
-                                    <select name="navegacionCurada" id="navegacionCurada"
-                                        class="mt-1 block w-full px-3 py-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 rounded-md shadow-sm focus:outline-none focus:ring-primary-500 dark:focus:ring-primary-400 sm:text-sm">
-                                        <option value="false" th:selected="${!filtrosActuales.navegacionCurada}">
-                                            Irrestricta</option>
-                                        <option value="true" th:selected="${filtrosActuales.navegacionCurada}">Curada
-                                        </option>
-                                    </select>
-                                </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300">Multimedia</label>
+                            <select id="contenidoMultimedia" class="mt-1 block w-full px-3 py-2 border rounded-md text-sm dark:bg-gray-700 dark:text-white">
+                                <option value="">Indistinto</option>
+                                <option value="true">Sí</option>
+                                <option value="false">No</option>
+                            </select>
+                        </div>
 
-                                <div>
-                                    <label for="categoria"
-                                        class="block text-sm font-medium text-gray-700 dark:text-gray-300">Categoría</label>
-                                    <select name="categoria" id="categoria"
-                                        class="mt-1 block w-full px-3 py-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 rounded-md shadow-sm focus:outline-none focus:ring-primary-500 dark:focus:ring-primary-400 sm:text-sm">
-                                        <option value="">Todas</option>
-                                        <option th:each="cat : ${categorias}" th:value="${cat}" th:text="${cat}"
-                                            th:selected="${cat == filtrosActuales.categoria}">
-                                        </option>
-                                    </select>
-                                </div>
-
-                                <div>
-                                    <label for="contenidoMultimedia"
-                                        class="block text-sm font-medium text-gray-700 dark:text-gray-300">Contenido
-                                        Multimedia</label>
-                                    <select name="contenidoMultimedia" id="contenidoMultimedia"
-                                        class="mt-1 block w-full px-3 py-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 rounded-md shadow-sm focus:outline-none focus:ring-primary-500 dark:focus:ring-primary-400 sm:text-sm">
-                                        <option value="" th:selected="${filtrosActuales.contenidoMultimedia == null}">
-                                            Sin Filtro</option>
-                                        <option value="true"
-                                            th:selected="${filtrosActuales.contenidoMultimedia == true}">Sí</option>
-                                        <option value="false"
-                                            th:selected="${filtrosActuales.contenidoMultimedia == false}">No</option>
-                                    </select>
-                                </div>
-                                <div>
-                                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300">Fecha de
-                                        Carga</label>
-                                    <div class="flex items-center gap-2 mb-2">
-                                        <p class="block text-sm font-medium text-gray-700 dark:text-gray-300 w-16">Desde
-                                        </p>
-                                        <input type="date" name="fechaCargaDesde" id="fechaCargaDesde"
-                                            th:value="${filtrosActuales.fechaCargaDesde}"
-                                            class="block px-2 py-1 border rounded-md text-sm dark:bg-gray-700 dark:border-gray-600 dark:text-white" />
-                                    </div>
-                                    <div class="flex items-center gap-2">
-                                        <p class="block text-sm font-medium text-gray-700 dark:text-gray-300 w-16">Hasta
-                                        </p>
-                                        <input type="date" name="fechaCargaHasta"
-                                            th:value="${filtrosActuales.fechaCargaHasta}"
-                                            class="block px-2 py-1 border rounded-md text-sm dark:bg-gray-700 dark:border-gray-600 dark:text-white" />
-                                    </div>
-                                </div>
-
-                                <div>
-                                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300">Fecha
-                                        Acontecimiento</label>
-                                    <div class="flex items-center gap-2 mb-2">
-                                        <p class="block text-sm font-medium text-gray-700 dark:text-gray-300 w-16">Desde
-                                        </p>
-                                        <input type="date" name="fechaHechoDesde" id="fechaHechoDesde"
-                                            th:value="${filtrosActuales.fechaHechoDesde}"
-                                            class="block px-2 py-1 border rounded-md text-sm dark:bg-gray-700 dark:border-gray-600 dark:text-white" />
-                                    </div>
-                                    <div class="flex items-center gap-2">
-                                        <p class="block text-sm font-medium text-gray-700 dark:text-gray-300 w-16">Hasta
-                                        </p>
-                                        <input type="date" name="fechaHechoHasta" id="fechaHechoHasta"
-                                            th:value="${filtrosActuales.fechaHechoHasta}"
-                                            class="block px-2 py-1 border rounded-md text-sm dark:bg-gray-700 dark:border-gray-600 dark:text-white" />
-                                    </div>
-                                </div>
-
-                                <div>
-                                    <label for="origen"
-                                        class="block text-sm font-medium text-gray-700 dark:text-gray-300">Origen
-                                        Carga</label>
-                                    <select name="origen" id="origen"
-                                        class="mt-1 block w-full px-3 py-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 rounded-md shadow-sm focus:outline-none focus:ring-primary-500 dark:focus:ring-primary-400 sm:text-sm">
-                                        <option value="">Todos</option>
-                                        <option th:each="o : ${origenesDeCarga}" th:value="${o.name()}" th:text="${o}"
-                                            th:selected="${o.name() == filtrosActuales.origen}">
-                                        </option>
-                                    </select>
-                                </div>
-
-                                <div>
-                                    <label
-                                        class="block text-sm font-medium text-gray-700 dark:text-gray-300">Ubicación</label>
-                                    <div class="space-y-2 mt-1">
-                                        <select name="pais" id="pais"
-                                            class="block w-full px-3 py-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 rounded-md sm:text-sm">
-                                            <option value="">Todos los Países</option>
-                                            <option th:each="p : ${paises}" th:value="${p}" th:text="${p}"
-                                                th:selected="${p == filtrosActuales.pais}"></option>
-                                        </select>
-                                        <select name="provincia" id="provincia"
-                                            class="block w-full px-3 py-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 rounded-md sm:text-sm">
-                                            <option value="">Todas las Provincias</option>
-                                            <option th:each="p : ${provincias}" th:value="${p}" th:text="${p}"
-                                                th:selected="${p == filtrosActuales.provincia}"></option>
-                                        </select>
-                                        <select name="localidad" id="localidad"
-                                            class="block w-full px-3 py-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 rounded-md sm:text-sm">
-                                            <option value="">Todas las Localidades</option>
-                                            <option th:each="l : ${localidades}" th:value="${l}" th:text="${l}"
-                                                th:selected="${l == filtrosActuales.localidad}"></option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="flex gap-2 mt-6 flex-shrink-0 -mx-4 px-4">
-                                <button type="submit" name="accion" value="filtrar" class="flex-1 btn btn-primary">
-                                    Buscar
-                                </button>
-                                <button type="submit" name="accion" value="limpiar" class="flex-1 btn btn-secondary">
-                                    Limpiar
-                                </button>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Fecha Acontecimiento</label>
+                            <div class="grid grid-cols-2 gap-2">
+                                <input type="date" id="fechaHechoDesde" class="block w-full px-2 py-1 border rounded text-xs dark:bg-gray-700 dark:text-white"/>
+                                <input type="date" id="fechaHechoHasta" class="block w-full px-2 py-1 border rounded text-xs dark:bg-gray-700 dark:text-white"/>
                             </div>
                         </div>
 
-                        <!-- Contenido Principal -->
-                        <div id="contenidoPrincipal"
-                            class="w-full flex flex-col gap-4 min-h-0 transition-all duration-300">
-
-
-
-                            <div class="flex-grow flex flex-col gap-4 min-h-0">
-
-                                <div class="flex-grow flex flex-col md:flex-row gap-4 min-h-0">
-
-                                    <!-- Mapa -->
-                                    <div id="mapaContainer"
-                                        class="md:w-1/2 rounded-lg shadow-lg border overflow-hidden h-full min-h-[300px] md:min-h-0">
-                                        <div id="mapa" class="w-full h-full bg-pastel-blue-100">
-
-                                        </div>
-                                    </div>
-
-                                    <!-- Resultados -->
-                                    <div id="resultadosContainer"
-                                        class="md:w-1/2 flex flex-col gap-4 h-full min-h-[300px] md:min-h-0 transition-all duration-300">
-                                        <h2
-                                            class="text-2xl font-bold text-primary-900 dark:text-primary-200 flex-shrink-0">
-                                            Resultados (<span th:text="${hechos.size()}">0</span>)</h2>
-                                        <div
-                                            class="flex-grow bg-white/95 dark:bg-gray-800/95 backdrop-blur-sm p-3 rounded-2xl shadow-soft border border-primary-200 dark:border-gray-700 overflow-y-auto min-h-0 scrollbar-thin">
-                                            <div th:if="${!hechos.isEmpty()}" class="space-y-3">
-                                                <div th:each="hecho : ${hechos}">
-                                                    <div
-                                                        th:replace="~{fragments/hechoCard :: hechoCard(hecho=${hecho}, showOptions=true, showAdminActions=${#authorization.expression('hasRole(''admin_client_role'')')}, coleccionId=null)}">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div th:if="${hechos.isEmpty()}"
-                                                class="flex items-center justify-center h-full">
-                                                <p class="text-center text-gray-500 dark:text-gray-400 p-8">No se
-                                                    encontraron hechos con
-                                                    los filtros aplicados.</p>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Fecha Carga</label>
+                            <div class="grid grid-cols-2 gap-2">
+                                <input type="date" id="fechaCargaDesde" class="block w-full px-2 py-1 border rounded text-xs dark:bg-gray-700 dark:text-white"/>
+                                <input type="date" id="fechaCargaHasta" class="block w-full px-2 py-1 border rounded text-xs dark:bg-gray-700 dark:text-white"/>
                             </div>
                         </div>
+
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Ubicación</label>
+                            <div class="space-y-2">
+                                <select id="pais" class="block w-full px-3 py-2 border rounded-md text-sm dark:bg-gray-700 dark:text-white">
+                                    <option value="">País...</option>
+                                    <option th:each="p : ${paises}" th:value="${p}" th:text="${p}"></option>
+                                </select>
+                                <select id="provincia" class="block w-full px-3 py-2 border rounded-md text-sm dark:bg-gray-700 dark:text-white">
+                                    <option value="">Provincia...</option>
+                                    <option th:each="p : ${provincias}" th:value="${p}" th:text="${p}"></option>
+                                </select>
+                                <select id="localidad" class="block w-full px-3 py-2 border rounded-md text-sm dark:bg-gray-700 dark:text-white">
+                                    <option value="">Localidad...</option>
+                                    <option th:each="l : ${localidades}" th:value="${l}" th:text="${l}"></option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300">Origen</label>
+                            <select id="origen" class="mt-1 block w-full px-3 py-2 border rounded-md text-sm dark:bg-gray-700 dark:text-white">
+                                <option value="">Todos</option>
+                                <option th:each="o : ${origenesDeCarga}" th:value="${o}" th:text="${o}"></option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="flex gap-2 mt-4 pt-4 border-t border-gray-200 dark:border-gray-600 flex-shrink-0">
+                        <button type="button" id="btnAplicarFiltros" class="flex-1 btn bg-pastel-blue-600 text-white py-2 rounded hover:bg-pastel-blue-700 font-bold shadow">
+                            Aplicar Filtros
+                        </button>
+                        <button type="button" id="btnLimpiar" class="flex-1 btn bg-gray-200 text-gray-700 py-2 rounded hover:bg-gray-300 font-medium">
+                            Limpiar
+                        </button>
                     </div>
                 </div>
-            </form>
-        </div>
-    </main>
 
-    <div th:replace="~{layout/base :: footer}"></div>
+                <div id="contenidoPrincipal" class="w-full flex flex-col gap-4 min-h-0 transition-all duration-300">
+                    <div class="flex-grow flex flex-col md:flex-row gap-4 min-h-0 h-full">
 
-    <div id="listaHechosContainer" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-    </div>
+                        <div id="mapaContainer" class="md:w-1/2 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700 overflow-hidden h-full min-h-[300px] relative z-0">
+                            <div id="mapa" class="w-full h-full bg-pastel-blue-50"></div>
+                            <div id="mapLoader" class="absolute inset-0 bg-white/60 z-[1000] flex items-center justify-center hidden">
+                                <div class="animate-spin rounded-full h-10 w-10 border-b-2 border-pastel-blue-600"></div>
+                            </div>
+                        </div>
 
-    <script th:inline="javascript">
-        /*<![CDATA[*/
+                        <div id="resultadosContainer" class="md:w-1/2 flex flex-col gap-4 h-full min-h-[300px]">
+                            <div class="flex justify-between items-center pb-2 border-b dark:border-gray-700">
+                                <h2 class="text-2xl font-bold text-primary-900 dark:text-primary-200 flex-shrink-0">
+                                    Resultados (<span id="contadorResultados">0</span>)
+                                </h2>
+                            </div>
+                            <div id="listaHechosContainer" class="flex-grow bg-white/95 dark:bg-gray-800/95 backdrop-blur-sm p-3 rounded-2xl shadow-soft border border-primary-200 dark:border-gray-700 overflow-y-auto min-h-0 scrollbar-thin">
+                                <p class="text-center text-gray-500 dark:text-gray-400 p-8">Cargando...</p>
+                            </div>
+                        </div>
 
-        // URL de tu Modulo Agregador (Ajusta el puerto según tu configuración)
-        const GRAPHQL_URL = 'http://localhost:8082/graphql';
-
-        async function buscarHechos() {
-            const titulo = document.getElementById('titulo').value || null;
-            const coleccion = document.getElementById('coleccionSelect') || null;
-            const pais = document.getElementById('pais').value || null;
-            const provincia = document.getElementById('provincia').value || null;
-            const localidad = document.getElementById('localidad').value || null;
-            const categoria = document.getElementById('categoria').value || null;
-            const fechaCargaDesde = document.getElementById('fechaCargaDesde').value || null;
-            const fechaCargaHasta = document.getElementById('fechaCargaHasta').value || null;
-            const fechaHechoDesde = document.getElementById('fechaHechoDesde').value || null;
-            const fechaHechoHasta = document.getElementById('fechaHechoHasta').value || null;
-            const contenidoMultimedia = document.getElementById('contenidoMultimedia').value || null;
-            const origenCarga = document.getElementById('origen').value || null;
-            const navegacionCurada = document.getElementById('navegacionCurada').value || null;
-
-            const query = `
-                query($filtro: HechoFilterInput) {
-                    listarHechos(filtro: $filtro) {
-                        titulo
-                        descripcion
-                        coleccion
-                        fechaHechoDesde
-                        fechaHechoHasta
-                        categoria
-                        pais
-                        provincia
-                        localidad
-                        fechaCargaDesde
-                        fechaCargaHasta
-                        contenidoMultimedia
-                        origenCarga
-                        navegacionCurada
-                    }
-                }
-            `;
-
-            const texto = document.getElementById('inputBusqueda').value;
-
-            const variables = {
-                filtro: {
-                    busquedaGeneral: texto,
-                    titulo: titulo,
-                    pais: pais,
-                    provincia: provincia,
-                    localidad: localidad,
-                    categoria: categoria,
-                    fechaCargaDesde: fechaCargaDesde,
-                    fechaCargaHasta: fechaCargaHasta,
-                    fechaHechoDesde: fechaHechoDesde,
-                    fechaHechoHasta: fechaHechoHasta,
-                    navegaciobCurada: navegacionCurada,
-                    origenCarga: origenCarga,
-                    contenidoMultimedia: contenidoMultimedia
-                    }
-            };
-
-            try {
-                const response = await fetch(GRAPHQL_URL, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Accept': 'application/json',
-                    },
-                    body: JSON.stringify({
-                        query: query,
-                        variables: variables
-                    })
-                });
-
-                const body = await response.json();
-
-                if (body.errors) {
-                    console.error("Errores GraphQL:", body.errors);
-                    alert("Error al buscar hechos.");
-                    return;
-                }
-
-                // 4. Renderizar los datos en el HTML
-                const hechos = body.data.listarHechos;
-                renderizarHechos(hechos);
-
-            } catch (error) {
-                console.error("Error de red:", error);
-                alert("No se pudo conectar con el servidor.");
-            }
-        }
-
-        // Función auxiliar para pintar las cards
-        function renderizarHechos(hechos) {
-            const contenedor = document.getElementById('listaHechosContainer');
-            contenedor.innerHTML = ''; // Limpiar resultados anteriores
-
-            if (hechos.length === 0) {
-                contenedor.innerHTML = '<p class="text-gray-500 col-span-full text-center">No se encontraron hechos.</p>';
-                return;
-            }
-
-            hechos.forEach(hecho => {
-                // Crear el HTML de la card dinámicamente
-                const card = document.createElement('div');
-                card.className = 'bg-white p-4 rounded shadow border border-gray-200';
-                card.innerHTML = `
-                    <h3 class="font-bold text-lg text-pastel-blue-800">${hecho.titulo}</h3>
-                    <span class="text-xs bg-blue-100 text-blue-800 px-2 py-1 rounded">${hecho.categoria || 'Sin categoría'}</span>
-                    <p class="text-gray-600 mt-2 text-sm">${hecho.descripcion || ''}</p>
-                    <div class="mt-2 text-xs text-gray-400">
-                        📍 ${hecho.localidad || ''}, ${hecho.pais || ''}
                     </div>
-                `;
-                contenedor.appendChild(card);
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<div th:replace="~{layout/base :: footer}"></div>
+<div th:replace="~{layout/base :: scripts}"></div>
+
+<script th:inline="javascript">
+    /*<![CDATA[*/
+
+    // --- CONFIGURACIÓN ---
+    const GRAPHQL_URL = 'http://localhost:8082/graphql';
+    // Capturamos si es admin desde Thymeleaf para usarlo en JS
+    const IS_ADMIN = /*[[${isAdmin}]]*/ false;
+
+    let map = null;
+    let markersLayer = new L.LayerGroup();
+
+    // DOM Elements Cache
+    const dom = {
+        toggleBtn: document.getElementById('toggleFiltros'),
+        toggleText: document.getElementById('toggleText'),
+        filtrosPanel: document.getElementById('filtrosPanel'),
+        contenidoPrincipal: document.getElementById('contenidoPrincipal'),
+
+        btnBuscarTexto: document.getElementById('btnBuscarTexto'),
+        btnAplicarFiltros: document.getElementById('btnAplicarFiltros'), // El nuevo botón del panel
+        btnLimpiar: document.getElementById('btnLimpiar'),
+        inputBusqueda: document.getElementById('inputBusqueda'),
+
+        coleccionSelect: document.getElementById('coleccionSelect'),
+        curadaContainer: document.getElementById('navegacionCuradaContainer'),
+
+        listaContainer: document.getElementById('listaHechosContainer'),
+        contador: document.getElementById('contadorResultados'),
+        loader: document.getElementById('mapLoader')
+    };
+
+    document.addEventListener('DOMContentLoaded', () => {
+        initMap();
+        setupEventListeners();
+        buscarHechos(); // Carga inicial
+    });
+
+    function initMap() {
+        if (!document.getElementById('mapa')) return;
+        map = L.map('mapa').setView([-34.6, -58.4], 4);
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '© OpenStreetMap'
+        }).addTo(map);
+        markersLayer.addTo(map);
+    }
+
+    function setupEventListeners() {
+        // Toggle Filtros
+        if (dom.toggleBtn) {
+            dom.toggleBtn.addEventListener('click', () => {
+                const isHidden = dom.filtrosPanel.classList.contains('hidden');
+                if (isHidden) {
+                    dom.filtrosPanel.classList.remove('hidden');
+                    dom.filtrosPanel.classList.add('flex');
+                    dom.contenidoPrincipal.classList.remove('w-full');
+                    dom.contenidoPrincipal.classList.add('md:w-2/3', 'lg:w-3/4');
+                    dom.toggleText.textContent = 'Ocultar Filtros';
+                } else {
+                    dom.filtrosPanel.classList.add('hidden');
+                    dom.filtrosPanel.classList.remove('flex');
+                    dom.contenidoPrincipal.classList.remove('md:w-2/3', 'lg:w-3/4');
+                    dom.contenidoPrincipal.classList.add('w-full');
+                    dom.toggleText.textContent = 'Mostrar Filtros';
+                }
+                setTimeout(() => map.invalidateSize(), 300);
             });
         }
 
-        // Hookear el botón de buscar
-        const btnBuscar = document.getElementById('btnBuscar'); // Asumiendo que tienes un botón con este ID
-        if(btnBuscar) {
-            btnBuscar.addEventListener('click', (e) => {
-                e.preventDefault(); // Evitar submit tradicional del form
+        // Eventos de Búsqueda (Texto y Panel)
+        dom.btnBuscarTexto.addEventListener('click', buscarHechos);
+        if(dom.btnAplicarFiltros) {
+            dom.btnAplicarFiltros.addEventListener('click', buscarHechos);
+        }
+
+        // Enter en input
+        dom.inputBusqueda.addEventListener('keypress', (e) => {
+            if(e.key === 'Enter') buscarHechos();
+        });
+
+        // Limpiar
+        if (dom.btnLimpiar) {
+            dom.btnLimpiar.addEventListener('click', () => {
+                document.querySelectorAll('#filtrosPanel input, #filtrosPanel select').forEach(el => {
+                    if (el.type === 'checkbox') el.checked = false;
+                    else el.value = '';
+                });
+                dom.inputBusqueda.value = '';
                 buscarHechos();
             });
         }
 
-        // Carga inicial (opcional)
-        // buscarHechos();
+        // Colección -> Navegación Curada
+        if(dom.coleccionSelect) {
+            dom.coleccionSelect.addEventListener('change', () => {
+                if(dom.coleccionSelect.value) dom.curadaContainer.classList.remove('hidden');
+                else {
+                    dom.curadaContainer.classList.add('hidden');
+                    document.getElementById('navegacionCurada').checked = false;
+                }
+            });
+        }
+    }
 
-        /*]]>*/
-    </script>
-    <div th:replace="~{layout/base :: scripts}"></div>
+    async function buscarHechos() {
+        showLoader(true);
+
+        const variables = {
+            filtro: {
+                busquedaGeneral: getValue('inputBusqueda'),
+                idColeccion: getValue('coleccionSelect'),
+                titulo: getValue('titulo'),
+                categoria: getValue('categoria'),
+                pais: getValue('pais'),
+                provincia: getValue('provincia'),
+                localidad: getValue('localidad'),
+                contenidoMultimedia: getBoolean('contenidoMultimedia'),
+                origenCarga: getValue('origen'),
+                fechaHechoDesde: getDateISO('fechaHechoDesde'),
+                fechaHechoHasta: getDateISO('fechaHechoHasta'),
+                fechaCargaDesde: getDateISO('fechaCargaDesde'),
+                fechaCargaHasta: getDateISO('fechaCargaHasta'),
+                navegacionCurada: document.getElementById('navegacionCurada')?.checked || false
+            }
+        };
+
+        const query = `
+            query($filtro: HechoFilterInput) {
+                listarHechos(filtro: $filtro) {
+                    idHecho
+                    titulo
+                    descripcion
+                    categoria
+                    pais
+                    provincia
+                    localidad
+                    fechaAcontecimiento
+                    origen_carga
+                    latitud
+                    longitud
+                }
+            }
+        `;
+
+        try {
+            const response = await fetch(GRAPHQL_URL, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ query, variables })
+            });
+
+            const body = await response.json();
+
+            if (body.errors) {
+                console.error(body.errors);
+                dom.listaContainer.innerHTML = `<div class="p-4 bg-red-100 text-red-700 rounded">Error: ${body.errors[0].message}</div>`;
+                return;
+            }
+
+            renderizarResultados(body.data.listarHechos);
+
+        } catch (error) {
+            console.error(error);
+            dom.listaContainer.innerHTML = `<div class="p-4 bg-red-100 text-red-700 rounded">Error de conexión con el Agregador (8082).</div>`;
+        } finally {
+            showLoader(false);
+        }
+    }
+
+    function renderizarResultados(hechos) {
+        dom.listaContainer.innerHTML = '';
+        dom.contador.innerText = hechos.length;
+        markersLayer.clearLayers();
+
+        if (hechos.length === 0) {
+            dom.listaContainer.innerHTML = '<div class="flex items-center justify-center h-full"><p class="text-center text-gray-500 dark:text-gray-400 p-8">No se encontraron hechos.</p></div>';
+            return;
+        }
+
+        const bounds = [];
+
+        hechos.forEach(h => {
+            // CARD HTML (Recreando el estilo de tu fragmento)
+            const card = document.createElement('div');
+            card.className = "group relative bg-white dark:bg-gray-800 rounded-xl shadow-sm hover:shadow-md border border-gray-100 dark:border-gray-700 transition-all duration-300 overflow-hidden mb-3";
+
+            let fecha = h.fechaAcontecimiento ? new Date(h.fechaAcontecimiento).toLocaleDateString() : 'S/F';
+            let categoria = h.categoria || 'General';
+
+            // Botón de eliminar condicional
+            let deleteButton = '';
+            if (IS_ADMIN) {
+                deleteButton = `
+                    <form action="/admin/solicitudes/crear" method="post" class="inline" onsubmit="return confirm('¿Solicitar baja de este hecho?')">
+                        <input type="hidden" name="idEntidad" value="${h.idHecho}" />
+                        <input type="hidden" name="tipoEntidad" value="HECHO" />
+                        <input type="hidden" name="tipoSolicitud" value="BAJA" />
+                        <button type="submit" class="text-red-500 hover:text-red-700 p-1" title="Solicitar Baja">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
+                        </button>
+                    </form>
+                `;
+            }
+
+            card.innerHTML = `
+                <div class="p-4">
+                    <div class="flex justify-between items-start mb-2">
+                        <div class="flex flex-wrap gap-2">
+                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-pastel-blue-100 text-pastel-blue-800 dark:bg-pastel-blue-900 dark:text-pastel-blue-200">
+                                ${categoria}
+                            </span>
+                             <span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] text-gray-400 border border-gray-200">
+                                ${h.origen_carga || 'N/A'}
+                            </span>
+                        </div>
+
+                        <div class="flex items-center gap-2">
+                            ${deleteButton}
+                            <a href="/ver-hecho/${h.idHecho}" class="text-pastel-blue-600 hover:text-pastel-blue-800">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path></svg>
+                            </a>
+                        </div>
+                    </div>
+
+                    <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2 leading-tight group-hover:text-pastel-blue-600 transition-colors">
+                        <a href="/ver-hecho/${h.idHecho}">${h.titulo}</a>
+                    </h3>
+
+                    <p class="text-sm text-gray-600 dark:text-gray-300 line-clamp-2 mb-4">
+                        ${h.descripcion || 'Sin descripción disponible.'}
+                    </p>
+
+                    <div class="flex items-center justify-between text-xs text-gray-500 dark:text-gray-400 border-t border-gray-100 dark:border-gray-700 pt-3">
+                        <div class="flex items-center gap-1">
+                            <span>📍</span>
+                            <span class="truncate max-w-[150px]" title="${h.localidad}, ${h.pais}">
+                                ${h.localidad || ''}, ${h.pais || ''}
+                            </span>
+                        </div>
+                        <div class="flex items-center gap-1">
+                            <span>📅</span>
+                            <span>${fecha}</span>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            // Centrar mapa al hacer click en la card (excepto en botones)
+            card.addEventListener('click', (e) => {
+                if(!e.target.closest('a') && !e.target.closest('button') && h.latitud && h.longitud) {
+                    map.flyTo([h.latitud, h.longitud], 10);
+                }
+            });
+
+            dom.listaContainer.appendChild(card);
+
+            // MAPA
+            if (h.latitud && h.longitud) {
+                const marker = L.marker([h.latitud, h.longitud]);
+                marker.bindPopup(`<b>${h.titulo}</b><br><a href="/ver-hecho/${h.idHecho}">Ver detalle</a>`);
+                markersLayer.addLayer(marker);
+                bounds.push([h.latitud, h.longitud]);
+            }
+        });
+
+        if (bounds.length > 0) map.fitBounds(bounds, { padding: [50, 50] });
+    }
+
+    // UTILS
+    function getValue(id) { const e = document.getElementById(id); return e && e.value ? e.value : null; }
+    function getBoolean(id) { const v = getValue(id); return v === 'true' ? true : v === 'false' ? false : null; }
+    function getDateISO(id) {
+        const v = getValue(id);
+        if(!v) return null;
+        return id.toLowerCase().includes('hasta') ? v + "T23:59:59" : v + "T00:00:00";
+    }
+    function showLoader(show) {
+        if(dom.loader) show ? dom.loader.classList.remove('hidden') : dom.loader.classList.add('hidden');
+    }
+
+    /*]]>*/
+</script>
+
 </body>
-
 </html>

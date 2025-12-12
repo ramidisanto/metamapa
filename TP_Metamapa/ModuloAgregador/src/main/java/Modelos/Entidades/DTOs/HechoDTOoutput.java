@@ -19,17 +19,19 @@ public class HechoDTOoutput {
     public String categoria;
     public LocalDateTime fechaAcontecimiento;
     public LocalDateTime  fechaCarga;
-    public String calle;
     public String localidad;
     public String provincia;
+    public String pais;
     public String usuario;
     public String nombre;
     public String apellido;
+    public Double latitud;
+    public Double longitud;
     @DateTimeFormat(pattern = "dd/MM/yyyy")
     public LocalDate fecha_nacimiento;
     public String origen_carga;
 
-    public HechoDTOoutput(String titulo, String descripcion, String contenido, String contenido_multimedia, String categoria, LocalDateTime fechaAcontecimiento, LocalDateTime  fechaCarga, String calle, String localidad, String provincia, String usuario, String nombre, String apellido, LocalDate fecha_nacimiento, String origen_carga) {
+    public HechoDTOoutput(String titulo, String descripcion, String contenido, String contenido_multimedia, String categoria, LocalDateTime fechaAcontecimiento, LocalDateTime  fechaCarga, String localidad, String provincia, String pais, Double latitud, Double longitud, String usuario, String nombre, String apellido, LocalDate fecha_nacimiento, String origen_carga) {
         this.titulo = titulo;
         this.descripcion = descripcion;
         this.contenido = contenido;
@@ -37,9 +39,11 @@ public class HechoDTOoutput {
         this.categoria = categoria;
         this.fechaAcontecimiento = fechaAcontecimiento;
         this.fechaCarga = fechaCarga;
-        this.calle = calle;
         this.localidad = localidad;
         this.provincia = provincia;
+        this.pais = pais;
+        this.latitud= latitud;
+        this.longitud = longitud;
         this.usuario = usuario;
         this.nombre = nombre;
         this.apellido = apellido;
