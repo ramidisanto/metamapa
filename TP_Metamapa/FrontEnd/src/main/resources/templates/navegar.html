@@ -43,14 +43,14 @@
                                     <label for="titulo"
                                         class="block text-sm font-medium text-gray-700 dark:text-gray-300">Título</label>
                                     <input type="text" name="titulo" id="titulo" th:value="${filtrosActuales.titulo}"
-                                        class="mt-1 block w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-primary-500 dark:focus:ring-primary-400 sm:text-sm" />
+                                        class="mt-1 block w-full px-3 py-2 border border-gray-300 dark:border-gray-800 rounded-md shadow-sm bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-primary-500 dark:focus:ring-primary-400 sm:text-sm" />
                                 </div>
 
                                 <div>
                                     <label for="coleccionSelect"
                                         class="block text-sm font-medium text-gray-700 dark:text-gray-300">Colección</label>
                                     <select name="coleccionId" id="coleccionSelect"
-                                        class="mt-1 block w-full px-3 py-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 rounded-md shadow-sm focus:outline-none focus:ring-primary-500 dark:focus:ring-primary-400 sm:text-sm">
+                                        class="mt-1 block w-full px-3 py-2 border border-gray-300 dark:border-gray-800 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 rounded-md shadow-sm focus:outline-none focus:ring-primary-500 dark:focus:ring-primary-400 sm:text-sm">
                                         <option value="">Ninguna</option>
                                         <option th:each="col : ${colecciones}" th:value="${col.coleccionId}"
                                             th:text="${col.titulo}"
@@ -66,7 +66,7 @@
                                         class="block text-sm font-medium text-gray-700 dark:text-gray-300">Modo de
                                         Navegación</label>
                                     <select name="navegacionCurada" id="navegacionCurada"
-                                        class="mt-1 block w-full px-3 py-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 rounded-md shadow-sm focus:outline-none focus:ring-primary-500 dark:focus:ring-primary-400 sm:text-sm">
+                                        class="mt-1 block w-full px-3 py-2 border border-gray-300 dark:border-gray-800 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 rounded-md shadow-sm focus:outline-none focus:ring-primary-500 dark:focus:ring-primary-400 sm:text-sm">
                                         <option value="false" th:selected="${!filtrosActuales.navegacionCurada}">
                                             Irrestricta</option>
                                         <option value="true" th:selected="${filtrosActuales.navegacionCurada}">Curada
@@ -78,7 +78,7 @@
                                     <label for="categoria"
                                         class="block text-sm font-medium text-gray-700 dark:text-gray-300">Categoría</label>
                                     <select name="categoria" id="categoria"
-                                        class="mt-1 block w-full px-3 py-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 rounded-md shadow-sm focus:outline-none focus:ring-primary-500 dark:focus:ring-primary-400 sm:text-sm">
+                                        class="mt-1 block w-full px-3 py-2 border border-gray-300 dark:border-gray-800 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 rounded-md shadow-sm focus:outline-none focus:ring-primary-500 dark:focus:ring-primary-400 sm:text-sm">
                                         <option value="">Todas</option>
                                         <option th:each="cat : ${categorias}" th:value="${cat}" th:text="${cat}"
                                             th:selected="${cat == filtrosActuales.categoria}">
@@ -91,7 +91,7 @@
                                         class="block text-sm font-medium text-gray-700 dark:text-gray-300">Contenido
                                         Multimedia</label>
                                     <select name="contenidoMultimedia" id="contenidoMultimedia"
-                                        class="mt-1 block w-full px-3 py-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 rounded-md shadow-sm focus:outline-none focus:ring-primary-500 dark:focus:ring-primary-400 sm:text-sm">
+                                        class="mt-1 block w-full px-3 py-2 border border-gray-300 dark:border-gray-800 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 rounded-md shadow-sm focus:outline-none focus:ring-primary-500 dark:focus:ring-primary-400 sm:text-sm">
                                         <option value="" th:selected="${filtrosActuales.contenidoMultimedia == null}">
                                             Sin Filtro</option>
                                         <option value="true"
@@ -108,14 +108,14 @@
                                         </p>
                                         <input type="date" name="fechaCargaDesde"
                                             th:value="${filtrosActuales.fechaCargaDesde}"
-                                            class="block px-2 py-1 border rounded-md text-sm dark:bg-gray-700 dark:border-gray-600 dark:text-white" />
+                                            class="block px-2 py-1 border rounded-md text-sm dark:bg-gray-700 dark:border-gray-800 dark:text-white" />
                                     </div>
                                     <div class="flex items-center gap-2">
                                         <p class="block text-sm font-medium text-gray-700 dark:text-gray-300 w-16">Hasta
                                         </p>
                                         <input type="date" name="fechaCargaHasta"
                                             th:value="${filtrosActuales.fechaCargaHasta}"
-                                            class="block px-2 py-1 border rounded-md text-sm dark:bg-gray-700 dark:border-gray-600 dark:text-white" />
+                                            class="block px-2 py-1 border rounded-md text-sm dark:bg-gray-700 dark:border-gray-800 dark:text-white" />
                                     </div>
                                 </div>
 
@@ -156,19 +156,19 @@
                                         class="block text-sm font-medium text-gray-700 dark:text-gray-300">Ubicación</label>
                                     <div class="space-y-2 mt-1">
                                         <select name="pais"
-                                            class="block w-full px-3 py-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 rounded-md sm:text-sm">
+                                            class="block w-full px-3 py-2 border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 rounded-md sm:text-sm">
                                             <option value="">Todos los Países</option>
                                             <option th:each="p : ${paises}" th:value="${p}" th:text="${p}"
                                                 th:selected="${p == filtrosActuales.pais}"></option>
                                         </select>
                                         <select name="provincia"
-                                            class="block w-full px-3 py-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 rounded-md sm:text-sm">
+                                            class="block w-full px-3 py-2 border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 rounded-md sm:text-sm">
                                             <option value="">Todas las Provincias</option>
                                             <option th:each="p : ${provincias}" th:value="${p}" th:text="${p}"
                                                 th:selected="${p == filtrosActuales.provincia}"></option>
                                         </select>
                                         <select name="localidad"
-                                            class="block w-full px-3 py-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 rounded-md sm:text-sm">
+                                            class="block w-full px-3 py-2 border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 rounded-md sm:text-sm">
                                             <option value="">Todas las Localidades</option>
                                             <option th:each="l : ${localidades}" th:value="${l}" th:text="${l}"
                                                 th:selected="${l == filtrosActuales.localidad}"></option>

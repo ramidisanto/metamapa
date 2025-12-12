@@ -142,6 +142,7 @@ public class AgregadorGraphQLServicio {
         }
 
         return new HechoDTOoutput(
+                h.getId(),
                 h.getTitulo(),
                 h.getDescripcion(),
                 contenidoTxt,

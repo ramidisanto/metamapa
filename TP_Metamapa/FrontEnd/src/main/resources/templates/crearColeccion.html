@@ -35,21 +35,26 @@
                 <span th:text="${errorMessage}"></span>
             </div>
 
-            <form class="space-y-4" th:action="@{/admin/crear-coleccion}" th:object="${coleccionForm}" method="POST">
+            <form id="crearColeccionForm" class="space-y-4" th:action="@{/admin/crear-coleccion}"
+                th:object="${coleccionForm}" method="POST">
 
 
                 <div>
-                    <label for="titulo"
-                        class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Título</label>
+                    <label for="titulo" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Título
+                        <span class="text-red-500">*</span></label>
                     <input type="text" id="titulo" th:field="*{titulo}" required
                         class="w-full px-4 py-3 rounded-xl border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 placeholder:text-gray-400 dark:placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500 dark:focus:border-primary-400 transition-all duration-300" />
+                    <span id="titulo-error" class="text-red-500 text-xs mt-1 hidden">Este campo es obligatorio</span>
                 </div>
-
+                <!-- Codigo comentado eliminado para limpieza -->
                 <div>
                     <label for="descripcion"
-                        class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Descripción</label>
+                        class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Descripción <span
+                            class="text-red-500">*</span></label>
                     <textarea id="descripcion" th:field="*{descripcion}" rows="3" required
                         class="w-full px-4 py-3 rounded-xl border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 placeholder:text-gray-400 dark:placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500 dark:focus:border-primary-400 transition-all duration-300"></textarea>
+                    <span id="descripcion-error" class="text-red-500 text-xs mt-1 hidden">Este campo es
+                        obligatorio</span>
                 </div>
 
                 <div>
@@ -212,7 +217,81 @@
     <div th:replace="~{layout/base :: footer}"></div>
 
     <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const form = document.getElementById("crearColeccionForm");
+            const requiredFields = [
+                { id: 'titulo', errorId: 'titulo-error' },
+                { id: 'descripcion', errorId: 'descripcion-error' }
+            ];
 
+            // Función para mostrar/ocultar error
+            function showError(errorElement, show) {
+                if (show) {
+                    errorElement.classList.remove('hidden');
+                } else {
+                    errorElement.classList.add('hidden');
+                }
+            }
+
+            // Función para marcar input como inválido
+            function setFieldInvalid(field, isInvalid) {
+                if (isInvalid) {
+                    field.classList.add('border-red-500', 'focus:border-red-500', 'focus:ring-red-500/20');
+                    field.classList.remove('border-gray-300', 'dark:border-gray-600');
+                } else {
+                    field.classList.remove('border-red-500', 'focus:border-red-500', 'focus:ring-red-500/20');
+                    field.classList.add('border-gray-300', 'dark:border-gray-600');
+                }
+            }
+
+            // Validar campo individual
+            function validateField(fieldConfig) {
+                const field = document.getElementById(fieldConfig.id);
+                const errorElement = document.getElementById(fieldConfig.errorId);
+                const isEmpty = !field.value.trim();
+
+                showError(errorElement, isEmpty);
+                setFieldInvalid(field, isEmpty);
+
+                return !isEmpty;
+            }
+
+            // Agregar listener para validar al perder el foco
+            requiredFields.forEach(fieldConfig => {
+                const field = document.getElementById(fieldConfig.id);
+                field.addEventListener('blur', () => validateField(fieldConfig));
+                field.addEventListener('input', () => {
+                    const errorElement = document.getElementById(fieldConfig.errorId);
+                    if (field.value.trim()) {
+                        showError(errorElement, false);
+                        setFieldInvalid(field, false);
+                    }
+                });
+            });
+
+            // Validar formulario al enviar
+            form.addEventListener('submit', function (e) {
+                let isValid = true;
+
+                requiredFields.forEach(fieldConfig => {
+                    if (!validateField(fieldConfig)) {
+                        isValid = false;
+                    }
+                });
+
+                if (!isValid) {
+                    e.preventDefault();
+                    // Hacer scroll al primer campo con error
+                    const firstError = document.querySelector('.border-red-500');
+                    if (firstError) {
+                        firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                        firstError.focus();
+                    }
+                }
+            });
+        })
+
+        // UBICACION
         const buscarBtn = document.getElementById("buscarUbicacion");
         const inputBuscar = document.getElementById("searchDireccion");
 

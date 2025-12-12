@@ -63,9 +63,11 @@
             </a>
 
             <div class="text-center mb-8">
-                <div
-                        class="w-20 h-20 mx-auto mb-4 from-primary-500 to-primary-700 rounded-2xl flex items-center justify-center shadow-lg">
-                    <img th:src="@{/images/logo.png}" alt="MetaMapa Logo" class="w-14 h-14">
+                <div class="flex items-center justify-center mb-4">
+                    <img th:src="@{/images/logo.png}" alt="MetaMapa Logo"
+                         class="w-10 h-10 block dark:hidden">
+                    <img th:src="@{/images/logo-dark.png}" alt="MetaMapa Logo"
+                         class="w-10 h-10 hidden dark:block">
                 </div>
                 <h1
                    class="text-3xl font-bold bg-gradient-to-r from-primary-600 to-primary-800 dark:from-primary-400 dark:to-primary-600 bg-clip-text text-transparent">

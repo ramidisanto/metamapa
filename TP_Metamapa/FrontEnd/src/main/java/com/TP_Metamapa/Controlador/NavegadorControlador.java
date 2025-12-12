@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 import java.util.List;
 
@@ -28,7 +30,14 @@ public class NavegadorControlador {
         model.addAttribute("paises", paisServicio.getPaisesUnicos());
         model.addAttribute("provincias", provinciaServicio.getProvinciasUnicas());
         model.addAttribute("localidades", localidadServicio.getLocalidadesUnicas());
-        model.addAttribute("origenesDeCarga", OrigenCarga.values());
+
+        Map<String, String> origenesDeCargaMap = new LinkedHashMap<>();
+        origenesDeCargaMap.put("FUENTE_ESTATICA", "Archivos de ONGs");
+        origenesDeCargaMap.put("FUENTE_DINAMICA", "Usuarios");
+        origenesDeCargaMap.put("FUENTE_PROXY", "Servicios Externos");
+        model.addAttribute("origenesDeCarga", origenesDeCargaMap);
+
+
         model.addAttribute("colecciones", coleccionServicio.getColecciones());
 
         // Verificar si es admin para mostrar opciones de borrado en el JS

@@ -158,6 +158,7 @@ public class ColeccionServicio {
 
         // Construcción del DTO output
         return new HechoDTOoutput(
+                h.getId(),
                 h.getTitulo(),
                 h.getDescripcion(),
                 textoContenido,

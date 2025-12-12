@@ -9,6 +9,7 @@
     <link rel="stylesheet" th:href="@{/css/style.css}">
     <link rel="stylesheet" th:href="@{/css/custom.css}">
 
+
     <script>
         // Check dark mode before page loads to prevent FOUC
         if (localStorage.getItem('theme') === 'dark') {
@@ -58,9 +59,9 @@
             </a>
 
             <div class="text-center mb-8">
-                <div
-                        class="w-20 h-20 mx-auto mb-4 from-primary-500 to-primary-700 rounded-2xl flex items-center justify-center shadow-lg">
-                    <img th:src="@{/images/logo.png}" alt="MetaMapa Logo" class="w-14 h-14">
+                <div class="w-11 h-11 mx-auto flex items-center justify-center">
+                    <img th:src="@{/images/logo.png}" alt="MetaMapa Logo" class="w-10 h-10 block dark:hidden">
+                    <img th:src="@{/images/logo-dark.png}" alt="MetaMapa Logo" class="w-10 h-10 hidden dark:block">
                 </div>
                 <h1
                     class="text-3xl font-bold bg-gradient-to-r from-primary-600 to-primary-800 dark:from-primary-400 dark:to-primary-600 bg-clip-text text-transparent">
@@ -68,58 +69,68 @@
                 <p class="text-gray-500 dark:text-gray-400 mt-2">Regístrate para comenzar a usar MetaMapa</p>
             </div>
 
-            <form th:action="@{/auth/register}" th:object="${registerForm}" method="post" class="space-y-5">
+            <form id="registerForm" th:action="@{/auth/register}" th:object="${registerForm}" method="post"
+                class="space-y-5">
 
                 <!-- Username -->
                 <div>
                     <label for="username" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Nombre
-                        de usuario</label>
+                        de usuario <span class="text-red-500">*</span></label>
                     <input th:field="*{username}" type="text" id="username" name="username" required
                         class="w-full px-4 py-3 rounded-xl border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 placeholder:text-gray-400 dark:placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500 dark:focus:border-primary-400 transition-all duration-300"
                         placeholder="Elige un nombre de usuario">
+                    <span id="username-error" class="text-red-500 text-xs mt-1 hidden">Este campo es obligatorio</span>
                 </div>
 
                 <!-- Email -->
                 <div>
                     <label for="email" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Correo
-                        electrónico</label>
+                        electrónico <span class="text-red-500">*</span></label>
                     <input th:field="*{email}" type="email" id="email" name="email" required
                         class="w-full px-4 py-3 rounded-xl border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 placeholder:text-gray-400 dark:placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500 dark:focus:border-primary-400 transition-all duration-300"
                         placeholder="tu@email.com">
+                    <span id="email-error" class="text-red-500 text-xs mt-1 hidden">Este campo es obligatorio</span>
                 </div>
 
                 <!-- Name and Last Name -->
                 <div class="grid grid-cols-2 gap-4">
                     <div>
                         <label for="firstName"
-                            class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Nombre</label>
+                            class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Nombre <span
+                                class="text-red-500">*</span></label>
                         <input th:field="*{firstName}" type="text" id="firstName" name="firstName" required
                             class="w-full px-4 py-3 rounded-xl border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 placeholder:text-gray-400 dark:placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500 dark:focus:border-primary-400 transition-all duration-300"
                             placeholder="Nombre">
+                        <span id="firstName-error" class="text-red-500 text-xs mt-1 hidden">Este campo es
+                            obligatorio</span>
                     </div>
 
                     <div>
                         <label for="lastName"
-                            class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Apellido</label>
+                            class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Apellido <span
+                                class="text-red-500">*</span></label>
                         <input th:field="*{lastName}" type="text" id="lastName" name="lastName" required
                             class="w-full px-4 py-3 rounded-xl border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 placeholder:text-gray-400 dark:placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500 dark:focus:border-primary-400 transition-all duration-300"
                             placeholder="Apellido">
+                        <span id="lastName-error" class="text-red-500 text-xs mt-1 hidden">Este campo es
+                            obligatorio</span>
                     </div>
                 </div>
 
                 <!-- Birthdate -->
                 <div>
                     <label for="birthdate" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Fecha
-                        de nacimiento</label>
+                        de nacimiento <span class="text-red-500">*</span></label>
                     <input th:field="*{birthdate}" type="date" id="birthdate" name="birthdate" required
-                        class="w-full px-4 py-3 rounded-xl border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500 dark:focus:border-primary-400 transition-all duration-300"
-                        th:max="${#temporals.format(#temporals.createNow(), 'yyyy-MM-dd')}">
+                        class="w-full px-4 py-3 rounded-xl border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500 dark:focus:border-primary-400 transition-all duration-300">
+                    <span id="birthdate-error" class="text-red-500 text-xs mt-1 hidden">Este campo es obligatorio</span>
                 </div>
 
                 <!-- Password -->
                 <div>
                     <label for="password"
-                        class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Contraseña</label>
+                        class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Contraseña <span
+                            class="text-red-500">*</span></label>
                     <div class="relative">
                         <input th:field="*{password}" type="password" id="password" name="password" required
                             class="w-full px-4 py-3 rounded-xl border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 placeholder:text-gray-400 dark:placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500 dark:focus:border-primary-400 transition-all duration-300 pr-12"
@@ -140,6 +151,7 @@
                             </svg>
                         </button>
                     </div>
+                    <span id="password-error" class="text-red-500 text-xs mt-1 hidden">Este campo es obligatorio</span>
                 </div>
 
                 <!-- Messages -->
@@ -195,6 +207,95 @@
                 eyeOffIcon.classList.remove('hidden');
             }
         }
+
+        // ==========================================
+        // Validación del formulario de registro
+        // ==========================================
+        document.addEventListener('DOMContentLoaded', function () {
+            const form = document.getElementById('registerForm');
+            const requiredFields = [
+                { id: 'username', errorId: 'username-error' },
+                { id: 'email', errorId: 'email-error' },
+                { id: 'firstName', errorId: 'firstName-error' },
+                { id: 'lastName', errorId: 'lastName-error' },
+                { id: 'birthdate', errorId: 'birthdate-error' },
+                { id: 'password', errorId: 'password-error' }
+            ];
+
+            // Función para mostrar/ocultar error
+            function showError(errorElement, show) {
+                if (show) {
+                    errorElement.classList.remove('hidden');
+                } else {
+                    errorElement.classList.add('hidden');
+                }
+            }
+
+            // Función para marcar input como inválido
+            function setFieldInvalid(field, isInvalid) {
+                if (isInvalid) {
+                    field.classList.add('border-red-500', 'focus:border-red-500', 'focus:ring-red-500/20');
+                    field.classList.remove('border-gray-300', 'dark:border-gray-600');
+                } else {
+                    field.classList.remove('border-red-500', 'focus:border-red-500', 'focus:ring-red-500/20');
+                    field.classList.add('border-gray-300', 'dark:border-gray-600');
+                }
+            }
+
+            // Validar campo individual
+            function validateField(fieldConfig) {
+                const field = document.getElementById(fieldConfig.id);
+                const errorElement = document.getElementById(fieldConfig.errorId);
+                const isEmpty = !field.value.trim();
+
+                showError(errorElement, isEmpty);
+                setFieldInvalid(field, isEmpty);
+
+                return !isEmpty;
+            }
+
+            // Agregar listener para validar al perder el foco
+            requiredFields.forEach(fieldConfig => {
+                const field = document.getElementById(fieldConfig.id);
+                field.addEventListener('blur', () => validateField(fieldConfig));
+                field.addEventListener('input', () => {
+                    const errorElement = document.getElementById(fieldConfig.errorId);
+                    if (field.value.trim()) {
+                        showError(errorElement, false);
+                        setFieldInvalid(field, false);
+                    }
+                });
+            });
+
+            // Validar formulario al enviar
+            form.addEventListener('submit', function (e) {
+                let isValid = true;
+
+                requiredFields.forEach(fieldConfig => {
+                    if (!validateField(fieldConfig)) {
+                        isValid = false;
+                    }
+                });
+
+                if (!isValid) {
+                    e.preventDefault();
+                    // Hacer scroll al primer campo con error
+                    const firstError = document.querySelector('.border-red-500');
+                    if (firstError) {
+                        firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                        firstError.focus();
+                    }
+                }
+            });
+
+            // Restricción de fecha futura para fecha de nacimiento
+            const birthdateInput = document.getElementById('birthdate');
+            const today = new Date();
+            const year = today.getFullYear();
+            const month = String(today.getMonth() + 1).padStart(2, '0');
+            const day = String(today.getDate()).padStart(2, '0');
+            birthdateInput.setAttribute('max', `${year}-${month}-${day}`);
+        });
     </script>
 </body>
 

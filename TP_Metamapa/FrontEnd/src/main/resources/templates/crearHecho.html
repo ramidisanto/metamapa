@@ -22,21 +22,23 @@
                 <span th:text="${errorMessage}"></span>
             </div>
 
-            <form th:action="@{/crear-hecho}" th:object="${hechoForm}" method="post" enctype="multipart/form-data"
+            <form id="crearHechoForm" th:action="@{/crear-hecho}" th:object="${hechoForm}" method="post" enctype="multipart/form-data"
                 class="space-y-4">
 
                 <div>
                     <label for="titulo"
-                        class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Título</label>
+                        class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Título <span class="text-red-500">*</span></label>
                     <input type="text" name="titulo" id="titulo" th:field="*{titulo}" required
                         class="w-full px-4 py-3 rounded-xl border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 placeholder:text-gray-400 dark:placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500 dark:focus:border-primary-400 transition-all duration-300" />
+                    <span id="titulo-error" class="text-red-500 text-xs mt-1 hidden">Este campo es obligatorio</span>
                 </div>
 
                 <div>
                     <label for="descripcion"
-                        class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Descripción</label>
+                        class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Descripción <span class="text-red-500">*</span></label>
                     <textarea name="descripcion" id="descripcion" th:field="*{descripcion}" rows="2" required
                         class="w-full px-4 py-3 rounded-xl border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 placeholder:text-gray-400 dark:placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500 dark:focus:border-primary-400 transition-all duration-300"></textarea>
+                    <span id="descripcion-error" class="text-red-500 text-xs mt-1 hidden">Este campo es obligatorio</span>
                 </div>
 
                 <div>
@@ -51,44 +53,48 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
                         <label for="categoria"
-                            class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Categoría</label>
-                        <select name="categoria" id="categoria" th:field="*{categoria}"
+                            class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Categoría <span class="text-red-500">*</span></label>
+                        <select name="categoria" id="categoria" th:field="*{categoria}" required
                             class="w-full px-4 py-3 rounded-xl border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500 dark:focus:border-primary-400 transition-all duration-300">
-                            <option value="" disabled selected>Selecciona una categoría</option>
+                            <option value="">Selecciona una categoría</option>
                             <option th:each="cat : ${categorias}" th:value="${cat}" th:text="${cat}"></option>
                             <option value="Otra">Otra</option>
                         </select>
+                        <span id="categoria-error" class="text-red-500 text-xs mt-1 hidden">Este campo es obligatorio</span>
                     </div>
                     <div id="customCategoriaDiv" class="hidden">
                         <label for="customCategoria"
                             class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Nueva
-                            Categoría</label>
+                            Categoría <span class="text-red-500">*</span></label>
                         <input type="text" name="customCategoria" id="customCategoria" th:field="*{customCategoria}"
                             class="w-full px-4 py-3 rounded-xl border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500 dark:focus:border-primary-400 transition-all duration-300" />
+                        <span id="customCategoria-error" class="text-red-500 text-xs mt-1 hidden">Debes ingresar una nueva categoría</span>
                     </div>
                 </div>
 
                 <div>
                     <label for="fechaAcontecimiento"
-                        class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Fecha del Hecho</label>
+                        class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Fecha del Hecho <span class="text-red-500">*</span></label>
                     <input type="datetime-local" name="fechaAcontecimiento" id="fechaAcontecimiento"
                         th:field="*{fechaAcontecimiento}" required
                         class="w-full px-4 py-3 rounded-xl border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500 dark:focus:border-primary-400 transition-all duration-300"
-                        th:max="${#temporals.format(#temporals.createNow(), 'yyyy-MM-dd')}" />
+                           />
+                    <span id="fechaAcontecimiento-error" class="text-red-500 text-xs mt-1 hidden">Este campo es obligatorio</span>
                 </div>
 
                 <div>
                     <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Ubicación del
-                        Hecho</label>
+                        Hecho <span class="text-red-500">*</span></label>
                     <p class="text-xs text-gray-500 dark:text-gray-400 mb-2">Haz clic en el mapa o busca una dirección
                         para marcar la ubicación.</p>
                     <div class="flex gap-2 mb-2">
-                        <input type="text" id="searchInput" placeholder="Buscar dirección..." required
+                        <input type="text" id="searchInput" placeholder="Buscar dirección..."
                             class="flex-1 px-4 py-3 rounded-xl border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 placeholder:text-gray-400 dark:placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500 dark:focus:border-primary-400 transition-all duration-300" />
                         <button type="button" id="searchBtn"
                             class="px-6 py-3 bg-gradient-to-r from-primary-600 to-primary-700 text-white font-medium rounded-xl shadow-md hover:from-primary-700 hover:to-primary-800 hover:shadow-lg transition-all duration-300">Buscar</button>
                     </div>
                     <div id="map" class="h-96 w-full rounded-xl border-2 border-gray-200 dark:border-gray-600"></div>
+                    <span id="ubicacion-error" class="text-red-500 text-xs mt-1 hidden">Debes seleccionar una ubicación en el mapa</span>
                     <input type="hidden" name="latitud" id="latitud" th:field="*{latitud}" />
                     <input type="hidden" name="longitud" id="longitud" th:field="*{longitud}" />
                     <input type="hidden" name="pais" id="pais" th:field="*{pais}" />
@@ -145,6 +151,189 @@
                     customCategoriaInput.value = '';
                 }
             });
+
+            // ==========================================
+            // Restricción de fecha/hora futura
+            // ==========================================
+            const fechaInput = document.getElementById('fechaAcontecimiento');
+            function setMaxDateTime() {
+                const now = new Date();
+                // Formato requerido para datetime-local: YYYY-MM-DDTHH:MM
+                const year = now.getFullYear();
+                const month = String(now.getMonth() + 1).padStart(2, '0');
+                const day = String(now.getDate()).padStart(2, '0');
+                const hours = String(now.getHours()).padStart(2, '0');
+                const minutes = String(now.getMinutes()).padStart(2, '0');
+                const maxDateTime = `${year}-${month}-${day}T${hours}:${minutes}`;
+                fechaInput.setAttribute('max', maxDateTime);
+            }
+            setMaxDateTime();
+            // Actualizar cada minuto por si el usuario pasa mucho tiempo en la página
+            setInterval(setMaxDateTime, 60000);
+
+            // ==========================================
+            // Validación del formulario
+            // ==========================================
+            const form = document.getElementById('crearHechoForm');
+            const requiredFields = [
+                { id: 'titulo', errorId: 'titulo-error' },
+                { id: 'descripcion', errorId: 'descripcion-error' },
+                { id: 'fechaAcontecimiento', errorId: 'fechaAcontecimiento-error' }
+            ];
+
+            // Función para mostrar/ocultar error
+            function showError(errorElement, show) {
+                if (show) {
+                    errorElement.classList.remove('hidden');
+                } else {
+                    errorElement.classList.add('hidden');
+                }
+            }
+
+            // Función para marcar input como inválido
+            function setFieldInvalid(field, isInvalid) {
+                if (isInvalid) {
+                    field.classList.add('border-red-500', 'focus:border-red-500', 'focus:ring-red-500/20');
+                    field.classList.remove('border-gray-300', 'dark:border-gray-600');
+                } else {
+                    field.classList.remove('border-red-500', 'focus:border-red-500', 'focus:ring-red-500/20');
+                    field.classList.add('border-gray-300', 'dark:border-gray-600');
+                }
+            }
+
+            // Validar campo individual
+            function validateField(fieldConfig) {
+                const field = document.getElementById(fieldConfig.id);
+                const errorElement = document.getElementById(fieldConfig.errorId);
+                const isEmpty = !field.value.trim();
+                
+                showError(errorElement, isEmpty);
+                setFieldInvalid(field, isEmpty);
+                
+                return !isEmpty;
+            }
+
+            // Validar categoría
+            function validateCategoria() {
+                const categoriaError = document.getElementById('categoria-error');
+                const customCategoriaError = document.getElementById('customCategoria-error');
+                const isOtra = categoriaSelect.value === 'Otra';
+                const categoriaEmpty = !categoriaSelect.value;
+                
+                // Validar si no se seleccionó nada
+                if (categoriaEmpty) {
+                    showError(categoriaError, true);
+                    setFieldInvalid(categoriaSelect, true);
+                    return false;
+                } else {
+                    showError(categoriaError, false);
+                    setFieldInvalid(categoriaSelect, false);
+                }
+                
+                // Si seleccionó "Otra", validar que ingrese la nueva categoría
+                if (isOtra && !customCategoriaInput.value.trim()) {
+                    showError(customCategoriaError, true);
+                    setFieldInvalid(customCategoriaInput, true);
+                    return false;
+                } else {
+                    showError(customCategoriaError, false);
+                    setFieldInvalid(customCategoriaInput, false);
+                }
+                
+                return true;
+            }
+
+            // Validar ubicación
+            function validateUbicacion() {
+                const ubicacionError = document.getElementById('ubicacion-error');
+                const latInput = document.getElementById('latitud');
+                const lngInput = document.getElementById('longitud');
+                const mapElement = document.getElementById('map');
+                
+                const hasLocation = latInput.value && lngInput.value;
+                
+                if (!hasLocation) {
+                    showError(ubicacionError, true);
+                    mapElement.classList.add('border-red-500');
+                    mapElement.classList.remove('border-gray-200', 'dark:border-gray-600');
+                    return false;
+                } else {
+                    showError(ubicacionError, false);
+                    mapElement.classList.remove('border-red-500');
+                    mapElement.classList.add('border-gray-200', 'dark:border-gray-600');
+                    return true;
+                }
+            }
+
+            // Agregar listener para validar al perder el foco
+            requiredFields.forEach(fieldConfig => {
+                const field = document.getElementById(fieldConfig.id);
+                field.addEventListener('blur', () => validateField(fieldConfig));
+                field.addEventListener('input', () => {
+                    const errorElement = document.getElementById(fieldConfig.errorId);
+                    if (field.value.trim()) {
+                        showError(errorElement, false);
+                        setFieldInvalid(field, false);
+                    }
+                });
+            });
+
+            // Validar categoría al cambiar
+            categoriaSelect.addEventListener('change', function() {
+                validateCategoria();
+            });
+
+            // Validar customCategoria al escribir
+            customCategoriaInput.addEventListener('input', function() {
+                if (categoriaSelect.value === 'Otra' && this.value.trim()) {
+                    const customCategoriaError = document.getElementById('customCategoria-error');
+                    showError(customCategoriaError, false);
+                    setFieldInvalid(this, false);
+                }
+            });
+
+            // Validar formulario al enviar
+            form.addEventListener('submit', function(e) {
+                let isValid = true;
+                
+                requiredFields.forEach(fieldConfig => {
+                    if (!validateField(fieldConfig)) {
+                        isValid = false;
+                    }
+                });
+
+                // Validar categoría
+                if (!validateCategoria()) {
+                    isValid = false;
+                }
+
+                // Validar ubicación
+                if (!validateUbicacion()) {
+                    isValid = false;
+                }
+
+                // Validar fecha futura
+                const fechaValue = new Date(fechaInput.value);
+                const now = new Date();
+                if (fechaValue > now) {
+                    const errorElement = document.getElementById('fechaAcontecimiento-error');
+                    errorElement.textContent = 'No se permite seleccionar fechas u horas futuras';
+                    showError(errorElement, true);
+                    setFieldInvalid(fechaInput, true);
+                    isValid = false;
+                }
+
+                if (!isValid) {
+                    e.preventDefault();
+                    // Hacer scroll al primer campo con error
+                    const firstError = document.querySelector('.border-red-500');
+                    if (firstError) {
+                        firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                        firstError.focus();
+                    }
+                }
+            });
+
 
             const map = L.map('map').setView([-34.6037, -58.3816], 11);
             L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
