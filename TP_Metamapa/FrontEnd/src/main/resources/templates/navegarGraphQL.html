@@ -213,6 +213,8 @@
         const GRAPHQL_URL = 'http://localhost:8080/graphql';
         // Capturamos si es admin desde Thymeleaf para usarlo en JS
         const IS_ADMIN = /*[[${isAdmin}]]*/ false;
+        const CSRF_TOKEN = /*[[${_csrf.token}]]*/ '';
+        const CSRF_PARAM_NAME = /*[[${_csrf.parameterName}]]*/ '_csrf';
 
         let map = null;
         let markersLayer = new L.LayerGroup();
@@ -491,6 +493,7 @@
                 const deleteButtonAdmin = `
         <form action="/admin/eliminar-hecho/${h.idHecho}" method="post"
               onsubmit="return confirm('¿Deseas eliminar el Hecho de todas las colecciones?');">
+              <input type="hidden" name="${CSRF_PARAM_NAME}" value="${CSRF_TOKEN}" />
             <button type="submit"
                     class="p-2 rounded-xl text-gray-500 dark:text-gray-400
                            hover:text-red-600 dark:hover:text-red-400

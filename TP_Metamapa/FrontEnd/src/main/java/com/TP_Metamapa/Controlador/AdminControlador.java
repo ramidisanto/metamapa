@@ -195,6 +195,6 @@ public class AdminControlador {
 
         redirectAttributes.addFlashAttribute("successMessage", "Hecho quitado exitosamente.");
 
-        return "redirect:/admin" ;
+        return "redirect:/navegar" ;
     }
 }

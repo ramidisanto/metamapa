@@ -37,7 +37,7 @@ public class SecurityConfig {
                         // paginas publicas (permitAll)
                         .requestMatchers("/actuator/**", "/actuator/prometheus", "/rate-limit-error").permitAll()
                         .requestMatchers(HttpMethod.GET, "/css/**", "/js/**", "/images/**").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/", "/navegar", "/estadisticas", "/ver-hecho/{id}", "/csv").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/", "/navegargraphql", "/navegar/**", "/estadisticas", "/ver-hecho/{id}", "/csv").permitAll()
                         .requestMatchers("/auth/iniciar-sesion").permitAll()
                         .requestMatchers("/auth/login", "/auth/register").permitAll()
 

@@ -62,6 +62,7 @@
             </div>
             <div th:if="${showAdminActions}">
                 <form th:action="@{/admin/eliminar-hecho/{id}(id=${hecho.idHecho})}" method="post">
+                    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
                     <button type="submit"
                         onclick="return confirm('¿Deseas eliminar el Hecho de todas las colecciones?');"
                         class="p-2 rounded-xl text-gray-500 dark:text-gray-400 hover:text-red-600 dark:hover:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/30 transition-all duration-300"
