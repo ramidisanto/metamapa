@@ -16,10 +16,10 @@ public class HechoDTOInput {
     // Campos que coinciden con el backend
     private String titulo;
     private String descripcion;
-    private String contenido; // Asegúrate si es 'contenido' o 'contenidoAdicional' en el backend
-    private String contenido_multimedia; // ¡Será la RUTA (String)!
+    private String contenido;
+    private String contenido_multimedia;
     private String categoria;
-    private LocalDateTime fechaAcontecimiento; // ¡LocalDateTime!
+    private LocalDateTime fechaAcontecimiento;
     private String localidad;
     private String provincia;
     private String pais;

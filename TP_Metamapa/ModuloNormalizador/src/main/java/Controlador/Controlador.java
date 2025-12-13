@@ -7,39 +7,38 @@ import servicios.ServicioTitulo;
 import servicios.ServicioUbicacion;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/normalizacion")
 public class Controlador {
 
     @Autowired
-    ServicioCategoria servicioCategoria;
+    private ServicioCategoria servicioCategoria;
+
     @Autowired
-    ServicioUbicacion servicioUbicacion;
+    private ServicioUbicacion servicioUbicacion;
+
     @Autowired
     private ServicioTitulo servicioTitulo;
 
-    // LAS CATEGORIAS Y UBICACIONES SON REQUEST BODY
-    @PostMapping ("/categorias" )
+    @PostMapping("/categorias")
     public ResponseEntity<String> normalizarCategoria(@RequestBody String categoria) {
-        String categoria_normalizada= servicioCategoria.normalizarCategoria(categoria);
-        return ResponseEntity.ok(categoria_normalizada);
+        return ResponseEntity.ok(servicioCategoria.normalizarCategoria(categoria));
     }
 
     @PostMapping("/ubicaciones")
     public ResponseEntity<UbicacionDTOoutput> normalizarUbicacion(@RequestBody UbicacionDTO ubicacion) {
-        UbicacionDTOoutput ubicacion_normalizada = servicioUbicacion.normalizarUbicacion(ubicacion.getLatitud(), ubicacion.getLongitud());
-        return ResponseEntity.ok(ubicacion_normalizada);
+        return ResponseEntity.ok(
+                servicioUbicacion.normalizarUbicacion(
+                        ubicacion.getLatitud(),
+                        ubicacion.getLongitud()
+                )
+        );
     }
 
     @PostMapping("/titulos")
     public ResponseEntity<String> normalizarTitulo(@RequestBody String titulo) {
-        String titulo_normalizado = servicioTitulo.normalizarTitulo(titulo);
-        return ResponseEntity.ok(titulo_normalizado);
+        return ResponseEntity.ok(servicioTitulo.normalizarTitulo(titulo));
     }
 }

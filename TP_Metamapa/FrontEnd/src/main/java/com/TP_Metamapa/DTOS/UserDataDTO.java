@@ -15,7 +15,7 @@ public class UserDataDTO {
     private String firstName;
     private String lastName;
     private String email;
-    private Map<String, Object> attributes; // para birthdate y otros que se quieran agregar
+    private Map<String, Object> attributes;
 
     public LocalDate getBirthdate() {
         if (attributes != null && attributes.containsKey("birthdate")) {

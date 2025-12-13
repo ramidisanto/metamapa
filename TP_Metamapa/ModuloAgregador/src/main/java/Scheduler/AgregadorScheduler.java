@@ -12,7 +12,7 @@ public class AgregadorScheduler {
     @Autowired
     AgregadorServicio agregadorService;
 
-    @Scheduled(fixedRate = 36000000)
+    @Scheduled(fixedRate = 120000)
     public void actualizarHechos() {
         agregadorService.actualizarHechos();
     }

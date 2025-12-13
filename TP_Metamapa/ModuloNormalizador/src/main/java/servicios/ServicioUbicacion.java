@@ -1,68 +1,82 @@
 package servicios;
 
 import Modelos.*;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
+import Utils.TextoUtils;
 
 @Service
 public class ServicioUbicacion {
 
-    @Autowired
-    RestTemplate restTemplate;
+    private final RestTemplate restTemplate;
+    private final ObjectMapper objectMapper;
 
-    public ServicioUbicacion(RestTemplate restTemplate) {this.restTemplate = restTemplate;
+    private static final String NOMINATIM_URL =
+            "https://nominatim.openstreetmap.org/reverse?lat={lat}&lon={lon}&format=json";
+
+    public ServicioUbicacion(RestTemplate restTemplate, ObjectMapper objectMapper) {
+        this.restTemplate = restTemplate;
+        this.objectMapper = objectMapper;
     }
 
-    private static final String NOMINATIM_URL = "https://nominatim.openstreetmap.org/reverse?lat={lat}&lon={lon}&format=json";
+    @Cacheable(value = "ubicaciones", key = "#latitud + ',' + #longitud")
+    public UbicacionDTOoutput normalizarUbicacion(Double latitud, Double longitud) {
 
-    public UbicacionDTOoutput normalizarUbicacion (Double latitud, Double longitud) {
+        try {
+            String response = restTemplate.getForObject(
+                    NOMINATIM_URL,
+                    String.class,
+                    latitud,
+                    longitud
+            );
 
-        Ubicacion ubicacion = new Ubicacion();
-
-        try{
-            String response = restTemplate.getForObject(NOMINATIM_URL, String.class, latitud, longitud);
-            ObjectMapper mapper = new ObjectMapper();
-            JsonNode root = mapper.readTree(response);
+            JsonNode root = objectMapper.readTree(response);
             JsonNode address = root.path("address");
 
-            Pais pais = new Pais(capitalizarCadaPalabra(address.path("country").asText()));
-            Provincia provincia = new Provincia(capitalizarCadaPalabra(address.path("state").asText()), pais );
+            Pais pais = new Pais(
+                    TextoUtils.capitalizarCadaPalabra(address.path("country").asText())
+            );
 
-            String ciudad = address.path("state_district").asText();
-            if (ciudad == null || ciudad.isBlank()){
-                ciudad = address.path("town").asText();
+            Provincia provincia = new Provincia(
+                    TextoUtils.capitalizarCadaPalabra(address.path("state").asText()),
+                    pais
+            );
+
+            String ciudad =
+                    address.path("city").asText(null);
+
+            if (ciudad == null || ciudad.isBlank()) {
+                ciudad = address.path("town").asText(null);
             }
-            Localidad localidad = new Localidad(capitalizarCadaPalabra(ciudad), provincia);
+            if (ciudad == null || ciudad.isBlank()) {
+                ciudad = address.path("village").asText(null);
+            }
+            if (ciudad == null || ciudad.isBlank()) {
+                ciudad = address.path("municipality").asText(null);
+            }
+            if (ciudad == null || ciudad.isBlank()) {
+                ciudad = address.path("county").asText(null);
+            }
 
-            ubicacion.setPais(pais);
-            ubicacion.setProvincia(provincia);
-            ubicacion.setLocalidad(localidad);
-            ubicacion.setLatitud(latitud);
-            ubicacion.setLongitud(longitud);
 
-        }catch (Exception e){
-            e.printStackTrace();
+            Localidad localidad = new Localidad(
+                    TextoUtils.capitalizarCadaPalabra(ciudad),
+                    provincia
+            );
+
+            return new UbicacionDTOoutput(
+                    pais.getNombre_pais(),
+                    provincia.getNombre_provincia(),
+                    localidad.getNombre_localidad(),
+                    latitud,
+                    longitud
+            );
+
+        } catch (Exception e) {
+            throw new RuntimeException("Error normalizando ubicación", e);
         }
-        UbicacionDTOoutput ubicacionDTOoutput = new UbicacionDTOoutput(ubicacion.getPais().getNombre_pais(), ubicacion.getProvincia().getNombre_provincia(), ubicacion.getLocalidad().getNombre_localidad(), ubicacion.getLatitud(), ubicacion.getLongitud());
-        return ubicacionDTOoutput;
-    }
-
-    private String capitalizarCadaPalabra(String texto) {
-        if (texto == null || texto.isBlank()) return texto;
-
-        String[] palabras = texto.trim().toLowerCase().split("\\s+");
-        StringBuilder resultado = new StringBuilder();
-
-        for (String palabra : palabras) {
-            resultado.append(Character.toUpperCase(palabra.charAt(0)))
-                    .append(palabra.substring(1))
-                    .append(" ");
-        }
-
-        return resultado.toString().trim();
     }
 }
-

@@ -146,11 +146,6 @@ public class CrearHechoControlador {
             return "redirect:/hechos-pendientes";
 
         } catch (Exception e) {
-            // ==================================================================
-            // AQUÍ ESTÁ EL CAMBIO CLAVE:
-            // Usamos e.getMessage() directo porque el Servicio ya se encargó
-            // de ponerle el texto bonito que mandó el backend.
-            // ==================================================================
             System.err.println("Error procesando creación de hecho: " + e.getMessage());
 
             // Pasamos el mensaje limpio a la vista

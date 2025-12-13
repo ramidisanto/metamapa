@@ -108,9 +108,11 @@
                                     Acontecimiento</label>
                                 <div class="grid grid-cols-2 gap-2">
                                     <input type="date" id="fechaHechoDesde"
-                                        class="block w-full px-2 py-1 border  border-gray-300 dark:border-gray-700 rounded text-xs dark:bg-gray-700 dark:text-white" />
+                                        class="block w-full px-2 py-1 border  border-gray-300 dark:border-gray-700 rounded text-xs dark:bg-gray-700 dark:text-white"
+                                         />
                                     <input type="date" id="fechaHechoHasta"
-                                        class="block w-full px-2 py-1 border  border-gray-300 dark:border-gray-700 rounded text-xs dark:bg-gray-700 dark:text-white" />
+                                        class="block w-full px-2 py-1 border  border-gray-300 dark:border-gray-700 rounded text-xs dark:bg-gray-700 dark:text-white"
+                                        />
                                 </div>
                             </div>
 
@@ -119,9 +121,11 @@
                                     Carga</label>
                                 <div class="grid grid-cols-2 gap-2">
                                     <input type="date" id="fechaCargaDesde"
-                                        class="block w-full px-2 py-1 border  border-gray-300 dark:border-gray-700 rounded text-xs dark:bg-gray-700 dark:text-white" />
+                                        class="block w-full px-2 py-1 border  border-gray-300 dark:border-gray-700 rounded text-xs dark:bg-gray-700 dark:text-white"
+                                         />
                                     <input type="date" id="fechaCargaHasta"
-                                        class="block w-full px-2 py-1 border  border-gray-300 dark:border-gray-700 rounded text-xs dark:bg-gray-700 dark:text-white" />
+                                        class="block w-full px-2 py-1 border  border-gray-300 dark:border-gray-700 rounded text-xs dark:bg-gray-700 dark:text-white"
+                                         />
                                 </div>
                             </div>
 
@@ -207,6 +211,8 @@
     <div th:replace="~{layout/base :: scripts}"></div>
 
     <script th:inline="javascript">
+
+
         /*<![CDATA[*/
 
         // --- CONFIGURACIÓN ---
@@ -242,7 +248,23 @@
         document.addEventListener('DOMContentLoaded', () => {
             initMap();
             setupEventListeners();
-            buscarHechos(); // Carga inicial
+            buscarHechos();
+
+            const fechaDesde = document.getElementById('fechaHechoDesde');
+            const fechaHasta = document.getElementById('fechaHechoHasta');
+            const fechaCargaDesde = document.getElementById('fechaCargaDesde');
+            const fechaCargaHasta = document.getElementById('fechaCargaHasta');
+
+            const today = new Date();
+            const year = today.getFullYear();
+            const month = String(today.getMonth() + 1).padStart(2, '0');
+            const day = String(today.getDate()).padStart(2, '0');
+            const todayStr = `${year}-${month}-${day}`;
+
+            if (fechaDesde) fechaDesde.setAttribute('max', todayStr);
+            if (fechaHasta) fechaHasta.setAttribute('max', todayStr);
+            if (fechaCargaDesde) fechaCargaDesde.setAttribute('max', todayStr);
+            if (fechaCargaHasta) fechaCargaHasta.setAttribute('max', todayStr);
         });
 
         function initMap() {
@@ -253,6 +275,9 @@
             }).addTo(map);
             markersLayer.addTo(map);
         }
+
+
+
 
         function setupEventListeners() {
             // Toggle Filtros

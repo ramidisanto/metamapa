@@ -1,6 +1,7 @@
 package servicios;
 
 import Modelos.UbicacionDTOoutput;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.web.client.RestTemplate;
@@ -11,12 +12,14 @@ import static org.mockito.Mockito.*;
 class ServicioUbicacionTest {
 
     private RestTemplate restTemplateMock;
+    private ObjectMapper objectMapper;
     private ServicioUbicacion servicioUbicacion;
 
     @BeforeEach
     void setUp() {
         restTemplateMock = mock(RestTemplate.class);
-        servicioUbicacion = new ServicioUbicacion(restTemplateMock);
+        objectMapper = new ObjectMapper();
+        servicioUbicacion = new ServicioUbicacion(restTemplateMock, objectMapper);
     }
 
     @Test
