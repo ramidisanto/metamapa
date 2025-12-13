@@ -22,12 +22,12 @@
                 <span th:text="${errorMessage}"></span>
             </div>
 
-            <form id="crearHechoForm" th:action="@{/crear-hecho}" th:object="${hechoForm}" method="post" enctype="multipart/form-data"
-                class="space-y-4">
+            <form id="crearHechoForm" th:action="@{/crear-hecho}" th:object="${hechoForm}" method="post"
+                enctype="multipart/form-data" class="space-y-4">
 
                 <div>
-                    <label for="titulo"
-                        class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Título <span class="text-red-500">*</span></label>
+                    <label for="titulo" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Título
+                        <span class="text-red-500">*</span></label>
                     <input type="text" name="titulo" id="titulo" th:field="*{titulo}" required
                         class="w-full px-4 py-3 rounded-xl border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 placeholder:text-gray-400 dark:placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500 dark:focus:border-primary-400 transition-all duration-300" />
                     <span id="titulo-error" class="text-red-500 text-xs mt-1 hidden">Este campo es obligatorio</span>
@@ -35,10 +35,12 @@
 
                 <div>
                     <label for="descripcion"
-                        class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Descripción <span class="text-red-500">*</span></label>
+                        class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Descripción <span
+                            class="text-red-500">*</span></label>
                     <textarea name="descripcion" id="descripcion" th:field="*{descripcion}" rows="2" required
                         class="w-full px-4 py-3 rounded-xl border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 placeholder:text-gray-400 dark:placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500 dark:focus:border-primary-400 transition-all duration-300"></textarea>
-                    <span id="descripcion-error" class="text-red-500 text-xs mt-1 hidden">Este campo es obligatorio</span>
+                    <span id="descripcion-error" class="text-red-500 text-xs mt-1 hidden">Este campo es
+                        obligatorio</span>
                 </div>
 
                 <div>
@@ -53,14 +55,16 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
                         <label for="categoria"
-                            class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Categoría <span class="text-red-500">*</span></label>
+                            class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Categoría <span
+                                class="text-red-500">*</span></label>
                         <select name="categoria" id="categoria" th:field="*{categoria}" required
                             class="w-full px-4 py-3 rounded-xl border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500 dark:focus:border-primary-400 transition-all duration-300">
                             <option value="">Selecciona una categoría</option>
                             <option th:each="cat : ${categorias}" th:value="${cat}" th:text="${cat}"></option>
                             <option value="Otra">Otra</option>
                         </select>
-                        <span id="categoria-error" class="text-red-500 text-xs mt-1 hidden">Este campo es obligatorio</span>
+                        <span id="categoria-error" class="text-red-500 text-xs mt-1 hidden">Este campo es
+                            obligatorio</span>
                     </div>
                     <div id="customCategoriaDiv" class="hidden">
                         <label for="customCategoria"
@@ -68,18 +72,20 @@
                             Categoría <span class="text-red-500">*</span></label>
                         <input type="text" name="customCategoria" id="customCategoria" th:field="*{customCategoria}"
                             class="w-full px-4 py-3 rounded-xl border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500 dark:focus:border-primary-400 transition-all duration-300" />
-                        <span id="customCategoria-error" class="text-red-500 text-xs mt-1 hidden">Debes ingresar una nueva categoría</span>
+                        <span id="customCategoria-error" class="text-red-500 text-xs mt-1 hidden">Debes ingresar una
+                            nueva categoría</span>
                     </div>
                 </div>
 
                 <div>
                     <label for="fechaAcontecimiento"
-                        class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Fecha del Hecho <span class="text-red-500">*</span></label>
+                        class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Fecha del Hecho <span
+                            class="text-red-500">*</span></label>
                     <input type="datetime-local" name="fechaAcontecimiento" id="fechaAcontecimiento"
                         th:field="*{fechaAcontecimiento}" required
-                        class="w-full px-4 py-3 rounded-xl border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500 dark:focus:border-primary-400 transition-all duration-300"
-                           />
-                    <span id="fechaAcontecimiento-error" class="text-red-500 text-xs mt-1 hidden">Este campo es obligatorio</span>
+                        class="w-full px-4 py-3 rounded-xl border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500 dark:focus:border-primary-400 transition-all duration-300" />
+                    <span id="fechaAcontecimiento-error" class="text-red-500 text-xs mt-1 hidden">Este campo es
+                        obligatorio</span>
                 </div>
 
                 <div>
@@ -94,7 +100,8 @@
                             class="px-6 py-3 bg-gradient-to-r from-primary-600 to-primary-700 text-white font-medium rounded-xl shadow-md hover:from-primary-700 hover:to-primary-800 hover:shadow-lg transition-all duration-300">Buscar</button>
                     </div>
                     <div id="map" class="h-96 w-full rounded-xl border-2 border-gray-200 dark:border-gray-600"></div>
-                    <span id="ubicacion-error" class="text-red-500 text-xs mt-1 hidden">Debes seleccionar una ubicación en el mapa</span>
+                    <span id="ubicacion-error" class="text-red-500 text-xs mt-1 hidden">Debes seleccionar una ubicación
+                        en el mapa</span>
                     <input type="hidden" name="latitud" id="latitud" th:field="*{latitud}" />
                     <input type="hidden" name="longitud" id="longitud" th:field="*{longitud}" />
                     <input type="hidden" name="pais" id="pais" th:field="*{pais}" />
@@ -115,11 +122,12 @@
                     <label for="archivos"
                         class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Archivos multimedia
                         (Imágenes, Videos, Audio)</label>
-                    <input type="file" name="archivos" id="archivos" multiple
+                    <input type="file" name="multimediaFile" id="archivos"
                         class="w-full px-4 py-3 rounded-xl border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:bg-primary-100 dark:file:bg-primary-900/50 file:text-primary-700 dark:file:text-primary-300 file:font-medium hover:file:bg-primary-200 dark:hover:file:bg-primary-800/50 transition-all duration-300"
                         accept="image/*,audio/*,video/*" />
                     <p class="mt-1 text-xs text-gray-500 dark:text-gray-400">(Formatos permitidos: JPG, PNG, GIF, MP3,
-                        WAV, MP4, WEBM)</p>
+                        WAV, MP4, WEBM - Tamaño máximo: 10MB)</p>
+                    <span id="archivos-error" class="text-red-500 text-xs mt-1 hidden"></span>
                 </div>
 
                 <div class="flex justify-end space-x-4 pt-4">
@@ -206,10 +214,10 @@
                 const field = document.getElementById(fieldConfig.id);
                 const errorElement = document.getElementById(fieldConfig.errorId);
                 const isEmpty = !field.value.trim();
-                
+
                 showError(errorElement, isEmpty);
                 setFieldInvalid(field, isEmpty);
-                
+
                 return !isEmpty;
             }
 
@@ -219,7 +227,7 @@
                 const customCategoriaError = document.getElementById('customCategoria-error');
                 const isOtra = categoriaSelect.value === 'Otra';
                 const categoriaEmpty = !categoriaSelect.value;
-                
+
                 // Validar si no se seleccionó nada
                 if (categoriaEmpty) {
                     showError(categoriaError, true);
@@ -229,7 +237,7 @@
                     showError(categoriaError, false);
                     setFieldInvalid(categoriaSelect, false);
                 }
-                
+
                 // Si seleccionó "Otra", validar que ingrese la nueva categoría
                 if (isOtra && !customCategoriaInput.value.trim()) {
                     showError(customCategoriaError, true);
@@ -239,7 +247,7 @@
                     showError(customCategoriaError, false);
                     setFieldInvalid(customCategoriaInput, false);
                 }
-                
+
                 return true;
             }
 
@@ -249,9 +257,9 @@
                 const latInput = document.getElementById('latitud');
                 const lngInput = document.getElementById('longitud');
                 const mapElement = document.getElementById('map');
-                
+
                 const hasLocation = latInput.value && lngInput.value;
-                
+
                 if (!hasLocation) {
                     showError(ubicacionError, true);
                     mapElement.classList.add('border-red-500');
@@ -279,12 +287,12 @@
             });
 
             // Validar categoría al cambiar
-            categoriaSelect.addEventListener('change', function() {
+            categoriaSelect.addEventListener('change', function () {
                 validateCategoria();
             });
 
             // Validar customCategoria al escribir
-            customCategoriaInput.addEventListener('input', function() {
+            customCategoriaInput.addEventListener('input', function () {
                 if (categoriaSelect.value === 'Otra' && this.value.trim()) {
                     const customCategoriaError = document.getElementById('customCategoria-error');
                     showError(customCategoriaError, false);
@@ -292,10 +300,37 @@
                 }
             });
 
+            // Validar tamaño del archivo
+            function validateFileSize() {
+                const fileInput = document.getElementById('archivos');
+                const fileError = document.getElementById('archivos-error');
+                const maxSize = 10 * 1024 * 1024; // 10MB en bytes
+
+                if (fileInput.files.length > 0) {
+                    const file = fileInput.files[0];
+                    if (file.size > maxSize) {
+                        const sizeMB = (file.size / (1024 * 1024)).toFixed(2);
+                        fileError.textContent = `El archivo es demasiado grande (${sizeMB}MB). El tamaño máximo permitido es 10MB.`;
+                        fileError.classList.remove('hidden');
+                        setFieldInvalid(fileInput, true);
+                        return false;
+                    } else {
+                        fileError.classList.add('hidden');
+                        setFieldInvalid(fileInput, false);
+                    }
+                }
+                return true;
+            }
+
+            // Validar archivo al seleccionar
+            document.getElementById('archivos').addEventListener('change', function () {
+                validateFileSize();
+            });
+
             // Validar formulario al enviar
-            form.addEventListener('submit', function(e) {
+            form.addEventListener('submit', function (e) {
                 let isValid = true;
-                
+
                 requiredFields.forEach(fieldConfig => {
                     if (!validateField(fieldConfig)) {
                         isValid = false;
@@ -320,6 +355,11 @@
                     errorElement.textContent = 'No se permite seleccionar fechas u horas futuras';
                     showError(errorElement, true);
                     setFieldInvalid(fechaInput, true);
+                    isValid = false;
+                }
+
+                // Validar tamaño del archivo
+                if (!validateFileSize()) {
                     isValid = false;
                 }
 

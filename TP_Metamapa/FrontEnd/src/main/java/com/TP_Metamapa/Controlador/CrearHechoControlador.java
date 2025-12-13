@@ -17,7 +17,9 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Controller
@@ -105,8 +107,14 @@ public class CrearHechoControlador {
             if (hechoFormData.getFechaAcontecimiento().isAfter(LocalDateTime.now())) {
                 throw new RuntimeException("La fecha del acontecimiento no puede ser futura.");
             }
+            try{
+                imageUrl = hechoServicio.guardarMultimediaLocalmente(multimediaFile);
+            } catch(Exception e){
+                model.addAttribute("errorMessage", "Error al guardar el archivo: " + e.getMessage());
+                model.addAttribute("hechoForm", hechoFormData);
+                return "crearHecho"; // Volver al formulario
+            }
 
-            imageUrl = hechoServicio.guardarMultimediaLocalmente(multimediaFile);
 
             HechoDTOInput hechoParaBackend = new HechoDTOInput();
             hechoParaBackend.setTitulo(hechoFormData.getTitulo());
@@ -165,6 +173,11 @@ public class CrearHechoControlador {
             );
             model.addAttribute("origenDinamica", OrigenCarga.FUENTE_DINAMICA
             );
+            Map<String, String> origenesDeCargaMap = new LinkedHashMap<>();
+            origenesDeCargaMap.put("FUENTE_ESTATICA", "Archivos de ONGs");
+            origenesDeCargaMap.put("FUENTE_DINAMICA", "Usuarios");
+            origenesDeCargaMap.put("FUENTE_PROXY", "Servicios Externos");
+            model.addAttribute("origenesDeCarga", origenesDeCargaMap);
             return "verHecho";
         }else{
             model.addAttribute("errorMessage", "El hecho con ID " + id + " no fue encontrado.");
