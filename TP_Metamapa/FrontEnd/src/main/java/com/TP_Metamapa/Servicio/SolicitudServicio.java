@@ -6,15 +6,14 @@ import com.TP_Metamapa.DTOS.SolicitudDTOInput;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.util.List;
-import org.springframework.http.HttpEntity;
+
 import org.springframework.http.HttpMethod;
 @Service
 public class SolicitudServicio {
@@ -39,9 +38,12 @@ public class SolicitudServicio {
         return respuesta.getBody();
     }
 
-    public String crearSolicitud(SolicitudDTOInput solicitudDTO){
+    public String crearSolicitud(SolicitudDTOInput solicitudDTO, String accessToken){
         UriComponentsBuilder urlSolicitudes = UriComponentsBuilder.fromHttpUrl(urlBasePublico + "/solicitudes");
-        HttpEntity<SolicitudDTOInput> requestEntity = new HttpEntity<>(solicitudDTO);
+        HttpHeaders headers = new HttpHeaders();
+        headers.setBearerAuth(accessToken);
+        HttpEntity<SolicitudDTOInput> requestEntity = new HttpEntity<>(solicitudDTO, headers);
+
         try {
             ResponseEntity<String> response = restTemplate.exchange(
                     urlSolicitudes.toUriString(),

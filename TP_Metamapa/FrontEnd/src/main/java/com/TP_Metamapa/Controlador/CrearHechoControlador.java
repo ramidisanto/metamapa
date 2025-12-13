@@ -66,6 +66,7 @@ public class CrearHechoControlador {
                 model.addAttribute("errorMessage", "Debes iniciar sesión para crear un hecho.");
                 return "redirect:/auth/login";
             }
+
             String username = authentication.getName();
 
             // 2. Validar sesión/tokens

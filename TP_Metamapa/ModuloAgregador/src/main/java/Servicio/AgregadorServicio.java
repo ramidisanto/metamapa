@@ -170,6 +170,8 @@ public class AgregadorServicio {
                 hechoDTO.setTitulo(tituloNormalizado);
             }
         }
+        System.out.println("Se han cargado " + hechosDTOTotales.size() + " hechos ----------------------------------------------------------------------------");
+
         if (!hechosDTOTotales.isEmpty()) {
             List<Hecho> hechos = this.transaformarAHecho(hechosDTOTotales);
             hechoRepositorio.saveAll(hechos);
