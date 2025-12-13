@@ -7,7 +7,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDateTime ;
-import java.time.LocalDateTime ;
+import java.time.LocalDate ;
 
 @Getter
 @Setter
@@ -29,7 +29,7 @@ public class HechoDTO {
     private String usuario = null;
     private String nombre = null;
     private String apellido = null;
-    private LocalDateTime fecha_nacimiento = null;
+    private LocalDate fecha_nacimiento = null;
     private Boolean anonimo = null;
     private Boolean visible = null;
     private String origen_carga = null;
