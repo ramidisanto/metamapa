@@ -23,10 +23,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -52,6 +49,8 @@ public class AgregadorServicio {
     ContribuyenteRepositorio contribuyenteRepositorio;
     @Autowired
     ContenidoRepositorio contenidoRepositorio;
+    @Autowired
+    NormalizadorClient normalizadorClient;
     @Value("${url.proxy}")
     private String urlProxy;
     @Value("${url.normalizador}")
@@ -60,6 +59,8 @@ public class AgregadorServicio {
     private String urlBaseDinamica;
     @Value("${url.estatica}")
     private String urlBaseEstatica;
+
+    private static final int BATCH_SIZE = 300;
 
     @Transactional
     public void actualizarHechos() {
@@ -126,7 +127,7 @@ public class AgregadorServicio {
         UriComponentsBuilder urlUbicacion = UriComponentsBuilder
                 .fromHttpUrl(urlNormalizador + "/normalizacion/ubicaciones");
         UriComponentsBuilder urlTitulo = UriComponentsBuilder.fromHttpUrl(urlNormalizador + "/normalizacion/titulos");
-
+    /*
         for (HechoDTOInput hechoDTO : hechosDTOTotales) {
 
             // CATEEGORIAAAAAA
@@ -170,12 +171,66 @@ public class AgregadorServicio {
                 hechoDTO.setTitulo(tituloNormalizado);
             }
         }
+
+     */
+        List<HechoNormalizarDTO> normalizarDTOs =
+                hechosDTOTotales.stream()
+                        .map(this::transformarANormalizarDTO)
+                        .toList();
+
+        for (int i = 0; i < normalizarDTOs.size(); i += BATCH_SIZE) {
+
+            List<HechoNormalizarDTO> batch =
+                    normalizarDTOs.subList(
+                            i,
+                            Math.min(i + BATCH_SIZE, normalizarDTOs.size())
+                    );
+
+            List<HechoNormalizarDTO> normalizados =
+                    normalizadorClient.normalizarBatch(batch);
+
+            aplicarResultadoNormalizacion(normalizados, hechosDTOTotales);
+        }
+
         if (!hechosDTOTotales.isEmpty()) {
             List<Hecho> hechos = this.transaformarAHecho(hechosDTOTotales);
             hechoRepositorio.saveAll(hechos);
             this.actualizarColecciones();
         }
     }
+
+    private void aplicarResultadoNormalizacion(
+            List<HechoNormalizarDTO> normalizados,
+            List<HechoDTOInput> originales) {
+
+        Map<String, HechoDTOInput> index =
+                originales.stream()
+                        .collect(Collectors.toMap(
+                                h -> h.getLatitud() + "," + h.getLongitud() + "," + h.getTitulo(),
+                                h -> h
+                        ));
+
+        for (HechoNormalizarDTO n : normalizados) {
+            String key = n.getLatitud() + "," + n.getLongitud() + "," + n.getTitulo();
+            HechoDTOInput original = index.get(key);
+
+            if (original != null) {
+                original.setTitulo(n.getTitulo());
+                original.setCategoria(n.getCategoria());
+            }
+        }
+    }
+
+
+    private HechoNormalizarDTO transformarANormalizarDTO(HechoDTOInput h) {
+        HechoNormalizarDTO dto = new HechoNormalizarDTO();
+        dto.setTitulo(h.getTitulo());
+        dto.setCategoria(h.getCategoria());
+        dto.setLatitud(h.getLatitud());
+        dto.setLongitud(h.getLongitud());
+        return dto;
+    }
+
 
     public List<Hecho> transaformarAHecho(List<HechoDTOInput> hechosDTO) {
         List<Hecho> hechos = new ArrayList<>();

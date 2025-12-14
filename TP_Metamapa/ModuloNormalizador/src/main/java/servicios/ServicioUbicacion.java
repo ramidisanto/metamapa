@@ -1,15 +1,23 @@
 package servicios;
 
 import Modelos.*;
+import Modelos.DTOs.UbicacionDTOoutput;
+import Repositorio.RepositorioUbicacion;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import Utils.TextoUtils;
 
+import java.util.Optional;
+
 @Service
 public class ServicioUbicacion {
+
+    @Autowired
+    RepositorioUbicacion repositorioUbicacion;
 
     private final RestTemplate restTemplate;
     private final ObjectMapper objectMapper;
@@ -24,6 +32,20 @@ public class ServicioUbicacion {
 
     @Cacheable(value = "ubicaciones", key = "#latitud + ',' + #longitud")
     public UbicacionDTOoutput normalizarUbicacion(Double latitud, Double longitud) {
+
+        Optional<Ubicacion> existente =
+                repositorioUbicacion.findByLatitudAndLongitud(latitud, longitud);
+
+        if (existente.isPresent()) {
+            Ubicacion u = existente.get();
+            return new UbicacionDTOoutput(
+                    u.getPais().getNombre_pais(),
+                    u.getProvincia().getNombre_provincia(),
+                    u.getLocalidad().getNombre_localidad(),
+                    latitud,
+                    longitud
+            );
+        }
 
         try {
             String response = restTemplate.getForObject(
@@ -66,6 +88,9 @@ public class ServicioUbicacion {
                     TextoUtils.capitalizarCadaPalabra(ciudad),
                     provincia
             );
+
+            Ubicacion nueva = new Ubicacion(localidad, provincia, pais, latitud, longitud);
+            repositorioUbicacion.save(nueva);
 
             return new UbicacionDTOoutput(
                     pais.getNombre_pais(),

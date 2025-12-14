@@ -16,7 +16,7 @@ public class ServicioCategoria {
 
     public String normalizarCategoria(String nombreCategoria) {
         String normalizada = TextoUtils.capitalizarCadaPalabra(nombreCategoria);
-        Categoria categoria = repositorioCategoria.crearCategoria(normalizada);
+        Categoria categoria = repositorioCategoria.save(new Categoria(normalizada));
         return categoria.getNombre_categoria();
     }
 }

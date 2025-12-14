@@ -1,0 +1,416 @@
+version: "3.8"
+
+networks:
+  red-microservicios:
+    driver: overlay
+
+services:
+
+  # ====================================================
+  # GRUPO 1: SERVICIOS CON ESTADO (ARCHIVOS/DB)
+  # Deben ir en el Manager porque ahí copiarás las carpetas
+  # ====================================================
+
+  db_general:
+    image: mysql:8.0
+    command: --default-authentication-plugin=mysql_native_password
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+    volumes:
+      - db_data:/var/lib/mysql
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - red-microservicios
+    healthcheck:
+      test: [ "CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-proot" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 40s
+    deploy:
+      replicas: 1
+      placement:
+        constraints: [node.role == manager] # Manager
+      restart_policy:
+        condition: on-failure
+      resources:
+        limits:
+          memory: 1G
+
+  keycloak:
+    image: quay.io/keycloak/keycloak:26.4.5
+    command: ["start-dev", "--import-realm"]
+    environment:
+      KEYCLOAK_ADMIN: admin
+      KEYCLOAK_ADMIN_PASSWORD: admin
+      KC_DB: mysql
+      KC_DB_URL: jdbc:mysql://db_general/keycloak
+      KC_DB_USERNAME: root
+      KC_DB_PASSWORD: root
+      KC_HOSTNAME_STRICT: "false"
+      KC_HTTP_ENABLED: "true"
+      KC_PROXY_HEADERS: "xforwarded"
+      JAVA_OPTS: "-Xms256m -Xmx768m"
+    ports:
+      - "9090:8080"
+    volumes:
+      - ./keycloak/import:/opt/keycloak/data/import
+    networks:
+      - red-microservicios
+    depends_on:
+      - db_general
+    healthcheck:
+      test: ["CMD-SHELL", "exec 3<>/dev/tcp/127.0.0.1/8080;echo -e 'GET /health/ready HTTP/1.1\r\nhost: localhost\r\nConnection: close\r\n\r\n' >&3;grep 'HTTP/1.1 200 OK' <&3"]
+      interval: 10s
+      timeout: 10s
+      retries: 30
+    deploy:
+      replicas: 1
+      placement:
+        constraints: [node.role == manager] # Manager (necesita el archivo import)
+      restart_policy:
+        condition: on-failure
+      resources:
+        limits:
+          memory: 1G
+
+  moduloestatica:
+    image: ramidisanto/moduloestatica:latest
+    environment:
+      SPRING_PROFILES_ACTIVE: prod
+      DB_URL: jdbc:mysql://db_general:3306/estatica
+      DB_USER: root
+      DB_PASSWORD: root
+      PATH_ARCHIVOS: "/app/data/"
+    volumes:
+      - ./archivos_data:/app/data  # <--- VOLUMEN RESTAURADO
+    networks:
+      - red-microservicios
+    healthcheck:
+      test: "curl --fail --silent http://localhost:8084/actuator/health || exit 1"
+      interval: 15s
+      timeout: 10s
+      retries: 5
+      start_period: 60s
+    deploy:
+      replicas: 1
+      placement:
+        constraints: [node.role == manager] # OBLIGATORIO: Manager (donde están los archivos)
+      restart_policy:
+        condition: on-failure
+      resources:
+        limits:
+          memory: 512M
+
+  frontend:
+    image: ramidisanto/frontend:latest
+    ports:
+      - "8088:8088"
+    environment:
+      SPRING_PROFILES_ACTIVE: prod
+      KEYCLOAK_URL: http://keycloak:8080
+      KEYCLOAK_PUBLIC_URL: http://localhost:9090
+      AUTH_URL: http://moduloauth:9092
+    volumes:
+      - ./archivos_fotos:/app/src/main/resources/static/images/hechos # <--- VOLUMEN RESTAURADO
+    networks:
+      - red-microservicios
+    healthcheck:
+      test: "curl --fail --silent http://localhost:8088/actuator/health || exit 1"
+      interval: 15s
+      timeout: 10s
+      retries: 5
+      start_period: 60s
+    deploy:
+      replicas: 1
+      placement:
+        constraints: [node.role == manager] # OBLIGATORIO: Manager (para guardar las fotos)
+      restart_policy:
+        condition: on-failure
+      resources:
+        limits:
+          memory: 768M
+
+  # ====================================================
+  # GRUPO 2: MICROSERVICIOS PUROS (WORKERS)
+  # Estos SÍ se distribuyen en los otros nodos
+  # ====================================================
+
+  moduloagregador:
+    image: ramidisanto/moduloagregador:latest
+    environment:
+      SPRING_PROFILES_ACTIVE: prod
+      DB_URL: jdbc:mysql://db_general:3306/comun
+      DB_USER: root
+      DB_PASSWORD: root
+    networks:
+      - red-microservicios
+    healthcheck:
+      test: "curl --fail --silent http://localhost:8080/actuator/health || exit 1"
+      interval: 15s
+      timeout: 10s
+      retries: 5
+      start_period: 60s
+    deploy:
+      replicas: 1
+      placement:
+        constraints: [node.role == worker] # Se va a los workers
+      restart_policy:
+        condition: on-failure
+        delay: 10s
+      resources:
+        limits:
+          memory: 512M
+
+  moduloavd:
+    image: ramidisanto/moduloavd:latest
+    environment:
+      SPRING_PROFILES_ACTIVE: prod
+      DB_URL: jdbc:mysql://db_general:3306/comun
+      DB_USER: root
+      DB_PASSWORD: root
+      AGREGADOR_URL: http://moduloagregador:8080
+    networks:
+      - red-microservicios
+    healthcheck:
+      test: "curl --fail --silent http://localhost:8081/actuator/health || exit 1"
+      interval: 15s
+      timeout: 10s
+      retries: 5
+      start_period: 60s
+    deploy:
+      replicas: 1
+      placement:
+        constraints: [node.role == worker]
+      restart_policy:
+        condition: on-failure
+      resources:
+        limits:
+          memory: 512M
+
+  modulodinamica:
+    image: ramidisanto/modulodinamica:latest
+    environment:
+      SPRING_PROFILES_ACTIVE: prod
+      DB_URL: jdbc:mysql://db_general:3306/dinamica
+      DB_USER: root
+      DB_PASSWORD: root
+    networks:
+      - red-microservicios
+    healthcheck:
+      test: "curl --fail --silent http://localhost:8082/actuator/health || exit 1"
+      interval: 15s
+      timeout: 10s
+      retries: 5
+      start_period: 60s
+    deploy:
+      replicas: 1
+      placement:
+        constraints: [node.role == worker]
+      restart_policy:
+        condition: on-failure
+      resources:
+        limits:
+          memory: 512M
+
+  moduloestadisticas:
+    image: ramidisanto/moduloestadisticas:latest
+    environment:
+      SPRING_PROFILES_ACTIVE: prod
+      DB_URL: jdbc:mysql://db_general:3306/comun
+      DB_USER: root
+      DB_PASSWORD: root
+    networks:
+      - red-microservicios
+    healthcheck:
+      test: "curl --fail --silent http://localhost:8083/actuator/health || exit 1"
+      interval: 15s
+      timeout: 10s
+      retries: 5
+      start_period: 60s
+    deploy:
+      replicas: 1
+      placement:
+        constraints: [node.role == worker]
+      restart_policy:
+        condition: on-failure
+      resources:
+        limits:
+          memory: 512M
+
+  modulonormalizador:
+    image: ramidisanto/modulonormalizador:latest
+    environment:
+      SPRING_PROFILES_ACTIVE: prod
+    networks:
+      - red-microservicios
+    healthcheck:
+      test: "curl --fail --silent http://localhost:8085/actuator/health || exit 1"
+      interval: 15s
+      timeout: 10s
+      retries: 5
+      start_period: 60s
+    deploy:
+      replicas: 1
+      placement:
+        constraints: [node.role == worker]
+      restart_policy:
+        condition: on-failure
+      resources:
+        limits:
+          memory: 512M
+
+  moduloproxy:
+    image: ramidisanto/moduloproxy:latest
+    environment:
+      SPRING_PROFILES_ACTIVE: prod
+      DB_URL: jdbc:mysql://db_general:3306/proxy
+      DB_USER: root
+      DB_PASSWORD: root
+    networks:
+      - red-microservicios
+    healthcheck:
+      test: "curl --fail --silent http://localhost:8086/actuator/health || exit 1"
+      interval: 15s
+      timeout: 10s
+      retries: 5
+      start_period: 60s
+    deploy:
+      replicas: 1
+      placement:
+        constraints: [node.role == worker]
+      restart_policy:
+        condition: on-failure
+      resources:
+        limits:
+          memory: 512M
+
+  modulopublico:
+    image: ramidisanto/modulopublico:latest
+    environment:
+      SPRING_PROFILES_ACTIVE: prod
+      DB_URL: jdbc:mysql://db_general:3306/comun
+      DB_USER: root
+      DB_PASSWORD: root
+    networks:
+      - red-microservicios
+    healthcheck:
+      test: "curl --fail --silent http://localhost:8087/actuator/health || exit 1"
+      interval: 15s
+      timeout: 10s
+      retries: 5
+      start_period: 60s
+    deploy:
+      replicas: 1
+      placement:
+        constraints: [node.role == worker]
+      restart_policy:
+        condition: on-failure
+      resources:
+        limits:
+          memory: 512M
+
+  moduloauth:
+    image: ramidisanto/moduloauth:latest
+    environment:
+      SPRING_PROFILES_ACTIVE: prod
+      SERVER_URL: http://keycloak:8080
+      REALM_NAME: spring-boot-realm-pr
+      RESOURSE_ID: spring-client-api-rest
+      CLIENT_SECRET: "KFtXi3N4BNoAI0La2sR7Uei7zrrew7NV"
+      SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_ISSUER_URI: http://keycloak:8080/realms/spring-boot-realm-pr
+      SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_JWK_SET_URI: http://keycloak:8080/realms/spring-boot-realm-pr/protocol/openid-connect/certs
+    networks:
+      - red-microservicios
+    healthcheck:
+      test: "curl --fail --silent http://localhost:9092/actuator/health || exit 1"
+      interval: 15s
+      timeout: 10s
+      retries: 5
+      start_period: 60s
+    deploy:
+      replicas: 1
+      placement:
+        constraints: [node.role == worker]
+      restart_policy:
+        condition: on-failure
+      resources:
+        limits:
+          memory: 512M
+
+  # ====================================================
+  # OBSERVABILIDAD (Pinned al Manager)
+  # ====================================================
+
+  zipkin:
+    image: openzipkin/zipkin
+    ports:
+      - "9411:9411"
+    environment:
+      - JAVA_OPTS=-Xmx256m
+    networks:
+      - red-microservicios
+    deploy:
+      placement:
+        constraints: [node.role == manager]
+      resources:
+        limits:
+          memory: 512M
+
+  prometheus:
+    image: prom/prometheus:latest
+    ports:
+      - "9091:9090"
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+    networks:
+      - red-microservicios
+    deploy:
+      placement:
+        constraints: [node.role == manager]
+
+  grafana:
+    image: grafana/grafana:latest
+    ports:
+      - "3000:3000"
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+    volumes:
+      - grafana_data:/var/lib/grafana
+    networks:
+      - red-microservicios
+    deploy:
+      placement:
+        constraints: [node.role == manager]
+
+  loki:
+    image: grafana/loki:latest
+    command: -config.file=/etc/loki/local-config.yaml
+    volumes:
+      - ./loki-config.yml:/etc/loki/local-config.yaml
+      - loki_data:/loki
+    networks:
+      - red-microservicios
+    deploy:
+      placement:
+        constraints: [node.role == manager]
+
+  promtail:
+    image: grafana/promtail:latest
+    user: root
+    volumes:
+      - /var/lib/docker/containers:/var/lib/docker/containers:ro
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - ./promtail-config.yml:/etc/promtail/config.yml
+    command: -config.file=/etc/promtail/config.yml
+    networks:
+      - red-microservicios
+    deploy:
+      mode: global
+
+volumes:
+  db_data:
+  grafana_data:
+  loki_data:

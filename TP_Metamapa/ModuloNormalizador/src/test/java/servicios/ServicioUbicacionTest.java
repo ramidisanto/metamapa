@@ -1,6 +1,6 @@
 package servicios;
 
-import Modelos.UbicacionDTOoutput;
+import Modelos.DTOs.UbicacionDTOoutput;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
