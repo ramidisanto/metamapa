@@ -129,6 +129,9 @@ public class ValidadorCSV {
         for (int i = 0; i < encabezado.length; i++) {
             String campo = encabezado[i].trim().replaceAll("\"", "");
             if (!campo.equalsIgnoreCase(encabezadoEsperado[i])) {
+                System.out.println("Encabezado incorrecto en posición " + i);
+                System.out.println("   Esperado: '" + encabezadoEsperado[i] + "'");
+                System.out.println("   Recibido: '" + campo + "'");
                 return false;
             }
         }
