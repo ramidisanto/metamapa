@@ -139,25 +139,20 @@ public class CrearHechoControlador {
             } else {
                 hechoParaBackend.setCategoria(hechoFormData.getCategoria());
             }
-
+            System.out.println("ACCESS TOKEN ------------------------: " + accessToken);
             // 5. Enviar al Backend (Aquí puede saltar la excepción del Servicio)
-            hechoServicio.enviarHechoAlBackend(hechoParaBackend);
+            hechoServicio.enviarHechoAlBackend(hechoParaBackend, accessToken);
 
             redirectAttributes.addFlashAttribute("successMessage", "¡Hecho creado con éxito!");
             return "redirect:/hechos-pendientes";
 
         } catch (Exception e) {
-            // ==================================================================
-            // AQUÍ ESTÁ EL CAMBIO CLAVE:
-            // Usamos e.getMessage() directo porque el Servicio ya se encargó
-            // de ponerle el texto bonito que mandó el backend.
-            // ==================================================================
+
             System.err.println("Error procesando creación de hecho: " + e.getMessage());
 
-            // Pasamos el mensaje limpio a la vista
+
             model.addAttribute("errorMessage", e.getMessage());
 
-            // Recargamos categorías para que el form se vea bien al reintentar
             List<String> categorias = categoriaServicio.getCategoriasUnicas();
             model.addAttribute("categorias", categorias);
 
@@ -167,7 +162,6 @@ public class CrearHechoControlador {
     }
     @GetMapping("ver-hecho/{id}")
     public String verHecho(@PathVariable Long id, Model model) {
-        // habría que hacer en lugar del service, una llamada al back
         Optional<HechoDTO> hechoOpt = navegacionServicio.obtenerHechoPorId(id);
         if ( hechoOpt.isPresent()){
             model.addAttribute("hecho", hechoOpt.get()
@@ -187,15 +181,31 @@ public class CrearHechoControlador {
     }
 
     @GetMapping("/hechos-pendientes")
-    public String verHechosPendientes( Model model, Authentication authentication) {
+    public String verHechosPendientes( Model model,
+                                       RedirectAttributes redirectAttributes,
+                                       Authentication authentication,
+                                       HttpSession session) {
         if (authentication == null || !authentication.isAuthenticated()) {
             model.addAttribute("errorMessage", "Debes iniciar sesión para crear un hecho.");
             return "redirect:/auth/login";
         }
 
+        if (authentication == null || !authentication.isAuthenticated()) {
+            model.addAttribute("errorMessage", "Debes iniciar sesión para crear un hecho.");
+            return "redirect:/auth/login";
+        }
+        // 2. Validar sesión/tokens
+        String accessToken = (String) session.getAttribute("accessToken");
+        String refreshToken = (String) session.getAttribute("refreshToken");
+
+        if (accessToken == null) {
+            model.addAttribute("errorMessage", "Tu sesión ha expirado. Por favor, inicia sesión nuevamente.");
+            return "redirect:/auth/login";
+        }
+
         // extraer username desde el Authentication
         String username = authentication.getName();
-        List<HechoDTO> hechosPendientes = hechoServicio.obtenerHechoPendiente(username);
+        List<HechoDTO> hechosPendientes = hechoServicio.obtenerHechoPendiente(username, accessToken);
 
         model.addAttribute("hechosPendientes", hechosPendientes);
 

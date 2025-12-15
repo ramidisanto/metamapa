@@ -8,6 +8,7 @@ import Modelos.Exceptions.SolicitudInvalidaException;
 import Servicio.SolicitudServicio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.function.EntityResponse;
 
@@ -20,7 +21,7 @@ public class SolicitudControlador {
     @Autowired
     private SolicitudServicio solicitudServicio;
 
-
+    @PreAuthorize("hasRole('admin_client_role')")
     @GetMapping("/pendientes")
     public ResponseEntity<List<SolicitudDTOOutput>> obtenerSolicitudesPendientes(){
         try {
@@ -29,7 +30,7 @@ public class SolicitudControlador {
             return ResponseEntity.status(500).body(solicitudServicio.solicitudesPendientes());
         }
     }
-
+    @PreAuthorize("hasRole('admin_client_role')")
     @PutMapping("/pendientes/{id}")
     public ResponseEntity<String> actualizarEstado(@PathVariable Long id, @RequestBody EstadoDTO estadoDTO){
         try {

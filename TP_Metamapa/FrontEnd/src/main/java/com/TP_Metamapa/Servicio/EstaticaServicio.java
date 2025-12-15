@@ -23,13 +23,13 @@ public class EstaticaServicio {
     @Value("${url.estatica}")
     private String urlBaseEstatica;
 
-    public void crear(MultipartFile file) { // Ya no hace falta 'throws Exception' porque lo manejamos adentro
+    public void crear(MultipartFile file, String accessToken) { // Ya no hace falta 'throws Exception' porque lo manejamos adentro
 
         UriComponentsBuilder url = UriComponentsBuilder.fromHttpUrl(urlBaseEstatica + "/fuenteEstatica/CSV");
 
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.MULTIPART_FORM_DATA);
-
+        headers.setBearerAuth(accessToken);
         try {
             // Convertir MultipartFile a ByteArrayResource
             ByteArrayResource fileResource = new ByteArrayResource(file.getBytes()) {

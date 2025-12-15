@@ -27,12 +27,16 @@ public class SolicitudServicio {
     @Value("${url.publico}")
     private String urlBasePublico;
 
-    public List<SolicitudDTO> obtenerPendientes(){
+    public List<SolicitudDTO> obtenerPendientes(String accessToken){
         UriComponentsBuilder urlSolicitudes = UriComponentsBuilder.fromHttpUrl(urlBaseAVD + "/solicitudes/pendientes");
+        HttpHeaders headers = new HttpHeaders();
+        headers.setBearerAuth(accessToken);
+        HttpEntity<Void> requestEntity = new HttpEntity<>(null, headers);
+
         ResponseEntity<List<SolicitudDTO>> respuesta = restTemplate.exchange(
                 urlSolicitudes.toUriString(),
                 HttpMethod.GET,
-                null,
+                requestEntity,
                 new ParameterizedTypeReference<List<SolicitudDTO>>() {}
         );
         return respuesta.getBody();
@@ -63,10 +67,12 @@ public class SolicitudServicio {
         }
     }
 
-    public void rechazarSolicitud(Long idSolicitud){
+    public void rechazarSolicitud(Long idSolicitud, String accessToken){
+        HttpHeaders headers = new HttpHeaders();
+        headers.setBearerAuth(accessToken);
         UriComponentsBuilder urlSolicitudes = UriComponentsBuilder.fromHttpUrl(urlBaseAVD + "/solicitudes/pendientes/" + idSolicitud);
 
-        HttpEntity<EstadoDTO> requestEntity = new HttpEntity<>(new EstadoDTO("RECHAZADA"));
+        HttpEntity<EstadoDTO> requestEntity = new HttpEntity<>(new EstadoDTO("RECHAZADA"), headers);
         ResponseEntity<String> respuesta = restTemplate.exchange(
                 urlSolicitudes.toUriString(),
                 HttpMethod.PUT,
@@ -77,7 +83,7 @@ public class SolicitudServicio {
         // ver si hacer algo con la respuesta
     }
 
-    public void aceptarSolicitud(Long idSolicitud){
+    public void aceptarSolicitud(Long idSolicitud, String accessToken){
         UriComponentsBuilder urlSolicitudes = UriComponentsBuilder.fromHttpUrl(urlBaseAVD +"/solicitudes/pendientes/" + idSolicitud);
        /* HttpEntity<String> requestEntity = new HttpEntity<>("ACEPTADA");
         ResponseEntity<String> respuesta = restTemplate.exchange(
@@ -86,7 +92,9 @@ public class SolicitudServicio {
                 requestEntity,
                 String.class
         );*/
-        HttpEntity<EstadoDTO> requestEntity = new HttpEntity<>(new EstadoDTO("ACEPTADA"));
+        HttpHeaders headers = new HttpHeaders();
+        headers.setBearerAuth(accessToken);
+        HttpEntity<EstadoDTO> requestEntity = new HttpEntity<>(new EstadoDTO("ACEPTADA"), headers);
         restTemplate.exchange(
                 urlSolicitudes.toUriString(),
                 HttpMethod.PUT,

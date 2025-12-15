@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -41,13 +42,16 @@ public class ColeccionServicio {
 
     }
 
-    public void eliminarColeccion(Long idColeccion) {
+    public void eliminarColeccion(Long idColeccion, String accessToken) {
+        HttpHeaders headers = new HttpHeaders();
+        headers.setBearerAuth(accessToken);
+        HttpEntity<Void> requestEntity = new HttpEntity<>(null, headers);
         UriComponentsBuilder urlEliminar = UriComponentsBuilder.fromHttpUrl(urlAvd + "/coleccion/" + idColeccion);
 
         ResponseEntity<String> respuesta = restTemplate.exchange(
                 urlEliminar.toUriString(),
                 HttpMethod.DELETE,
-                null,
+                requestEntity,
                 String.class
         );
         // Ver si hacer algo con la respuesta
@@ -55,14 +59,16 @@ public class ColeccionServicio {
 
 
 
-    public Optional<ColeccionDTO> obtenerColeccion(Long id){
+    public Optional<ColeccionDTO> obtenerColeccion(Long id, String accessToken){
         UriComponentsBuilder urlColeccion = UriComponentsBuilder.fromHttpUrl(urlAvd + "/coleccion/" + id);
             try {
-
+                HttpHeaders headers = new HttpHeaders();
+                headers.setBearerAuth(accessToken);
+                HttpEntity<Void> requestEntity = new HttpEntity<>(null, headers);
                 ResponseEntity<ColeccionDTO> respuesta = restTemplate.exchange(
                         urlColeccion.toUriString(),
                         HttpMethod.GET,
-                        null,
+                        requestEntity,
                         ColeccionDTO.class
                 );
                 return Optional.ofNullable(respuesta.getBody());
@@ -74,22 +80,26 @@ public class ColeccionServicio {
             }
     }
 
-    public void actualizarColeccion(Long id, String consenso){
+    public void actualizarColeccion(Long id, String consenso, String accessToken){
+        HttpHeaders headers = new HttpHeaders();
+        headers.setBearerAuth(accessToken);
+        HttpEntity<Void> requestEntity = new HttpEntity<>(null, headers);
         UriComponentsBuilder urlColeccion = UriComponentsBuilder.fromHttpUrl(urlAvd + "/coleccion/" + id + "/Consenso/" + consenso);
         ResponseEntity<ColeccionDTO> respuesta = restTemplate.exchange(
                 urlColeccion.toUriString(),
                 HttpMethod.PUT,
-                null,
+                requestEntity,
                 ColeccionDTO.class
         );
     }
 
-    public void crear(ColeccionDTOInput coleccionData){
+    public void crear(ColeccionDTOInput coleccionData, String accessToken){
         UriComponentsBuilder urlColeccion = UriComponentsBuilder.fromHttpUrl(urlAvd + "/coleccion");
 
         try {
-            HttpEntity<ColeccionDTOInput> requestEntity = new HttpEntity<>(coleccionData);
-
+            HttpHeaders headers = new HttpHeaders();
+            headers.setBearerAuth(accessToken);
+            HttpEntity<ColeccionDTOInput> requestEntity = new HttpEntity<>(coleccionData, headers);
             ResponseEntity<String> respuesta = restTemplate.exchange(
                     urlColeccion.toUriString(),
                     HttpMethod.POST,

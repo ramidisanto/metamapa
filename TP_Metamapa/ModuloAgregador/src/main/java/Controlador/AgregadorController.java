@@ -3,6 +3,7 @@ package Controlador;
 import Modelos.Exceptions.ColeccionNoEncontradaException;
 import Servicio.AgregadorServicio;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,7 +17,6 @@ public class AgregadorController {
 
     @Autowired
     AgregadorServicio agregadorServicio;
-
     @PostMapping("/colecciones/{id}")
     public ResponseEntity<String> cargarHechosAColeccion(@PathVariable Long id) {
         try {
