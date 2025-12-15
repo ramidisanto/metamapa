@@ -1,5 +1,6 @@
 package servicios;
 
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import java.util.Arrays;
 import java.util.stream.Collectors;
@@ -7,6 +8,8 @@ import java.util.stream.Collectors;
 @Service
 public class ServicioTitulo {
 
+
+    @Cacheable("titulo")
     public String normalizarTitulo(String titulo) {
 
         if (titulo == null || titulo.isBlank()) {

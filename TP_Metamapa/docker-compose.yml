@@ -18,10 +18,10 @@ services:
       - ./init.sql:/docker-entrypoint-initdb.d/init.sql
     healthcheck:
       test: [ "CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-proot" ]
-      interval: 10s
+      interval: 20s
       timeout: 5s
-      retries: 5
-      start_period: 40s
+      retries: 10
+      start_period: 60s
     networks:
       - default
 
@@ -98,7 +98,7 @@ services:
     restart: on-failure
     healthcheck:
       test: "curl --fail --silent http://localhost:8080/actuator/health || exit 1"
-      interval: 15s
+      interval: 20s
       timeout: 10s
       retries: 5
       start_period: 60s
@@ -124,7 +124,7 @@ services:
     restart: on-failure
     healthcheck:
       test: "curl --fail --silent http://localhost:8081/actuator/health || exit 1"
-      interval: 15s
+      interval: 20s
       timeout: 10s
       retries: 5
       start_period: 60s
@@ -147,7 +147,7 @@ services:
     restart: on-failure
     healthcheck:
       test: "curl --fail --silent http://localhost:8082/actuator/health || exit 1"
-      interval: 15s
+      interval: 20s
       timeout: 10s
       retries: 5
       start_period: 60s
@@ -172,7 +172,7 @@ services:
     restart: on-failure
     healthcheck:
       test: "curl --fail --silent http://localhost:8083/actuator/health || exit 1"
-      interval: 15s
+      interval: 20s
       timeout: 10s
       retries: 5
       start_period: 60s
@@ -198,7 +198,7 @@ services:
     restart: on-failure
     healthcheck:
       test: "curl --fail --silent http://localhost:8084/actuator/health || exit 1"
-      interval: 15s
+      interval: 20s
       timeout: 10s
       retries: 5
       start_period: 60s
@@ -208,20 +208,12 @@ services:
     build:
       context: .
       dockerfile: ModuloNormalizador/Dockerfile
-    depends_on:
-        db_general:
-          condition: service_healthy
-    environment:
-        SPRING_PROFILES_ACTIVE: prod
-        DB_URL: jdbc:mysql://db_general:3306/comun
-        DB_USER: root
-        DB_PASSWORD: root
     ports:
       - "8085:8085"
     restart: on-failure
     healthcheck:
       test: "curl --fail --silent http://localhost:8085/actuator/health || exit 1"
-      interval: 15s
+      interval: 20s
       timeout: 10s
       retries: 5
       start_period: 60s
@@ -244,7 +236,7 @@ services:
     restart: on-failure
     healthcheck:
       test: "curl --fail --silent http://localhost:8086/actuator/health || exit 1"
-      interval: 15s
+      interval: 20s
       timeout: 10s
       retries: 5
       start_period: 60s
@@ -269,7 +261,7 @@ services:
     restart: on-failure
     healthcheck:
       test: "curl --fail --silent http://localhost:8087/actuator/health || exit 1"
-      interval: 15s
+      interval: 20s
       timeout: 10s
       retries: 5
       start_period: 60s
@@ -294,7 +286,7 @@ services:
     restart: on-failure
     healthcheck:
       test: "curl --fail --silent http://localhost:9092/actuator/health || exit 1"
-      interval: 15s
+      interval: 20s
       timeout: 10s
       retries: 5
       start_period: 60s
@@ -331,7 +323,7 @@ services:
     restart: on-failure
     healthcheck:
       test: "curl --fail --silent http://localhost:8088/actuator/health || exit 1"
-      interval: 15s
+      interval: 20s
       timeout: 10s
       retries: 5
       start_period: 60s

@@ -2,6 +2,8 @@ package Configuracion;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
+
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -9,8 +11,8 @@ import java.util.List;
 @ConfigurationProperties(prefix = "security.ip-access")
 public class IpAccessProperties {
 
-    private List<String> blacklist;
-    private List<String> whitelist;
+    private List<String> blacklist = new ArrayList<>();
+    private List<String> whitelist = new ArrayList<>();
     
     public List<String> getBlacklist() {
         return blacklist;

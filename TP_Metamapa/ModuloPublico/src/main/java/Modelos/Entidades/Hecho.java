@@ -18,8 +18,10 @@ public class Hecho{
     private Long id;
 
     public Long idFuente;
-    public String titulo;
-    public String descripcion;
+    @Column(length = 1000)
+    private String titulo;
+    @Column(columnDefinition = "TEXT")
+    private String descripcion;
 
     @ManyToOne
     @JoinColumn()

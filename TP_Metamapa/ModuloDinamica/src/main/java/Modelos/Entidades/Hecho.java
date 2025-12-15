@@ -14,8 +14,10 @@ public class Hecho {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Long idHecho;
     public Long idfuente;
-    public String titulo;
-    public String descripcion;
+    @Column(length = 1000)
+    private String titulo;
+    @Column(columnDefinition = "TEXT")
+    private String descripcion;
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn()
     public Contenido contenido;

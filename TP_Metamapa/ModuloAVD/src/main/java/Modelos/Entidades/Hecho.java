@@ -19,7 +19,9 @@ public class Hecho{
     private Long id; //Cambiar a long
 
     private Long idFuente; // Cambiar a long
+    @Column(length = 1000)
     private String titulo;
+    @Column(columnDefinition = "TEXT")
     private String descripcion;
 
     @ManyToOne

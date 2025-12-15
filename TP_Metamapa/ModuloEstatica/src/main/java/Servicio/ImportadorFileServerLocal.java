@@ -40,39 +40,6 @@ public class ImportadorFileServerLocal implements Importador{
         }
     }
 
-   /* @Override
-    public List<HechoCSV> getHechoFromFile(String ruta) throws Exception {
-        System.out.println("EXTRAYENDO HECHOS DE" + ruta);
-        HechosCSV hechos = new HechosCSV();
-        BufferedReader br = new BufferedReader(new FileReader(ruta));
-        String linea;
-        br.readLine(); // Saltar encabezado
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        while ((linea = br.readLine()) != null) {
-            String[] campos = linea.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)");
-
-            String titulo     = unquoteCsvField(campos[0]); // Título
-            String descripcion= unquoteCsvField(campos[1]); // Descripción
-            String categoria  = unquoteCsvField(campos[2]); // Categoría
-            String lat = campos[3].trim();
-            String lon = (campos[4].trim());
-
-            HechoCSV hecho = HechoCSV.getInstance(
-                    titulo,
-                    descripcion,
-                    categoria,
-                    LocalDate.parse(campos[5].trim(), formatter),
-                    lat,
-                    lon
-            );
-
-            hechos.addHecho(hecho);
-        }
-
-        br.close();
-        return hechos.getHechos();
-    }
-*/
    @Override
    public List<HechoCSV> getHechoFromFile(String ruta) throws Exception {
        System.out.println("EXTRAYENDO HECHOS DE " + ruta);

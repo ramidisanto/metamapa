@@ -7,15 +7,12 @@ import Modelos.Entidades.DTOs.UbicacionDTOOutput;
 import Modelos.Entidades.DTOs.*;
 import Modelos.Exceptions.ColeccionNoEncontradaException;
 import Repositorio.*;
-import ch.qos.logback.classic.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
-import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
-import org.springframework.transaction.TransactionTimedOutException;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -26,7 +23,10 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import org.springframework.stereotype.Service;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -52,8 +52,6 @@ public class AgregadorServicio {
     ContribuyenteRepositorio contribuyenteRepositorio;
     @Autowired
     ContenidoRepositorio contenidoRepositorio;
-    @Autowired
-    NormalizadorClient normalizadorClient;
     @Value("${url.proxy}")
     private String urlProxy;
     @Value("${url.normalizador}")
@@ -62,8 +60,6 @@ public class AgregadorServicio {
     private String urlBaseDinamica;
     @Value("${url.estatica}")
     private String urlBaseEstatica;
-
-    private static final int BATCH_SIZE = 200;
 
     @Transactional
     public void actualizarHechos() {
@@ -130,132 +126,64 @@ public class AgregadorServicio {
         UriComponentsBuilder urlUbicacion = UriComponentsBuilder
                 .fromHttpUrl(urlNormalizador + "/normalizacion/ubicaciones");
         UriComponentsBuilder urlTitulo = UriComponentsBuilder.fromHttpUrl(urlNormalizador + "/normalizacion/titulos");
-    /*
+
         for (HechoDTOInput hechoDTO : hechosDTOTotales) {
 
-            // CATEEGORIAAAAAA
+            try {
+                // -------- CATEGORÍA --------
+                ResponseEntity<String> categoriaResponse =
+                        restTemplate.exchange(
+                                urlCategoria.toUriString(),
+                                HttpMethod.POST,
+                                new HttpEntity<>(hechoDTO.getCategoria()),
+                                String.class);
 
-            String categoriaRequest = hechoDTO.getCategoria();
+                if (categoriaResponse.getBody() != null) {
+                    hechoDTO.setCategoria(categoriaResponse.getBody());
+                }
 
-            ResponseEntity<String> categoriaResponse = restTemplate.exchange(
-                    urlCategoria.toUriString(),
-                    HttpMethod.POST,
-                    new HttpEntity<>(categoriaRequest),
-                    String.class);
-            String categoriaNormalizada = categoriaResponse.getBody();
+                // -------- UBICACIÓN --------
+                UbicacionDTOOutput ubicacionDTOOutput =
+                        new UbicacionDTOOutput(hechoDTO.getLatitud(), hechoDTO.getLongitud());
 
-            if (categoriaNormalizada != null) {
-                hechoDTO.setCategoria(categoriaNormalizada); // solo guardamos el nombre
-            }
+                ResponseEntity<UbicacionDTOInput> ubicacionResponse =
+                        restTemplate.exchange(
+                                urlUbicacion.toUriString(),
+                                HttpMethod.POST,
+                                new HttpEntity<>(ubicacionDTOOutput),
+                                UbicacionDTOInput.class);
 
-            // UBICACIOOOOONN
-            UbicacionDTOOutput ubicacionDTOOutput = new UbicacionDTOOutput(hechoDTO.getLatitud(),
-                    hechoDTO.getLongitud());
+                if (ubicacionResponse.getBody() != null) {
+                    hechoDTO.setPais(ubicacionResponse.getBody().getPais());
+                    hechoDTO.setProvincia(ubicacionResponse.getBody().getProvincia());
+                    hechoDTO.setLocalidad(ubicacionResponse.getBody().getLocalidad());
+                }
 
-            ResponseEntity<UbicacionDTOInput> UbicacionNormalizada = restTemplate.exchange(
-                    urlUbicacion.toUriString(), // URL de tu API
-                    HttpMethod.POST,
-                    new HttpEntity<>(ubicacionDTOOutput),
-                    UbicacionDTOInput.class);
+                // -------- TÍTULO --------
+                ResponseEntity<String> tituloResponse =
+                        restTemplate.exchange(
+                                urlTitulo.toUriString(),
+                                HttpMethod.POST,
+                                new HttpEntity<>(hechoDTO.getTitulo()),
+                                String.class);
 
-            hechoDTO.setPais(UbicacionNormalizada.getBody().getPais());
-            hechoDTO.setProvincia(UbicacionNormalizada.getBody().getProvincia());
-            hechoDTO.setLocalidad(UbicacionNormalizada.getBody().getLocalidad());
+                if (tituloResponse.getBody() != null) {
+                    hechoDTO.setTitulo(tituloResponse.getBody());
+                }
 
-            // TITULOOO
-            String tituloRequest = hechoDTO.getTitulo();
-            ResponseEntity<String> tituloResponse = restTemplate.exchange(
-                    urlTitulo.toUriString(),
-                    HttpMethod.POST,
-                    new HttpEntity<>(tituloRequest),
-                    String.class);
-            String tituloNormalizado = tituloResponse.getBody();
-            if (tituloNormalizado != null) {
-                hechoDTO.setTitulo(tituloNormalizado);
+            } catch (Exception e) {
+                System.err.println(
+                        "[ERROR] Error normalizando hecho ID=" + hechoDTO.getIdHecho() + ": " + e.getMessage()
+                );
+                hechosDTOTotales.remove(hechoDTO);
             }
         }
-
-     */
-
-        System.out.println("ESTOY ACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" );
-
-        List<HechoNormalizarDTO> normalizarDTOs =
-                hechosDTOTotales.stream()
-                        .map(this::transformarANormalizarDTO)
-                        .toList();
-
-
-        System.out.println("ESTOY EN ESTASSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS" );
-
-
-
-        for (int i = 0; i < normalizarDTOs.size(); i += BATCH_SIZE) {
-
-            List<HechoNormalizarDTO> batch =
-                    normalizarDTOs.subList(
-                            i,
-                            Math.min(i + BATCH_SIZE, normalizarDTOs.size())
-                    );
-
-            System.out.println("LLEGUE ACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
-
-            List<HechoNormalizadoDTO> normalizados =
-                    normalizadorClient.normalizarBatch(batch);
-
-            System.out.println("NORMALIZAR BAAAAAAAAAAAAAAAAAAAAAAAAAATCHHHHHHHHHHHHHHHHHHHHHHH");
-
-            aplicarResultadoNormalizacion(normalizados, hechosDTOTotales);
-
-
-        }
-
         if (!hechosDTOTotales.isEmpty()) {
-            System.out.println("POR GUARDAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAR" );
-
             List<Hecho> hechos = this.transaformarAHecho(hechosDTOTotales);
             hechoRepositorio.saveAll(hechos);
             this.actualizarColecciones();
         }
-
-
     }
-
-    private void aplicarResultadoNormalizacion(
-            List<HechoNormalizadoDTO> normalizados,
-            List<HechoDTOInput> originales) {
-
-        Map<String, HechoDTOInput> index =
-                originales.stream()
-                        .collect(Collectors.toMap(
-                                h -> h.getLatitud() + "," + h.getLongitud() + "," + h.getTitulo(),
-                                h -> h,
-                                (h1, h2) -> h2
-                        ));
-
-        for (HechoNormalizadoDTO n : normalizados) {
-            String key = n.getLatitud() + "," + n.getLongitud() + "," + n.getTitulo();
-            HechoDTOInput original = index.get(key);
-
-            if (original != null) {
-                original.setTitulo(n.getTitulo());
-                original.setCategoria(n.getCategoria());
-                original.setLocalidad(n.getLocalidad());
-                original.setProvincia(n.getProvincia());
-                original.setPais(n.getPais());
-            }
-        }
-    }
-
-
-    private HechoNormalizarDTO transformarANormalizarDTO(HechoDTOInput h) {
-        HechoNormalizarDTO dto = new HechoNormalizarDTO(h.getTitulo(), h.getCategoria(), h.getLatitud(), h.getLongitud());
-//        dto.setTitulo(h.getTitulo());
-//        dto.setCategoria(h.getCategoria());
-//        dto.setLatitud(h.getLatitud());
-//        dto.setLongitud(h.getLongitud());
-        return dto;
-    }
-
 
     public List<Hecho> transaformarAHecho(List<HechoDTOInput> hechosDTO) {
         List<Hecho> hechos = new ArrayList<>();
@@ -350,7 +278,7 @@ public class AgregadorServicio {
     }
 
     public Ubicacion crearUbicacion(Double latitud, Double longitud, Localidad localidad, Provincia provincia,
-            Pais pais) {
+                                    Pais pais) {
         Ubicacion ubicacion = ubicacionRepositorio.findByLatitudAndLongitud(latitud, longitud);
         if (ubicacion == null) {
             ubicacion = new Ubicacion(localidad, provincia, pais, latitud, longitud);
@@ -376,10 +304,10 @@ public class AgregadorServicio {
                 this.actualizarColeccion(coleccion);
             }
             System.out.print("Actualización de colecciones completada exitosamente");
-        } catch (TransactionTimedOutException e) {
+        } catch (org.springframework.transaction.TransactionTimedOutException e) {
             System.out.printf("Timeout al actualizar colecciones - La transacción excedió los 30 segundos", e);
             throw new RuntimeException("Timeout al actualizar colecciones: " + e.getMessage(), e);
-        } catch (DataAccessException e) {
+        } catch (org.springframework.dao.DataAccessException e) {
             System.out.printf("Error de acceso a datos al actualizar colecciones", e);
             throw new RuntimeException("Error de base de datos al actualizar colecciones: " + e.getMessage(), e);
         } catch (Exception e) {
@@ -483,24 +411,24 @@ public class AgregadorServicio {
             }
         }
 
-            List<Hecho> hechosEntidad = hechoRepositorio.filtrarHechos(
-                    categoria,
-                    multimedia,
-                    fechaCargaDesde,
-                    fechaCargaHasta,
-                    fechaAcontecimientoDesde,
-                    fechaAcontecimientoHasta,
-                    origenEnum,
-                    titulo,
-                    pais,
-                    provincia,
-                    localidad
-            );
+        List<Hecho> hechosEntidad = hechoRepositorio.filtrarHechos(
+                categoria,
+                multimedia,
+                fechaCargaDesde,
+                fechaCargaHasta,
+                fechaAcontecimientoDesde,
+                fechaAcontecimientoHasta,
+                origenEnum,
+                titulo,
+                pais,
+                provincia,
+                localidad
+        );
 
-            return hechosEntidad.stream()
-                    .map(this::convertirAHechoDTO)
-                    .collect(Collectors.toList());
-        }
+        return hechosEntidad.stream()
+                .map(this::convertirAHechoDTO)
+                .collect(Collectors.toList());
+    }
 
     public HechoDTOoutput convertirAHechoDTO(Hecho h) {
 

@@ -20,7 +20,9 @@ public class HechoDemo {
     @ManyToOne
     @JoinColumn()
     private Fuente fuente;
+    @Column(length = 1000)
     private String titulo;
+    @Column(columnDefinition = "TEXT")
     private String descripcion;
     private String contenido;
     private String contenido_multimedia;

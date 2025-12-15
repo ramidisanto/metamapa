@@ -1,4 +1,4 @@
-/*package servicios;
+package servicios;
 
 import Modelos.Categoria;
 import Repositorio.RepositorioCategoria;
@@ -41,4 +41,3 @@ class ServicioCategoriaTest {
         verify(repositorioMock).crearCategoria("");
     }
 }
-*/
