@@ -5,6 +5,8 @@ import com.TP_Metamapa.Modelos.*;
 import com.TP_Metamapa.Servicio.*;
 import com.TP_Metamapa.Servicio.NavegacionServicio;
 import com.TP_Metamapa.Servicio.SolicitudServicio;
+import jakarta.servlet.http.HttpSession;
+import org.springframework.security.core.Authentication;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -45,9 +47,24 @@ public class CreacionSolicitudControlador {
     }
 
     @PostMapping("/crearSolicitud")
-    public String crearSolicitud(@ModelAttribute("solicitudDTO") SolicitudDTOInput solicitudDTO, RedirectAttributes redirectAttributes) {
+    public String crearSolicitud(@ModelAttribute("solicitudDTO") SolicitudDTOInput solicitudDTO, RedirectAttributes redirectAttributes, Authentication authentication, HttpSession session, Model model) {
+
         try {
-            solicitudServicio.crearSolicitud(solicitudDTO);
+
+            if (authentication == null || !authentication.isAuthenticated()) {
+                model.addAttribute("errorMessage", "Debes iniciar sesión para crear un hecho.");
+                return "redirect:/auth/login";
+            }
+            // 2. Validar sesión/tokens
+            String accessToken = (String) session.getAttribute("accessToken");
+            String refreshToken = (String) session.getAttribute("refreshToken");
+
+            if (accessToken == null) {
+                model.addAttribute("errorMessage", "Tu sesión ha expirado. Por favor, inicia sesión nuevamente.");
+                return "redirect:/auth/login";
+            }
+
+            solicitudServicio.crearSolicitud(solicitudDTO, accessToken);
             redirectAttributes.addFlashAttribute("successMessage", "Su solicitud de eliminación ha sido enviada con éxito.");
 
             return "redirect:/navegar";

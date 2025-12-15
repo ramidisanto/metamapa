@@ -34,11 +34,12 @@ public class FuenteProxyServicio {
 
     }
 
-    public void crear(String url, TipoFuente tipo){
+    public void crear(String url, TipoFuente tipo, String accessToken){
         FuentesDTO fuente = new FuentesDTO(url, tipo);
-
+        HttpHeaders headers = new HttpHeaders();
+        headers.setBearerAuth(accessToken);
         UriComponentsBuilder urlProxy = UriComponentsBuilder.fromHttpUrl(urlBaseProxy + "/fuentes");
-        HttpEntity<FuentesDTO> requestEntity = new HttpEntity<>(fuente);
+        HttpEntity<FuentesDTO> requestEntity = new HttpEntity<>(fuente, headers);
         ResponseEntity<String> respuesta = restTemplate.exchange(
                 urlProxy.toUriString(),
                 HttpMethod.POST,

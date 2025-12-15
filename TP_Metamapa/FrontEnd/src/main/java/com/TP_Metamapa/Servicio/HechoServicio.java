@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -63,13 +64,15 @@ public class HechoServicio {
                 .collect(Collectors.toList());
     }
 
-    public void eliminarHecho(Long idHecho){
+    public void eliminarHecho(Long idHecho, String accessToken){
         UriComponentsBuilder url = UriComponentsBuilder.fromHttpUrl(urlAVD + "/hecho/" + idHecho);
-
+        HttpHeaders headers = new HttpHeaders();
+        headers.setBearerAuth(accessToken);
+        HttpEntity<Void> requestEntity = new HttpEntity<>(null, headers);
         ResponseEntity<String> respuesta = restTemplate.exchange(
                 url.toUriString(),
                 HttpMethod.DELETE,
-                null,
+                requestEntity,
                 new ParameterizedTypeReference<String>() {}
         );
     }
@@ -107,12 +110,14 @@ public class HechoServicio {
         return uploadUrl + uniqueFilename;
     }
 
-    public void enviarHechoAlBackend(HechoDTOInput hechoParaBackend) {
+    public void enviarHechoAlBackend(HechoDTOInput hechoParaBackend, String accessToken) {
 
         String url = urlDinamica + "/dinamica/hechos";
-        HttpEntity<HechoDTOInput> requestEntity = new HttpEntity<>(hechoParaBackend);
 
         try {
+            HttpHeaders headers = new HttpHeaders();
+            headers.setBearerAuth(accessToken);
+            HttpEntity<HechoDTOInput> requestEntity = new HttpEntity<>(hechoParaBackend, headers);
             ResponseEntity<String> respuesta = restTemplate.exchange(
                     url,
                     HttpMethod.POST,
@@ -143,19 +148,22 @@ public class HechoServicio {
         }
     }
 
-    public List<HechoDTO> obtenerHechoPendiente(String username){
+    public List<HechoDTO> obtenerHechoPendiente(String username,  String accessToken){
         UriComponentsBuilder urlHechos = UriComponentsBuilder
                 .fromHttpUrl(urlDinamica + "/dinamica/hechos/pendientes")
                 .queryParam("username", username);
 
         try {
+            HttpHeaders headers = new HttpHeaders();
+            headers.setBearerAuth(accessToken);
+            HttpEntity<Void> requestEntity = new HttpEntity<>(null, headers);
             System.out.println("USERNAME: " + username);
             System.out.println("URL: " + urlHechos.toUriString());
 
             ResponseEntity<List<HechoDTO>> respuesta = restTemplate.exchange(
                     urlHechos.toUriString(),
                     HttpMethod.GET,
-                    null,
+                    requestEntity,
                     new ParameterizedTypeReference<List<HechoDTO>>() {}
             );
             return respuesta.getBody();

@@ -257,6 +257,8 @@ services:
     depends_on:
       db_general:
         condition: service_healthy
+      keycloak:
+         condition: service_started
     environment:
       SPRING_PROFILES_ACTIVE: prod
       DB_URL: jdbc:mysql://db_general:3306/comun
@@ -286,7 +288,7 @@ services:
       SERVER_URL: http://keycloak:8080
       REALM_NAME: spring-boot-realm-pr
       RESOURSE_ID: spring-client-api-rest
-      CLIENT_SECRET: "0FxbpsqTmnzTAIkHONLWMScJBaYMsLgR"
+      CLIENT_SECRET: "wozORSDRLdISllD0c89JwZ9yVkKXlDge"
       SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_ISSUER_URI: http://localhost:8080/realms/spring-boot-realm-pr
       SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_JWK_SET_URI: http://keycloak:8080/realms/spring-boot-realm-pr/protocol/openid-connect/certs
     restart: on-failure

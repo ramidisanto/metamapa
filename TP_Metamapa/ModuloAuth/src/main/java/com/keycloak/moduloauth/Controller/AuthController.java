@@ -28,10 +28,10 @@ public class AuthController {
     }
 
 
-    @GetMapping("/search")
-    public ResponseEntity<?> findAllUsers(){
-        return ResponseEntity.ok(authService.findAllUsers());
-    }
+//    @GetMapping("/search")
+//    public ResponseEntity<?> findAllUsers(){
+//        return ResponseEntity.ok(authService.findAllUsers());
+//    }
 
 
     @GetMapping("/search/{username}")

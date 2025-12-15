@@ -3,6 +3,7 @@ package Controlador;
 
 import Modelos.HechoDTO;
 import Modelos.HechoDTOInput;
+import org.springframework.security.access.prepost.PreAuthorize;
 import servicios.HechoServicio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,7 +18,7 @@ public class HechoControlador {
 
     @Autowired
      HechoServicio hechoServicio;
-
+    @PreAuthorize("hasAnyRole('admin_client_role', 'user_client_role')")
     @PostMapping("/hechos")
     public ResponseEntity<String> crearHecho(@RequestBody HechoDTOInput hechoDTO) {
         System.out.println("ENTRO A EL CONTROLADOR DE CREAR HECHO");
@@ -35,6 +36,7 @@ public class HechoControlador {
         return hechoServicio.obtenerHechos();
     }
 
+    @PreAuthorize("hasAnyRole('admin_client_role', 'user_client_role')")
     @GetMapping("/hechos/pendientes")
     public ResponseEntity<List<HechoDTO>> obtenerHechosPendientesDeUsuario(@RequestParam String username) {
         try {

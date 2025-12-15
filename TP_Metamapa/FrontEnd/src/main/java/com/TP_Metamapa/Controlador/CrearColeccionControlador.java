@@ -6,7 +6,9 @@ import com.TP_Metamapa.Modelos.Consenso;
 import com.TP_Metamapa.Modelos.CriterioDuplicadoException;
 import com.TP_Metamapa.Modelos.OrigenCarga;
 import com.TP_Metamapa.Servicio.*;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -61,10 +63,25 @@ public class CrearColeccionControlador {
     public String procesarCrearColeccion(
             @ModelAttribute("coleccionForm") ColeccionDTOInput coleccionData,
             Model model,
-            RedirectAttributes redirectAttributes
+            RedirectAttributes redirectAttributes,
+            Authentication authentication,
+            HttpSession session
     ) {
         try {
-            coleccionServicio.crear(coleccionData);
+            if (authentication == null || !authentication.isAuthenticated()) {
+                model.addAttribute("errorMessage", "Debes iniciar sesión para crear un hecho.");
+                return "redirect:/auth/login";
+            }
+            // 2. Validar sesión/tokens
+            String accessToken = (String) session.getAttribute("accessToken");
+            String refreshToken = (String) session.getAttribute("refreshToken");
+
+            if (accessToken == null) {
+                model.addAttribute("errorMessage", "Tu sesión ha expirado. Por favor, inicia sesión nuevamente.");
+                return "redirect:/auth/login";
+            }
+            System.out.println("IMPRIMO ACCESS TOKENNNNNNNNNNNNNNNNNNNNNNN:" + accessToken);
+            coleccionServicio.crear(coleccionData, accessToken);
 
             redirectAttributes.addFlashAttribute("successMessage", "¡Colección creada con éxito!");
             return "redirect:/admin?tab=collections";
