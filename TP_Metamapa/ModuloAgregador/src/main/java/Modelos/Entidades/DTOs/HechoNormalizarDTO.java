@@ -12,8 +12,8 @@ public class HechoNormalizarDTO {
     private Double longitud;
 
     public HechoNormalizarDTO(String titulo, String categoria, Double latitud, Double longitud) {
-        this.titulo = titulo;
-        this.categoria = categoria;
+        this.titulo = titulo != null ? titulo : "";
+        this.categoria = categoria != null ? categoria : "";
         this.latitud = latitud;
         this.longitud = longitud;
     }

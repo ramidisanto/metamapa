@@ -32,11 +32,15 @@ public class ServicioNormalizacion {
         Map<String, UbicacionDTOoutput> cacheUbicaciones = new HashMap<>();
 
         return hechos.stream().map(h -> {
+            System.out.println("ESTOY ACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" );
 
             String categoria = servicioCategoria.normalizarCategoria(h.getCategoria());
             String titulo = servicioTitulo.normalizarTitulo(h.getTitulo());
 
             String key = h.getLatitud() + "," + h.getLongitud();
+
+            System.out.println("ENTRE ACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" );
+
 
             UbicacionDTOoutput ubicacion = cacheUbicaciones.computeIfAbsent(
                     key,
@@ -44,7 +48,9 @@ public class ServicioNormalizacion {
                             h.getLatitud(),
                             h.getLongitud()
                     )
+
             );
+            System.out.println("ME METI ACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" );
 
             return new HechoNormalizadoDTO(
                     titulo,

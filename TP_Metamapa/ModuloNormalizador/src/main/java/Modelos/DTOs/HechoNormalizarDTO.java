@@ -17,4 +17,7 @@ public class HechoNormalizarDTO {
         this.latitud = latitud;
         this.longitud = longitud;
     }
+
+    public  HechoNormalizarDTO() {
+    }
 }

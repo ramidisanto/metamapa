@@ -18,9 +18,9 @@ public class AgregadorScheduler {
     @Scheduled(fixedRate = 300000)
     public void actualizarHechos() {
 
-//        if (!running.compareAndSet(false, true)) {
-//            return;
-//        }
+        if (!running.compareAndSet(false, true)) {
+            return;
+        }
 
         try {
             agregadorService.actualizarHechos();

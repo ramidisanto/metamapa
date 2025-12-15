@@ -1,5 +1,6 @@
 package Servicio;
 
+import Modelos.Entidades.DTOs.HechoNormalizadoDTO;
 import Modelos.Entidades.DTOs.HechoNormalizarDTO;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
@@ -23,9 +24,10 @@ public class NormalizadorClient {
         this.restTemplate = restTemplate;
     }
 
-    public List<HechoNormalizarDTO> normalizarBatch(List<HechoNormalizarDTO> batch) {
+    public List<HechoNormalizadoDTO> normalizarBatch(List<HechoNormalizarDTO> batch) {
+        System.out.println("ME METI EN EL CLIENT NORMALIZADOOOOOOOOOOOOOOOOOOOR" );
 
-        ResponseEntity<List<HechoNormalizarDTO>> response =
+        ResponseEntity<List<HechoNormalizadoDTO>> response =
                 restTemplate.exchange(
                         urlNormalizador + "/normalizacion/batch",
                         HttpMethod.POST,

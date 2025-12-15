@@ -7,12 +7,15 @@ import Modelos.Entidades.DTOs.UbicacionDTOOutput;
 import Modelos.Entidades.DTOs.*;
 import Modelos.Exceptions.ColeccionNoEncontradaException;
 import Repositorio.*;
+import ch.qos.logback.classic.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.TransactionTimedOutException;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -60,7 +63,7 @@ public class AgregadorServicio {
     @Value("${url.estatica}")
     private String urlBaseEstatica;
 
-    private static final int BATCH_SIZE = 300;
+    private static final int BATCH_SIZE = 200;
 
     @Transactional
     public void actualizarHechos() {
@@ -173,10 +176,18 @@ public class AgregadorServicio {
         }
 
      */
+
+        System.out.println("ESTOY ACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" );
+
         List<HechoNormalizarDTO> normalizarDTOs =
                 hechosDTOTotales.stream()
                         .map(this::transformarANormalizarDTO)
                         .toList();
+
+
+        System.out.println("ESTOY EN ESTASSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS" );
+
+
 
         for (int i = 0; i < normalizarDTOs.size(); i += BATCH_SIZE) {
 
@@ -186,48 +197,62 @@ public class AgregadorServicio {
                             Math.min(i + BATCH_SIZE, normalizarDTOs.size())
                     );
 
-            List<HechoNormalizarDTO> normalizados =
+            System.out.println("LLEGUE ACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+
+            List<HechoNormalizadoDTO> normalizados =
                     normalizadorClient.normalizarBatch(batch);
 
+            System.out.println("NORMALIZAR BAAAAAAAAAAAAAAAAAAAAAAAAAATCHHHHHHHHHHHHHHHHHHHHHHH");
+
             aplicarResultadoNormalizacion(normalizados, hechosDTOTotales);
+
+
         }
 
         if (!hechosDTOTotales.isEmpty()) {
+            System.out.println("POR GUARDAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAR" );
+
             List<Hecho> hechos = this.transaformarAHecho(hechosDTOTotales);
             hechoRepositorio.saveAll(hechos);
             this.actualizarColecciones();
         }
+
+
     }
 
     private void aplicarResultadoNormalizacion(
-            List<HechoNormalizarDTO> normalizados,
+            List<HechoNormalizadoDTO> normalizados,
             List<HechoDTOInput> originales) {
 
         Map<String, HechoDTOInput> index =
                 originales.stream()
                         .collect(Collectors.toMap(
                                 h -> h.getLatitud() + "," + h.getLongitud() + "," + h.getTitulo(),
-                                h -> h
+                                h -> h,
+                                (h1, h2) -> h2
                         ));
 
-        for (HechoNormalizarDTO n : normalizados) {
+        for (HechoNormalizadoDTO n : normalizados) {
             String key = n.getLatitud() + "," + n.getLongitud() + "," + n.getTitulo();
             HechoDTOInput original = index.get(key);
 
             if (original != null) {
                 original.setTitulo(n.getTitulo());
                 original.setCategoria(n.getCategoria());
+                original.setLocalidad(n.getLocalidad());
+                original.setProvincia(n.getProvincia());
+                original.setPais(n.getPais());
             }
         }
     }
 
 
     private HechoNormalizarDTO transformarANormalizarDTO(HechoDTOInput h) {
-        HechoNormalizarDTO dto = new HechoNormalizarDTO();
-        dto.setTitulo(h.getTitulo());
-        dto.setCategoria(h.getCategoria());
-        dto.setLatitud(h.getLatitud());
-        dto.setLongitud(h.getLongitud());
+        HechoNormalizarDTO dto = new HechoNormalizarDTO(h.getTitulo(), h.getCategoria(), h.getLatitud(), h.getLongitud());
+//        dto.setTitulo(h.getTitulo());
+//        dto.setCategoria(h.getCategoria());
+//        dto.setLatitud(h.getLatitud());
+//        dto.setLongitud(h.getLongitud());
         return dto;
     }
 
@@ -351,10 +376,10 @@ public class AgregadorServicio {
                 this.actualizarColeccion(coleccion);
             }
             System.out.print("Actualización de colecciones completada exitosamente");
-        } catch (org.springframework.transaction.TransactionTimedOutException e) {
+        } catch (TransactionTimedOutException e) {
             System.out.printf("Timeout al actualizar colecciones - La transacción excedió los 30 segundos", e);
             throw new RuntimeException("Timeout al actualizar colecciones: " + e.getMessage(), e);
-        } catch (org.springframework.dao.DataAccessException e) {
+        } catch (DataAccessException e) {
             System.out.printf("Error de acceso a datos al actualizar colecciones", e);
             throw new RuntimeException("Error de base de datos al actualizar colecciones: " + e.getMessage(), e);
         } catch (Exception e) {

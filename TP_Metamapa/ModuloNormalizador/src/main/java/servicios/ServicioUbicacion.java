@@ -2,6 +2,9 @@ package servicios;
 
 import Modelos.*;
 import Modelos.DTOs.UbicacionDTOoutput;
+import Repositorio.RepositorioLocalidad;
+import Repositorio.RepositorioPais;
+import Repositorio.RepositorioProvincia;
 import Repositorio.RepositorioUbicacion;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -18,6 +21,12 @@ public class ServicioUbicacion {
 
     @Autowired
     RepositorioUbicacion repositorioUbicacion;
+    @Autowired
+    RepositorioLocalidad repositorioLocalidad;
+    @Autowired
+    RepositorioProvincia repositorioProvincia;
+    @Autowired
+    RepositorioPais repositorioPais;
 
     private final RestTemplate restTemplate;
     private final ObjectMapper objectMapper;
@@ -33,15 +42,14 @@ public class ServicioUbicacion {
     @Cacheable(value = "ubicaciones", key = "#latitud + ',' + #longitud")
     public UbicacionDTOoutput normalizarUbicacion(Double latitud, Double longitud) {
 
-        Optional<Ubicacion> existente =
+        Ubicacion existente =
                 repositorioUbicacion.findByLatitudAndLongitud(latitud, longitud);
 
-        if (existente.isPresent()) {
-            Ubicacion u = existente.get();
+        if (existente != null) {
             return new UbicacionDTOoutput(
-                    u.getPais().getNombre_pais(),
-                    u.getProvincia().getNombre_provincia(),
-                    u.getLocalidad().getNombre_localidad(),
+                    existente.getPais().getPais(),
+                    existente.getProvincia().getProvincia(),
+                    existente.getLocalidad().getLocalidad(),
                     latitud,
                     longitud
             );
@@ -58,14 +66,13 @@ public class ServicioUbicacion {
             JsonNode root = objectMapper.readTree(response);
             JsonNode address = root.path("address");
 
-            Pais pais = new Pais(
-                    TextoUtils.capitalizarCadaPalabra(address.path("country").asText())
-            );
+            Pais pais = this.crearPais(TextoUtils.capitalizarCadaPalabra(address.path("country").asText()));
 
-            Provincia provincia = new Provincia(
-                    TextoUtils.capitalizarCadaPalabra(address.path("state").asText()),
-                    pais
-            );
+
+
+            Provincia provincia = this.crearProvincia(TextoUtils.capitalizarCadaPalabra(address.path("state").asText()),
+                    pais);
+
 
             String ciudad =
                     address.path("city").asText(null);
@@ -82,20 +89,20 @@ public class ServicioUbicacion {
             if (ciudad == null || ciudad.isBlank()) {
                 ciudad = address.path("county").asText(null);
             }
+            if (ciudad == null || ciudad.isBlank()) {
+                ciudad = "Sin localidad";
+            }
 
 
-            Localidad localidad = new Localidad(
-                    TextoUtils.capitalizarCadaPalabra(ciudad),
-                    provincia
-            );
+            Localidad localidad = this.crearLocalidad(TextoUtils.capitalizarCadaPalabra(ciudad),
+                    provincia);
 
-            Ubicacion nueva = new Ubicacion(localidad, provincia, pais, latitud, longitud);
-            repositorioUbicacion.save(nueva);
+            Ubicacion nueva = this.crearUbicacion(latitud, longitud, localidad, provincia, pais);
 
             return new UbicacionDTOoutput(
-                    pais.getNombre_pais(),
-                    provincia.getNombre_provincia(),
-                    localidad.getNombre_localidad(),
+                    pais.getPais(),
+                    provincia.getProvincia(),
+                    localidad.getLocalidad(),
                     latitud,
                     longitud
             );
@@ -103,5 +110,42 @@ public class ServicioUbicacion {
         } catch (Exception e) {
             throw new RuntimeException("Error normalizando ubicación", e);
         }
+    }
+
+    public Pais crearPais(String nombre) {
+        Pais pais = repositorioPais.findByPais(nombre);
+        if (pais == null) {
+            pais = new Pais(nombre);
+            repositorioPais.save(pais);
+        }
+        return pais;
+    }
+
+    public Provincia crearProvincia(String nombre, Pais pais) {
+        Provincia provincia = repositorioProvincia.findByProvinciaAndPais(nombre, pais);
+        if (provincia == null) {
+            provincia = new Provincia(nombre, pais);
+            repositorioProvincia.save(provincia);
+        }
+        return provincia;
+    }
+
+    public Localidad crearLocalidad(String nombre, Provincia provincia) {
+        Localidad localidad = repositorioLocalidad.findByLocalidadAndProvincia(nombre, provincia);
+        if (localidad == null) {
+            localidad = new Localidad(nombre, provincia);
+            repositorioLocalidad.save(localidad);
+        }
+        return localidad;
+    }
+
+    public Ubicacion crearUbicacion(Double latitud, Double longitud, Localidad localidad, Provincia provincia,
+                                    Pais pais) {
+        Ubicacion ubicacion = repositorioUbicacion.findByLatitudAndLongitud(latitud, longitud);
+        if (ubicacion == null) {
+            ubicacion = new Ubicacion(localidad, provincia, pais, latitud, longitud);
+            repositorioUbicacion.save(ubicacion);
+        }
+        return ubicacion;
     }
 }
