@@ -208,8 +208,14 @@ services:
     build:
       context: .
       dockerfile: ModuloNormalizador/Dockerfile
+    depends_on:
+        db_general:
+          condition: service_healthy
     environment:
-      SPRING_PROFILES_ACTIVE: prod
+        SPRING_PROFILES_ACTIVE: prod
+        DB_URL: jdbc:mysql://db_general:3306/comun
+        DB_USER: root
+        DB_PASSWORD: root
     ports:
       - "8085:8085"
     restart: on-failure

@@ -4,13 +4,13 @@ import lombok.Data;
 import java.time.LocalDate; // Para el input type="date"
 import java.time.LocalDateTime;
 
-@Data // Genera getters, setters, etc.
+@Data
 public class HechoFormDTO {
     private String titulo;
     private String descripcion;
     private String contenidoAdicional;
     private String categoria;
-    private LocalDateTime fechaAcontecimiento; // Recibe 'yyyy-MM-dd' del form
+    private LocalDateTime fechaAcontecimiento;
     private Double latitud;
     private Double longitud;
     private String pais;

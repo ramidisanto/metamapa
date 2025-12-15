@@ -34,7 +34,10 @@ public class EstaticaController {
 
     @PostMapping("/CSV")
     public ResponseEntity<?> uploadCSV(@RequestParam("csv") MultipartFile file) {
+        System.out.println("entre al controller del csv");
         try {
+            System.out.println("Nombre: " + file.getOriginalFilename());
+            System.out.println("Tamaño: " + file.getSize());
             fuenteEstatica.cargarCSV(file);
             return ResponseEntity.ok("Archivo guardado correctamente.");
         } catch (Exception e) {

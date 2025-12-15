@@ -409,7 +409,8 @@
                         const address = data.address || {};
                         paisInput.value = address.country || '';
                         provinciaInput.value = address.state || address.county || '';
-                        localidadInput.value = address.city || address.town || address.village || address.municipality || '';
+                        localidadInput.value = address.city || address.town || address.village || address.municipality || address.county ||address.suburb ||address.neighbourhood || address.hamlet ||'';
+
                         searchInput.value = data.display_name || '';
                     })
                     .catch(err => console.error('Reverse geocoding error:', err));

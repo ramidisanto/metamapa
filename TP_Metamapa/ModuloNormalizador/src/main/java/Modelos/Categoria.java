@@ -1,14 +1,21 @@
 package Modelos;
 
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
+@Entity
+@Table(name = "Categoria")
 public class Categoria {
-    String nombre_categoria;
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    private String nombre;
 
     public Categoria(String nombre_categoria) {
-        this.nombre_categoria = nombre_categoria;
+        this.nombre = nombre_categoria;
     }
+
+    public Categoria(){}
 }

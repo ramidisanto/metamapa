@@ -8,11 +8,10 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.time.LocalDate;
@@ -83,7 +82,13 @@ public class ImportadorFileServerLocal implements Importador{
        int numeroLinea = 0;
 
        try {
-           br = new BufferedReader(new FileReader(ruta));
+           // br = new BufferedReader(new FileReader(ruta));
+           br = new BufferedReader( // antes estaba el de arriba, en mi compu tomaba mal los tildes
+                   new InputStreamReader(
+                           new FileInputStream(ruta),
+                           StandardCharsets.UTF_8
+                   )
+           );
            String linea;
            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 

@@ -45,7 +45,6 @@ public class AuthController {
         try {
             if (response.contains("User created successfully") || response.contains("Usuario creado exitosamente")) {
                 return "redirect:/auth/login?registered=true";
-                //return "redirect:/auth/login";
              } else if (response.contains("Email already exists")) {
                 model.addAttribute("registerForm", registerDTO);
                 model.addAttribute("errorMessage", "El email ya está registrado. Por favor, usa otro.");

@@ -1,27 +1,20 @@
 package servicios;
 
 import org.springframework.stereotype.Service;
+import java.util.Arrays;
+import java.util.stream.Collectors;
 
 @Service
 public class ServicioTitulo {
 
-    public String normalizarTitulo(String titulo){
+    public String normalizarTitulo(String titulo) {
 
-        if (titulo == null || titulo.isEmpty()){
+        if (titulo == null || titulo.isBlank()) {
             return titulo;
         }
 
-        String[] palabras = titulo.trim().split("\\s+");
-        StringBuilder resultado = new StringBuilder();
-
-        for (String palabra : palabras) {
-            if (palabra.isEmpty()) continue;
-
-            String normalizada = palabra.substring(0, 1).toUpperCase() + palabra.substring(1).toLowerCase();
-
-            resultado.append(normalizada).append(" ");
-        }
-
-        return resultado.toString().trim();
+        return Arrays.stream(titulo.trim().split("\\s+"))
+                .map(p -> p.substring(0, 1).toUpperCase() + p.substring(1).toLowerCase())
+                .collect(Collectors.joining(" "));
     }
 }
