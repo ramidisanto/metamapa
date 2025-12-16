@@ -4,6 +4,7 @@ import Modelos.*;
 import Modelos.DTOs.UbicacionDTOoutput;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -12,15 +13,15 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import Utils.TextoUtils;
-
 @Service
 public class ServicioUbicacion {
 
     private final RestTemplate restTemplate;
     private final ObjectMapper objectMapper;
 
-    private static final String NOMINATIM_URL =
-            "https://nominatim.openstreetmap.org/reverse?lat={lat}&lon={lon}&format=json";
+    private static final String BDC_URL =
+            "https://api.bigdatacloud.net/data/reverse-geocode-client" +
+                    "?latitude={lat}&longitude={lon}&localityLanguage=es";
 
     public ServicioUbicacion(RestTemplate restTemplate, ObjectMapper objectMapper) {
         this.restTemplate = restTemplate;
@@ -31,60 +32,29 @@ public class ServicioUbicacion {
     public UbicacionDTOoutput normalizarUbicacion(Double latitud, Double longitud) {
 
         try {
-            Thread.sleep(1100);
-
-            String response = restTemplate.getForObject(
-                    NOMINATIM_URL,
+            ResponseEntity<String> response = restTemplate.getForEntity(
+                    BDC_URL,
                     String.class,
                     latitud,
                     longitud
             );
 
-            JsonNode root = objectMapper.readTree(response);
-            JsonNode address = root.path("address");
-
-            Pais pais = new Pais(
-                    TextoUtils.capitalizarCadaPalabra(address.path("country").asText())
-            );
-
-            Provincia provincia = new Provincia(
-                    TextoUtils.capitalizarCadaPalabra(address.path("state").asText()),
-                    pais
-            );
-
-            String ciudad =
-                    address.path("city").asText(null);
-
-            if (ciudad == null || ciudad.isBlank()) {
-                ciudad = address.path("town").asText(null);
-            }
-            if (ciudad == null || ciudad.isBlank()) {
-                ciudad = address.path("village").asText(null);
-            }
-            if (ciudad == null || ciudad.isBlank()) {
-                ciudad = address.path("municipality").asText(null);
-            }
-            if (ciudad == null || ciudad.isBlank()) {
-                ciudad = address.path("county").asText(null);
-            }
-
-
-            Localidad localidad = new Localidad(
-                    TextoUtils.capitalizarCadaPalabra(ciudad),
-                    provincia
-            );
+            JsonNode root = objectMapper.readTree(response.getBody());
 
             return new UbicacionDTOoutput(
-                    pais.getNombre_pais(),
-                    provincia.getNombre_provincia(),
-                    localidad.getNombre_localidad(),
+                    root.path("countryName").asText(null),
+                    root.path("principalSubdivision").asText(null),
+                    root.path("city").asText(
+                            root.path("locality").asText(null)
+                    ),
                     latitud,
                     longitud
             );
 
         } catch (Exception e) {
-            System.err.println("Error conectando a Nominatim: " + e.getMessage());
-            throw new RuntimeException("Error normalizando ubicación", e);
+            System.err.println("[WARN] BigDataCloud falló: " + e.getMessage());
+            return new UbicacionDTOoutput(null, null, null, latitud, longitud);
         }
     }
 }
+

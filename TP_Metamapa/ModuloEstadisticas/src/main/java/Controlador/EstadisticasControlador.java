@@ -19,7 +19,7 @@ public class EstadisticasControlador{
     EstadisticasServicio estadisticasServicio;
 
 
-    @GetMapping("/coleccion/{idColeccion}/provincia-max-hechos")
+    /*@GetMapping("/coleccion/{idColeccion}/provincia-max-hechos")
     public ResponseEntity<String> obtenerProvinciaConMasHechos(@PathVariable Long idColeccion) {
         try{
             String provincia = estadisticasServicio.provinciaConMasHechos(idColeccion);
@@ -49,10 +49,10 @@ public class EstadisticasControlador{
             return ResponseEntity.status(404).body(e.getMessage());
         }
     }
-    
+
     @GetMapping("/categoria/{categoria}/hora-max-hechos")
     public ResponseEntity<String> obtenerHoraConMasHechos(@PathVariable String categoria){
-        try{ 
+        try{
             Integer hora = estadisticasServicio.obtenerHoraConMasHechos(categoria);
             return ResponseEntity.status(200).body(hora.toString());
         }catch (CategoriaNoEncontradaException e){
@@ -65,8 +65,7 @@ public class EstadisticasControlador{
         Long cantidad = estadisticasServicio.cantidadSolicitudesSpam();
         return ResponseEntity.status(200).body(cantidad);
     }
-
-
+*/
     @GetMapping
     public ResponseEntity<UltimasEstadisticasDTO> obtenerEstadisticas() {
         return ResponseEntity.ok(estadisticasServicio.obtenerEstadisticas());
