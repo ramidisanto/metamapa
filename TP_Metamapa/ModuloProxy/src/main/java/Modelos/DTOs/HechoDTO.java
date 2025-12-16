@@ -33,6 +33,9 @@ public class HechoDTO {
     private Boolean anonimo = null;
     private Boolean visible = null;
     private String origen_carga = null;
+    private Boolean mostrarNombre = null;
+    private Boolean mostrarApellido = null;
+    private Boolean mostrarFechaNacimiento = null;
 
     public HechoDTO(String titulo, String descripcion, String contenido, String contenido_multimedia, String categoria,
                     LocalDateTime fechaAcontecimiento, String localidad, String provincia, String pais,

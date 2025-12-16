@@ -31,9 +31,9 @@ public class HechoDTOoutput {
     @DateTimeFormat(pattern = "dd/MM/yyyy")
     public LocalDate fecha_nacimiento;
     public String origen_carga;
-    private boolean mostrarNombre;
-    private boolean mostrarApellido;
-    private boolean mostrarFechaNacimiento;
+    private Boolean mostrarNombre;
+    private Boolean mostrarApellido;
+    private Boolean mostrarFechaNacimiento;
 
     public HechoDTOoutput(Long idHecho, String titulo, String descripcion, String contenido, String contenido_multimedia, String categoria, LocalDateTime fechaAcontecimiento, LocalDateTime  fechaCarga, String localidad, String provincia, String pais, Double latitud, Double longitud, String usuario, String nombre, String apellido, LocalDate fecha_nacimiento, String origen_carga,  Boolean mostrarNombre, Boolean mostrarApellido, 
                     Boolean mostrarFechaNacimiento) {

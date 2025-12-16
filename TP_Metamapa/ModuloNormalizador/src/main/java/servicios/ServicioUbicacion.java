@@ -1,27 +1,25 @@
 package servicios;
 
-import Modelos.*;
 import Modelos.DTOs.UbicacionDTOoutput;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cache.annotation.Cacheable;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
-import Utils.TextoUtils;
+
 @Service
 public class ServicioUbicacion {
 
     private final RestTemplate restTemplate;
     private final ObjectMapper objectMapper;
 
-    private static final String BDC_URL =
-            "https://api.bigdatacloud.net/data/reverse-geocode-client" +
-                    "?latitude={lat}&longitude={lon}&localityLanguage=es";
+    @Value("${ubicacion.provider.locationiq.url}")
+    private String locationIqUrl;
+
+    @Value("${ubicacion.provider.locationiq.key}")
+    private String apiKey;
 
     public ServicioUbicacion(RestTemplate restTemplate, ObjectMapper objectMapper) {
         this.restTemplate = restTemplate;
@@ -32,29 +30,39 @@ public class ServicioUbicacion {
     public UbicacionDTOoutput normalizarUbicacion(Double latitud, Double longitud) {
 
         try {
+            String url = locationIqUrl +
+                    "?key={key}" +
+                    "&lat={lat}" +
+                    "&lon={lon}" +
+                    "&format=json" +
+                    "&accept-language=es";
+
             ResponseEntity<String> response = restTemplate.getForEntity(
-                    BDC_URL,
+                    url,
                     String.class,
+                    apiKey,
                     latitud,
                     longitud
             );
 
             JsonNode root = objectMapper.readTree(response.getBody());
+            JsonNode address = root.path("address");
 
             return new UbicacionDTOoutput(
-                    root.path("countryName").asText(null),
-                    root.path("principalSubdivision").asText(null),
-                    root.path("city").asText(
-                            root.path("locality").asText(null)
+                    address.path("country").asText(null),
+                    address.path("state").asText(null),
+                    address.path("city").asText(
+                            address.path("town").asText(
+                                    address.path("village").asText(null)
+                            )
                     ),
                     latitud,
                     longitud
             );
 
         } catch (Exception e) {
-            System.err.println("[WARN] BigDataCloud falló: " + e.getMessage());
+            System.err.println("[WARN] LocationIQ fallÃ³: " + e.getMessage());
             return new UbicacionDTOoutput(null, null, null, latitud, longitud);
         }
     }
 }
-
