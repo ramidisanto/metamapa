@@ -108,11 +108,9 @@
                                     Acontecimiento</label>
                                 <div class="grid grid-cols-2 gap-2">
                                     <input type="date" id="fechaHechoDesde"
-                                        class="block w-full px-2 py-1 border  border-gray-300 dark:border-gray-700 rounded text-xs dark:bg-gray-700 dark:text-white"
-                                         />
+                                        class="block w-full px-2 py-1 border  border-gray-300 dark:border-gray-700 rounded text-xs dark:bg-gray-700 dark:text-white" />
                                     <input type="date" id="fechaHechoHasta"
-                                        class="block w-full px-2 py-1 border  border-gray-300 dark:border-gray-700 rounded text-xs dark:bg-gray-700 dark:text-white"
-                                        />
+                                        class="block w-full px-2 py-1 border  border-gray-300 dark:border-gray-700 rounded text-xs dark:bg-gray-700 dark:text-white" />
                                 </div>
                             </div>
 
@@ -121,11 +119,9 @@
                                     Carga</label>
                                 <div class="grid grid-cols-2 gap-2">
                                     <input type="date" id="fechaCargaDesde"
-                                        class="block w-full px-2 py-1 border  border-gray-300 dark:border-gray-700 rounded text-xs dark:bg-gray-700 dark:text-white"
-                                         />
+                                        class="block w-full px-2 py-1 border  border-gray-300 dark:border-gray-700 rounded text-xs dark:bg-gray-700 dark:text-white" />
                                     <input type="date" id="fechaCargaHasta"
-                                        class="block w-full px-2 py-1 border  border-gray-300 dark:border-gray-700 rounded text-xs dark:bg-gray-700 dark:text-white"
-                                         />
+                                        class="block w-full px-2 py-1 border  border-gray-300 dark:border-gray-700 rounded text-xs dark:bg-gray-700 dark:text-white" />
                                 </div>
                             </div>
 
@@ -361,17 +357,24 @@
             const query = `
             query($filtro: HechoFilterInput) {
                 listarHechos(filtro: $filtro) {
-                    idHecho
-                    titulo
-                    descripcion
-                    categoria
-                    pais
-                    provincia
-                    localidad
-                    fechaAcontecimiento
-                    origenCarga
-                    latitud
-                    longitud
+                    content {
+                        idHecho
+                        titulo
+                        descripcion
+                        categoria
+                        pais
+                        provincia
+                        localidad
+                        fechaAcontecimiento
+                        origenCarga
+                        latitud
+                        longitud
+                    }
+                    currentPage
+                    totalPages
+                    totalElements
+                    hasNext
+                    hasPrevious
                 }
             }
         `;
@@ -391,7 +394,8 @@
                     return;
                 }
 
-                renderizarResultados(body.data.listarHechos);
+                const pagedResponse = body.data.listarHechos;
+                renderizarResultados(pagedResponse.content, pagedResponse.totalElements);
 
             } catch (error) {
                 console.error(error);
@@ -401,12 +405,12 @@
             }
         }
 
-        function renderizarResultados(hechos) {
+        function renderizarResultados(hechos, totalElements) {
             dom.listaContainer.innerHTML = '';
-            dom.contador.innerText = hechos.length;
+            dom.contador.innerText = totalElements || hechos.length;
             markersLayer.clearLayers();
 
-            if (hechos.length === 0) {
+            if (!hechos || hechos.length === 0) {
                 dom.listaContainer.innerHTML = '<div class="flex items-center justify-center h-full"><p class="text-center text-gray-500 dark:text-gray-400 p-8">No se encontraron hechos.</p></div>';
                 return;
             }

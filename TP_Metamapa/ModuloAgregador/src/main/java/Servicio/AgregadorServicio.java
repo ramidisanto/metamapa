@@ -76,19 +76,17 @@ public class AgregadorServicio {
     public void procesarYGuardarAsync(List<HechoDTOInput> listaCruda) {
         try {
             for (HechoDTOInput dto : listaCruda) {
-                procesarUnHecho(dto); // normaliza + guarda
+                procesarUnHecho(dto);
             }
         } finally {
-            actualizarColecciones(); // ✔️ UNA sola vez
+            actualizarColecciones();
         }
     }
 
     private void procesarUnHecho(HechoDTOInput dto) {
         try {
-            // 1. Normalización externa (API)
-            normalizarDTO(dto);
 
-            // 2. Conversión + guardado en BD
+            normalizarDTO(dto);
             convertirYGuardar(dto);
 
         } catch (Exception e) {
@@ -104,7 +102,7 @@ public class AgregadorServicio {
     // --- Lógica de Normalización ---
     private void normalizarDTO(HechoDTOInput dto) {
         try {
-            ubicacionLimiter.acquire(); // BLOQUEA si ya hay 2 requests activas
+            ubicacionLimiter.acquire();
             try {
                 UbicacionDTOOutput inputUbi =
                         new UbicacionDTOOutput(dto.getLatitud(), dto.getLongitud());
@@ -314,7 +312,7 @@ public class AgregadorServicio {
         }
     }
 
-    @Transactional
+//    @Transactional
     public void cargarColeccionConHechos(Long coleccionId) throws ColeccionNoEncontradaException {
 
         Coleccion coleccion = coleccionRepositorio.findById(coleccionId)

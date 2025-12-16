@@ -29,10 +29,12 @@ public class AgregadorGraphQLServicio {
     @Autowired
     private ColeccionRepositorio coleccionRepositorio;
 
-    @Transactional(readOnly = true)
+//    @Transactional(readOnly = true)
     public PagedHechoResponse listarHechos(HechoFilterInput filtro) {
         List<Hecho> hechos;
-        Pageable pageable = PageRequest.of(filtro.getPage(), filtro.getSize());
+        int pageNum = filtro.getPage() != null ? filtro.getPage() : 0;
+        int size = filtro.getSize() != null ? filtro.getSize() : 20;
+        Pageable pageable = PageRequest.of(pageNum, size);
         // if (filtro.getIdColeccion() != null /*&&
         // !filtro.getIdColeccion().isEmpty()*/) {
         // // Caso A: Buscar dentro de una colección específica
@@ -59,8 +61,8 @@ public class AgregadorGraphQLServicio {
         LocalDateTime hechoDesde = parseFecha(filtro.getFechaHechoDesde()); // O getFechaAcontecimientoDesde
         LocalDateTime hechoHasta = parseFecha(filtro.getFechaHechoHasta());
         Long idCol = null;
-        if(filtro.getIdColeccion()!=null && !filtro.getIdColeccion().isBlank()){
-             idCol = Long.parseLong(filtro.getIdColeccion());
+        if (filtro.getIdColeccion() != null && !filtro.getIdColeccion().isBlank()) {
+            idCol = Long.parseLong(filtro.getIdColeccion());
         }
         Page<Hecho> page = hechoRepositorio.filtrarHechos(
                 idCol,
@@ -77,10 +79,10 @@ public class AgregadorGraphQLServicio {
                 filtro.getLocalidad(),
                 filtro.getBusquedaGeneral(),
                 pageable);
-        
-                System.out.println("Total Hechos Encontrados: " + page.getTotalElements());
 
-        // hechos = hechoRepositorio.filtrarHechos( 
+        System.out.println("Total Hechos Encontrados: " + page.getTotalElements());
+
+        // hechos = hechoRepositorio.filtrarHechos(
         // filtro.getCategoria(),
         // filtro.getContenidoMultimedia(),
         // cargaDesde, cargaHasta,
@@ -196,9 +198,9 @@ public class AgregadorGraphQLServicio {
                 lat, lon,
                 usuario, nombre, apellido, nac,
                 (h.getOrigen() != null) ? h.getOrigen().name() : null,
-            h.getMostrarNombre(),
-            h.getMostrarApellido(),
-            h.getMostrarFechaNacimiento());
-                
+                h.getMostrarNombre(),
+                h.getMostrarApellido(),
+                h.getMostrarFechaNacimiento());
+
     }
 }

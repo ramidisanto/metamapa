@@ -13,6 +13,7 @@ import Modelos.Entidades.Excepciones.HechosNoEncontradosException;
 import Modelos.HechoDTO;
 import Repositorio.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
