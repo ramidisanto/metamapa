@@ -53,6 +53,11 @@ public class Hecho{
 
     private boolean anonimo;
 
+    @Enumerated(EnumType.STRING)
+    @Column(name = "estado_normalizacion")
+    private EstadoNormalizacion estadoNormalizacion = EstadoNormalizacion.PENDIENTE;
+
+
 
     public Hecho() {}
 
@@ -71,7 +76,7 @@ public class Hecho{
         this.visible = estaVisible;
         this.contribuyente = contribuyente;
         this.anonimo = anonimo;
-        //this.etiquetas = etiquetas;
+        //this.estadoNormalizacion = EstadoNormalizacion.PENDIENTE;
     }
 
 

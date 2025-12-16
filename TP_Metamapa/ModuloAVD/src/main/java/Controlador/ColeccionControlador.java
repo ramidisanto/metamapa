@@ -60,6 +60,7 @@ public class ColeccionControlador {
             return ResponseEntity.status(500).body("Error al eliminar el hecho" + e.getMessage());
         }
     }
+    /*
     @PreAuthorize("hasRole('admin_client_role')")
     @DeleteMapping("/coleccion/{id_coleccion}/hecho/{id_hecho}")
     public ResponseEntity<String> eliminarHechoDeColeccion(@PathVariable Long id_coleccion, @PathVariable Long id_hecho) {
@@ -69,7 +70,7 @@ public class ColeccionControlador {
         } catch (Exception e){
             return ResponseEntity.status(500).body("Error al eliminar el hecho" + e.getMessage());
         }
-    }
+    }*/
     @PreAuthorize("hasRole('admin_client_role')")
     @PutMapping ("/coleccion/{id}/Consenso/{estrategia}")
     public ResponseEntity<String> modificarAlgoritmoConsenso(@PathVariable Long id, @PathVariable String estrategia) {
@@ -80,6 +81,7 @@ public class ColeccionControlador {
             return ResponseEntity.status(500).body("Error al modificar el consenso: " + e.getMessage());
         }
     }
+    /*
     @PreAuthorize("hasRole('admin_client_role')")
     @PostMapping ("/coleccion/{id_coleccion}/fuentes")
     public ResponseEntity<String>agregarFuente(@RequestBody FuenteDTO fuenteDTO, @PathVariable Long id_coleccion) {
@@ -100,7 +102,7 @@ public class ColeccionControlador {
             return ResponseEntity.status(500).body("Error al eliminar hechos de la fuente " + fuenteDTO.getIdFuente() + "del origen carga: " + fuenteDTO.getOrigenCarga() + ":" + e.getMessage());
         }
     }
-
+¨*/
 
     ///  modificar criterio de pertenencia
 
