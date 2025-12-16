@@ -116,6 +116,10 @@ public class CrearHechoControlador {
                 return "crearHecho"; // Volver al formulario
             }
 
+            System.out.printf("Nombre FORM: %b%n", hechoFormData.getMostrarNombre());
+            System.out.printf("Mostrar FORM apellido: %b%n", hechoFormData.getMostrarApellido());
+            System.out.printf("Mostrar FORM fecha nacimiento: %b%n", hechoFormData.getMostrarFechaNacimiento());
+
 
             HechoDTOInput hechoParaBackend = new HechoDTOInput();
             hechoParaBackend.setTitulo(hechoFormData.getTitulo());
@@ -132,17 +136,22 @@ public class CrearHechoControlador {
             hechoParaBackend.setNombre(userData.getFirstName());
             hechoParaBackend.setApellido(userData.getLastName());
             hechoParaBackend.setFechaNacimiento(userData.getBirthdate());
-            hechoParaBackend.setAnonimo(hechoFormData.isAnonimo());
+            hechoParaBackend.setAnonimo(hechoFormData.getAnonimo());
 
-            if (!hechoFormData.isAnonimo()) {
-            hechoParaBackend.setMostrarNombre(hechoFormData.isMostrarNombre());
-            hechoParaBackend.setMostrarApellido(hechoFormData.isMostrarApellido());
-            hechoParaBackend.setMostrarFechaNacimiento(hechoFormData.isMostrarFechaNacimiento());
-             } else {
-            hechoParaBackend.setMostrarNombre(false);
-            hechoParaBackend.setMostrarApellido(false);
-            hechoParaBackend.setMostrarFechaNacimiento(false);
-             }
+            boolean esAnonimo = Boolean.TRUE.equals(hechoFormData.getAnonimo());
+            hechoParaBackend.setAnonimo(esAnonimo);
+
+            if (!esAnonimo) {
+                hechoParaBackend.setMostrarNombre(Boolean.TRUE.equals(hechoFormData.getMostrarNombre()));
+                hechoParaBackend.setMostrarApellido(Boolean.TRUE.equals(hechoFormData.getMostrarApellido()));
+                hechoParaBackend.setMostrarFechaNacimiento(Boolean.TRUE.equals(hechoFormData.getMostrarFechaNacimiento()));
+            } else {
+                hechoParaBackend.setMostrarNombre(false);
+                hechoParaBackend.setMostrarApellido(false);
+                hechoParaBackend.setMostrarFechaNacimiento(false);
+            }
+
+
 
             if ("Otra".equals(hechoFormData.getCategoria()) && hechoFormData.getCustomCategoria() != null) {
                 hechoParaBackend.setCategoria(hechoFormData.getCustomCategoria());

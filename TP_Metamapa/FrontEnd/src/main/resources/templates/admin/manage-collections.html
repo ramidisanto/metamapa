@@ -25,7 +25,13 @@
                 <div class="text-sm text-gray-600 dark:text-gray-400 mb-2"
                      th:text="${#strings.abbreviate(col.descripcion, 80)}">Descripción</div>
                 <div class="text-xs text-gray-500 dark:text-gray-400 mb-3">
-                    Consenso: <span th:text="${col.consenso} ?: 'Ninguno'">Ninguno</span>
+                    Consenso:
+                    <span th:switch="${col.consenso}">
+                        <span th:case="'MAYORIA_SIMPLE'">Mayoría simple</span>
+                        <span th:case="'ABSOLUTA'">Absoluta</span>
+                        <span th:case="'MULTIPLES_MENCIONES'">Múltiples menciones</span>
+                        <span th:case="*">Mayoría simple</span>
+                    </span>
                 </div>
                 <div class="flex flex-wrap gap-2 pt-3 border-t border-gray-200 dark:border-gray-600 items-center">
                     <a th:href="@{/admin/ver-coleccion/{id}(id=${col.coleccionId})}"
@@ -77,8 +83,14 @@
                         th:text="${col.titulo}">Título</td>
                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-gray-100"
                         th:text="${#strings.abbreviate(col.descripcion, 50)}">Descripcion</td>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-gray-100"
-                        th:text="${col.consenso} ?: 'Ninguno'"></td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-gray-100">
+                        <span th:switch="${col.consenso}">
+                            <span th:case="'MAYORIA_SIMPLE'">Mayoría simple</span>
+                            <span th:case="'ABSOLUTA'">Absoluta</span>
+                            <span th:case="'MULTIPLES_MENCIONES'">Múltiples menciones</span>
+                            <span th:case="*">Mayoría simple</span>
+                        </span>
+                    </td>
                     <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium space-x-3">
                         <a th:href="@{/admin/ver-coleccion/{id}(id=${col.coleccionId})}"
                            class="text-primary-600 hover:text-primary-900 dark:text-primary-400 dark:hover:text-primary-300">Ver</a>

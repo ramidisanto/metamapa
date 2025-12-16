@@ -40,6 +40,7 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.GET, "/", "/navegargraphql", "/navegar/**", "/estadisticas", "/ver-hecho/{id}", "/csv").permitAll()
                         .requestMatchers("/auth/iniciar-sesion").permitAll()
                         .requestMatchers("/auth/login", "/auth/register").permitAll()
+                        .requestMatchers("/error/*").permitAll()
 
                         // administrador -> admin_client_role
                         .requestMatchers("/admin/**").hasRole("admin_client_role") // Protege todo bajo /admin

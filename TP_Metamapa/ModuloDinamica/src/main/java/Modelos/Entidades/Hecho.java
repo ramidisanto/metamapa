@@ -54,6 +54,9 @@ public class Hecho {
         this.contribuyente = contribuyente;
         this.anonimo = anonimo;
         this.publicado = publicado;
+        this.mostrarNombre = mostrarNombre;
+        this.mostrarApellido= mostrarApellido;
+        this.mostrarFechaNacimiento = mostrarFechaNacimiento;
     }
 
     public Hecho() {}

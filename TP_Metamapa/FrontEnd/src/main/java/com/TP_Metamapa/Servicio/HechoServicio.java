@@ -113,6 +113,9 @@ public class HechoServicio {
     public void enviarHechoAlBackend(HechoDTOInput hechoParaBackend, String accessToken) {
 
         String url = urlDinamica + "/dinamica/hechos";
+        System.out.printf("Nombre: %b%n", hechoParaBackend.getMostrarNombre());
+        System.out.printf("Mostrar apellido: %b%n", hechoParaBackend.getMostrarApellido());
+        System.out.printf("Mostrar fecha nacimiento: %b%n", hechoParaBackend.getMostrarFechaNacimiento());
 
         try {
             HttpHeaders headers = new HttpHeaders();

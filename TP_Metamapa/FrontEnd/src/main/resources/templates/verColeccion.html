@@ -47,8 +47,14 @@
                     class="text-xl font-bold bg-gradient-to-r from-primary-600 to-primary-800 dark:from-primary-400 dark:to-primary-600 bg-clip-text text-transparent">
                     Detalles de la Colección</h3>
                 <div class="mt-4 text-sm space-y-2">
-                    <p><span class="font-semibold">Criterio de Consenso:</span>
-                        <span th:text="${coleccion.consenso} ?: 'Ninguno'">MAYORIA_SIMPLE</span>
+                    <p>
+                        <span class="font-semibold">Criterio de Consenso:</span>
+                        <span th:switch="${coleccion.consenso}">
+                            <span th:case="'MAYORIA_SIMPLE'">Mayoría simple</span>
+                            <span th:case="'ABSOLUTA'">Absoluta</span>
+                            <span th:case="'MULTIPLES_MENCIONES'">Múltiples menciones</span>
+                            <span th:case="*">Mayoría simple</span>
+                        </span>
                     </p>
 
                     <div th:if="${coleccion.criterio != null}">
@@ -74,8 +80,13 @@
                             </li>
                             <li
                                 th:if="${coleccion.criterio.origen_carga != null and !coleccion.criterio.origen_carga.isEmpty()}">
-                                <strong>Origen de Carga:</strong> <span
-                                    th:text="${coleccion.criterio.origen_carga}"></span>
+                                <strong>Origen de Carga:</strong>
+                                <span th:switch="${coleccion.criterio.origen_carga}">
+                                    <span th:case="'FUENTE_DINAMICA'">Usuario</span>
+                                    <span th:case="'FUENTE_ESTATICA'">Archivo ONG</span>
+                                    <span th:case="'FUENTE_PROXY'">Servicio Externo</span>
+                                    <span th:case="*">Desconocido</span>
+                                </span>
                             </li>
                             <li th:if="${coleccion.criterio.contenido_multimedia != null}">
                                 <strong>Tiene Multimedia:</strong> <span

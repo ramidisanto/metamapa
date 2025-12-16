@@ -16,10 +16,10 @@ public class HechoFormDTO {
     private String pais;
     private String provincia;
     private String localidad;
-    private boolean anonimo;
+    private Boolean anonimo = false;
 
     private String customCategoria;
-    private boolean mostrarNombre;
-    private boolean mostrarApellido;
-    private boolean mostrarFechaNacimiento;
+    private Boolean mostrarNombre = false;
+    private Boolean mostrarApellido = false;
+    private Boolean mostrarFechaNacimiento = false;
 }

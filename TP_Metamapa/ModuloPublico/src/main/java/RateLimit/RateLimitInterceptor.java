@@ -55,16 +55,31 @@ public class RateLimitInterceptor implements HandlerInterceptor {
 
         // --------------------------------------------
 
+         // 3. CONSUMO DE TOKENS
         Bucket tokenBucket = rateLimiterService.resolveBucket(bucketKey, limit);
         ConsumptionProbe probe = tokenBucket.tryConsumeAndReturnRemaining(1);
 
         if (probe.isConsumed()) {
+            System.out.println(">>> Petición ACEPTADA. Tokens restantes: " + probe.getRemainingTokens());
             response.addHeader("X-Rate-Limit-Remaining", String.valueOf(probe.getRemainingTokens()));
             return true;
         } else {
+            System.out.println(">>> Petición BLOQUEADA (429)");
             long waitForRefill = probe.getNanosToWaitForRefill() / 1_000_000_000;
-            response.addHeader("X-Rate-Limit-Retry-After-Seconds", String.valueOf(waitForRefill));
-            response.sendError(HttpStatus.TOO_MANY_REQUESTS.value(), "Has excedido el límite de solicitudes para esta acción.");
+
+            response.setStatus(HttpStatus.TOO_MANY_REQUESTS.value());
+            response.setContentType("application/json");
+            response.setCharacterEncoding("UTF-8");
+
+            String body = "{"
+                    + "\"error\":\"BLOQUEO_RATELIMIT\","
+                    + "\"message\":\"Demasiados intentos de autenticación\","
+                    + "\"retry_after_seconds\":" + waitForRefill
+                    + "}";
+
+            response.getWriter().write(body);
+            response.flushBuffer(); // CORTA EL RESTO DEL CICLO, Spring no puede meter 401
+
             return false;
         }
     }

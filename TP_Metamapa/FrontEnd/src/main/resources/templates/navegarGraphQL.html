@@ -194,6 +194,27 @@
                                     class="flex-grow bg-white/95 dark:bg-gray-800/95 backdrop-blur-sm p-3 rounded-2xl shadow-soft border border-primary-200 dark:border-gray-700 overflow-y-auto min-h-0 scrollbar-thin">
                                     <p class="text-center text-gray-500 dark:text-gray-400 p-8">Cargando...</p>
                                 </div>
+                                <div id="paginacionContainer"
+                                    class="flex justify-between items-center mt-3 px-2 hidden">
+
+                                    <button id="btnPrev"
+                                        class="px-4 py-2 rounded-lg bg-gray-200 dark:bg-gray-700
+                                            text-gray-700 dark:text-gray-300
+                                            disabled:opacity-50 disabled:cursor-not-allowed">
+                                        Anterior
+                                    </button>
+
+                                    <span id="pageInfo"
+                                        class="text-sm text-gray-600 dark:text-gray-400">
+                                    </span>
+
+                                    <button id="btnNext"
+                                            class="px-4 py-2 rounded-lg bg-gray-200 dark:bg-gray-700
+                                                text-gray-700 dark:text-gray-300
+                                                disabled:opacity-50 disabled:cursor-not-allowed">
+                                        Siguiente
+                                    </button>
+                                </div>
                             </div>
 
                         </div>
@@ -220,6 +241,12 @@
 
         let map = null;
         let markersLayer = new L.LayerGroup();
+        // --- PAGINACIÓN ---
+        let currentPage = 0;
+        const pageSize = 20; // debe coincidir con el default del backend
+        let lastPagedResponse = null;
+        
+
 
         // DOM Elements Cache
         const dom = {
@@ -332,7 +359,12 @@
             }
         }
 
-        async function buscarHechos() {
+        function buscarHechos() {
+            currentPage = 0;
+            ejecutarBusqueda();
+        }
+
+        async function ejecutarBusqueda() {
             showLoader(true);
 
             const variables = {
@@ -350,7 +382,9 @@
                     fechaHechoHasta: getDateISO('fechaHechoHasta'),
                     fechaCargaDesde: getDateISO('fechaCargaDesde'),
                     fechaCargaHasta: getDateISO('fechaCargaHasta'),
-                    navegacionCurada: document.getElementById('navegacionCurada')?.checked || false
+                    navegacionCurada: document.getElementById('navegacionCurada')?.checked || false,
+                    page: currentPage,
+                    size: pageSize
                 }
             };
 
@@ -395,7 +429,18 @@
                 }
 
                 const pagedResponse = body.data.listarHechos;
-                renderizarResultados(pagedResponse.content, pagedResponse.totalElements);
+
+                currentPage = pagedResponse.currentPage;
+
+
+                lastPagedResponse = pagedResponse;
+
+                renderizarResultados(
+                    pagedResponse.content,
+                    pagedResponse.totalElements
+                );
+
+                renderizarPaginacion(pagedResponse);
 
             } catch (error) {
                 console.error(error);
@@ -404,6 +449,42 @@
                 showLoader(false);
             }
         }
+    
+
+
+        function renderizarPaginacion(page) {
+            const container = document.getElementById('paginacionContainer');
+            const btnPrev = document.getElementById('btnPrev');
+            const btnNext = document.getElementById('btnNext');
+            const pageInfo = document.getElementById('pageInfo');
+
+            if (!page || page.totalPages <= 1) {
+                container.classList.add('hidden');
+                return;
+            }
+
+            container.classList.remove('hidden');
+
+            btnPrev.disabled = !page.hasPrevious;
+            btnNext.disabled = !page.hasNext;
+
+            pageInfo.textContent = `Página ${page.currentPage + 1} de ${page.totalPages}`;
+
+            btnPrev.onclick = () => {
+                if (page.hasPrevious) {
+                    currentPage--;
+                    ejecutarBusqueda();
+                }
+            };
+
+            btnNext.onclick = () => {
+                if (page.hasNext) {
+                    currentPage++;
+                    ejecutarBusqueda();
+                }
+            };
+}
+
 
         function renderizarResultados(hechos, totalElements) {
             dom.listaContainer.innerHTML = '';
