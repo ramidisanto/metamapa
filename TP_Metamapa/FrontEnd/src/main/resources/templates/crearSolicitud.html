@@ -5,101 +5,102 @@
 
 <body class="bg-primary-100 dark:bg-gray-900 flex flex-col min-h-screen transition-colors duration-300">
 
-    <div th:replace="~{layout/base :: header}"></div>
+<div th:replace="~{layout/base :: header}"></div>
 
-    <main class="container mx-auto px-4 pt-4 pb-12 flex-grow">
-        <a th:href="@{/navegar}"
-            class="inline-flex items-center px-4 py-2 bg-primary-100 dark:bg-gray-700 text-primary-800 dark:text-primary-300 font-medium rounded-xl hover:bg-primary-200 dark:hover:bg-gray-600 transition-colors -mt-4">
-            ← Volver a Navegar
-        </a>
-        <div class="max-w-6xl mx-auto mb-10">
+<main class="container mx-auto px-4 pt-4 pb-12 flex-grow">
+    <a th:href="@{/navegar}"
+       class="inline-flex items-center px-4 py-2 text-primary-700 dark:text-primary-300 font-medium rounded-xl hover:bg-primary-200/50 dark:hover:bg-gray-700/50 transition-colors -mt-4">
+        ← Volver a Navegar
+    </a>
+    <div class="max-w-6xl mx-auto mb-10">
 
-            <div class="flex justify-between items-start mb-4">
+        <div class="flex justify-between items-start mb-4">
 
-                <h2 class="text-4xl font-extrabold text-primary-900 dark:text-primary-200 flex-grow text-center">
-                    Solicitud de Eliminación
-                </h2>
-                <div class="w-24"></div>
+            <h2
+                    class="text-2xl xs:text-3xl sm:text-4xl font-extrabold text-primary-900 dark:text-primary-200 flex-grow text-center whitespace-nowrap">
+                Solicitud de Eliminación
+            </h2>
+            <div class="w-24"></div>
+        </div>
+
+        <p class="text-gray-600 dark:text-gray-400 mt-2 text-center text-sm sm:text-lg max-w-3xl mx-auto">
+            Completá el formulario para solicitar la eliminación de un hecho que consideres inapropiado o
+            incorrecto.
+        </p>
+    </div>
+
+    <div class="max-w-6xl mx-auto space-y-8">
+
+        <div class="w-full max-w-4xl mx-auto">
+            <h3 class="text-xl font-semibold text-primary-800 dark:text-primary-300 mb-4">Hecho seleccionado</h3>
+
+            <div class="shadow-soft rounded-2xl overflow-hidden border border-primary-200 dark:border-gray-700">
+                <div
+                        th:replace="~{fragments/hechoCard :: hechoCard(hecho=${hecho}, showOptions=false, showAdminActions=false, coleccionId=null)}">
+                </div>
             </div>
 
-            <p class="text-gray-600 dark:text-gray-400 mt-2 text-center text-lg max-w-3xl mx-auto">
-                Completá el formulario para solicitar la eliminación de un hecho que consideres inapropiado o
-                incorrecto.
+            <p class="mt-4 text-gray-500 dark:text-gray-400 text-sm">
+                Verificá que este sea el hecho correcto antes de enviar la solicitud.
             </p>
         </div>
 
-        <div class="max-w-6xl mx-auto space-y-8">
+        <hr class="border-primary-200 dark:border-gray-700" />
 
-            <div class="w-full max-w-4xl mx-auto">
-                <h3 class="text-xl font-semibold text-primary-800 dark:text-primary-300 mb-4">Hecho seleccionado</h3>
-
-                <div class="shadow-soft rounded-2xl overflow-hidden border border-primary-200 dark:border-gray-700">
-                    <div
-                        th:replace="~{fragments/hechoCard :: hechoCard(hecho=${hecho}, showOptions=false, showAdminActions=false, coleccionId=null)}">
-                    </div>
-                </div>
-
-                <p class="mt-4 text-gray-500 dark:text-gray-400 text-sm">
-                    Verificá que este sea el hecho correcto antes de enviar la solicitud.
-                </p>
-            </div>
-
-            <hr class="border-primary-200 dark:border-gray-700" />
-
-            <div class="w-full max-w-4xl mx-auto">
-                <div
+        <div class="w-full max-w-4xl mx-auto">
+            <div
                     class="p-8 bg-white dark:bg-gray-800 shadow-soft rounded-2xl border border-primary-200 dark:border-gray-700 transition-colors">
 
-                    <h3 class="text-2xl font-semibold text-primary-900 dark:text-primary-200 mb-6 text-center">Motivo de
-                        la Solicitud</h3>
+                <h3 class="text-2xl font-semibold text-primary-900 dark:text-primary-200 mb-6 text-center">Motivo de
+                    la Solicitud</h3>
 
-                    <form th:action="@{/crearSolicitud}" th:object="${solicitudDTO}" method="post">
+                <form th:action="@{/crearSolicitud}" th:object="${solicitudDTO}" method="post">
 
-                        <input type="hidden" th:field="*{idHecho}" />
+                    <input type="hidden" th:field="*{idHecho}" />
 
-                        <div class="space-y-6">
+                    <div class="space-y-6">
 
-                            <div>
-                                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
-                                    for="motivo">
-                                    Explicá por qué este hecho debería ser eliminado
-                                </label>
-                                <textarea id="motivo" th:field="*{motivo}" rows="7"
-                                    class="w-full p-4 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 rounded-xl focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500 dark:focus:border-primary-400 transition-all resize-none placeholder:text-gray-400 dark:placeholder:text-gray-500 shadow-sm"
-                                    placeholder="Ej: contiene información falsa, lenguaje ofensivo, datos incorrectos..."
-                                    required></textarea>
-                                <p class="text-xs text-gray-400 dark:text-gray-500 mt-1">Máximo 500 caracteres</p>
-                            </div>
-
-                            <button type="submit"
-                                class="w-full py-3 bg-gradient-to-r from-primary-600 to-primary-700 text-white font-semibold rounded-xl shadow-md hover:from-primary-700 hover:to-primary-800 hover:shadow-lg transition-all duration-300">
-                                Enviar solicitud
-                            </button>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
+                                   for="motivo">
+                                Explicá por qué este hecho debería ser eliminado
+                            </label>
+                            <textarea id="motivo" th:field="*{motivo}" rows="7"
+                                      class="w-full p-4 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 rounded-xl focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500 dark:focus:border-primary-400 transition-all resize-none placeholder:text-gray-400 dark:placeholder:text-gray-500 shadow-sm"
+                                      placeholder="Ej: contiene información falsa, lenguaje ofensivo, datos incorrectos..."
+                                      required></textarea>
+                            <p class="text-xs text-gray-400 dark:text-gray-500 mt-1">Máximo 500 caracteres</p>
                         </div>
 
-                    </form>
-                </div>
+                        <button type="submit"
+                                class="w-full py-3 bg-gradient-to-r from-primary-600 to-primary-700 text-white font-semibold rounded-xl shadow-md hover:from-primary-700 hover:to-primary-800 hover:shadow-lg transition-all duration-300">
+                            Enviar solicitud
+                        </button>
+                    </div>
+
+                </form>
             </div>
         </div>
+    </div>
 
-    </main>
+</main>
 
-    <div th:replace="~{layout/base :: footer}"></div>
+<div th:replace="~{layout/base :: footer}"></div>
 
-    <script th:inline="javascript">
-        var errorMessage = /*[[${errorMessage}]]*/ '';
+<script th:inline="javascript">
+    var errorMessage = /*[[${errorMessage}]]*/ '';
 
-        if (errorMessage) {
-            Swal.fire({
-                icon: 'error',
-                title: 'Error',
-                text: errorMessage,
-                confirmButtonColor: '#4A8DC5'
-            });
-        }
-    </script>
+    if (errorMessage) {
+        Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: errorMessage,
+            confirmButtonColor: '#4A8DC5'
+        });
+    }
+</script>
 
-    <div th:replace="~{layout/base :: scripts}"></div>
+<div th:replace="~{layout/base :: scripts}"></div>
 
 </body>
 

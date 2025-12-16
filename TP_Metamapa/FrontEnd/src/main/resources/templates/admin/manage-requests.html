@@ -2,53 +2,53 @@
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
 
 <body>
-    <div th:fragment="content">
-        <h2 class="text-2xl font-semibold text-gray-800 dark:text-gray-200 mb-6">Gestionar Solicitudes de Eliminación
-        </h2>
+<div th:fragment="content">
+    <h2 class="text-2xl font-semibold text-gray-800 dark:text-gray-200 mb-6">Gestionar Solicitudes de EliminaciÃ³n
+    </h2>
 
-        <div th:if="${solicitudes.isEmpty()}"
-            class="mt-6 bg-white dark:bg-gray-800 p-8 rounded-2xl shadow-soft border border-primary-200 dark:border-gray-700 text-center transition-colors">
-            <p class="text-gray-500 dark:text-gray-100">No hay solicitudes pendientes.</p>
-        </div>
+    <div th:if="${solicitudes.isEmpty()}"
+         class="bg-white dark:bg-gray-800 p-8 rounded-2xl shadow-soft border border-primary-200 dark:border-gray-700 text-center transition-colors">
+        <p class="text-gray-500 dark:text-gray-100">No hay solicitudes pendientes.</p>
+    </div>
 
-        <div th:if="${!solicitudes.isEmpty()}" class="mt-6 space-y-6">
-            <div th:each="solicitud : ${solicitudes}"
-                class="bg-white dark:bg-gray-800 p-5 rounded-2xl shadow-soft border border-primary-200 dark:border-gray-700 flex flex-col gap-4 transition-colors">
+    <div th:if="${!solicitudes.isEmpty()}" class="space-y-6">
+        <div th:each="solicitud : ${solicitudes}"
+             class="bg-white dark:bg-gray-800 p-5 rounded-2xl shadow-soft border border-primary-200 dark:border-gray-700 flex flex-col gap-4 transition-colors">
 
-                <div class="flex flex-col md:flex-row items-start gap-4">
+            <div class="request-card-content flex flex-col md:flex-row items-start gap-4">
 
-                    <div class="flex-grow md:w-1/2">
-                        <p class="text-sm font-medium text-gray-700 dark:text-gray-100">Motivo de la solicitud:</p>
-                        <blockquote class="border-l-4 border-primary-300 dark:border-primary-600 pl-3 mt-1">
-                            <p class="text-gray-600 dark:text-gray-100 text-base" th:text="${solicitud.motivo}"></p>
-                        </blockquote>
-                    </div>
-
-                    <div class="w-full md:w-1/2 flex-shrink-0">
-                        <p class="text-sm font-medium text-gray-700 dark:text-gray-100 mb-1">Hecho relacionado:</p>
-                        <div
-                            th:replace="~{fragments/hechoCard :: hechoCard(hecho=${solicitud.hecho}, showOptions=false, showAdminActions=false, coleccionId=null)}">
-                        </div>
-                    </div>
-
+                <div class="flex-grow w-full md:w-1/2">
+                    <p class="text-sm font-medium text-gray-700 dark:text-gray-100">Motivo de la solicitud:</p>
+                    <blockquote class="border-l-4 border-primary-300 dark:border-primary-600 pl-3 mt-1">
+                        <p class="text-gray-600 dark:text-gray-100 text-base" th:text="${solicitud.motivo}"></p>
+                    </blockquote>
                 </div>
 
-                <div class="flex items-end justify-between border-t border-gray-200 dark:border-gray-700 pt-3">
-                    <div class="flex gap-2 flex-shrink-0">
-                        <form th:action="@{/admin/aceptar-solicitud/{id}(id=${solicitud.idSolicitud})}" method="post">
-                            <button type="submit"
-                                class="px-4 py-2 bg-accent-500 hover:bg-accent-600 text-white text-sm rounded-xl font-semibold shadow-md hover:shadow-lg transition-all duration-300">Aprobar</button>
-                        </form>
-                        <form th:action="@{/admin/rechazar-solicitud/{id}(id=${solicitud.idSolicitud})}" method="post">
-                            <button type="submit"
-                                class="px-4 py-2 bg-red-500 hover:bg-red-600 text-white text-sm rounded-xl font-semibold shadow-md hover:shadow-lg transition-all duration-300">Rechazar</button>
-                        </form>
+                <div class="w-full md:w-1/2 flex-shrink-0">
+                    <p class="text-sm font-medium text-gray-700 dark:text-gray-100 mb-1">Hecho relacionado:</p>
+                    <div
+                            th:replace="~{fragments/hechoCard :: hechoCard(hecho=${solicitud.hecho}, showOptions=false, showAdminActions=false, coleccionId=null)}">
                     </div>
                 </div>
 
             </div>
+
+            <div class="request-card-actions flex items-center border-t border-gray-200 dark:border-gray-700 pt-3">
+                <div class="flex gap-2">
+                    <form th:action="@{/admin/aceptar-solicitud/{id}(id=${solicitud.idSolicitud})}" method="post">
+                        <button type="submit"
+                                class="px-6 py-2 bg-gradient-to-r from-primary-500 to-primary-600 hover:from-primary-600 hover:to-primary-700 text-white text-sm rounded-xl font-semibold shadow-md hover:shadow-lg transition-all duration-300">Aprobar</button>
+                    </form>
+                    <form th:action="@{/admin/rechazar-solicitud/{id}(id=${solicitud.idSolicitud})}" method="post">
+                        <button type="submit"
+                                class="px-6 py-2 border-2 border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-200 text-sm rounded-xl font-semibold shadow-sm hover:shadow-md transition-all duration-300">Rechazar</button>
+                    </form>
+                </div>
+            </div>
+
         </div>
     </div>
+</div>
 </body>
 
 </html>

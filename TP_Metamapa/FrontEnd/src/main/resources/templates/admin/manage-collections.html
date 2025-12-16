@@ -3,65 +3,102 @@
 
 <body>
 
-    <div th:fragment="content">
-        <div class="flex justify-between items-center">
-            <h2 class="text-2xl font-semibold text-gray-800 dark:text-gray-200">Gestionar Colecciones</h2>
-            <a th:href="@{/admin/crear-coleccion}" class="btn btn-primary">
-                Crear Colección
-            </a>
+<div th:fragment="content">
+    <div class="flex justify-between items-center mb-6">
+        <h2 class="text-2xl font-semibold text-gray-800 dark:text-gray-200">Gestionar Colecciones</h2>
+        <a th:href="@{/admin/crear-coleccion}" class="btn btn-primary">
+            Crear Colección
+        </a>
+    </div>
+
+    <div th:if="${colecciones == null or #lists.isEmpty(colecciones)}" class="card p-8 text-center">
+        <p class="text-gray-500 dark:text-gray-400">No hay colecciones para mostrar.</p>
+    </div>
+
+    <th:block th:if="${colecciones != null and !#lists.isEmpty(colecciones)}">
+        <!-- Mobile Card View -->
+        <div class="mobile-card-view space-y-4">
+            <div th:each="col : ${colecciones}"
+                 class="bg-white dark:bg-gray-800 rounded-xl p-4 shadow-soft border border-primary-200 dark:border-gray-700">
+                <div class="font-semibold text-gray-900 dark:text-gray-100 mb-1" th:text="${col.titulo}">Título
+                </div>
+                <div class="text-sm text-gray-600 dark:text-gray-400 mb-2"
+                     th:text="${#strings.abbreviate(col.descripcion, 80)}">Descripción</div>
+                <div class="text-xs text-gray-500 dark:text-gray-400 mb-3">
+                    Consenso: <span th:text="${col.consenso} ?: 'Ninguno'">Ninguno</span>
+                </div>
+                <div class="flex flex-wrap gap-2 pt-3 border-t border-gray-200 dark:border-gray-600 items-center">
+                    <a th:href="@{/admin/ver-coleccion/{id}(id=${col.coleccionId})}"
+                       class="inline-flex items-center px-3 py-1.5 rounded-lg font-medium text-xs transition-colors"
+                       style="background-color: #c7d2fe; color: #1f2937;">
+                        Ver
+                    </a>
+                    <a th:href="@{/admin/editar-coleccion/{id}(id=${col.coleccionId})}"
+                       class="inline-flex items-center px-3 py-1.5 rounded-lg font-medium text-xs transition-colors"
+                       style="background-color: #fde68a; color: #1f2937;">
+                        Editar
+                    </a>
+                    <form th:action="@{/admin/eliminar-coleccion/{id}(id=${col.coleccionId})}" method="post"
+                          class="inline-flex">
+                        <button type="submit"
+                                class="inline-flex items-center px-3 py-1.5 rounded-lg font-medium text-xs transition-colors"
+                                style="background-color: #fecaca; color: #1f2937;"
+                                onclick="return confirm('¿Estás seguro de que quieres eliminar esta colección?');">
+                            Eliminar
+                        </button>
+                    </form>
+                </div>
+            </div>
         </div>
 
-        <div th:if="${colecciones.isEmpty()}" class="mt-6 card p-8 text-center">
-            <p class="text-gray-500 dark:text-gray-400">No hay colecciones para mostrar.</p>
-        </div>
-
-        <div th:if="${!colecciones.isEmpty()}" class="mt-6 overflow-x-auto card">
+        <!-- Desktop Table View -->
+        <div class="desktop-table-view overflow-x-auto card">
             <table class="min-w-full">
                 <thead class="bg-primary-50 dark:bg-gray-700 border-b border-primary-200 dark:border-gray-600">
-                    <tr>
-                        <th
+                <tr>
+                    <th
                             class="px-6 py-3 text-left text-xs font-medium text-primary-800 dark:text-primary-300 uppercase tracking-wider">
-                            Título</th>
-                        <th
+                        Título</th>
+                    <th
                             class="px-6 py-3 text-left text-xs font-medium text-primary-800 dark:text-primary-300 uppercase tracking-wider">
-                            Descripción</th>
-                        <th
+                        Descripción</th>
+                    <th
                             class="px-6 py-3 text-left text-xs font-medium text-primary-800 dark:text-primary-300 uppercase tracking-wider">
-                            Consenso</th>
-                        <th
+                        Consenso</th>
+                    <th
                             class="px-6 py-3 text-right text-xs font-medium text-primary-800 dark:text-primary-300 uppercase tracking-wider">
-                            Acciones</th>
-                    </tr>
+                        Acciones</th>
+                </tr>
                 </thead>
                 <tbody class="divide-y divide-gray-200 dark:divide-gray-700">
-                    <tr th:each="col : ${colecciones}"
-                        class="hover:bg-primary-50/50 dark:hover:bg-gray-700/50 transition-colors">
-                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-gray-100"
-                            th:text="${col.titulo}">Título de
-                            la Coleccion</td>
-                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-gray-100"
-                            th:text="${#strings.abbreviate(col.descripcion, 50)}">Descripcion</td>
-                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-gray-100"
-                            th:text="${col.consenso} ?: 'Ninguno'"></td>
-                        <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium space-x-3">
-                            <a th:href="@{/admin/ver-coleccion/{id}(id=${col.coleccionId})}"
-                                class="text-primary-600 hover:text-primary-900 dark:text-primary-400 dark:hover:text-primary-300">Ver</a>
-                            <a th:href="@{/admin/editar-coleccion/{id}(id=${col.coleccionId})}"
-                                class="text-warm-600 hover:text-warm-900 dark:text-warm-400 dark:hover:text-warm-300">Editar</a>
-                            <form th:action="@{/admin/eliminar-coleccion/{id}(id=${col.coleccionId})}" method="post"
-                                class="inline">
-                                <button type="submit"
+                <tr th:each="col : ${colecciones}"
+                    class="hover:bg-primary-50/50 dark:hover:bg-gray-700/50 transition-colors">
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-gray-100"
+                        th:text="${col.titulo}">Título</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-gray-100"
+                        th:text="${#strings.abbreviate(col.descripcion, 50)}">Descripcion</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-gray-100"
+                        th:text="${col.consenso} ?: 'Ninguno'"></td>
+                    <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium space-x-3">
+                        <a th:href="@{/admin/ver-coleccion/{id}(id=${col.coleccionId})}"
+                           class="text-primary-600 hover:text-primary-900 dark:text-primary-400 dark:hover:text-primary-300">Ver</a>
+                        <a th:href="@{/admin/editar-coleccion/{id}(id=${col.coleccionId})}"
+                           class="text-warm-600 hover:text-warm-900 dark:text-warm-400 dark:hover:text-warm-300">Editar</a>
+                        <form th:action="@{/admin/eliminar-coleccion/{id}(id=${col.coleccionId})}" method="post"
+                              class="inline">
+                            <button type="submit"
                                     class="text-red-600 hover:text-red-900 dark:text-red-400 dark:hover:text-red-300"
                                     onclick="return confirm('¿Estás seguro de que quieres eliminar esta colección?');">
-                                    Eliminar
-                                </button>
-                            </form>
-                        </td>
-                    </tr>
+                                Eliminar
+                            </button>
+                        </form>
+                    </td>
+                </tr>
                 </tbody>
             </table>
         </div>
-    </div>
+    </th:block>
+</div>
 </body>
 
 </html>
