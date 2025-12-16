@@ -7,6 +7,9 @@ import Modelos.Entidades.OrigenCarga;
 import Repositorio.HechoRepositorio;
 import Repositorio.ColeccionRepositorio; // Para buscar por ID de colección
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -28,15 +31,16 @@ public class AgregadorGraphQLServicio {
     @Transactional(readOnly = true)
     public List<HechoDTOoutput> listarHechos(HechoFilterInput filtro) {
         List<Hecho> hechos;
-
-        if (filtro.getIdColeccion() != null /*&& !filtro.getIdColeccion().isEmpty()*/) {
-            // Caso A: Buscar dentro de una colección específica
-            //Long idCol = Long.parseLong(filtro.getIdColeccion());
-            Long idCol = Long.parseLong(filtro.getIdColeccion());
-            hechos = new ArrayList<>(coleccionRepositorio.findById(idCol)
-                    .map(c -> c.getHechos())
-                    .orElse(new ArrayList<>()));
-        } else {
+        Pageable pageable = PageRequest.of(filtro.getPage(), filtro.getSize());
+        Page<Hecho> page;
+//        if (filtro.getIdColeccion() != null /*&& !filtro.getIdColeccion().isEmpty()*/) {
+//            // Caso A: Buscar dentro de una colección específica
+//            //Long idCol = Long.parseLong(filtro.getIdColeccion());
+//            Long idCol = Long.parseLong(filtro.getIdColeccion());
+//            hechos = new ArrayList<>(coleccionRepositorio.findById(idCol)
+//                    .map(c -> c.getHechos())
+//                    .orElse(new ArrayList<>()));
+//        } else {
             // Caso B: Búsqueda general en la base de datos usando filtros
 
             // Conversión segura de String a Enum
@@ -55,20 +59,36 @@ public class AgregadorGraphQLServicio {
             LocalDateTime hechoDesde = parseFecha(filtro.getFechaHechoDesde()); // O getFechaAcontecimientoDesde
             LocalDateTime hechoHasta = parseFecha(filtro.getFechaHechoHasta());
 
+        Page<Hecho> page = hechoRepositorio.filtrarHechos(
+                idColeccion,
+                filtro.getCategoria(),
+                filtro.getContenidoMultimedia(),
+                cargaDesde,
+                cargaHasta,
+                hechoDesde,
+                hechoHasta,
+                origenEnum,
+                filtro.getTitulo(),
+                filtro.getPais(),
+                filtro.getProvincia(),
+                filtro.getLocalidad(),
+                filtro.getBusquedaGeneral(),
+                pageable
+        );
 
-
-            hechos = hechoRepositorio.filtrarHechos(
-                    filtro.getCategoria(),
-                    filtro.getContenidoMultimedia(),
-                    cargaDesde, cargaHasta,
-                    hechoDesde, hechoHasta,
-                    origenEnum,
-                    filtro.getTitulo(),
-                    filtro.getPais(),
-                    filtro.getProvincia(),
-                    filtro.getLocalidad()
-            );
-        }
+//            hechos = hechoRepositorio.filtrarHechos(
+//                    filtro.getCategoria(),
+//                    filtro.getContenidoMultimedia(),
+//                    cargaDesde, cargaHasta,
+//                    hechoDesde, hechoHasta,
+//                    origenEnum,
+//                    filtro.getTitulo(),
+//                    filtro.getPais(),
+//                    filtro.getProvincia(),
+//                    filtro.getLocalidad(),
+//                    pageable
+//            );
+//        }
 
         // 2. Filtrado en Memoria (Búsqueda de texto libre)
         // Esto cubre campos que quizas el repositorio no busca con LIKE (descripcion, contenido)

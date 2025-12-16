@@ -9,12 +9,14 @@ public class HechoFilterInput {
     private String idColeccion;
     private String categoria;
     private Boolean contenidoMultimedia;
-
     private String fechaCargaDesde;
     private String fechaCargaHasta;
     private String fechaHechoDesde;
     private String fechaHechoHasta;
-
+    private String sortBy;
+    private String sortDir;
+    private Integer size;
+    private Integer page;
     private String origenCarga;
     private String titulo;
     private String pais;
