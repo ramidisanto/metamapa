@@ -13,7 +13,7 @@ import java.time.LocalDateTime ;
 public class Hecho {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id; //Cambiar a long
+    private Long id;
 
     @Column(length = 1000)
     private String titulo;
@@ -22,7 +22,7 @@ public class Hecho {
     private String descripcion;
     @ManyToOne()
     @JoinColumn
-    private Archivo archivo; // ID
+    private Archivo archivo;
     private String categoria;
     private String latitud;
     private String longitud;

@@ -28,13 +28,10 @@ public class ImportadorFileServerLocal implements Importador{
     @Autowired
     private ValidadorCSV validador;
 
-
-    // CONSTRUCTOR: Aquí inyectamos el valor y creamos el File al mismo tiempo
     public ImportadorFileServerLocal(@Value("${path.archivos:/src/main/resources/datos/Fuentes_de_hechos/}") String path) {
         this.carpetaRelativePath = path;
         this.carpeta = new File(path);
 
-        // Opcional: Crear directorios si no existen al arrancar
         if (!this.carpeta.exists()) {
             this.carpeta.mkdirs();
         }

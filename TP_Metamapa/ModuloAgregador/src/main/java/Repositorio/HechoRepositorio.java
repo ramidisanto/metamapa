@@ -76,7 +76,8 @@ Long cantidadDeFuentesConHecho(
             "AND (:pais IS NULL OR h.ubicacion.pais.pais = :pais) " +
             "AND (:provincia IS NULL OR h.ubicacion.provincia.provincia = :provincia) " +
             "AND (:localidad IS NULL OR h.ubicacion.localidad.localidad = :localidad)" +
-            "AND (h.visible = true)")
+            "AND (h.visible = true)"+
+            "AND (h.estadoNormalizacion = 'NORMALIZADO')")
     List<Hecho> filtrarHechos(
             @Param("categoria") String categoria,
             @Param("contenidoMultimedia") Boolean contenidoMultimedia,

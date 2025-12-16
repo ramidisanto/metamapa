@@ -7,10 +7,10 @@ import java.time.LocalDateTime ;
 
 @Getter
 @Setter
-//PATRON DTO
+
 public class HechoDTO {
     public Long idHecho = null;
-    public Long idFuente ; //VER COMO MANEJAR ESTO
+    public Long idFuente ;
     public String titulo;
     public String descripcion;
     public String contenido = null;

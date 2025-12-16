@@ -11,10 +11,6 @@ import lombok.Setter;
 public class HechosCSV {
     private List<HechoCSV> hechos = new ArrayList<>();
 
-//    public HechosCSV(List<HechoCSV> hechos) {
-//        this.hechos = hechos;
-//    }
-
     public HechosCSV() {
     }
 

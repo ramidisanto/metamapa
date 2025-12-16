@@ -4,7 +4,9 @@ import Modelos.Entidades.DTOs.HechoDTOInput;
 import Modelos.Entidades.DTOs.UbicacionDTOOutput;
 import Modelos.Entidades.DTOs.UbicacionDTOInput;
 import Modelos.Entidades.*;
+import Modelos.Exceptions.ColeccionNoEncontradaException;
 import Repositorio.*;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
@@ -307,5 +309,13 @@ public class AgregadorServicio {
             coleccion.agregarHechos(hechosCumplenCriterio);
             coleccionRepositorio.save(coleccion);
         }
+    }
+
+    @Transactional
+    public void cargarColeccionConHechos(Long coleccionId) throws ColeccionNoEncontradaException {
+
+        Coleccion coleccion = coleccionRepositorio.findById(coleccionId)
+                .orElseThrow(ColeccionNoEncontradaException::new);
+        actualizarColeccion(coleccion);
     }
 }
