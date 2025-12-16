@@ -45,7 +45,7 @@ public class HechoServicio {
     private String urlDinamica;
 
     public List<HechoDTO> hechosRecientes(){
-        UriComponentsBuilder urlHechos = UriComponentsBuilder.fromHttpUrl(urlPublico + "/publico/hechos");
+        UriComponentsBuilder urlHechos = UriComponentsBuilder.fromHttpUrl(urlPublico + "/publico/hechos/recientes");
 
         ResponseEntity<List<HechoDTO>> respuesta = restTemplate.exchange(
                 urlHechos.toUriString(),

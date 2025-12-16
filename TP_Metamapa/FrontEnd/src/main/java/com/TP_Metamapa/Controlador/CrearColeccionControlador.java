@@ -2,10 +2,17 @@ package com.TP_Metamapa.Controlador;
 
 import com.TP_Metamapa.DTOS.ColeccionDTOInput;
 import com.TP_Metamapa.DTOS.CriterioDTO;
+import com.TP_Metamapa.DTOS.KeycloakTokenDTO;
 import com.TP_Metamapa.Modelos.Consenso;
 import com.TP_Metamapa.Modelos.CriterioDuplicadoException;
 import com.TP_Metamapa.Modelos.OrigenCarga;
-import com.TP_Metamapa.Servicio.*;
+import com.TP_Metamapa.Modelos.TokenExpiredException;
+import com.TP_Metamapa.Servicio.AuthService;
+import com.TP_Metamapa.Servicio.CategoriaServicio;
+import com.TP_Metamapa.Servicio.ColeccionServicio;
+import com.TP_Metamapa.Servicio.PaisServicio;
+import com.TP_Metamapa.Servicio.ProvinciaServicio;
+import com.TP_Metamapa.Servicio.LocalidadServicio;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -30,6 +37,8 @@ public class CrearColeccionControlador {
     LocalidadServicio localidadServicio;
     @Autowired
     ColeccionServicio coleccionServicio;
+    @Autowired
+    AuthService authService;
 
 
     @GetMapping("/admin/crear-coleccion")
@@ -69,29 +78,62 @@ public class CrearColeccionControlador {
     ) {
         try {
             if (authentication == null || !authentication.isAuthenticated()) {
-                model.addAttribute("errorMessage", "Debes iniciar sesión para crear un hecho.");
                 return "redirect:/auth/login";
             }
-            // 2. Validar sesión/tokens
+    
+            String username = authentication.getName();
+            
             String accessToken = (String) session.getAttribute("accessToken");
             String refreshToken = (String) session.getAttribute("refreshToken");
-
+    
             if (accessToken == null) {
-                model.addAttribute("errorMessage", "Tu sesión ha expirado. Por favor, inicia sesión nuevamente.");
                 return "redirect:/auth/login";
             }
-            System.out.println("IMPRIMO ACCESS TOKENNNNNNNNNNNNNNNNNNNNNNN:" + accessToken);
+            
+            try {
+                authService.getUserData(username, accessToken);
+            } catch (TokenExpiredException e) {
+                System.out.println("Token expirado (admin). Intentando refrescar...");
+    
+                if (refreshToken == null) {
+                    return "redirect:/auth/login";
+                }
+    
+                try {
+                    KeycloakTokenDTO newTokens = authService.refreshAccessToken(refreshToken);
+                    if (newTokens == null) {
+                        throw new RuntimeException("No se pudo refrescar el token");
+                    }
+    
+                    session.setAttribute("accessToken", newTokens.getAccess_token());
+                    session.setAttribute("refreshToken", newTokens.getRefresh_token());
+    
+                    accessToken = newTokens.getAccess_token();
+    
+                } catch (Exception refreshError) {
+                    return "redirect:/auth/login";
+                }
+            }
+            
             coleccionServicio.crear(coleccionData, accessToken);
-
-            redirectAttributes.addFlashAttribute("successMessage", "¡Colección creada con éxito!");
+    
+            redirectAttributes.addFlashAttribute(
+                    "successMessage",
+                    "¡Colección creada con éxito!"
+            );
             return "redirect:/admin?tab=collections";
-        }  catch (CriterioDuplicadoException e){
+    
+        } catch (CriterioDuplicadoException e) {
             redirectAttributes.addFlashAttribute("errorMessage", e.getMessage());
             return "redirect:/admin/crear-coleccion";
-        }
-        catch (Exception e) {
-            redirectAttributes.addFlashAttribute("errorMessage", "Error al crear la colección: " + e.getMessage());
+    
+        } catch (Exception e) {
+            redirectAttributes.addFlashAttribute(
+                    "errorMessage",
+                    "Error al crear la colección: " + e.getMessage()
+            );
             return "redirect:/admin/crear-coleccion";
         }
     }
+
 }

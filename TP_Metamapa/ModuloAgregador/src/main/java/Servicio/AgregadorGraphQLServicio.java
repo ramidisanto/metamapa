@@ -4,6 +4,7 @@ import Modelos.Entidades.DTOs.HechoDTOoutput;
 import Modelos.Entidades.Hecho;
 import Modelos.Entidades.HechoFilterInput; // Tu clase/record de input
 import Modelos.Entidades.OrigenCarga;
+import Modelos.Entidades.PagedHechoResponse;
 import Repositorio.HechoRepositorio;
 import Repositorio.ColeccionRepositorio; // Para buscar por ID de colección
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +13,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
+import Modelos.Entidades.PagedHechoResponse;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -29,38 +30,40 @@ public class AgregadorGraphQLServicio {
     private ColeccionRepositorio coleccionRepositorio;
 
     @Transactional(readOnly = true)
-    public List<HechoDTOoutput> listarHechos(HechoFilterInput filtro) {
+    public PagedHechoResponse listarHechos(HechoFilterInput filtro) {
         List<Hecho> hechos;
         Pageable pageable = PageRequest.of(filtro.getPage(), filtro.getSize());
-        Page<Hecho> page;
-//        if (filtro.getIdColeccion() != null /*&& !filtro.getIdColeccion().isEmpty()*/) {
-//            // Caso A: Buscar dentro de una colección específica
-//            //Long idCol = Long.parseLong(filtro.getIdColeccion());
-//            Long idCol = Long.parseLong(filtro.getIdColeccion());
-//            hechos = new ArrayList<>(coleccionRepositorio.findById(idCol)
-//                    .map(c -> c.getHechos())
-//                    .orElse(new ArrayList<>()));
-//        } else {
-            // Caso B: Búsqueda general en la base de datos usando filtros
+        // if (filtro.getIdColeccion() != null /*&&
+        // !filtro.getIdColeccion().isEmpty()*/) {
+        // // Caso A: Buscar dentro de una colección específica
+        // //Long idCol = Long.parseLong(filtro.getIdColeccion());
+        // Long idCol = Long.parseLong(filtro.getIdColeccion());
+        // hechos = new ArrayList<>(coleccionRepositorio.findById(idCol)
+        // .map(c -> c.getHechos())
+        // .orElse(new ArrayList<>()));
+        // } else {
+        // Caso B: Búsqueda general en la base de datos usando filtros
 
-            // Conversión segura de String a Enum
-            OrigenCarga origenEnum = null;
-            if (filtro.getOrigenCarga() != null && !filtro.getOrigenCarga().isBlank()) {
-                try {
-                    origenEnum = OrigenCarga.valueOf(filtro.getOrigenCarga().toUpperCase());
-                } catch (IllegalArgumentException e) {
-                    System.out.println("Origen desconocido ignorado: " + filtro.getOrigenCarga());
-                }
+        // Conversión segura de String a Enum
+        OrigenCarga origenEnum = null;
+        if (filtro.getOrigenCarga() != null && !filtro.getOrigenCarga().isBlank()) {
+            try {
+                origenEnum = OrigenCarga.valueOf(filtro.getOrigenCarga().toUpperCase());
+            } catch (IllegalArgumentException e) {
+                System.out.println("Origen desconocido ignorado: " + filtro.getOrigenCarga());
             }
+        }
 
-
-            LocalDateTime cargaDesde = parseFecha(filtro.getFechaCargaDesde());
-            LocalDateTime cargaHasta = parseFecha(filtro.getFechaCargaHasta());
-            LocalDateTime hechoDesde = parseFecha(filtro.getFechaHechoDesde()); // O getFechaAcontecimientoDesde
-            LocalDateTime hechoHasta = parseFecha(filtro.getFechaHechoHasta());
-
+        LocalDateTime cargaDesde = parseFecha(filtro.getFechaCargaDesde());
+        LocalDateTime cargaHasta = parseFecha(filtro.getFechaCargaHasta());
+        LocalDateTime hechoDesde = parseFecha(filtro.getFechaHechoDesde()); // O getFechaAcontecimientoDesde
+        LocalDateTime hechoHasta = parseFecha(filtro.getFechaHechoHasta());
+        Long idCol = null;
+        if(filtro.getIdColeccion()!=null && !filtro.getIdColeccion().isBlank()){
+             idCol = Long.parseLong(filtro.getIdColeccion());
+        }
         Page<Hecho> page = hechoRepositorio.filtrarHechos(
-                idColeccion,
+                idCol,
                 filtro.getCategoria(),
                 filtro.getContenidoMultimedia(),
                 cargaDesde,
@@ -73,36 +76,48 @@ public class AgregadorGraphQLServicio {
                 filtro.getProvincia(),
                 filtro.getLocalidad(),
                 filtro.getBusquedaGeneral(),
-                pageable
-        );
+                pageable);
+        
+                System.out.println("Total Hechos Encontrados: " + page.getTotalElements());
 
-//            hechos = hechoRepositorio.filtrarHechos(
-//                    filtro.getCategoria(),
-//                    filtro.getContenidoMultimedia(),
-//                    cargaDesde, cargaHasta,
-//                    hechoDesde, hechoHasta,
-//                    origenEnum,
-//                    filtro.getTitulo(),
-//                    filtro.getPais(),
-//                    filtro.getProvincia(),
-//                    filtro.getLocalidad(),
-//                    pageable
-//            );
-//        }
+        // hechos = hechoRepositorio.filtrarHechos( 
+        // filtro.getCategoria(),
+        // filtro.getContenidoMultimedia(),
+        // cargaDesde, cargaHasta,
+        // hechoDesde, hechoHasta,
+        // origenEnum,
+        // filtro.getTitulo(),
+        // filtro.getPais(),
+        // filtro.getProvincia(),
+        // filtro.getLocalidad(),
+        // pageable
+        // );
+        // }
 
         // 2. Filtrado en Memoria (Búsqueda de texto libre)
-        // Esto cubre campos que quizas el repositorio no busca con LIKE (descripcion, contenido)
-        if (filtro.getBusquedaGeneral() != null && !filtro.getBusquedaGeneral().isBlank()) {
-            String query = filtro.getBusquedaGeneral().toLowerCase();
-            hechos = hechos.stream()
-                    .filter(h -> buscarEnTexto(h, query))
-                    .collect(Collectors.toList());
-        }
+        // Esto cubre campos que quizas el repositorio no busca con LIKE (descripcion,
+        // contenido)
+        // if (filtro.getBusquedaGeneral() != null &&
+        // !filtro.getBusquedaGeneral().isBlank()) {
+        // String query = filtro.getBusquedaGeneral().toLowerCase();
+        // hechos = hechos.stream()
+        // .filter(h -> buscarEnTexto(h, query))
+        // .collect(Collectors.toList());
+        // }
 
         // 3. Conversión a DTO
-        return hechos.stream()
+        List<HechoDTOoutput> content = page.getContent().stream()
                 .map(this::convertirAHechoDTO)
                 .collect(Collectors.toList());
+        int total = Math.toIntExact(page.getTotalElements());
+        return new PagedHechoResponse(
+                content,
+                page.getNumber(),
+                page.getTotalPages(),
+                total,
+                page.getSize(),
+                page.hasNext(),
+                page.hasPrevious());
     }
 
     @Transactional(readOnly = true)
@@ -115,7 +130,8 @@ public class AgregadorGraphQLServicio {
     // --- Métodos Privados de Utilidad ---
 
     private LocalDateTime parseFecha(String fechaStr) {
-        if (fechaStr == null || fechaStr.isBlank()) return null;
+        if (fechaStr == null || fechaStr.isBlank())
+            return null;
         try {
             // Intenta parsear ISO-8601 (ej: 2023-10-05T14:30:00)
             return LocalDateTime.parse(fechaStr);
@@ -126,10 +142,13 @@ public class AgregadorGraphQLServicio {
     }
 
     private boolean buscarEnTexto(Hecho h, String query) {
-        if (h.getTitulo() != null && h.getTitulo().toLowerCase().contains(query)) return true;
-        if (h.getDescripcion() != null && h.getDescripcion().toLowerCase().contains(query)) return true;
+        if (h.getTitulo() != null && h.getTitulo().toLowerCase().contains(query))
+            return true;
+        if (h.getDescripcion() != null && h.getDescripcion().toLowerCase().contains(query))
+            return true;
         if (h.getContenido() != null && h.getContenido().getTexto() != null
-                && h.getContenido().getTexto().toLowerCase().contains(query)) return true;
+                && h.getContenido().getTexto().toLowerCase().contains(query))
+            return true;
         return false;
     }
 
@@ -139,9 +158,12 @@ public class AgregadorGraphQLServicio {
         Double lat = null, lon = null;
 
         if (h.getUbicacion() != null) {
-            if (h.getUbicacion().getLocalidad() != null) loc = h.getUbicacion().getLocalidad().getLocalidad();
-            if (h.getUbicacion().getProvincia() != null) prov = h.getUbicacion().getProvincia().getProvincia();
-            if (h.getUbicacion().getPais() != null) pais = h.getUbicacion().getPais().getPais();
+            if (h.getUbicacion().getLocalidad() != null)
+                loc = h.getUbicacion().getLocalidad().getLocalidad();
+            if (h.getUbicacion().getProvincia() != null)
+                prov = h.getUbicacion().getProvincia().getProvincia();
+            if (h.getUbicacion().getPais() != null)
+                pais = h.getUbicacion().getPais().getPais();
             lat = h.getUbicacion().getLatitud();
             lon = h.getUbicacion().getLongitud();
         }
@@ -173,7 +195,10 @@ public class AgregadorGraphQLServicio {
                 loc, prov, pais,
                 lat, lon,
                 usuario, nombre, apellido, nac,
-                (h.getOrigen() != null) ? h.getOrigen().name() : null
-        );
+                (h.getOrigen() != null) ? h.getOrigen().name() : null,
+            h.getMostrarNombre(),
+            h.getMostrarApellido(),
+            h.getMostrarFechaNacimiento());
+                
     }
 }

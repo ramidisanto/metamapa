@@ -53,9 +53,12 @@ public class HechoServicio {
             LocalDateTime fechaOcurrencia = dto.getFechaAcontecimiento();
             Contribuyente contribuyente = this.crearContribuyente(dto.getUsuario(), dto.getNombre(), dto.getApellido(), dto.getFechaNacimiento());
             boolean anonimo = dto.getAnonimo();
+            Boolean mostrarNombre = dto.getMostrarNombre() != null ? dto.getMostrarNombre() : false;
+            Boolean mostrarApellido = dto.getMostrarApellido() != null ? dto.getMostrarApellido() : false;
+            Boolean mostrarFechaNacimiento = dto.getMostrarFechaNacimiento() != null ? dto.getMostrarFechaNacimiento() : false;
 
             Hecho hecho = new Hecho(null, contribuyente.getId(), dto.getTitulo(), dto.getDescripcion(), contenido, categoria, fechaOcurrencia, ubicacion,
-                    contribuyente, anonimo, true, false);
+                    contribuyente, anonimo, true, false,dto.getMostrarNombre(),dto.getMostrarApellido(),dto.getMostrarFechaNacimiento());
 
             System.out.println("ANTES DE GURDAR EL HECHO -----------------------------------------------------------");
             hechoRepositorio.save(hecho);
@@ -177,7 +180,10 @@ public class HechoServicio {
                     hecho.getContribuyente().getFecha_nacimiento(),
                     hecho.getAnonimo(),
                     hecho.getVisible(),
-                    null
+                    null,
+                    hecho.getMostrarNombre(),
+                    hecho.getMostrarApellido(),
+                    hecho.getMostrarFechaNacimiento()
             );
             hechosDTO.add(dto);
         }

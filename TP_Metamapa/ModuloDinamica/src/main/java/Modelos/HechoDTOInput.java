@@ -27,4 +27,8 @@ public class HechoDTOInput {
     @DateTimeFormat(pattern = "dd/MM/yyyy")
     public LocalDate fechaNacimiento;
     public Boolean anonimo;
+
+    public Boolean mostrarNombre;
+    public Boolean mostrarApellido;
+    public Boolean mostrarFechaNacimiento;
 }

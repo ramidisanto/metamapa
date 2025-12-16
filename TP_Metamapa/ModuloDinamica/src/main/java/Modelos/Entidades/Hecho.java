@@ -35,8 +35,13 @@ public class Hecho {
     public Boolean visible;
     public Boolean publicado;
 
+    public Boolean mostrarNombre;
+    public Boolean mostrarApellido;
+    public Boolean mostrarFechaNacimiento;
+
     public Hecho(Long idHecho, Long idfuente, String unTitulo, String unaDescripcion, Contenido unContenido, Categoria unaCategoria, LocalDateTime unaFechaOcurrencia,
-                 Ubicacion unaUbicacion, Contribuyente contribuyente, Boolean anonimo, Boolean visible, Boolean publicado) {
+                 Ubicacion unaUbicacion, Contribuyente contribuyente, Boolean anonimo, Boolean visible, Boolean publicado, Boolean mostrarNombre, Boolean mostrarApellido, 
+                    Boolean mostrarFechaNacimiento) {
         this.idHecho = idHecho;
         this.idfuente = idfuente;
         this.titulo = unTitulo;

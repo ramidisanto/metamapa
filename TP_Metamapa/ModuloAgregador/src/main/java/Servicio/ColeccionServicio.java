@@ -175,7 +175,10 @@ public class ColeccionServicio {
                 nombre,
                 apellido,
                 fechaNac,
-                (h.getOrigen() != null) ? h.getOrigen().name() : null
+                (h.getOrigen() != null) ? h.getOrigen().name() : null,
+                h.getMostrarNombre(),
+                h.getMostrarApellido(),
+                h.getMostrarFechaNacimiento()
         );
     }
 }

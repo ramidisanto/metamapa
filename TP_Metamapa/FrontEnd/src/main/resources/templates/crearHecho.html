@@ -116,6 +116,45 @@
                     <label for="anonimo" class="text-sm font-medium text-gray-700 dark:text-gray-300">
                         Publicar como anónimo
                     </label>
+                    <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">
+                        Si seleccionas esta opción, tu información personal no será visible en el hecho publicado.
+                    </p>
+                </div>
+
+                 <!-- Opciones de datos a mostrar (solo visible si NO es anónimo) -->
+                    <div id="datosPersonalesOptions" class="space-y-3 pl-8 hidden">
+                        <p class="text-sm text-gray-700 dark:text-gray-300 font-medium mb-2">
+                            Selecciona qué información personal deseas mostrar:
+                        </p>
+                        
+                        <div class="flex items-center gap-3">
+                            <input type="checkbox" name="mostrarNombre" id="mostrarNombre" th:field="*{mostrarNombre}"
+                                class="w-4 h-4 rounded border-gray-300 dark:border-gray-600 text-primary-600 focus:ring-primary-500 dark:bg-gray-700" />
+                            <label for="mostrarNombre" class="text-sm text-gray-700 dark:text-gray-300 cursor-pointer">
+                                Mostrar nombre
+                            </label>
+                        </div>
+
+                        <div class="flex items-center gap-3">
+                            <input type="checkbox" name="mostrarApellido" id="mostrarApellido" th:field="*{mostrarApellido}"
+                                class="w-4 h-4 rounded border-gray-300 dark:border-gray-600 text-primary-600 focus:ring-primary-500 dark:bg-gray-700" />
+                            <label for="mostrarApellido" class="text-sm text-gray-700 dark:text-gray-300 cursor-pointer">
+                                Mostrar apellido
+                            </label>
+                        </div>
+
+                        <div class="flex items-center gap-3">
+                            <input type="checkbox" name="mostrarFechaNacimiento" id="mostrarFechaNacimiento" th:field="*{mostrarFechaNacimiento}"
+                                class="w-4 h-4 rounded border-gray-300 dark:border-gray-600 text-primary-600 focus:ring-primary-500 dark:bg-gray-700" />
+                            <label for="mostrarFechaNacimiento" class="text-sm text-gray-700 dark:text-gray-300 cursor-pointer">
+                                Mostrar fecha de nacimiento
+                            </label>
+                        </div>
+
+                        <p class="text-xs text-gray-500 dark:text-gray-400 italic mt-2">
+                            Nota: Tu nombre de usuario siempre será visible.
+                        </p>
+                    </div>
                 </div>
 
                 <div>
@@ -150,7 +189,27 @@
             const categoriaSelect = document.getElementById('categoria');
             const customCategoriaDiv = document.getElementById('customCategoriaDiv');
             const customCategoriaInput = document.getElementById('customCategoria');
+            const anonimoCheckbox = document.getElementById('anonimo');
+            const datosPersonalesOptions = document.getElementById('datosPersonalesOptions');
+            const mostrarNombreCheckbox = document.getElementById('mostrarNombre');
+            const mostrarApellidoCheckbox = document.getElementById('mostrarApellido');
+            const mostrarFechaNacimientoCheckbox = document.getElementById('mostrarFechaNacimiento');
+            
+             function toggleDatosPersonales() {
+                if (anonimoCheckbox.checked) {
+                    datosPersonalesOptions.classList.add('hidden');
+                    mostrarNombreCheckbox.checked = false;
+                    mostrarApellidoCheckbox.checked = false;
+                    mostrarFechaNacimientoCheckbox.checked = false;
+                } else {
+                    datosPersonalesOptions.classList.remove('hidden');
+                }
+            }
+            
+            toggleDatosPersonales();
 
+            anonimoCheckbox.addEventListener('change', toggleDatosPersonales);
+            
             categoriaSelect.addEventListener('change', function () {
                 if (this.value === 'Otra') {
                     customCategoriaDiv.classList.remove('hidden');

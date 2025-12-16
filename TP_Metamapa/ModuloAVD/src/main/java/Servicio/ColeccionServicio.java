@@ -299,7 +299,10 @@ public class ColeccionServicio {
                 null,
                 null,
                 null,
-                hecho.getOrigen().name());
+                hecho.getOrigen().name(),
+                hecho.getMostrarNombre(),
+                hecho.getMostrarApellido(),
+                hecho.getMostrarFechaNacimiento());
 
         if(Boolean.FALSE.equals(hecho.getAnonimo())){
             dto.setUsuario(hecho.getContribuyente().getUsuario());

@@ -83,9 +83,24 @@
                     <p th:if="${hecho.anonimo}" class="italic text-gray-600 dark:text-gray-300">Este hecho fue reportado
                         de forma anónima.
                     </p>
-                    <p th:if="${!hecho.anonimo}" class="text-gray-700 dark:text-gray-200">
-                        Reportado por: <strong th:text="${hecho.usuario}"></strong>
-                    </p>
+                        
+                    <span th:if="${!hecho.anonimo}" class="text-gray-700 dark:text-gray-300">
+                           
+                        <span th:text="'@' + ${hecho.usuario}">@usuario</span>
+                            
+                        <span th:if="${hecho.mostrarNombre != null and hecho.mostrarNombre and hecho.nombre != null}">
+                            - <span th:text="${hecho.nombre}">Nombre</span>
+                        </span>
+                        
+                        <span th:if="${hecho.mostrarApellido != null and hecho.mostrarApellido and hecho.apellido != null}">
+                            <span th:text="${hecho.apellido}">Apellido</span>
+                        </span>
+                            
+                        <span th:if="${hecho.mostrarFechaNacimiento != null and hecho.mostrarFechaNacimiento and hecho.fecha_nacimiento != null}">
+                            - <span class="text-xs" th:text="'Nacimiento: ' + ${#temporals.format(hecho.fecha_nacimiento, 'dd/MM/yyyy')}">Fecha nacimiento</span>
+                        </span>
+                    </span>
+                    
                 </div>
             </div>
 

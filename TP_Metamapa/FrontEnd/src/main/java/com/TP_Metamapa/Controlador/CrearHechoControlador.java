@@ -134,6 +134,16 @@ public class CrearHechoControlador {
             hechoParaBackend.setFechaNacimiento(userData.getBirthdate());
             hechoParaBackend.setAnonimo(hechoFormData.isAnonimo());
 
+            if (!hechoFormData.isAnonimo()) {
+            hechoParaBackend.setMostrarNombre(hechoFormData.isMostrarNombre());
+            hechoParaBackend.setMostrarApellido(hechoFormData.isMostrarApellido());
+            hechoParaBackend.setMostrarFechaNacimiento(hechoFormData.isMostrarFechaNacimiento());
+             } else {
+            hechoParaBackend.setMostrarNombre(false);
+            hechoParaBackend.setMostrarApellido(false);
+            hechoParaBackend.setMostrarFechaNacimiento(false);
+             }
+
             if ("Otra".equals(hechoFormData.getCategoria()) && hechoFormData.getCustomCategoria() != null) {
                 hechoParaBackend.setCategoria(hechoFormData.getCustomCategoria());
             } else {

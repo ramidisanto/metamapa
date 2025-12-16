@@ -34,10 +34,14 @@ public class HechoDTOInput {
     public Boolean anonimo;
     public Boolean visible;
     public String origen_carga;
+    public Boolean mostrarNombre;
+    public Boolean mostrarApellido;
+    public Boolean mostrarFechaNacimiento;
 
     public HechoDTOInput() {}
 
-    public HechoDTOInput(Long idHecho, Long idFuente, String titulo, String descripcion, String contenido, String contenido_multimedia, String categoria, LocalDateTime fechaAcontecimiento, LocalDateTime  fechaCarga, String localidad, String provincia,String pais, Double latitud, Double longitud, String usuario, String nombre, String apellido, LocalDate fecha_nacimiento, Boolean anonimo, Boolean visible, String origen_carga) {
+    public HechoDTOInput(Long idHecho, Long idFuente, String titulo, String descripcion, String contenido, String contenido_multimedia, String categoria, LocalDateTime fechaAcontecimiento, LocalDateTime  fechaCarga, String localidad, String provincia,String pais, Double latitud, Double longitud, String usuario, String nombre, String apellido, LocalDate fecha_nacimiento, Boolean anonimo, Boolean visible, String origen_carga,  Boolean mostrarNombre, Boolean mostrarApellido, 
+                    Boolean mostrarFechaNacimiento) {
         this.idHecho = idHecho;
         this.idFuente = idFuente;
         this.titulo = titulo;
@@ -59,5 +63,8 @@ public class HechoDTOInput {
         this.anonimo = anonimo;
         this.visible = visible;
         this.origen_carga = origen_carga;
+        this.mostrarNombre = mostrarNombre;
+        this.mostrarApellido = mostrarApellido;
+        this.mostrarFechaNacimiento = mostrarFechaNacimiento;
     }
 }

@@ -65,6 +65,11 @@ public class NavegadorServicio {
         return transformarADTOLista(hechos);
     }
 
+    public List<HechoDTO> obtenerHechosRecientes(){
+        List<Hecho> hechos = hechoRepositorio.findUltimos(PageRequest.of(0, 8));
+        return transformarADTOLista(hechos);
+    }
+
     public List<HechoDTO> transformarADTOLista(List<Hecho> hechos) {
         List<HechoDTO> hechosDTO;
         hechosDTO = hechos.stream()
@@ -129,7 +134,10 @@ public class NavegadorServicio {
                 fechaNacimiento,
                 hecho.getAnonimo(),
                 hecho.getVisible(),
-                origen
+                origen,
+                hecho.getMostrarNombre(),
+                hecho.getMostrarApellido(),
+                hecho.getMostrarFechaNacimiento()
         );
 
         // Si el hecho es anónimo, ocultar usuario
@@ -279,7 +287,10 @@ public class NavegadorServicio {
                 null,
                 null,
                 hecho.getVisible(),
-                hecho.getOrigen().name());
+                hecho.getOrigen().name(),
+                hecho.getMostrarNombre(),
+                hecho.getMostrarApellido(),
+                hecho.getMostrarFechaNacimiento());
         if (hecho.getContribuyente() != null) {
             if(Boolean.FALSE.equals(hecho.getAnonimo())){
                 dto.setUsuario(hecho.getContribuyente().getUsuario());

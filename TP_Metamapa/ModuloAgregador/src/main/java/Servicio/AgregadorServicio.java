@@ -156,7 +156,10 @@ public class AgregadorServicio {
                     OrigenCarga.valueOf(dto.getOrigen_carga().toUpperCase()),
                     true,
                     contribuyente,
-                    dto.getAnonimo()
+                    dto.getAnonimo(),
+                    dto.getMostrarNombre(),
+                    dto.getMostrarApellido(),
+                    dto.getMostrarFechaNacimiento()
             );
 
             hecho.setEstadoNormalizacion(EstadoNormalizacion.NORMALIZADO);
@@ -269,7 +272,7 @@ public class AgregadorServicio {
             return;
         }
 
-        List<Hecho> hechosCumplenCriterio = hechoRepositorio.filtrarHechos(
+        List<Hecho> hechosCumplenCriterio = hechoRepositorio.buscarHechosPorFiltros(
                 Optional.ofNullable(criterio.getCategoria())
                         .map(c -> c.getNombre())
                         .orElse(null),

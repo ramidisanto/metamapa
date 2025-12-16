@@ -57,12 +57,18 @@ public class Hecho{
     @Column(name = "estado_normalizacion")
     private EstadoNormalizacion estadoNormalizacion = EstadoNormalizacion.PENDIENTE;
 
+    private Boolean mostrarNombre;
+    private Boolean mostrarApellido;
+    private Boolean mostrarFechaNacimiento;
+
 
 
     public Hecho() {}
 
     public Hecho(Long idFuente, String unTitulo, String unaDescripcion, Contenido unContenido, Categoria unaCategoria, LocalDateTime unaFechaOcurrencia,
-                 Ubicacion unaUbicacion, LocalDateTime  unaFechaCarga, OrigenCarga unOrigen, boolean estaVisible,Contribuyente contribuyente, Boolean anonimo){ //Lista etiquetas
+                 Ubicacion unaUbicacion, LocalDateTime  unaFechaCarga, OrigenCarga unOrigen, boolean estaVisible,Contribuyente contribuyente, Boolean anonimo,
+                 Boolean mostrarNombre, Boolean mostrarApellido, 
+                    Boolean mostrarFechaNacimiento){ //Lista etiquetas
         this.id = null;
         this.idFuente = idFuente;
         this.titulo = unTitulo;
@@ -76,6 +82,9 @@ public class Hecho{
         this.visible = estaVisible;
         this.contribuyente = contribuyente;
         this.anonimo = anonimo;
+        this.mostrarNombre = mostrarNombre;
+        this.mostrarApellido = mostrarApellido;
+        this.mostrarFechaNacimiento = mostrarFechaNacimiento;
         //this.estadoNormalizacion = EstadoNormalizacion.PENDIENTE;
     }
 

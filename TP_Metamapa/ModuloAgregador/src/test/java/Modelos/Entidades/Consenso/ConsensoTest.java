@@ -46,7 +46,11 @@ class ConsensoTest {
                 OrigenCarga.FUENTE_DINAMICA,
                 true,
                 contribuyenteEjemplo,
+                false,
+                false,
+                false,
                 false
+
         );
     }
 

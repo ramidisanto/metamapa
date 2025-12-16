@@ -33,5 +33,8 @@ public class HechoDTO {
         public Boolean anonimo;
         public Boolean visible;
         public String origen_carga;
+        public Boolean mostrarNombre;
+        public Boolean mostrarApellido;
+        public Boolean mostrarFechaNacimiento;
 
 }

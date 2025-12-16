@@ -13,8 +13,6 @@ public class HechoFilterInput {
     private String fechaCargaHasta;
     private String fechaHechoDesde;
     private String fechaHechoHasta;
-    private String sortBy;
-    private String sortDir;
     private Integer size;
     private Integer page;
     private String origenCarga;

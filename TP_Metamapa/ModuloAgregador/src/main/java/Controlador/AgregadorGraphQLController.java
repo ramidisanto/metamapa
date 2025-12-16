@@ -2,6 +2,7 @@ package Controlador;
 import Modelos.Entidades.DTOs.ColeccionDTO;
 import Modelos.Entidades.DTOs.HechoDTOoutput;
 import Modelos.Entidades.HechoFilterInput;
+import Modelos.Entidades.PagedHechoResponse;
 import Repositorio.CategoriaRepositorio;
 import Repositorio.UbicacionRepositorio;
 import Servicio.AgregadorGraphQLServicio;
@@ -22,7 +23,7 @@ public class AgregadorGraphQLController {
     @Autowired
     private ColeccionGraphQLServicio coleccionServicio;
     @QueryMapping
-    public List<HechoDTOoutput> listarHechos(@Argument HechoFilterInput filtro) {
+    public PagedHechoResponse listarHechos(@Argument HechoFilterInput filtro) {
         if (filtro == null) filtro = new HechoFilterInput();
 
         // El flujo es Controller -> Servicio Nuevo -> Repositorio

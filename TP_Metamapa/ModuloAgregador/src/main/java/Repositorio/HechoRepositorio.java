@@ -60,83 +60,104 @@ Long cantidadDeFuentesConHecho(
             @Param("contenido") Contenido contenido
     );
 
-    //si al menos dos fuentes contienen un mismo hecho y ninguna otra fuente
-    //contiene otro de igual título pero diferentes atributos, se lo considera consensuado;
-//    @Query("SELECT h FROM Hecho h " +
-//            "WHERE (:categoria IS NULL OR h.categoria.nombre = :categoria) " +
-//            "AND (" +
-//            "    :contenidoMultimedia IS NULL" +
-//            "    OR (:contenidoMultimedia = TRUE AND h.contenido.contenidoMultimedia IS NOT NULL AND h.contenido.contenidoMultimedia <> '')" +
-//            "    OR (:contenidoMultimedia = FALSE AND (h.contenido.contenidoMultimedia IS NULL OR h.contenido.contenidoMultimedia = ''))" +
-//            ") " +
-//            "AND (:fechaCargaDesde IS NULL OR h.fecha_carga >= :fechaCargaDesde) " +
-//            "AND (:fechaCargaHasta IS NULL OR h.fecha_carga<= :fechaCargaHasta) " +
-//            "AND (:fechaHechoDesde IS NULL OR h.fecha>= :fechaHechoDesde) " +
-//            "AND (:fechaHechoHasta IS NULL OR h.fecha <= :fechaHechoHasta) " +
-//            "AND (:origenCarga IS NULL OR h.origen = :origenCarga) " +
-//            "AND (:titulo IS NULL OR h.titulo LIKE %:titulo%) " +
-//            "AND (:pais IS NULL OR h.ubicacion.pais.pais = :pais) " +
-//            "AND (:provincia IS NULL OR h.ubicacion.provincia.provincia = :provincia) " +
-//            "AND (:localidad IS NULL OR h.ubicacion.localidad.localidad = :localidad)" +
-//            "AND (h.visible = true)"+
-//            "AND (h.estadoNormalizacion = 'NORMALIZADO')")
-//    List<Hecho> filtrarHechos(
-//            @Param("categoria") String categoria,
-//            @Param("contenidoMultimedia") Boolean contenidoMultimedia,
-//            @Param("fechaCargaDesde") LocalDateTime  fechaCargaDesde,
-//            @Param("fechaCargaHasta") LocalDateTime  fechaCargaHasta,
-//            @Param("fechaHechoDesde") LocalDateTime fechaHechoDesde,
-//            @Param("fechaHechoHasta") LocalDateTime fechaHechoHasta,
-//            @Param("origenCarga") OrigenCarga origenCarga,
-//            @Param("titulo") String titulo,
-//            @Param("pais") String pais,
-//            @Param("provincia") String provincia,
-//            @Param("localidad") String localidad
-//    );
-
-    //CONSULTA CON PAGINACION
-    // Consulta unificada que soporta búsqueda general Y por colección
-    @Query("SELECT DISTINCT h FROM Hecho h " +
-            "LEFT JOIN Coleccion c ON h MEMBER OF c.hechos " +
-            "WHERE (:idColeccion IS NULL OR c.id = :idColeccion) " +
-            "AND (:categoria IS NULL OR h.categoria.nombre = :categoria) " +
+    //sCONSULTA PARA CRITERIOR DE PERTENENCIA A COLECCION
+    @Query("SELECT h FROM Hecho h " +
+            "WHERE (:categoria IS NULL OR h.categoria.nombre = :categoria) " +
             "AND (" +
             "    :contenidoMultimedia IS NULL" +
             "    OR (:contenidoMultimedia = TRUE AND h.contenido.contenidoMultimedia IS NOT NULL AND h.contenido.contenidoMultimedia <> '')" +
             "    OR (:contenidoMultimedia = FALSE AND (h.contenido.contenidoMultimedia IS NULL OR h.contenido.contenidoMultimedia = ''))" +
             ") " +
             "AND (:fechaCargaDesde IS NULL OR h.fecha_carga >= :fechaCargaDesde) " +
-            "AND (:fechaCargaHasta IS NULL OR h.fecha_carga <= :fechaCargaHasta) " +
-            "AND (:fechaHechoDesde IS NULL OR h.fecha >= :fechaHechoDesde) " +
+            "AND (:fechaCargaHasta IS NULL OR h.fecha_carga<= :fechaCargaHasta) " +
+            "AND (:fechaHechoDesde IS NULL OR h.fecha>= :fechaHechoDesde) " +
             "AND (:fechaHechoHasta IS NULL OR h.fecha <= :fechaHechoHasta) " +
             "AND (:origenCarga IS NULL OR h.origen = :origenCarga) " +
-            "AND (:titulo IS NULL OR LOWER(h.titulo) LIKE LOWER(CONCAT('%', :titulo, '%'))) " +
+            "AND (:titulo IS NULL OR h.titulo LIKE %:titulo%) " +
             "AND (:pais IS NULL OR h.ubicacion.pais.pais = :pais) " +
             "AND (:provincia IS NULL OR h.ubicacion.provincia.provincia = :provincia) " +
-            "AND (:localidad IS NULL OR h.ubicacion.localidad.localidad = :localidad) " +
-            "AND (:busquedaGeneral IS NULL OR " +
-            "     LOWER(h.titulo) LIKE LOWER(CONCAT('%', :busquedaGeneral, '%')) OR " +
-            "     LOWER(h.descripcion) LIKE LOWER(CONCAT('%', :busquedaGeneral, '%')) OR " +
-            "     LOWER(h.contenido.texto) LIKE LOWER(CONCAT('%', :busquedaGeneral, '%'))" +
-            ") " +
-            "AND (h.visible = true) " +
+            "AND (:localidad IS NULL OR h.ubicacion.localidad.localidad = :localidad)" +
+            "AND (h.visible = true)"+
             "AND (h.estadoNormalizacion = 'NORMALIZADO')")
-    Page<Hecho> filtrarHechos(
-            @Param("idColeccion") Long idColeccion,
+    List<Hecho> buscarHechosPorFiltros(
             @Param("categoria") String categoria,
             @Param("contenidoMultimedia") Boolean contenidoMultimedia,
-            @Param("fechaCargaDesde") LocalDateTime fechaCargaDesde,
-            @Param("fechaCargaHasta") LocalDateTime fechaCargaHasta,
+            @Param("fechaCargaDesde") LocalDateTime  fechaCargaDesde,
+            @Param("fechaCargaHasta") LocalDateTime  fechaCargaHasta,
             @Param("fechaHechoDesde") LocalDateTime fechaHechoDesde,
             @Param("fechaHechoHasta") LocalDateTime fechaHechoHasta,
             @Param("origenCarga") OrigenCarga origenCarga,
             @Param("titulo") String titulo,
             @Param("pais") String pais,
             @Param("provincia") String provincia,
-            @Param("localidad") String localidad,
-            @Param("busquedaGeneral") String busquedaGeneral,
-            Pageable pageable
+            @Param("localidad") String localidad
     );
+
+    //CONSULTA CON PAGINACION
+    // Consulta unificada que soporta búsqueda general Y por colección
+    
+  @Query("""
+    SELECT DISTINCT h
+    FROM Hecho h
+    WHERE
+        -- Lógica corregida para el filtro de Colección.
+        -- Se usa EXISTS y la relación ManyToMany definida en Coleccion.
+        (:idColeccion IS NULL
+        OR EXISTS (
+            -- Busca si existe una Coleccion con el ID dado que contenga este Hecho (h)
+            SELECT 1 
+            FROM Coleccion c_rel 
+            JOIN c_rel.hechos h_rel 
+            WHERE c_rel.id = :idColeccion 
+            AND h_rel.id = h.id
+        ))
+    -- El resto de los filtros opcionales se mantienen igual, usando la misma lógica IS NULL
+    AND (:categoria IS NULL OR h.categoria.nombre = :categoria)
+    AND (
+        :contenidoMultimedia IS NULL
+        OR (:contenidoMultimedia = TRUE 
+            AND h.contenido.contenidoMultimedia IS NOT NULL 
+            AND h.contenido.contenidoMultimedia <> '')
+        OR (:contenidoMultimedia = FALSE 
+            AND (h.contenido.contenidoMultimedia IS NULL 
+                 OR h.contenido.contenidoMultimedia = ''))
+    )
+    AND (:fechaCargaDesde IS NULL OR h.fecha_carga >= :fechaCargaDesde)
+    AND (:fechaCargaHasta IS NULL OR h.fecha_carga <= :fechaCargaHasta)
+    AND (:fechaHechoDesde IS NULL OR h.fecha >= :fechaHechoDesde)
+    AND (:fechaHechoHasta IS NULL OR h.fecha <= :fechaHechoHasta)
+    AND (:origenCarga IS NULL OR h.origen = :origenCarga)
+    AND (:titulo IS NULL OR LOWER(h.titulo) LIKE LOWER(CONCAT('%', :titulo, '%')))
+    AND (:pais IS NULL OR h.ubicacion.pais.pais = :pais)
+    AND (:provincia IS NULL OR h.ubicacion.provincia.provincia = :provincia)
+    AND (:localidad IS NULL OR h.ubicacion.localidad.localidad = :localidad)
+    AND (
+        :busquedaGeneral IS NULL
+        OR LOWER(h.titulo) LIKE LOWER(CONCAT('%', :busquedaGeneral, '%'))
+        OR LOWER(h.descripcion) LIKE LOWER(CONCAT('%', :busquedaGeneral, '%'))
+        OR LOWER(h.contenido.texto) LIKE LOWER(CONCAT('%', :busquedaGeneral, '%'))
+    )
+    -- Condiciones fijas obligatorias
+    AND h.visible = true
+    AND h.estadoNormalizacion = 'NORMALIZADO'
+""")
+Page<Hecho> filtrarHechos(
+    @Param("idColeccion") Long idColeccion,
+    @Param("categoria") String categoria,
+    @Param("contenidoMultimedia") Boolean contenidoMultimedia,
+    @Param("fechaCargaDesde") LocalDateTime fechaCargaDesde,
+    @Param("fechaCargaHasta") LocalDateTime fechaCargaHasta,
+    @Param("fechaHechoDesde") LocalDateTime fechaHechoDesde,
+    @Param("fechaHechoHasta") LocalDateTime fechaHechoHasta,
+    @Param("origenCarga") OrigenCarga origenCarga,
+    @Param("titulo") String titulo,
+    @Param("pais") String pais,
+    @Param("provincia") String provincia,
+    @Param("localidad") String localidad,
+    @Param("busquedaGeneral") String busquedaGeneral,
+    Pageable pageable
+);
+
 
 
 }

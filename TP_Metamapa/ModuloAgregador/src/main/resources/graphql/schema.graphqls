@@ -1,5 +1,5 @@
 type Query {
-    listarHechos(filtro: HechoFilterInput): [HechoDTOoutput]
+    listarHechos(filtro: HechoFilterInput): PagedHechoResponse
     listarColecciones: [ColeccionDTO]
     listarPaises: [String]
     listarProvincias: [String]
@@ -23,6 +23,8 @@ input HechoFilterInput {
     navegacionCurada: Boolean
     busquedaGeneral: String
     origenCarga: String
+    size :Int
+    page: Int
 }
 
 type HechoDTOoutput {
@@ -71,4 +73,13 @@ type CriterioDTO{
     fechaAcontecimientoDesde: String
     fechaAcontecimientoHasta: String
     origenCarga: String
+}
+type PagedHechoResponse{
+        content: [HechoDTOoutput]
+        currentPage: Int
+        totalPages: Int
+        totalElements: Int
+        pageSize: Int
+        hasNext: Boolean
+        hasPrevious: Boolean
 }

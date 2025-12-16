@@ -1,5 +1,7 @@
 package Repositorio;
 import Modelos.Entidades.OrigenCarga;
+
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -46,7 +48,8 @@ public interface HechoRepositorio extends JpaRepository<Hecho, Long> {
     );
 
     @Query("SELECT h FROM Hecho h WHERE h.visible = true") //para lo del texto libre
-    List<Hecho> buscarTodosVisibles(); 
+    List<Hecho> buscarTodosVisibles();
 
-
+   @Query("SELECT h FROM Hecho h WHERE h.visible = true ORDER BY h.fecha_carga DESC")
+   List<Hecho> findUltimos(Pageable pageable);
 }

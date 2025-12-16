@@ -19,4 +19,7 @@ public class HechoFormDTO {
     private boolean anonimo;
 
     private String customCategoria;
+    private boolean mostrarNombre;
+    private boolean mostrarApellido;
+    private boolean mostrarFechaNacimiento;
 }

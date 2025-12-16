@@ -146,7 +146,7 @@ class ColeccionServicioTest {
         Ubicacion ubicacion = new Ubicacion(localidad, provincia, pais, null, null);
         Contenido contenido = new Contenido("Texto", "imagen.png");
 
-        Hecho hecho = new Hecho(null, null, "Titulo", "Desc", contenido, categoria, LocalDateTime.now(),ubicacion,LocalDateTime .now(), OrigenCarga.FUENTE_DINAMICA, true ,contribuyente, false);
+        Hecho hecho = new Hecho(null, null, "Titulo", "Desc", contenido, categoria, LocalDateTime.now(),ubicacion,LocalDateTime .now(), OrigenCarga.FUENTE_DINAMICA, true ,contribuyente, false, false, false, false);
 
         HechoDTO dto = coleccionServicio.transformarHechoDTO(hecho);
 

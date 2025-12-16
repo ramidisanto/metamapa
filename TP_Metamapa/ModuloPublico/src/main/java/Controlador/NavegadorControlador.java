@@ -84,6 +84,12 @@ public class NavegadorControlador {
         }
     }
 
+    @GetMapping("hechos/recientes")
+    public ResponseEntity<?> obtenerOchoMasRecientes(){
+        List<HechoDTO> hechos = navegadorServicio.obtenerHechosRecientes();
+        return ResponseEntity.ok(hechos);
+    }
+
     @GetMapping("hechos")
     public ResponseEntity<?> hechosFiltrados(
             @RequestParam(required = false) String categoria,
