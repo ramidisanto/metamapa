@@ -40,7 +40,7 @@ public class ServicioUbicacion {
             JsonNode ubicacionNode = root.path("ubicacion");
 
             // Georef devuelve siempre "Argentina" implícitamente, pero extraemos los datos locales
-            String provincia = ubicacionNode.path("provincia").path("nombre").asText(null);
+            String provincia = ubicacionNode.path("provincia").path("nombre").asText("Desconocida");
 
             // Lógica para localidad: A veces es 'municipio', a veces 'departamento' (zonas rurales)
             String localidad = obtenerLocalidad(ubicacionNode);
@@ -73,6 +73,6 @@ public class ServicioUbicacion {
             return departamento.path("nombre").asText();
         }
 
-        return null;
+        return "Desconocida";
     }
 }
