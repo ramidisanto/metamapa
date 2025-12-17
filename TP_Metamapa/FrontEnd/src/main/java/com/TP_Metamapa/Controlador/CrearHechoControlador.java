@@ -61,7 +61,6 @@ public class CrearHechoControlador {
         System.out.println("ENTRO A CRER HECHO POST");
         String imageUrl;
         try {
-            // 1. Validar autenticación
             if (authentication == null || !authentication.isAuthenticated()) {
                 model.addAttribute("errorMessage", "Debes iniciar sesión para crear un hecho.");
                 return "redirect:/auth/login";
@@ -69,7 +68,6 @@ public class CrearHechoControlador {
 
             String username = authentication.getName();
 
-            // 2. Validar sesión/tokens
             String accessToken = (String) session.getAttribute("accessToken");
             String refreshToken = (String) session.getAttribute("refreshToken");
 
@@ -78,7 +76,6 @@ public class CrearHechoControlador {
                 return "redirect:/auth/login";
             }
 
-            // 3. Obtener datos de usuario (con lógica de refresh token)
             UserDataDTO userData = null;
             try {
                 userData = authService.getUserData(username, accessToken);
@@ -113,13 +110,8 @@ public class CrearHechoControlador {
             } catch(Exception e){
                 model.addAttribute("errorMessage", "Error al guardar el archivo: " + e.getMessage());
                 model.addAttribute("hechoForm", hechoFormData);
-                return "crearHecho"; // Volver al formulario
+                return "crearHecho";
             }
-
-            System.out.printf("Nombre FORM: %b%n", hechoFormData.getMostrarNombre());
-            System.out.printf("Mostrar FORM apellido: %b%n", hechoFormData.getMostrarApellido());
-            System.out.printf("Mostrar FORM fecha nacimiento: %b%n", hechoFormData.getMostrarFechaNacimiento());
-
 
             HechoDTOInput hechoParaBackend = new HechoDTOInput();
             hechoParaBackend.setTitulo(hechoFormData.getTitulo());

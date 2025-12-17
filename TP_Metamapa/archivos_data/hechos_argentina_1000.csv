@@ -1,0 +1,1001 @@
+Título,Descripción,Categoría,Latitud,Longitud,Fecha del hecho
+Hecho 1 en Buenos Aires,"Hecho sintético registrado en la ciudad de Buenos Aires, Argentina.",Incendio,-34.582183,-58.400276,24/12/2018
+Hecho 2 en Buenos Aires,"Hecho sintético registrado en la ciudad de Buenos Aires, Argentina.",Corte de servicios,-34.598715,-58.394336,06/01/2024
+Hecho 3 en Buenos Aires,"Hecho sintético registrado en la ciudad de Buenos Aires, Argentina.",Manifestación,-34.616723,-58.394896,08/07/2019
+Hecho 4 en Mendoza,"Hecho sintético registrado en la ciudad de Mendoza, Argentina.",Manifestación,-32.857028,-68.823913,07/01/2018
+Hecho 5 en Neuquén,"Hecho sintético registrado en la ciudad de Neuquén, Argentina.",Corte de servicios,-38.991072,-68.040537,14/10/2018
+Hecho 6 en Córdoba,"Hecho sintético registrado en la ciudad de Córdoba, Argentina.",Robo,-31.406729,-64.2187,15/01/2019
+Hecho 7 en Buenos Aires,"Hecho sintético registrado en la ciudad de Buenos Aires, Argentina.",Incendio,-34.597827,-58.400374,30/10/2022
+Hecho 8 en Buenos Aires,"Hecho sintético registrado en la ciudad de Buenos Aires, Argentina.",Incendio,-34.601966,-58.382963,07/11/2021
+Hecho 9 en Neuquén,"Hecho sintético registrado en la ciudad de Neuquén, Argentina.",Delito informático,-38.926853,-68.073879,02/05/2024
+Hecho 10 en San Miguel de Tucumán,"Hecho sintético registrado en la ciudad de San Miguel de Tucumán, Argentina.",Delito informático,-26.793513,-65.206532,15/11/2022
+Hecho 11 en Neuquén,"Hecho sintético registrado en la ciudad de Neuquén, Argentina.",Hallazgo policial,-38.938122,-68.069138,03/11/2023
+Hecho 12 en Buenos Aires,"Hecho sintético registrado en la ciudad de Buenos Aires, Argentina.",Manifestación,-34.570608,-58.368954,05/12/2018
+Hecho 13 en Rosario,"Hecho sintético registrado en la ciudad de Rosario, Argentina.",Emergencia sanitaria,-32.939864,-60.619787,12/10/2021
+Hecho 14 en Salta,"Hecho sintético registrado en la ciudad de Salta, Argentina.",Corte de servicios,-24.759801,-65.461895,05/06/2024
+Hecho 15 en Neuquén,"Hecho sintético registrado en la ciudad de Neuquén, Argentina.",Accidente de tránsito,-38.990574,-68.070947,28/01/2022
+Hecho 16 en Mendoza,"Hecho sintético registrado en la ciudad de Mendoza, Argentina.",Corte de servicios,-32.889419,-68.819873,20/12/2023
+Hecho 17 en Buenos Aires,"Hecho sintético registrado en la ciudad de Buenos Aires, Argentina.",Incendio,-34.566575,-58.371201,20/07/2023
+Hecho 18 en Mendoza,"Hecho sintético registrado en la ciudad de Mendoza, Argentina.",Delito informático,-32.851046,-68.873499,05/06/2023
+Hecho 19 en Santa Fe,"Hecho sintético registrado en la ciudad de Santa Fe, Argentina.",Hallazgo policial,-31.613168,-60.73647,31/03/2022
+Hecho 20 en Rosario,"Hecho sintético registrado en la ciudad de Rosario, Argentina.",Hallazgo policial,-32.982519,-60.626589,02/03/2020
+Hecho 21 en La Plata,"Hecho sintético registrado en la ciudad de La Plata, Argentina.",Corte de servicios,-34.961372,-57.944993,18/09/2022
+Hecho 22 en Santa Fe,"Hecho sintético registrado en la ciudad de Santa Fe, Argentina.",Emergencia sanitaria,-31.666668,-60.668202,30/12/2018
+Hecho 23 en Santa Fe,"Hecho sintético registrado en la ciudad de Santa Fe, Argentina.",Corte de servicios,-31.629573,-60.689193,28/10/2018
+Hecho 24 en Buenos Aires,"Hecho sintético registrado en la ciudad de Buenos Aires, Argentina.",Emergencia sanitaria,-34.567239,-58.418958,11/12/2020
+Hecho 25 en Santa Fe,"Hecho sintético registrado en la ciudad de Santa Fe, Argentina.",Emergencia sanitaria,-31.645431,-60.68887,24/08/2022
+Hecho 26 en Rosario,"Hecho sintético registrado en la ciudad de Rosario, Argentina.",Corte de servicios,-32.926783,-60.636176,21/09/2018
+Hecho 27 en Mar del Plata,"Hecho sintético registrado en la ciudad de Mar del Plata, Argentina.",Evento cultural,-37.979519,-57.532398,18/11/2018
+Hecho 28 en Santa Fe,"Hecho sintético registrado en la ciudad de Santa Fe, Argentina.",Corte de servicios,-31.648807,-60.666902,11/01/2024
+Hecho 29 en La Plata,"Hecho sintético registrado en la ciudad de La Plata, Argentina.",Corte de servicios,-34.951282,-57.916406,18/02/2022
+Hecho 30 en Santa Fe,"Hecho sintético registrado en la ciudad de Santa Fe, Argentina.",Accidente de tránsito,-31.609118,-60.7091,15/11/2019
+Hecho 31 en Buenos Aires,"Hecho sintético registrado en la ciudad de Buenos Aires, Argentina.",Manifestación,-34.590224,-58.393637,06/02/2023
+Hecho 32 en Salta,"Hecho sintético registrado en la ciudad de Salta, Argentina.",Incendio,-24.758811,-65.460939,24/10/2022
+Hecho 33 en Santa Fe,"Hecho sintético registrado en la ciudad de Santa Fe, Argentina.",Emergencia sanitaria,-31.632122,-60.72901,18/10/2023
+Hecho 34 en Santa Fe,"Hecho sintético registrado en la ciudad de Santa Fe, Argentina.",Accidente de tránsito,-31.615194,-60.722008,13/02/2024
+Hecho 35 en Neuquén,"Hecho sintético registrado en la ciudad de Neuquén, Argentina.",Emergencia sanitaria,-38.96986,-68.058596,16/01/2019
+Hecho 36 en Mendoza,"Hecho sintético registrado en la ciudad de Mendoza, Argentina.",Emergencia sanitaria,-32.897646,-68.810739,19/12/2020
+Hecho 37 en Córdoba,"Hecho sintético registrado en la ciudad de Córdoba, Argentina.",Evento cultural,-31.44414,-64.149179,01/09/2023
+Hecho 38 en Buenos Aires,"Hecho sintético registrado en la ciudad de Buenos Aires, Argentina.",Evento cultural,-34.59853,-58.414792,03/01/2021
+Hecho 39 en Mar del Plata,"Hecho sintético registrado en la ciudad de Mar del Plata, Argentina.",Accidente de tránsito,-38.001137,-57.571923,29/10/2021
+Hecho 40 en Santa Fe,"Hecho sintético registrado en la ciudad de Santa Fe, Argentina.",Manifestación,-31.633917,-60.708132,06/06/2023
+Hecho 41 en Buenos Aires,"Hecho sintético registrado en la ciudad de Buenos Aires, Argentina.",Incendio,-34.574328,-58.394358,25/06/2024
+Hecho 42 en Mendoza,"Hecho sintético registrado en la ciudad de Mendoza, Argentina.",Delito informático,-32.88072,-68.885323,01/06/2019
+Hecho 43 en Neuquén,"Hecho sintético registrado en la ciudad de Neuquén, Argentina.",Hallazgo policial,-38.935937,-68.089315,07/11/2021
+Hecho 44 en Buenos Aires,"Hecho sintético registrado en la ciudad de Buenos Aires, Argentina.",Emergencia sanitaria,-34.614753,-58.368084,03/03/2023
+Hecho 45 en San Miguel de Tucumán,"Hecho sintético registrado en la ciudad de San Miguel de Tucumán, Argentina.",Emergencia sanitaria,-26.830972,-65.221676,09/01/2022
+Hecho 46 en Mendoza,"Hecho sintético registrado en la ciudad de Mendoza, Argentina.",Manifestación,-32.851322,-68.880805,16/04/2022
+Hecho 47 en San Miguel de Tucumán,"Hecho sintético registrado en la ciudad de San Miguel de Tucumán, Argentina.",Corte de servicios,-26.827062,-65.183646,12/08/2023
+Hecho 48 en Santa Fe,"Hecho sintético registrado en la ciudad de Santa Fe, Argentina.",Corte de servicios,-31.667767,-60.716328,18/02/2022
+Hecho 49 en La Plata,"Hecho sintético registrado en la ciudad de La Plata, Argentina.",Delito informático,-34.935621,-57.918862,15/10/2024
+Hecho 50 en Buenos Aires,"Hecho sintético registrado en la ciudad de Buenos Aires, Argentina.",Corte de servicios,-34.635103,-58.375718,07/05/2021
+Hecho 51 en Mar del Plata,"Hecho sintético registrado en la ciudad de Mar del Plata, Argentina.",Evento cultural,-38.024227,-57.547462,30/12/2022
+Hecho 52 en Neuquén,"Hecho sintético registrado en la ciudad de Neuquén, Argentina.",Emergencia sanitaria,-38.915697,-68.062661,14/10/2020
+Hecho 53 en Neuquén,"Hecho sintético registrado en la ciudad de Neuquén, Argentina.",Incendio,-38.915212,-68.084524,13/10/2021
+Hecho 54 en Buenos Aires,"Hecho sintético registrado en la ciudad de Buenos Aires, Argentina.",Corte de servicios,-34.584999,-58.383414,27/07/2023
+Hecho 55 en Buenos Aires,"Hecho sintético registrado en la ciudad de Buenos Aires, Argentina.",Hallazgo policial,-34.632376,-58.351963,29/01/2024
+Hecho 56 en Mendoza,"Hecho sintético registrado en la ciudad de Mendoza, Argentina.",Robo,-32.889171,-68.813063,14/03/2023
+Hecho 57 en Neuquén,"Hecho sintético registrado en la ciudad de Neuquén, Argentina.",Incendio,-38.919527,-68.097985,04/07/2024
+Hecho 58 en San Miguel de Tucumán,"Hecho sintético registrado en la ciudad de San Miguel de Tucumán, Argentina.",Evento cultural,-26.778573,-65.234793,14/09/2018
+Hecho 59 en San Miguel de Tucumán,"Hecho sintético registrado en la ciudad de San Miguel de Tucumán, Argentina.",Emergencia sanitaria,-26.844827,-65.256562,07/10/2022
+Hecho 60 en Rosario,"Hecho sintético registrado en la ciudad de Rosario, Argentina.",Evento cultural,-32.962644,-60.677226,10/07/2018
+Hecho 61 en Santa Fe,"Hecho sintético registrado en la ciudad de Santa Fe, Argentina.",Evento cultural,-31.633313,-60.669899,25/05/2021
+Hecho 62 en Mendoza,"Hecho sintético registrado en la ciudad de Mendoza, Argentina.",Incendio,-32.922127,-68.850383,02/12/2023
+Hecho 63 en Santa Fe,"Hecho sintético registrado en la ciudad de Santa Fe, Argentina.",Delito informático,-31.60871,-60.698343,18/02/2021
+Hecho 64 en Córdoba,"Hecho sintético registrado en la ciudad de Córdoba, Argentina.",Corte de servicios,-31.396279,-64.192916,23/07/2022
+Hecho 65 en Buenos Aires,"Hecho sintético registrado en la ciudad de Buenos Aires, Argentina.",Corte de servicios,-34.602317,-58.409292,21/11/2022
+Hecho 66 en Rosario,"Hecho sintético registrado en la ciudad de Rosario, Argentina.",Evento cultural,-32.906044,-60.612708,16/05/2020
+Hecho 67 en Mendoza,"Hecho sintético registrado en la ciudad de Mendoza, Argentina.",Evento cultural,-32.897208,-68.883731,28/10/2018
+Hecho 68 en San Miguel de Tucumán,"Hecho sintético registrado en la ciudad de San Miguel de Tucumán, Argentina.",Emergencia sanitaria,-26.845904,-65.183626,19/02/2024
+Hecho 69 en Mendoza,"Hecho sintético registrado en la ciudad de Mendoza, Argentina.",Corte de servicios,-32.855327,-68.861465,08/04/2021
+Hecho 70 en La Plata,"Hecho sintético registrado en la ciudad de La Plata, Argentina.",Emergencia sanitaria,-34.92016,-57.934507,18/05/2020
+Hecho 71 en Rosario,"Hecho sintético registrado en la ciudad de Rosario, Argentina.",Hallazgo policial,-32.951057,-60.649656,10/07/2020
+Hecho 72 en San Miguel de Tucumán,"Hecho sintético registrado en la ciudad de San Miguel de Tucumán, Argentina.",Corte de servicios,-26.833183,-65.251435,14/04/2024
+Hecho 73 en Salta,"Hecho sintético registrado en la ciudad de Salta, Argentina.",Robo,-24.810962,-65.404702,20/03/2021
+Hecho 74 en Córdoba,"Hecho sintético registrado en la ciudad de Córdoba, Argentina.",Manifestación,-31.423292,-64.159828,15/05/2019
+Hecho 75 en Santa Fe,"Hecho sintético registrado en la ciudad de Santa Fe, Argentina.",Robo,-31.63163,-60.716899,28/12/2022
+Hecho 76 en Mendoza,"Hecho sintético registrado en la ciudad de Mendoza, Argentina.",Corte de servicios,-32.921042,-68.819424,13/07/2018
+Hecho 77 en Córdoba,"Hecho sintético registrado en la ciudad de Córdoba, Argentina.",Emergencia sanitaria,-31.397659,-64.212324,06/12/2018
+Hecho 78 en San Miguel de Tucumán,"Hecho sintético registrado en la ciudad de San Miguel de Tucumán, Argentina.",Manifestación,-26.838208,-65.219587,12/09/2022
+Hecho 79 en Buenos Aires,"Hecho sintético registrado en la ciudad de Buenos Aires, Argentina.",Manifestación,-34.617218,-58.413743,20/12/2018
+Hecho 80 en Mendoza,"Hecho sintético registrado en la ciudad de Mendoza, Argentina.",Hallazgo policial,-32.854543,-68.832896,29/10/2022
+Hecho 81 en Buenos Aires,"Hecho sintético registrado en la ciudad de Buenos Aires, Argentina.",Robo,-34.634549,-58.365944,14/09/2019
+Hecho 82 en Rosario,"Hecho sintético registrado en la ciudad de Rosario, Argentina.",Robo,-32.949042,-60.625539,10/01/2022
+Hecho 83 en Mendoza,"Hecho sintético registrado en la ciudad de Mendoza, Argentina.",Evento cultural,-32.866718,-68.858483,21/08/2020
+Hecho 84 en Rosario,"Hecho sintético registrado en la ciudad de Rosario, Argentina.",Accidente de tránsito,-32.960865,-60.636968,09/02/2018
+Hecho 85 en Mar del Plata,"Hecho sintético registrado en la ciudad de Mar del Plata, Argentina.",Evento cultural,-38.040864,-57.577432,07/09/2018
+Hecho 86 en Mendoza,"Hecho sintético registrado en la ciudad de Mendoza, Argentina.",Incendio,-32.919491,-68.82239,18/08/2020
+Hecho 87 en Neuquén,"Hecho sintético registrado en la ciudad de Neuquén, Argentina.",Delito informático,-38.918307,-68.020979,14/12/2020
+Hecho 88 en Santa Fe,"Hecho sintético registrado en la ciudad de Santa Fe, Argentina.",Emergencia sanitaria,-31.623213,-60.67228,27/02/2022
+Hecho 89 en Buenos Aires,"Hecho sintético registrado en la ciudad de Buenos Aires, Argentina.",Incendio,-34.618622,-58.354268,04/12/2021
+Hecho 90 en Mar del Plata,"Hecho sintético registrado en la ciudad de Mar del Plata, Argentina.",Delito informático,-37.993772,-57.576209,12/01/2018
+Hecho 91 en Rosario,"Hecho sintético registrado en la ciudad de Rosario, Argentina.",Emergencia sanitaria,-32.915391,-60.631825,27/12/2022
+Hecho 92 en Santa Fe,"Hecho sintético registrado en la ciudad de Santa Fe, Argentina.",Evento cultural,-31.622508,-60.734351,23/06/2022
+Hecho 93 en Mendoza,"Hecho sintético registrado en la ciudad de Mendoza, Argentina.",Emergencia sanitaria,-32.867258,-68.863136,17/10/2022
+Hecho 94 en Santa Fe,"Hecho sintético registrado en la ciudad de Santa Fe, Argentina.",Delito informático,-31.642317,-60.719171,01/11/2019
+Hecho 95 en Buenos Aires,"Hecho sintético registrado en la ciudad de Buenos Aires, Argentina.",Manifestación,-34.614458,-58.413535,29/02/2020
+Hecho 96 en Neuquén,"Hecho sintético registrado en la ciudad de Neuquén, Argentina.",Accidente de tránsito,-38.9819,-68.025957,12/01/2021
+Hecho 97 en Mar del Plata,"Hecho sintético registrado en la ciudad de Mar del Plata, Argentina.",Robo,-38.016608,-57.562434,09/11/2020
+Hecho 98 en Córdoba,"Hecho sintético registrado en la ciudad de Córdoba, Argentina.",Incendio,-31.396706,-64.159673,29/10/2023
+Hecho 99 en Santa Fe,"Hecho sintético registrado en la ciudad de Santa Fe, Argentina.",Accidente de tránsito,-31.650348,-60.675919,12/09/2021
+Hecho 100 en La Plata,"Hecho sintético registrado en la ciudad de La Plata, Argentina.",Hallazgo policial,-34.960972,-57.927295,20/08/2020
+Hecho 101 en Neuquén,"Hecho sintético registrado en la ciudad de Neuquén, Argentina.",Accidente de tránsito,-38.924615,-68.033691,12/12/2022
+Hecho 102 en Mar del Plata,"Hecho sintético registrado en la ciudad de Mar del Plata, Argentina.",Manifestación,-38.014507,-57.549371,26/06/2019
+Hecho 103 en Mendoza,"Hecho sintético registrado en la ciudad de Mendoza, Argentina.",Robo,-32.919129,-68.818026,05/09/2022
+Hecho 104 en Rosario,"Hecho sintético registrado en la ciudad de Rosario, Argentina.",Delito informático,-32.950496,-60.628309,28/12/2020
+Hecho 105 en San Miguel de Tucumán,"Hecho sintético registrado en la ciudad de San Miguel de Tucumán, Argentina.",Incendio,-26.778403,-65.247839,23/09/2018
+Hecho 106 en Neuquén,"Hecho sintético registrado en la ciudad de Neuquén, Argentina.",Corte de servicios,-38.946126,-68.048051,26/12/2020
+Hecho 107 en Santa Fe,"Hecho sintético registrado en la ciudad de Santa Fe, Argentina.",Evento cultural,-31.648388,-60.696208,25/06/2021
+Hecho 108 en Mar del Plata,"Hecho sintético registrado en la ciudad de Mar del Plata, Argentina.",Robo,-38.020851,-57.512182,19/08/2019
+Hecho 109 en Mendoza,"Hecho sintético registrado en la ciudad de Mendoza, Argentina.",Corte de servicios,-32.8897,-68.851982,18/05/2020
+Hecho 110 en Rosario,"Hecho sintético registrado en la ciudad de Rosario, Argentina.",Manifestación,-32.94021,-60.618699,13/07/2018
+Hecho 111 en Córdoba,"Hecho sintético registrado en la ciudad de Córdoba, Argentina.",Hallazgo policial,-31.382893,-64.196743,26/06/2024
+Hecho 112 en San Miguel de Tucumán,"Hecho sintético registrado en la ciudad de San Miguel de Tucumán, Argentina.",Delito informático,-26.842332,-65.191125,04/02/2022
+Hecho 113 en Mendoza,"Hecho sintético registrado en la ciudad de Mendoza, Argentina.",Accidente de tránsito,-32.926081,-68.843005,05/12/2022
+Hecho 114 en La Plata,"Hecho sintético registrado en la ciudad de La Plata, Argentina.",Robo,-34.907383,-57.981905,02/05/2020
+Hecho 115 en Santa Fe,"Hecho sintético registrado en la ciudad de Santa Fe, Argentina.",Accidente de tránsito,-31.606304,-60.676226,27/07/2018
+Hecho 116 en Salta,"Hecho sintético registrado en la ciudad de Salta, Argentina.",Corte de servicios,-24.769147,-65.411766,29/09/2021
+Hecho 117 en San Miguel de Tucumán,"Hecho sintético registrado en la ciudad de San Miguel de Tucumán, Argentina.",Corte de servicios,-26.841315,-65.240321,02/03/2019
+Hecho 118 en Rosario,"Hecho sintético registrado en la ciudad de Rosario, Argentina.",Incendio,-32.943391,-60.634037,03/02/2022
+Hecho 119 en La Plata,"Hecho sintético registrado en la ciudad de La Plata, Argentina.",Corte de servicios,-34.918719,-57.926787,24/01/2020
+Hecho 120 en Santa Fe,"Hecho sintético registrado en la ciudad de Santa Fe, Argentina.",Accidente de tránsito,-31.602078,-60.691687,10/01/2018
+Hecho 121 en Rosario,"Hecho sintético registrado en la ciudad de Rosario, Argentina.",Delito informático,-32.908717,-60.64245,10/09/2024
+Hecho 122 en Salta,"Hecho sintético registrado en la ciudad de Salta, Argentina.",Evento cultural,-24.783748,-65.433467,07/03/2024
+Hecho 123 en Salta,"Hecho sintético registrado en la ciudad de Salta, Argentina.",Emergencia sanitaria,-24.75542,-65.402112,10/03/2021
+Hecho 124 en Neuquén,"Hecho sintético registrado en la ciudad de Neuquén, Argentina.",Emergencia sanitaria,-38.978065,-68.069108,24/03/2020
+Hecho 125 en Neuquén,"Hecho sintético registrado en la ciudad de Neuquén, Argentina.",Accidente de tránsito,-38.927422,-68.038751,04/07/2023
+Hecho 126 en Rosario,"Hecho sintético registrado en la ciudad de Rosario, Argentina.",Accidente de tránsito,-32.978373,-60.644595,06/12/2024
+Hecho 127 en Rosario,"Hecho sintético registrado en la ciudad de Rosario, Argentina.",Delito informático,-32.923117,-60.651451,12/02/2019
+Hecho 128 en Santa Fe,"Hecho sintético registrado en la ciudad de Santa Fe, Argentina.",Evento cultural,-31.633498,-60.714776,22/11/2023
+Hecho 129 en Neuquén,"Hecho sintético registrado en la ciudad de Neuquén, Argentina.",Corte de servicios,-38.964573,-68.060629,31/12/2020
+Hecho 130 en Mendoza,"Hecho sintético registrado en la ciudad de Mendoza, Argentina.",Accidente de tránsito,-32.874232,-68.828906,05/08/2018
+Hecho 131 en Rosario,"Hecho sintético registrado en la ciudad de Rosario, Argentina.",Emergencia sanitaria,-32.972976,-60.625921,15/06/2018
+Hecho 132 en Rosario,"Hecho sintético registrado en la ciudad de Rosario, Argentina.",Corte de servicios,-32.922489,-60.620038,03/01/2020
+Hecho 133 en Santa Fe,"Hecho sintético registrado en la ciudad de Santa Fe, Argentina.",Manifestación,-31.633289,-60.739581,14/06/2023
+Hecho 134 en Rosario,"Hecho sintético registrado en la ciudad de Rosario, Argentina.",Incendio,-32.905228,-60.650106,05/12/2021
+Hecho 135 en Salta,"Hecho sintético registrado en la ciudad de Salta, Argentina.",Evento cultural,-24.78795,-65.395308,01/10/2018
+Hecho 136 en Salta,"Hecho sintético registrado en la ciudad de Salta, Argentina.",Corte de servicios,-24.818318,-65.42885,28/07/2021
+Hecho 137 en San Miguel de Tucumán,"Hecho sintético registrado en la ciudad de San Miguel de Tucumán, Argentina.",Accidente de tránsito,-26.812827,-65.256443,02/09/2021
+Hecho 138 en Buenos Aires,"Hecho sintético registrado en la ciudad de Buenos Aires, Argentina.",Emergencia sanitaria,-34.618075,-58.402535,04/02/2022
+Hecho 139 en Santa Fe,"Hecho sintético registrado en la ciudad de Santa Fe, Argentina.",Delito informático,-31.614941,-60.674226,05/05/2023
+Hecho 140 en Mar del Plata,"Hecho sintético registrado en la ciudad de Mar del Plata, Argentina.",Evento cultural,-38.030728,-57.53033,14/05/2018
+Hecho 141 en Mendoza,"Hecho sintético registrado en la ciudad de Mendoza, Argentina.",Hallazgo policial,-32.878351,-68.88466,22/10/2022
+Hecho 142 en Rosario,"Hecho sintético registrado en la ciudad de Rosario, Argentina.",Incendio,-32.940649,-60.636569,31/12/2021
+Hecho 143 en Mar del Plata,"Hecho sintético registrado en la ciudad de Mar del Plata, Argentina.",Evento cultural,-38.036052,-57.572317,12/07/2018
+Hecho 144 en Santa Fe,"Hecho sintético registrado en la ciudad de Santa Fe, Argentina.",Robo,-31.634415,-60.706365,23/09/2024
+Hecho 145 en Salta,"Hecho sintético registrado en la ciudad de Salta, Argentina.",Accidente de tránsito,-24.807424,-65.444889,11/02/2020
+Hecho 146 en San Miguel de Tucumán,"Hecho sintético registrado en la ciudad de San Miguel de Tucumán, Argentina.",Hallazgo policial,-26.816626,-65.228874,25/04/2019
+Hecho 147 en San Miguel de Tucumán,"Hecho sintético registrado en la ciudad de San Miguel de Tucumán, Argentina.",Accidente de tránsito,-26.827727,-65.202207,13/03/2020
+Hecho 148 en Mar del Plata,"Hecho sintético registrado en la ciudad de Mar del Plata, Argentina.",Manifestación,-38.038908,-57.577368,18/02/2020
+Hecho 149 en Salta,"Hecho sintético registrado en la ciudad de Salta, Argentina.",Corte de servicios,-24.764929,-65.430031,07/01/2023
+Hecho 150 en Córdoba,"Hecho sintético registrado en la ciudad de Córdoba, Argentina.",Incendio,-31.428694,-64.162143,10/09/2023
+Hecho 151 en Mar del Plata,"Hecho sintético registrado en la ciudad de Mar del Plata, Argentina.",Emergencia sanitaria,-38.040451,-57.534145,01/12/2021
+Hecho 152 en Córdoba,"Hecho sintético registrado en la ciudad de Córdoba, Argentina.",Robo,-31.428753,-64.203092,26/12/2022
+Hecho 153 en Mendoza,"Hecho sintético registrado en la ciudad de Mendoza, Argentina.",Incendio,-32.873266,-68.873663,18/07/2021
+Hecho 154 en Neuquén,"Hecho sintético registrado en la ciudad de Neuquén, Argentina.",Hallazgo policial,-38.973489,-68.038772,17/01/2022
+Hecho 155 en Buenos Aires,"Hecho sintético registrado en la ciudad de Buenos Aires, Argentina.",Hallazgo policial,-34.627061,-58.402342,30/09/2019
+Hecho 156 en Salta,"Hecho sintético registrado en la ciudad de Salta, Argentina.",Delito informático,-24.754195,-65.390351,26/06/2020
+Hecho 157 en Rosario,"Hecho sintético registrado en la ciudad de Rosario, Argentina.",Evento cultural,-32.945615,-60.664034,14/03/2023
+Hecho 158 en Salta,"Hecho sintético registrado en la ciudad de Salta, Argentina.",Hallazgo policial,-24.787191,-65.39012,09/01/2021
+Hecho 159 en Córdoba,"Hecho sintético registrado en la ciudad de Córdoba, Argentina.",Corte de servicios,-31.381438,-64.156282,24/03/2023
+Hecho 160 en Neuquén,"Hecho sintético registrado en la ciudad de Neuquén, Argentina.",Emergencia sanitaria,-38.946302,-68.050085,17/04/2022
+Hecho 161 en Rosario,"Hecho sintético registrado en la ciudad de Rosario, Argentina.",Evento cultural,-32.971319,-60.657201,23/08/2018
+Hecho 162 en Santa Fe,"Hecho sintético registrado en la ciudad de Santa Fe, Argentina.",Hallazgo policial,-31.651483,-60.721195,01/11/2024
+Hecho 163 en La Plata,"Hecho sintético registrado en la ciudad de La Plata, Argentina.",Manifestación,-34.942404,-57.938598,02/11/2023
+Hecho 164 en Córdoba,"Hecho sintético registrado en la ciudad de Córdoba, Argentina.",Corte de servicios,-31.455046,-64.191537,22/02/2024
+Hecho 165 en Rosario,"Hecho sintético registrado en la ciudad de Rosario, Argentina.",Manifestación,-32.928232,-60.680232,11/11/2021
+Hecho 166 en La Plata,"Hecho sintético registrado en la ciudad de La Plata, Argentina.",Corte de servicios,-34.948575,-57.972942,25/09/2019
+Hecho 167 en Mendoza,"Hecho sintético registrado en la ciudad de Mendoza, Argentina.",Evento cultural,-32.914198,-68.838273,30/04/2021
+Hecho 168 en La Plata,"Hecho sintético registrado en la ciudad de La Plata, Argentina.",Evento cultural,-34.925612,-57.979927,08/11/2024
+Hecho 169 en Mar del Plata,"Hecho sintético registrado en la ciudad de Mar del Plata, Argentina.",Manifestación,-38.042339,-57.56313,27/08/2021
+Hecho 170 en Mar del Plata,"Hecho sintético registrado en la ciudad de Mar del Plata, Argentina.",Evento cultural,-38.03152,-57.545653,09/12/2018
+Hecho 171 en Rosario,"Hecho sintético registrado en la ciudad de Rosario, Argentina.",Accidente de tránsito,-32.942265,-60.642016,28/03/2024
+Hecho 172 en Mendoza,"Hecho sintético registrado en la ciudad de Mendoza, Argentina.",Accidente de tránsito,-32.858225,-68.866799,25/08/2022
+Hecho 173 en La Plata,"Hecho sintético registrado en la ciudad de La Plata, Argentina.",Manifestación,-34.900213,-57.947848,20/01/2023
+Hecho 174 en San Miguel de Tucumán,"Hecho sintético registrado en la ciudad de San Miguel de Tucumán, Argentina.",Robo,-26.809301,-65.222944,26/11/2024
+Hecho 175 en Neuquén,"Hecho sintético registrado en la ciudad de Neuquén, Argentina.",Manifestación,-38.980103,-68.080794,21/05/2024
+Hecho 176 en Salta,"Hecho sintético registrado en la ciudad de Salta, Argentina.",Delito informático,-24.742952,-65.416196,23/08/2019
+Hecho 177 en Mendoza,"Hecho sintético registrado en la ciudad de Mendoza, Argentina.",Manifestación,-32.916007,-68.845911,09/12/2023
+Hecho 178 en Córdoba,"Hecho sintético registrado en la ciudad de Córdoba, Argentina.",Accidente de tránsito,-31.409848,-64.172737,24/05/2021
+Hecho 179 en Salta,"Hecho sintético registrado en la ciudad de Salta, Argentina.",Corte de servicios,-24.777899,-65.399144,05/08/2020
+Hecho 180 en Neuquén,"Hecho sintético registrado en la ciudad de Neuquén, Argentina.",Corte de servicios,-38.928354,-68.07898,16/11/2018
+Hecho 181 en La Plata,"Hecho sintético registrado en la ciudad de La Plata, Argentina.",Incendio,-34.884171,-57.945013,24/08/2020
+Hecho 182 en Mendoza,"Hecho sintético registrado en la ciudad de Mendoza, Argentina.",Robo,-32.896696,-68.861601,06/01/2019
+Hecho 183 en Salta,"Hecho sintético registrado en la ciudad de Salta, Argentina.",Accidente de tránsito,-24.784907,-65.422819,30/01/2020
+Hecho 184 en San Miguel de Tucumán,"Hecho sintético registrado en la ciudad de San Miguel de Tucumán, Argentina.",Delito informático,-26.840632,-65.221529,24/06/2021
+Hecho 185 en Buenos Aires,"Hecho sintético registrado en la ciudad de Buenos Aires, Argentina.",Manifestación,-34.616969,-58.386316,21/12/2020
+Hecho 186 en Salta,"Hecho sintético registrado en la ciudad de Salta, Argentina.",Incendio,-24.766374,-65.424814,22/04/2019
+Hecho 187 en Mar del Plata,"Hecho sintético registrado en la ciudad de Mar del Plata, Argentina.",Emergencia sanitaria,-38.027037,-57.553927,25/05/2019
+Hecho 188 en La Plata,"Hecho sintético registrado en la ciudad de La Plata, Argentina.",Incendio,-34.919236,-57.98612,09/06/2024
+Hecho 189 en Mar del Plata,"Hecho sintético registrado en la ciudad de Mar del Plata, Argentina.",Emergencia sanitaria,-38.009705,-57.570554,19/01/2023
+Hecho 190 en Mendoza,"Hecho sintético registrado en la ciudad de Mendoza, Argentina.",Manifestación,-32.912941,-68.849551,23/09/2021
+Hecho 191 en Rosario,"Hecho sintético registrado en la ciudad de Rosario, Argentina.",Delito informático,-32.925255,-60.656235,25/09/2020
+Hecho 192 en San Miguel de Tucumán,"Hecho sintético registrado en la ciudad de San Miguel de Tucumán, Argentina.",Manifestación,-26.768832,-65.228301,24/11/2020
+Hecho 193 en San Miguel de Tucumán,"Hecho sintético registrado en la ciudad de San Miguel de Tucumán, Argentina.",Delito informático,-26.793318,-65.257147,08/11/2022
+Hecho 194 en Mendoza,"Hecho sintético registrado en la ciudad de Mendoza, Argentina.",Hallazgo policial,-32.875589,-68.867434,12/07/2020
+Hecho 195 en Neuquén,"Hecho sintético registrado en la ciudad de Neuquén, Argentina.",Emergencia sanitaria,-38.927122,-68.050176,27/12/2022
+Hecho 196 en Buenos Aires,"Hecho sintético registrado en la ciudad de Buenos Aires, Argentina.",Hallazgo policial,-34.607369,-58.368157,11/10/2021
+Hecho 197 en Mendoza,"Hecho sintético registrado en la ciudad de Mendoza, Argentina.",Robo,-32.918838,-68.864131,28/11/2020
+Hecho 198 en Salta,"Hecho sintético registrado en la ciudad de Salta, Argentina.",Manifestación,-24.802744,-65.453176,15/10/2019
+Hecho 199 en La Plata,"Hecho sintético registrado en la ciudad de La Plata, Argentina.",Corte de servicios,-34.923447,-57.963866,19/02/2024
+Hecho 200 en San Miguel de Tucumán,"Hecho sintético registrado en la ciudad de San Miguel de Tucumán, Argentina.",Incendio,-26.784803,-65.251595,24/08/2021
+Hecho 201 en Salta,"Hecho sintético registrado en la ciudad de Salta, Argentina.",Incendio,-24.749417,-65.449765,13/01/2019
+Hecho 202 en San Miguel de Tucumán,"Hecho sintético registrado en la ciudad de San Miguel de Tucumán, Argentina.",Incendio,-26.804823,-65.219093,17/02/2023
+Hecho 203 en Buenos Aires,"Hecho sintético registrado en la ciudad de Buenos Aires, Argentina.",Robo,-34.631841,-58.360123,06/09/2020
+Hecho 204 en Mendoza,"Hecho sintético registrado en la ciudad de Mendoza, Argentina.",Accidente de tránsito,-32.889954,-68.813039,22/10/2023
+Hecho 205 en Neuquén,"Hecho sintético registrado en la ciudad de Neuquén, Argentina.",Emergencia sanitaria,-38.915774,-68.081331,22/06/2019
+Hecho 206 en Córdoba,"Hecho sintético registrado en la ciudad de Córdoba, Argentina.",Accidente de tránsito,-31.417071,-64.190378,23/09/2023
+Hecho 207 en Salta,"Hecho sintético registrado en la ciudad de Salta, Argentina.",Incendio,-24.796157,-65.431817,25/02/2020
+Hecho 208 en Mendoza,"Hecho sintético registrado en la ciudad de Mendoza, Argentina.",Delito informático,-32.912417,-68.870402,23/12/2024
+Hecho 209 en Santa Fe,"Hecho sintético registrado en la ciudad de Santa Fe, Argentina.",Evento cultural,-31.650929,-60.702364,10/05/2021
+Hecho 210 en Rosario,"Hecho sintético registrado en la ciudad de Rosario, Argentina.",Delito informático,-32.95854,-60.670719,21/05/2022
+Hecho 211 en Córdoba,"Hecho sintético registrado en la ciudad de Córdoba, Argentina.",Emergencia sanitaria,-31.383536,-64.220291,10/08/2020
+Hecho 212 en Salta,"Hecho sintético registrado en la ciudad de Salta, Argentina.",Robo,-24.792505,-65.402571,26/03/2018
+Hecho 213 en Neuquén,"Hecho sintético registrado en la ciudad de Neuquén, Argentina.",Robo,-38.915163,-68.037215,20/05/2022
+Hecho 214 en Mar del Plata,"Hecho sintético registrado en la ciudad de Mar del Plata, Argentina.",Accidente de tránsito,-37.994673,-57.516717,03/12/2019
+Hecho 215 en La Plata,"Hecho sintético registrado en la ciudad de La Plata, Argentina.",Corte de servicios,-34.925975,-57.944345,04/10/2020
+Hecho 216 en Mendoza,"Hecho sintético registrado en la ciudad de Mendoza, Argentina.",Emergencia sanitaria,-32.855696,-68.839119,27/02/2021
+Hecho 217 en La Plata,"Hecho sintético registrado en la ciudad de La Plata, Argentina.",Hallazgo policial,-34.920653,-57.96503,20/02/2022
+Hecho 218 en Salta,"Hecho sintético registrado en la ciudad de Salta, Argentina.",Hallazgo policial,-24.816906,-65.45257,18/11/2023
+Hecho 219 en San Miguel de Tucumán,"Hecho sintético registrado en la ciudad de San Miguel de Tucumán, Argentina.",Robo,-26.81683,-65.218159,17/01/2022
+Hecho 220 en Mendoza,"Hecho sintético registrado en la ciudad de Mendoza, Argentina.",Evento cultural,-32.927488,-68.833754,07/09/2021
+Hecho 221 en Rosario,"Hecho sintético registrado en la ciudad de Rosario, Argentina.",Manifestación,-32.964398,-60.679556,09/12/2020
+Hecho 222 en Neuquén,"Hecho sintético registrado en la ciudad de Neuquén, Argentina.",Delito informático,-38.961318,-68.08387,16/04/2022
+Hecho 223 en Buenos Aires,"Hecho sintético registrado en la ciudad de Buenos Aires, Argentina.",Accidente de tránsito,-34.566485,-58.373116,24/08/2024
+Hecho 224 en Mendoza,"Hecho sintético registrado en la ciudad de Mendoza, Argentina.",Manifestación,-32.925202,-68.845926,08/10/2020
+Hecho 225 en Mar del Plata,"Hecho sintético registrado en la ciudad de Mar del Plata, Argentina.",Evento cultural,-38.013715,-57.505568,24/05/2022
+Hecho 226 en Córdoba,"Hecho sintético registrado en la ciudad de Córdoba, Argentina.",Delito informático,-31.408216,-64.198378,27/06/2021
+Hecho 227 en Rosario,"Hecho sintético registrado en la ciudad de Rosario, Argentina.",Corte de servicios,-32.958017,-60.661878,17/12/2019
+Hecho 228 en Neuquén,"Hecho sintético registrado en la ciudad de Neuquén, Argentina.",Robo,-38.930889,-68.047965,29/01/2020
+Hecho 229 en Salta,"Hecho sintético registrado en la ciudad de Salta, Argentina.",Accidente de tránsito,-24.782284,-65.413204,17/03/2018
+Hecho 230 en Buenos Aires,"Hecho sintético registrado en la ciudad de Buenos Aires, Argentina.",Corte de servicios,-34.630603,-58.345453,14/09/2018
+Hecho 231 en Rosario,"Hecho sintético registrado en la ciudad de Rosario, Argentina.",Emergencia sanitaria,-32.913763,-60.671137,19/02/2020
+Hecho 232 en Mendoza,"Hecho sintético registrado en la ciudad de Mendoza, Argentina.",Hallazgo policial,-32.9266,-68.84525,05/04/2018
+Hecho 233 en Salta,"Hecho sintético registrado en la ciudad de Salta, Argentina.",Emergencia sanitaria,-24.811068,-65.450018,13/03/2024
+Hecho 234 en Salta,"Hecho sintético registrado en la ciudad de Salta, Argentina.",Hallazgo policial,-24.743195,-65.413437,07/07/2024
+Hecho 235 en Córdoba,"Hecho sintético registrado en la ciudad de Córdoba, Argentina.",Corte de servicios,-31.42319,-64.175991,23/03/2019
+Hecho 236 en Mar del Plata,"Hecho sintético registrado en la ciudad de Mar del Plata, Argentina.",Accidente de tránsito,-37.972278,-57.535847,08/08/2019
+Hecho 237 en Mendoza,"Hecho sintético registrado en la ciudad de Mendoza, Argentina.",Delito informático,-32.909573,-68.86618,28/07/2019
+Hecho 238 en Córdoba,"Hecho sintético registrado en la ciudad de Córdoba, Argentina.",Incendio,-31.452502,-64.210001,09/06/2021
+Hecho 239 en La Plata,"Hecho sintético registrado en la ciudad de La Plata, Argentina.",Emergencia sanitaria,-34.88375,-57.985159,26/01/2022
+Hecho 240 en Santa Fe,"Hecho sintético registrado en la ciudad de Santa Fe, Argentina.",Incendio,-31.609012,-60.683814,27/02/2018
+Hecho 241 en La Plata,"Hecho sintético registrado en la ciudad de La Plata, Argentina.",Accidente de tránsito,-34.909279,-57.953085,01/11/2023
+Hecho 242 en Mendoza,"Hecho sintético registrado en la ciudad de Mendoza, Argentina.",Emergencia sanitaria,-32.856358,-68.816984,01/10/2021
+Hecho 243 en Mendoza,"Hecho sintético registrado en la ciudad de Mendoza, Argentina.",Delito informático,-32.89066,-68.879893,25/11/2022
+Hecho 244 en Buenos Aires,"Hecho sintético registrado en la ciudad de Buenos Aires, Argentina.",Accidente de tránsito,-34.571682,-58.39034,17/02/2019
+Hecho 245 en Santa Fe,"Hecho sintético registrado en la ciudad de Santa Fe, Argentina.",Delito informático,-31.599882,-60.681996,12/02/2018
+Hecho 246 en Mendoza,"Hecho sintético registrado en la ciudad de Mendoza, Argentina.",Emergencia sanitaria,-32.919158,-68.829918,18/09/2019
+Hecho 247 en Neuquén,"Hecho sintético registrado en la ciudad de Neuquén, Argentina.",Manifestación,-38.940317,-68.074891,30/06/2024
+Hecho 248 en La Plata,"Hecho sintético registrado en la ciudad de La Plata, Argentina.",Accidente de tránsito,-34.959942,-57.987203,05/01/2023
+Hecho 249 en Santa Fe,"Hecho sintético registrado en la ciudad de Santa Fe, Argentina.",Accidente de tránsito,-31.640421,-60.681683,08/12/2020
+Hecho 250 en Salta,"Hecho sintético registrado en la ciudad de Salta, Argentina.",Emergencia sanitaria,-24.811994,-65.409681,19/05/2019
+Hecho 251 en Neuquén,"Hecho sintético registrado en la ciudad de Neuquén, Argentina.",Delito informático,-38.942246,-68.056442,02/09/2024
+Hecho 252 en Santa Fe,"Hecho sintético registrado en la ciudad de Santa Fe, Argentina.",Emergencia sanitaria,-31.622683,-60.670418,02/08/2023
+Hecho 253 en Neuquén,"Hecho sintético registrado en la ciudad de Neuquén, Argentina.",Incendio,-38.975724,-68.081162,25/11/2019
+Hecho 254 en Salta,"Hecho sintético registrado en la ciudad de Salta, Argentina.",Emergencia sanitaria,-24.814615,-65.393173,22/10/2018
+Hecho 255 en Mendoza,"Hecho sintético registrado en la ciudad de Mendoza, Argentina.",Hallazgo policial,-32.910729,-68.854658,07/06/2022
+Hecho 256 en Mar del Plata,"Hecho sintético registrado en la ciudad de Mar del Plata, Argentina.",Delito informático,-37.989094,-57.560112,26/12/2023
+Hecho 257 en Santa Fe,"Hecho sintético registrado en la ciudad de Santa Fe, Argentina.",Delito informático,-31.615264,-60.731397,21/03/2018
+Hecho 258 en Rosario,"Hecho sintético registrado en la ciudad de Rosario, Argentina.",Manifestación,-32.913316,-60.679399,22/05/2023
+Hecho 259 en Salta,"Hecho sintético registrado en la ciudad de Salta, Argentina.",Accidente de tránsito,-24.810893,-65.443369,27/01/2021
+Hecho 260 en Córdoba,"Hecho sintético registrado en la ciudad de Córdoba, Argentina.",Incendio,-31.449148,-64.154594,15/10/2021
+Hecho 261 en San Miguel de Tucumán,"Hecho sintético registrado en la ciudad de San Miguel de Tucumán, Argentina.",Incendio,-26.828542,-65.179349,20/11/2018
+Hecho 262 en Neuquén,"Hecho sintético registrado en la ciudad de Neuquén, Argentina.",Robo,-38.960133,-68.065074,19/11/2023
+Hecho 263 en Buenos Aires,"Hecho sintético registrado en la ciudad de Buenos Aires, Argentina.",Incendio,-34.620184,-58.36799,04/07/2020
+Hecho 264 en Mendoza,"Hecho sintético registrado en la ciudad de Mendoza, Argentina.",Hallazgo policial,-32.912705,-68.816017,19/10/2018
+Hecho 265 en Rosario,"Hecho sintético registrado en la ciudad de Rosario, Argentina.",Delito informático,-32.973685,-60.67574,16/05/2021
+Hecho 266 en Córdoba,"Hecho sintético registrado en la ciudad de Córdoba, Argentina.",Corte de servicios,-31.394332,-64.195359,31/12/2021
+Hecho 267 en Salta,"Hecho sintético registrado en la ciudad de Salta, Argentina.",Manifestación,-24.798904,-65.413821,01/02/2018
+Hecho 268 en Mendoza,"Hecho sintético registrado en la ciudad de Mendoza, Argentina.",Hallazgo policial,-32.915817,-68.862105,21/11/2022
+Hecho 269 en La Plata,"Hecho sintético registrado en la ciudad de La Plata, Argentina.",Robo,-34.883124,-57.923697,24/08/2020
+Hecho 270 en Mendoza,"Hecho sintético registrado en la ciudad de Mendoza, Argentina.",Robo,-32.900358,-68.81843,13/06/2018
+Hecho 271 en Rosario,"Hecho sintético registrado en la ciudad de Rosario, Argentina.",Corte de servicios,-32.97906,-60.629291,10/06/2024
+Hecho 272 en Rosario,"Hecho sintético registrado en la ciudad de Rosario, Argentina.",Robo,-32.972379,-60.678879,11/03/2024
+Hecho 273 en Santa Fe,"Hecho sintético registrado en la ciudad de Santa Fe, Argentina.",Delito informático,-31.60627,-60.739485,29/12/2023
+Hecho 274 en Córdoba,"Hecho sintético registrado en la ciudad de Córdoba, Argentina.",Evento cultural,-31.384396,-64.175303,20/03/2023
+Hecho 275 en Santa Fe,"Hecho sintético registrado en la ciudad de Santa Fe, Argentina.",Delito informático,-31.658751,-60.706266,09/01/2022
+Hecho 276 en Salta,"Hecho sintético registrado en la ciudad de Salta, Argentina.",Accidente de tránsito,-24.754497,-65.38496,12/04/2018
+Hecho 277 en Neuquén,"Hecho sintético registrado en la ciudad de Neuquén, Argentina.",Incendio,-38.92025,-68.068404,20/05/2020
+Hecho 278 en Mar del Plata,"Hecho sintético registrado en la ciudad de Mar del Plata, Argentina.",Delito informático,-38.043985,-57.56806,18/06/2024
+Hecho 279 en Mendoza,"Hecho sintético registrado en la ciudad de Mendoza, Argentina.",Incendio,-32.889537,-68.853606,31/12/2019
+Hecho 280 en Rosario,"Hecho sintético registrado en la ciudad de Rosario, Argentina.",Emergencia sanitaria,-32.944437,-60.61212,03/11/2024
+Hecho 281 en Santa Fe,"Hecho sintético registrado en la ciudad de Santa Fe, Argentina.",Hallazgo policial,-31.606333,-60.675799,04/03/2021
+Hecho 282 en Mendoza,"Hecho sintético registrado en la ciudad de Mendoza, Argentina.",Hallazgo policial,-32.85909,-68.814615,25/08/2021
+Hecho 283 en Mar del Plata,"Hecho sintético registrado en la ciudad de Mar del Plata, Argentina.",Robo,-38.02172,-57.506101,12/04/2020
+Hecho 284 en San Miguel de Tucumán,"Hecho sintético registrado en la ciudad de San Miguel de Tucumán, Argentina.",Robo,-26.782864,-65.18204,13/09/2024
+Hecho 285 en Salta,"Hecho sintético registrado en la ciudad de Salta, Argentina.",Hallazgo policial,-24.805573,-65.432679,27/06/2020
+Hecho 286 en Neuquén,"Hecho sintético registrado en la ciudad de Neuquén, Argentina.",Delito informático,-38.961474,-68.090799,05/10/2024
+Hecho 287 en Mendoza,"Hecho sintético registrado en la ciudad de Mendoza, Argentina.",Evento cultural,-32.911945,-68.823487,30/06/2018
+Hecho 288 en Santa Fe,"Hecho sintético registrado en la ciudad de Santa Fe, Argentina.",Evento cultural,-31.65267,-60.717107,12/12/2019
+Hecho 289 en Rosario,"Hecho sintético registrado en la ciudad de Rosario, Argentina.",Accidente de tránsito,-32.95924,-60.669653,21/01/2018
+Hecho 290 en Córdoba,"Hecho sintético registrado en la ciudad de Córdoba, Argentina.",Robo,-31.406754,-64.19625,29/08/2021
+Hecho 291 en Neuquén,"Hecho sintético registrado en la ciudad de Neuquén, Argentina.",Emergencia sanitaria,-38.966765,-68.061695,17/05/2024
+Hecho 292 en Salta,"Hecho sintético registrado en la ciudad de Salta, Argentina.",Corte de servicios,-24.744948,-65.401096,17/09/2019
+Hecho 293 en Córdoba,"Hecho sintético registrado en la ciudad de Córdoba, Argentina.",Corte de servicios,-31.431057,-64.156703,24/12/2018
+Hecho 294 en Buenos Aires,"Hecho sintético registrado en la ciudad de Buenos Aires, Argentina.",Robo,-34.564399,-58.373047,24/07/2022
+Hecho 295 en Córdoba,"Hecho sintético registrado en la ciudad de Córdoba, Argentina.",Evento cultural,-31.407062,-64.181667,23/06/2021
+Hecho 296 en La Plata,"Hecho sintético registrado en la ciudad de La Plata, Argentina.",Manifestación,-34.918519,-57.952734,16/06/2021
+Hecho 297 en Santa Fe,"Hecho sintético registrado en la ciudad de Santa Fe, Argentina.",Robo,-31.650316,-60.708863,18/05/2021
+Hecho 298 en Córdoba,"Hecho sintético registrado en la ciudad de Córdoba, Argentina.",Delito informático,-31.431504,-64.22198,03/09/2018
+Hecho 299 en La Plata,"Hecho sintético registrado en la ciudad de La Plata, Argentina.",Accidente de tránsito,-34.944009,-57.951792,26/01/2024
+Hecho 300 en Santa Fe,"Hecho sintético registrado en la ciudad de Santa Fe, Argentina.",Hallazgo policial,-31.669724,-60.717283,25/10/2023
+Hecho 301 en Mar del Plata,"Hecho sintético registrado en la ciudad de Mar del Plata, Argentina.",Delito informático,-38.023707,-57.568169,29/08/2022
+Hecho 302 en Mendoza,"Hecho sintético registrado en la ciudad de Mendoza, Argentina.",Evento cultural,-32.892811,-68.852983,24/06/2024
+Hecho 303 en Buenos Aires,"Hecho sintético registrado en la ciudad de Buenos Aires, Argentina.",Manifestación,-34.610463,-58.381647,12/01/2021
+Hecho 304 en Mar del Plata,"Hecho sintético registrado en la ciudad de Mar del Plata, Argentina.",Incendio,-37.988212,-57.566812,30/10/2023
+Hecho 305 en Rosario,"Hecho sintético registrado en la ciudad de Rosario, Argentina.",Emergencia sanitaria,-32.954515,-60.621305,28/12/2021
+Hecho 306 en Mar del Plata,"Hecho sintético registrado en la ciudad de Mar del Plata, Argentina.",Robo,-37.994297,-57.532183,20/04/2019
+Hecho 307 en Neuquén,"Hecho sintético registrado en la ciudad de Neuquén, Argentina.",Manifestación,-38.971249,-68.058115,29/08/2021
+Hecho 308 en Mar del Plata,"Hecho sintético registrado en la ciudad de Mar del Plata, Argentina.",Evento cultural,-38.022653,-57.539372,20/04/2023
+Hecho 309 en Santa Fe,"Hecho sintético registrado en la ciudad de Santa Fe, Argentina.",Evento cultural,-31.618302,-60.678892,18/08/2021
+Hecho 310 en Mar del Plata,"Hecho sintético registrado en la ciudad de Mar del Plata, Argentina.",Corte de servicios,-37.984869,-57.543509,27/12/2021
+Hecho 311 en Buenos Aires,"Hecho sintético registrado en la ciudad de Buenos Aires, Argentina.",Accidente de tránsito,-34.599341,-58.379016,02/04/2022
+Hecho 312 en La Plata,"Hecho sintético registrado en la ciudad de La Plata, Argentina.",Hallazgo policial,-34.939477,-57.984975,09/10/2018
+Hecho 313 en Rosario,"Hecho sintético registrado en la ciudad de Rosario, Argentina.",Hallazgo policial,-32.972644,-60.636605,03/01/2022
+Hecho 314 en Mar del Plata,"Hecho sintético registrado en la ciudad de Mar del Plata, Argentina.",Accidente de tránsito,-38.017001,-57.547615,29/05/2020
+Hecho 315 en San Miguel de Tucumán,"Hecho sintético registrado en la ciudad de San Miguel de Tucumán, Argentina.",Robo,-26.771736,-65.243672,07/12/2022
+Hecho 316 en Mendoza,"Hecho sintético registrado en la ciudad de Mendoza, Argentina.",Robo,-32.887658,-68.871435,25/05/2020
+Hecho 317 en Buenos Aires,"Hecho sintético registrado en la ciudad de Buenos Aires, Argentina.",Delito informático,-34.581426,-58.401948,08/10/2019
+Hecho 318 en Buenos Aires,"Hecho sintético registrado en la ciudad de Buenos Aires, Argentina.",Delito informático,-34.605446,-58.391108,21/08/2020
+Hecho 319 en Rosario,"Hecho sintético registrado en la ciudad de Rosario, Argentina.",Emergencia sanitaria,-32.973031,-60.616378,15/07/2018
+Hecho 320 en Santa Fe,"Hecho sintético registrado en la ciudad de Santa Fe, Argentina.",Accidente de tránsito,-31.624413,-60.734812,21/01/2021
+Hecho 321 en Santa Fe,"Hecho sintético registrado en la ciudad de Santa Fe, Argentina.",Accidente de tránsito,-31.629218,-60.690848,14/03/2018
+Hecho 322 en Mar del Plata,"Hecho sintético registrado en la ciudad de Mar del Plata, Argentina.",Manifestación,-37.979918,-57.549801,04/12/2022
+Hecho 323 en Buenos Aires,"Hecho sintético registrado en la ciudad de Buenos Aires, Argentina.",Robo,-34.638462,-58.408304,24/07/2020
+Hecho 324 en San Miguel de Tucumán,"Hecho sintético registrado en la ciudad de San Miguel de Tucumán, Argentina.",Evento cultural,-26.806909,-65.188589,07/05/2020
+Hecho 325 en Córdoba,"Hecho sintético registrado en la ciudad de Córdoba, Argentina.",Incendio,-31.455735,-64.191329,27/09/2024
+Hecho 326 en Santa Fe,"Hecho sintético registrado en la ciudad de Santa Fe, Argentina.",Hallazgo policial,-31.648376,-60.732627,06/06/2023
+Hecho 327 en San Miguel de Tucumán,"Hecho sintético registrado en la ciudad de San Miguel de Tucumán, Argentina.",Hallazgo policial,-26.839429,-65.184193,18/08/2020
+Hecho 328 en Mar del Plata,"Hecho sintético registrado en la ciudad de Mar del Plata, Argentina.",Delito informático,-38.015063,-57.554421,10/04/2020
+Hecho 329 en Mar del Plata,"Hecho sintético registrado en la ciudad de Mar del Plata, Argentina.",Accidente de tránsito,-37.985198,-57.51654,10/09/2018
+Hecho 330 en San Miguel de Tucumán,"Hecho sintético registrado en la ciudad de San Miguel de Tucumán, Argentina.",Accidente de tránsito,-26.806778,-65.214577,26/03/2023
+Hecho 331 en Mar del Plata,"Hecho sintético registrado en la ciudad de Mar del Plata, Argentina.",Hallazgo policial,-37.971114,-57.538247,05/05/2024
+Hecho 332 en Buenos Aires,"Hecho sintético registrado en la ciudad de Buenos Aires, Argentina.",Manifestación,-34.611199,-58.363886,29/08/2022
+Hecho 333 en Salta,"Hecho sintético registrado en la ciudad de Salta, Argentina.",Delito informático,-24.79742,-65.401525,02/03/2021
+Hecho 334 en Santa Fe,"Hecho sintético registrado en la ciudad de Santa Fe, Argentina.",Hallazgo policial,-31.627051,-60.713115,13/07/2020
+Hecho 335 en San Miguel de Tucumán,"Hecho sintético registrado en la ciudad de San Miguel de Tucumán, Argentina.",Accidente de tránsito,-26.823106,-65.241399,04/02/2021
+Hecho 336 en Córdoba,"Hecho sintético registrado en la ciudad de Córdoba, Argentina.",Evento cultural,-31.432793,-64.154346,11/03/2024
+Hecho 337 en San Miguel de Tucumán,"Hecho sintético registrado en la ciudad de San Miguel de Tucumán, Argentina.",Robo,-26.787745,-65.221742,11/05/2023
+Hecho 338 en Mar del Plata,"Hecho sintético registrado en la ciudad de Mar del Plata, Argentina.",Robo,-38.009261,-57.557981,13/01/2018
+Hecho 339 en San Miguel de Tucumán,"Hecho sintético registrado en la ciudad de San Miguel de Tucumán, Argentina.",Delito informático,-26.822202,-65.186073,12/07/2019
+Hecho 340 en Rosario,"Hecho sintético registrado en la ciudad de Rosario, Argentina.",Accidente de tránsito,-32.911387,-60.684826,16/09/2019
+Hecho 341 en Mar del Plata,"Hecho sintético registrado en la ciudad de Mar del Plata, Argentina.",Delito informático,-37.996734,-57.552286,26/02/2020
+Hecho 342 en Salta,"Hecho sintético registrado en la ciudad de Salta, Argentina.",Incendio,-24.779162,-65.439827,20/05/2020
+Hecho 343 en La Plata,"Hecho sintético registrado en la ciudad de La Plata, Argentina.",Manifestación,-34.939644,-57.92825,18/03/2022
+Hecho 344 en Buenos Aires,"Hecho sintético registrado en la ciudad de Buenos Aires, Argentina.",Accidente de tránsito,-34.625842,-58.384485,18/05/2019
+Hecho 345 en Buenos Aires,"Hecho sintético registrado en la ciudad de Buenos Aires, Argentina.",Evento cultural,-34.613345,-58.347162,11/06/2019
+Hecho 346 en Neuquén,"Hecho sintético registrado en la ciudad de Neuquén, Argentina.",Accidente de tránsito,-38.957367,-68.075911,04/08/2021
+Hecho 347 en Buenos Aires,"Hecho sintético registrado en la ciudad de Buenos Aires, Argentina.",Delito informático,-34.629856,-58.368404,06/03/2020
+Hecho 348 en Santa Fe,"Hecho sintético registrado en la ciudad de Santa Fe, Argentina.",Incendio,-31.644812,-60.712888,09/03/2022
+Hecho 349 en Neuquén,"Hecho sintético registrado en la ciudad de Neuquén, Argentina.",Hallazgo policial,-38.950149,-68.09768,31/12/2020
+Hecho 350 en San Miguel de Tucumán,"Hecho sintético registrado en la ciudad de San Miguel de Tucumán, Argentina.",Incendio,-26.832228,-65.19347,23/07/2018
+Hecho 351 en San Miguel de Tucumán,"Hecho sintético registrado en la ciudad de San Miguel de Tucumán, Argentina.",Manifestación,-26.820895,-65.247045,23/10/2021
+Hecho 352 en Rosario,"Hecho sintético registrado en la ciudad de Rosario, Argentina.",Manifestación,-32.957012,-60.6753,02/12/2024
+Hecho 353 en San Miguel de Tucumán,"Hecho sintético registrado en la ciudad de San Miguel de Tucumán, Argentina.",Hallazgo policial,-26.827916,-65.188615,04/12/2023
+Hecho 354 en Santa Fe,"Hecho sintético registrado en la ciudad de Santa Fe, Argentina.",Delito informático,-31.652945,-60.710654,03/01/2022
+Hecho 355 en Santa Fe,"Hecho sintético registrado en la ciudad de Santa Fe, Argentina.",Evento cultural,-31.613984,-60.663045,04/08/2018
+Hecho 356 en Buenos Aires,"Hecho sintético registrado en la ciudad de Buenos Aires, Argentina.",Manifestación,-34.640193,-58.37015,12/02/2023
+Hecho 357 en Córdoba,"Hecho sintético registrado en la ciudad de Córdoba, Argentina.",Manifestación,-31.442227,-64.192414,23/04/2020
+Hecho 358 en Córdoba,"Hecho sintético registrado en la ciudad de Córdoba, Argentina.",Evento cultural,-31.389102,-64.225536,04/01/2024
+Hecho 359 en Neuquén,"Hecho sintético registrado en la ciudad de Neuquén, Argentina.",Delito informático,-38.977882,-68.090185,17/06/2019
+Hecho 360 en Neuquén,"Hecho sintético registrado en la ciudad de Neuquén, Argentina.",Evento cultural,-38.975784,-68.084261,13/11/2024
+Hecho 361 en Buenos Aires,"Hecho sintético registrado en la ciudad de Buenos Aires, Argentina.",Accidente de tránsito,-34.592699,-58.354154,02/05/2023
+Hecho 362 en Mendoza,"Hecho sintético registrado en la ciudad de Mendoza, Argentina.",Accidente de tránsito,-32.869109,-68.819479,27/04/2024
+Hecho 363 en Mar del Plata,"Hecho sintético registrado en la ciudad de Mar del Plata, Argentina.",Emergencia sanitaria,-38.042501,-57.526407,12/11/2024
+Hecho 364 en Santa Fe,"Hecho sintético registrado en la ciudad de Santa Fe, Argentina.",Incendio,-31.630338,-60.686373,24/04/2024
+Hecho 365 en La Plata,"Hecho sintético registrado en la ciudad de La Plata, Argentina.",Robo,-34.906197,-57.930781,09/05/2023
+Hecho 366 en Mar del Plata,"Hecho sintético registrado en la ciudad de Mar del Plata, Argentina.",Corte de servicios,-38.020216,-57.563357,16/03/2018
+Hecho 367 en La Plata,"Hecho sintético registrado en la ciudad de La Plata, Argentina.",Delito informático,-34.893883,-57.991925,13/02/2022
+Hecho 368 en Buenos Aires,"Hecho sintético registrado en la ciudad de Buenos Aires, Argentina.",Manifestación,-34.64296,-58.36198,24/12/2022
+Hecho 369 en Salta,"Hecho sintético registrado en la ciudad de Salta, Argentina.",Delito informático,-24.788442,-65.402676,07/11/2019
+Hecho 370 en Neuquén,"Hecho sintético registrado en la ciudad de Neuquén, Argentina.",Emergencia sanitaria,-38.926537,-68.061128,24/11/2024
+Hecho 371 en Mar del Plata,"Hecho sintético registrado en la ciudad de Mar del Plata, Argentina.",Emergencia sanitaria,-37.98825,-57.559074,07/03/2022
+Hecho 372 en Santa Fe,"Hecho sintético registrado en la ciudad de Santa Fe, Argentina.",Emergencia sanitaria,-31.647785,-60.718019,11/02/2024
+Hecho 373 en San Miguel de Tucumán,"Hecho sintético registrado en la ciudad de San Miguel de Tucumán, Argentina.",Evento cultural,-26.835587,-65.207786,27/04/2024
+Hecho 374 en Rosario,"Hecho sintético registrado en la ciudad de Rosario, Argentina.",Emergencia sanitaria,-32.921959,-60.626958,04/02/2019
+Hecho 375 en La Plata,"Hecho sintético registrado en la ciudad de La Plata, Argentina.",Accidente de tránsito,-34.93562,-57.948475,07/05/2021
+Hecho 376 en La Plata,"Hecho sintético registrado en la ciudad de La Plata, Argentina.",Manifestación,-34.939026,-57.965735,08/01/2024
+Hecho 377 en Salta,"Hecho sintético registrado en la ciudad de Salta, Argentina.",Incendio,-24.777993,-65.386038,21/09/2018
+Hecho 378 en Rosario,"Hecho sintético registrado en la ciudad de Rosario, Argentina.",Corte de servicios,-32.914538,-60.631263,17/08/2018
+Hecho 379 en Neuquén,"Hecho sintético registrado en la ciudad de Neuquén, Argentina.",Corte de servicios,-38.949365,-68.021819,20/12/2018
+Hecho 380 en La Plata,"Hecho sintético registrado en la ciudad de La Plata, Argentina.",Manifestación,-34.915531,-57.914639,05/07/2019
+Hecho 381 en Salta,"Hecho sintético registrado en la ciudad de Salta, Argentina.",Accidente de tránsito,-24.759654,-65.393349,04/01/2022
+Hecho 382 en Salta,"Hecho sintético registrado en la ciudad de Salta, Argentina.",Emergencia sanitaria,-24.771788,-65.416484,30/06/2023
+Hecho 383 en Neuquén,"Hecho sintético registrado en la ciudad de Neuquén, Argentina.",Evento cultural,-38.917645,-68.072847,21/08/2021
+Hecho 384 en La Plata,"Hecho sintético registrado en la ciudad de La Plata, Argentina.",Corte de servicios,-34.883573,-57.976078,06/08/2022
+Hecho 385 en Rosario,"Hecho sintético registrado en la ciudad de Rosario, Argentina.",Accidente de tránsito,-32.94401,-60.669241,06/03/2022
+Hecho 386 en Neuquén,"Hecho sintético registrado en la ciudad de Neuquén, Argentina.",Incendio,-38.96617,-68.08842,14/07/2020
+Hecho 387 en Córdoba,"Hecho sintético registrado en la ciudad de Córdoba, Argentina.",Incendio,-31.387426,-64.18211,15/08/2019
+Hecho 388 en Córdoba,"Hecho sintético registrado en la ciudad de Córdoba, Argentina.",Hallazgo policial,-31.408587,-64.16911,04/02/2019
+Hecho 389 en Mendoza,"Hecho sintético registrado en la ciudad de Mendoza, Argentina.",Hallazgo policial,-32.923609,-68.870575,18/03/2022
+Hecho 390 en Neuquén,"Hecho sintético registrado en la ciudad de Neuquén, Argentina.",Incendio,-38.959358,-68.055248,23/11/2021
+Hecho 391 en San Miguel de Tucumán,"Hecho sintético registrado en la ciudad de San Miguel de Tucumán, Argentina.",Hallazgo policial,-26.777637,-65.197795,14/06/2023
+Hecho 392 en Salta,"Hecho sintético registrado en la ciudad de Salta, Argentina.",Evento cultural,-24.754771,-65.401347,14/10/2022
+Hecho 393 en Mar del Plata,"Hecho sintético registrado en la ciudad de Mar del Plata, Argentina.",Corte de servicios,-38.039558,-57.551137,13/05/2023
+Hecho 394 en La Plata,"Hecho sintético registrado en la ciudad de La Plata, Argentina.",Evento cultural,-34.90448,-57.943072,30/05/2019
+Hecho 395 en Salta,"Hecho sintético registrado en la ciudad de Salta, Argentina.",Delito informático,-24.79817,-65.462726,25/07/2023
+Hecho 396 en Santa Fe,"Hecho sintético registrado en la ciudad de Santa Fe, Argentina.",Delito informático,-31.634258,-60.660501,24/03/2021
+Hecho 397 en Córdoba,"Hecho sintético registrado en la ciudad de Córdoba, Argentina.",Emergencia sanitaria,-31.454456,-64.181416,26/03/2022
+Hecho 398 en Buenos Aires,"Hecho sintético registrado en la ciudad de Buenos Aires, Argentina.",Robo,-34.589681,-58.412757,08/04/2018
+Hecho 399 en Mendoza,"Hecho sintético registrado en la ciudad de Mendoza, Argentina.",Evento cultural,-32.861978,-68.874094,21/12/2023
+Hecho 400 en Santa Fe,"Hecho sintético registrado en la ciudad de Santa Fe, Argentina.",Robo,-31.614613,-60.689378,12/04/2020
+Hecho 401 en Salta,"Hecho sintético registrado en la ciudad de Salta, Argentina.",Emergencia sanitaria,-24.756652,-65.389199,27/03/2019
+Hecho 402 en Salta,"Hecho sintético registrado en la ciudad de Salta, Argentina.",Manifestación,-24.816053,-65.391226,06/11/2018
+Hecho 403 en Buenos Aires,"Hecho sintético registrado en la ciudad de Buenos Aires, Argentina.",Emergencia sanitaria,-34.583742,-58.400055,30/11/2019
+Hecho 404 en Córdoba,"Hecho sintético registrado en la ciudad de Córdoba, Argentina.",Evento cultural,-31.454369,-64.189022,09/07/2021
+Hecho 405 en Córdoba,"Hecho sintético registrado en la ciudad de Córdoba, Argentina.",Accidente de tránsito,-31.406561,-64.202006,31/05/2020
+Hecho 406 en San Miguel de Tucumán,"Hecho sintético registrado en la ciudad de San Miguel de Tucumán, Argentina.",Hallazgo policial,-26.813435,-65.1836,14/11/2024
+Hecho 407 en Córdoba,"Hecho sintético registrado en la ciudad de Córdoba, Argentina.",Incendio,-31.393002,-64.179903,14/04/2019
+Hecho 408 en La Plata,"Hecho sintético registrado en la ciudad de La Plata, Argentina.",Accidente de tránsito,-34.91053,-57.991057,29/07/2019
+Hecho 409 en San Miguel de Tucumán,"Hecho sintético registrado en la ciudad de San Miguel de Tucumán, Argentina.",Corte de servicios,-26.813509,-65.227849,07/09/2019
+Hecho 410 en Neuquén,"Hecho sintético registrado en la ciudad de Neuquén, Argentina.",Emergencia sanitaria,-38.975137,-68.059644,27/07/2024
+Hecho 411 en Salta,"Hecho sintético registrado en la ciudad de Salta, Argentina.",Incendio,-24.761129,-65.384614,02/05/2022
+Hecho 412 en Buenos Aires,"Hecho sintético registrado en la ciudad de Buenos Aires, Argentina.",Corte de servicios,-34.590038,-58.374207,05/03/2022
+Hecho 413 en La Plata,"Hecho sintético registrado en la ciudad de La Plata, Argentina.",Corte de servicios,-34.888136,-57.974724,19/09/2023
+Hecho 414 en San Miguel de Tucumán,"Hecho sintético registrado en la ciudad de San Miguel de Tucumán, Argentina.",Robo,-26.80558,-65.244157,22/07/2019
+Hecho 415 en Mar del Plata,"Hecho sintético registrado en la ciudad de Mar del Plata, Argentina.",Evento cultural,-38.018292,-57.542866,31/05/2023
+Hecho 416 en Mendoza,"Hecho sintético registrado en la ciudad de Mendoza, Argentina.",Hallazgo policial,-32.891648,-68.83903,12/10/2021
+Hecho 417 en Córdoba,"Hecho sintético registrado en la ciudad de Córdoba, Argentina.",Incendio,-31.392939,-64.219129,02/12/2024
+Hecho 418 en Neuquén,"Hecho sintético registrado en la ciudad de Neuquén, Argentina.",Evento cultural,-38.943954,-68.09516,25/11/2023
+Hecho 419 en Rosario,"Hecho sintético registrado en la ciudad de Rosario, Argentina.",Evento cultural,-32.926677,-60.684558,30/07/2020
+Hecho 420 en Salta,"Hecho sintético registrado en la ciudad de Salta, Argentina.",Robo,-24.757663,-65.420154,15/05/2024
+Hecho 421 en Mar del Plata,"Hecho sintético registrado en la ciudad de Mar del Plata, Argentina.",Manifestación,-38.001932,-57.578619,16/11/2020
+Hecho 422 en Mar del Plata,"Hecho sintético registrado en la ciudad de Mar del Plata, Argentina.",Emergencia sanitaria,-38.019625,-57.582526,01/10/2020
+Hecho 423 en La Plata,"Hecho sintético registrado en la ciudad de La Plata, Argentina.",Incendio,-34.944022,-57.990824,16/03/2022
+Hecho 424 en La Plata,"Hecho sintético registrado en la ciudad de La Plata, Argentina.",Manifestación,-34.941058,-57.985576,07/08/2019
+Hecho 425 en Salta,"Hecho sintético registrado en la ciudad de Salta, Argentina.",Delito informático,-24.76331,-65.438108,03/03/2024
+Hecho 426 en Mendoza,"Hecho sintético registrado en la ciudad de Mendoza, Argentina.",Evento cultural,-32.880834,-68.826319,28/04/2023
+Hecho 427 en Neuquén,"Hecho sintético registrado en la ciudad de Neuquén, Argentina.",Robo,-38.924325,-68.065021,10/06/2020
+Hecho 428 en Mar del Plata,"Hecho sintético registrado en la ciudad de Mar del Plata, Argentina.",Robo,-38.010121,-57.529975,24/09/2019
+Hecho 429 en Rosario,"Hecho sintético registrado en la ciudad de Rosario, Argentina.",Delito informático,-32.923839,-60.657605,19/02/2024
+Hecho 430 en Mendoza,"Hecho sintético registrado en la ciudad de Mendoza, Argentina.",Corte de servicios,-32.853691,-68.866124,09/08/2019
+Hecho 431 en Córdoba,"Hecho sintético registrado en la ciudad de Córdoba, Argentina.",Robo,-31.417659,-64.223387,07/08/2021
+Hecho 432 en Salta,"Hecho sintético registrado en la ciudad de Salta, Argentina.",Incendio,-24.820992,-65.458147,22/10/2024
+Hecho 433 en Córdoba,"Hecho sintético registrado en la ciudad de Córdoba, Argentina.",Manifestación,-31.401189,-64.162116,20/06/2022
+Hecho 434 en San Miguel de Tucumán,"Hecho sintético registrado en la ciudad de San Miguel de Tucumán, Argentina.",Incendio,-26.833453,-65.214869,03/11/2024
+Hecho 435 en Buenos Aires,"Hecho sintético registrado en la ciudad de Buenos Aires, Argentina.",Emergencia sanitaria,-34.620963,-58.420676,16/01/2024
+Hecho 436 en Rosario,"Hecho sintético registrado en la ciudad de Rosario, Argentina.",Emergencia sanitaria,-32.914858,-60.627067,18/02/2018
+Hecho 437 en La Plata,"Hecho sintético registrado en la ciudad de La Plata, Argentina.",Manifestación,-34.894404,-57.966008,15/09/2018
+Hecho 438 en Neuquén,"Hecho sintético registrado en la ciudad de Neuquén, Argentina.",Manifestación,-38.913896,-68.037447,27/04/2020
+Hecho 439 en Santa Fe,"Hecho sintético registrado en la ciudad de Santa Fe, Argentina.",Corte de servicios,-31.607316,-60.737332,18/03/2024
+Hecho 440 en Neuquén,"Hecho sintético registrado en la ciudad de Neuquén, Argentina.",Emergencia sanitaria,-38.957261,-68.021541,28/06/2018
+Hecho 441 en Salta,"Hecho sintético registrado en la ciudad de Salta, Argentina.",Robo,-24.767669,-65.432018,24/06/2020
+Hecho 442 en Santa Fe,"Hecho sintético registrado en la ciudad de Santa Fe, Argentina.",Evento cultural,-31.612832,-60.70445,25/01/2019
+Hecho 443 en Rosario,"Hecho sintético registrado en la ciudad de Rosario, Argentina.",Incendio,-32.933202,-60.637561,26/08/2021
+Hecho 444 en Neuquén,"Hecho sintético registrado en la ciudad de Neuquén, Argentina.",Incendio,-38.91302,-68.09737,09/08/2020
+Hecho 445 en Salta,"Hecho sintético registrado en la ciudad de Salta, Argentina.",Accidente de tránsito,-24.784204,-65.455606,19/04/2020
+Hecho 446 en La Plata,"Hecho sintético registrado en la ciudad de La Plata, Argentina.",Delito informático,-34.926906,-57.979505,26/09/2021
+Hecho 447 en Buenos Aires,"Hecho sintético registrado en la ciudad de Buenos Aires, Argentina.",Manifestación,-34.604448,-58.356797,25/06/2020
+Hecho 448 en Buenos Aires,"Hecho sintético registrado en la ciudad de Buenos Aires, Argentina.",Delito informático,-34.627355,-58.411184,17/06/2019
+Hecho 449 en Mar del Plata,"Hecho sintético registrado en la ciudad de Mar del Plata, Argentina.",Evento cultural,-37.995826,-57.517661,08/10/2020
+Hecho 450 en Santa Fe,"Hecho sintético registrado en la ciudad de Santa Fe, Argentina.",Incendio,-31.670512,-60.66239,27/07/2018
+Hecho 451 en Córdoba,"Hecho sintético registrado en la ciudad de Córdoba, Argentina.",Incendio,-31.399547,-64.20756,23/04/2018
+Hecho 452 en Rosario,"Hecho sintético registrado en la ciudad de Rosario, Argentina.",Evento cultural,-32.950494,-60.67345,11/01/2023
+Hecho 453 en Córdoba,"Hecho sintético registrado en la ciudad de Córdoba, Argentina.",Robo,-31.404377,-64.166615,29/05/2023
+Hecho 454 en San Miguel de Tucumán,"Hecho sintético registrado en la ciudad de San Miguel de Tucumán, Argentina.",Accidente de tránsito,-26.828096,-65.201239,02/07/2018
+Hecho 455 en Santa Fe,"Hecho sintético registrado en la ciudad de Santa Fe, Argentina.",Robo,-31.613044,-60.669046,06/08/2022
+Hecho 456 en Mendoza,"Hecho sintético registrado en la ciudad de Mendoza, Argentina.",Manifestación,-32.889232,-68.822424,03/05/2019
+Hecho 457 en San Miguel de Tucumán,"Hecho sintético registrado en la ciudad de San Miguel de Tucumán, Argentina.",Incendio,-26.842095,-65.211814,22/11/2021
+Hecho 458 en Salta,"Hecho sintético registrado en la ciudad de Salta, Argentina.",Accidente de tránsito,-24.750525,-65.437619,24/05/2020
+Hecho 459 en Rosario,"Hecho sintético registrado en la ciudad de Rosario, Argentina.",Manifestación,-32.908674,-60.626952,15/08/2024
+Hecho 460 en La Plata,"Hecho sintético registrado en la ciudad de La Plata, Argentina.",Hallazgo policial,-34.927017,-57.992587,25/04/2020
+Hecho 461 en Salta,"Hecho sintético registrado en la ciudad de Salta, Argentina.",Manifestación,-24.778568,-65.424732,11/08/2019
+Hecho 462 en Córdoba,"Hecho sintético registrado en la ciudad de Córdoba, Argentina.",Hallazgo policial,-31.424126,-64.153745,26/03/2018
+Hecho 463 en Córdoba,"Hecho sintético registrado en la ciudad de Córdoba, Argentina.",Corte de servicios,-31.4152,-64.171086,25/08/2018
+Hecho 464 en Córdoba,"Hecho sintético registrado en la ciudad de Córdoba, Argentina.",Evento cultural,-31.44645,-64.1716,02/09/2023
+Hecho 465 en Salta,"Hecho sintético registrado en la ciudad de Salta, Argentina.",Manifestación,-24.764859,-65.414159,28/04/2024
+Hecho 466 en San Miguel de Tucumán,"Hecho sintético registrado en la ciudad de San Miguel de Tucumán, Argentina.",Evento cultural,-26.830433,-65.17792,01/07/2019
+Hecho 467 en Mendoza,"Hecho sintético registrado en la ciudad de Mendoza, Argentina.",Corte de servicios,-32.867297,-68.838839,20/09/2023
+Hecho 468 en Rosario,"Hecho sintético registrado en la ciudad de Rosario, Argentina.",Robo,-32.976548,-60.673421,21/12/2019
+Hecho 469 en Córdoba,"Hecho sintético registrado en la ciudad de Córdoba, Argentina.",Accidente de tránsito,-31.4243,-64.153794,03/08/2018
+Hecho 470 en Santa Fe,"Hecho sintético registrado en la ciudad de Santa Fe, Argentina.",Accidente de tránsito,-31.655918,-60.700603,02/08/2022
+Hecho 471 en Santa Fe,"Hecho sintético registrado en la ciudad de Santa Fe, Argentina.",Corte de servicios,-31.669448,-60.733924,09/09/2018
+Hecho 472 en Mar del Plata,"Hecho sintético registrado en la ciudad de Mar del Plata, Argentina.",Hallazgo policial,-38.032784,-57.520044,18/07/2019
+Hecho 473 en Rosario,"Hecho sintético registrado en la ciudad de Rosario, Argentina.",Corte de servicios,-32.94058,-60.675199,07/08/2018
+Hecho 474 en Santa Fe,"Hecho sintético registrado en la ciudad de Santa Fe, Argentina.",Manifestación,-31.640952,-60.665063,28/12/2022
+Hecho 475 en Mar del Plata,"Hecho sintético registrado en la ciudad de Mar del Plata, Argentina.",Emergencia sanitaria,-37.975733,-57.574675,30/08/2024
+Hecho 476 en Santa Fe,"Hecho sintético registrado en la ciudad de Santa Fe, Argentina.",Delito informático,-31.59807,-60.673784,28/02/2024
+Hecho 477 en San Miguel de Tucumán,"Hecho sintético registrado en la ciudad de San Miguel de Tucumán, Argentina.",Incendio,-26.836541,-65.230281,14/06/2021
+Hecho 478 en Buenos Aires,"Hecho sintético registrado en la ciudad de Buenos Aires, Argentina.",Evento cultural,-34.576838,-58.397596,02/07/2021
+Hecho 479 en Mar del Plata,"Hecho sintético registrado en la ciudad de Mar del Plata, Argentina.",Delito informático,-38.045123,-57.579916,06/06/2023
+Hecho 480 en Neuquén,"Hecho sintético registrado en la ciudad de Neuquén, Argentina.",Robo,-38.934881,-68.057158,23/03/2019
+Hecho 481 en Mar del Plata,"Hecho sintético registrado en la ciudad de Mar del Plata, Argentina.",Accidente de tránsito,-38.034456,-57.576523,01/07/2024
+Hecho 482 en Mar del Plata,"Hecho sintético registrado en la ciudad de Mar del Plata, Argentina.",Emergencia sanitaria,-38.022705,-57.544993,22/07/2018
+Hecho 483 en Mendoza,"Hecho sintético registrado en la ciudad de Mendoza, Argentina.",Incendio,-32.928863,-68.849103,02/12/2022
+Hecho 484 en Salta,"Hecho sintético registrado en la ciudad de Salta, Argentina.",Hallazgo policial,-24.817057,-65.451946,19/05/2020
+Hecho 485 en Córdoba,"Hecho sintético registrado en la ciudad de Córdoba, Argentina.",Manifestación,-31.431908,-64.186546,13/01/2021
+Hecho 486 en San Miguel de Tucumán,"Hecho sintético registrado en la ciudad de San Miguel de Tucumán, Argentina.",Incendio,-26.838517,-65.196788,16/09/2022
+Hecho 487 en Santa Fe,"Hecho sintético registrado en la ciudad de Santa Fe, Argentina.",Corte de servicios,-31.661167,-60.706164,27/01/2020
+Hecho 488 en Santa Fe,"Hecho sintético registrado en la ciudad de Santa Fe, Argentina.",Accidente de tránsito,-31.648913,-60.706461,11/06/2018
+Hecho 489 en San Miguel de Tucumán,"Hecho sintético registrado en la ciudad de San Miguel de Tucumán, Argentina.",Hallazgo policial,-26.773875,-65.232139,10/04/2022
+Hecho 490 en Salta,"Hecho sintético registrado en la ciudad de Salta, Argentina.",Emergencia sanitaria,-24.808682,-65.444488,07/07/2022
+Hecho 491 en Mendoza,"Hecho sintético registrado en la ciudad de Mendoza, Argentina.",Robo,-32.924538,-68.80675,12/09/2018
+Hecho 492 en Mendoza,"Hecho sintético registrado en la ciudad de Mendoza, Argentina.",Robo,-32.891308,-68.852978,02/07/2022
+Hecho 493 en Mar del Plata,"Hecho sintético registrado en la ciudad de Mar del Plata, Argentina.",Incendio,-37.985565,-57.53999,23/06/2022
+Hecho 494 en Buenos Aires,"Hecho sintético registrado en la ciudad de Buenos Aires, Argentina.",Evento cultural,-34.583431,-58.40818,04/09/2019
+Hecho 495 en Neuquén,"Hecho sintético registrado en la ciudad de Neuquén, Argentina.",Hallazgo policial,-38.92759,-68.098714,13/04/2024
+Hecho 496 en Rosario,"Hecho sintético registrado en la ciudad de Rosario, Argentina.",Incendio,-32.952257,-60.665582,14/01/2024
+Hecho 497 en Buenos Aires,"Hecho sintético registrado en la ciudad de Buenos Aires, Argentina.",Evento cultural,-34.603649,-58.362346,18/03/2024
+Hecho 498 en Salta,"Hecho sintético registrado en la ciudad de Salta, Argentina.",Accidente de tránsito,-24.759641,-65.430205,02/02/2024
+Hecho 499 en San Miguel de Tucumán,"Hecho sintético registrado en la ciudad de San Miguel de Tucumán, Argentina.",Incendio,-26.798179,-65.185288,02/10/2023
+Hecho 500 en Buenos Aires,"Hecho sintético registrado en la ciudad de Buenos Aires, Argentina.",Emergencia sanitaria,-34.567404,-58.417807,15/03/2020
+Hecho 501 en Mar del Plata,"Hecho sintético registrado en la ciudad de Mar del Plata, Argentina.",Robo,-38.03992,-57.571412,16/02/2021
+Hecho 502 en San Miguel de Tucumán,"Hecho sintético registrado en la ciudad de San Miguel de Tucumán, Argentina.",Emergencia sanitaria,-26.838282,-65.221842,01/03/2019
+Hecho 503 en La Plata,"Hecho sintético registrado en la ciudad de La Plata, Argentina.",Hallazgo policial,-34.937077,-57.969479,05/03/2018
+Hecho 504 en Neuquén,"Hecho sintético registrado en la ciudad de Neuquén, Argentina.",Accidente de tránsito,-38.937183,-68.041617,13/01/2018
+Hecho 505 en Rosario,"Hecho sintético registrado en la ciudad de Rosario, Argentina.",Accidente de tránsito,-32.905514,-60.672935,24/04/2018
+Hecho 506 en Córdoba,"Hecho sintético registrado en la ciudad de Córdoba, Argentina.",Incendio,-31.442151,-64.153215,29/06/2022
+Hecho 507 en Córdoba,"Hecho sintético registrado en la ciudad de Córdoba, Argentina.",Accidente de tránsito,-31.434371,-64.194516,18/12/2022
+Hecho 508 en Mendoza,"Hecho sintético registrado en la ciudad de Mendoza, Argentina.",Hallazgo policial,-32.916362,-68.845307,07/04/2020
+Hecho 509 en Rosario,"Hecho sintético registrado en la ciudad de Rosario, Argentina.",Accidente de tránsito,-32.982478,-60.618076,16/04/2022
+Hecho 510 en Mendoza,"Hecho sintético registrado en la ciudad de Mendoza, Argentina.",Accidente de tránsito,-32.852497,-68.882827,26/11/2020
+Hecho 511 en Rosario,"Hecho sintético registrado en la ciudad de Rosario, Argentina.",Incendio,-32.966441,-60.665979,14/06/2020
+Hecho 512 en La Plata,"Hecho sintético registrado en la ciudad de La Plata, Argentina.",Delito informático,-34.960987,-57.922763,22/04/2021
+Hecho 513 en Santa Fe,"Hecho sintético registrado en la ciudad de Santa Fe, Argentina.",Delito informático,-31.603064,-60.721979,21/01/2022
+Hecho 514 en Mendoza,"Hecho sintético registrado en la ciudad de Mendoza, Argentina.",Incendio,-32.926508,-68.842818,29/08/2022
+Hecho 515 en Santa Fe,"Hecho sintético registrado en la ciudad de Santa Fe, Argentina.",Accidente de tránsito,-31.626861,-60.719939,27/03/2018
+Hecho 516 en San Miguel de Tucumán,"Hecho sintético registrado en la ciudad de San Miguel de Tucumán, Argentina.",Robo,-26.838915,-65.235058,07/10/2018
+Hecho 517 en Córdoba,"Hecho sintético registrado en la ciudad de Córdoba, Argentina.",Manifestación,-31.380407,-64.179246,12/04/2022
+Hecho 518 en Buenos Aires,"Hecho sintético registrado en la ciudad de Buenos Aires, Argentina.",Robo,-34.634131,-58.400193,24/07/2023
+Hecho 519 en Salta,"Hecho sintético registrado en la ciudad de Salta, Argentina.",Robo,-24.786646,-65.410894,26/04/2023
+Hecho 520 en San Miguel de Tucumán,"Hecho sintético registrado en la ciudad de San Miguel de Tucumán, Argentina.",Corte de servicios,-26.814031,-65.187285,04/03/2018
+Hecho 521 en Córdoba,"Hecho sintético registrado en la ciudad de Córdoba, Argentina.",Corte de servicios,-31.393242,-64.188051,02/03/2021
+Hecho 522 en Mar del Plata,"Hecho sintético registrado en la ciudad de Mar del Plata, Argentina.",Evento cultural,-38.01874,-57.519469,22/08/2021
+Hecho 523 en San Miguel de Tucumán,"Hecho sintético registrado en la ciudad de San Miguel de Tucumán, Argentina.",Emergencia sanitaria,-26.844729,-65.256307,17/07/2019
+Hecho 524 en Mendoza,"Hecho sintético registrado en la ciudad de Mendoza, Argentina.",Robo,-32.87393,-68.853875,14/02/2024
+Hecho 525 en San Miguel de Tucumán,"Hecho sintético registrado en la ciudad de San Miguel de Tucumán, Argentina.",Manifestación,-26.777495,-65.253082,29/12/2023
+Hecho 526 en Córdoba,"Hecho sintético registrado en la ciudad de Córdoba, Argentina.",Evento cultural,-31.385902,-64.198613,28/03/2018
+Hecho 527 en Mendoza,"Hecho sintético registrado en la ciudad de Mendoza, Argentina.",Evento cultural,-32.89738,-68.864607,17/12/2020
+Hecho 528 en Salta,"Hecho sintético registrado en la ciudad de Salta, Argentina.",Delito informático,-24.779874,-65.407139,01/07/2020
+Hecho 529 en San Miguel de Tucumán,"Hecho sintético registrado en la ciudad de San Miguel de Tucumán, Argentina.",Corte de servicios,-26.811277,-65.209581,19/03/2022
+Hecho 530 en Neuquén,"Hecho sintético registrado en la ciudad de Neuquén, Argentina.",Hallazgo policial,-38.978931,-68.085266,01/02/2018
+Hecho 531 en Buenos Aires,"Hecho sintético registrado en la ciudad de Buenos Aires, Argentina.",Incendio,-34.580048,-58.375072,03/02/2023
+Hecho 532 en La Plata,"Hecho sintético registrado en la ciudad de La Plata, Argentina.",Robo,-34.906942,-57.985014,04/07/2018
+Hecho 533 en Mendoza,"Hecho sintético registrado en la ciudad de Mendoza, Argentina.",Accidente de tránsito,-32.901606,-68.865976,16/08/2021
+Hecho 534 en La Plata,"Hecho sintético registrado en la ciudad de La Plata, Argentina.",Accidente de tránsito,-34.881468,-57.928621,18/07/2023
+Hecho 535 en San Miguel de Tucumán,"Hecho sintético registrado en la ciudad de San Miguel de Tucumán, Argentina.",Accidente de tránsito,-26.834733,-65.243382,27/06/2023
+Hecho 536 en Mendoza,"Hecho sintético registrado en la ciudad de Mendoza, Argentina.",Evento cultural,-32.879806,-68.852843,28/07/2022
+Hecho 537 en Neuquén,"Hecho sintético registrado en la ciudad de Neuquén, Argentina.",Hallazgo policial,-38.976257,-68.052969,03/01/2019
+Hecho 538 en Santa Fe,"Hecho sintético registrado en la ciudad de Santa Fe, Argentina.",Incendio,-31.668471,-60.697486,13/07/2023
+Hecho 539 en Rosario,"Hecho sintético registrado en la ciudad de Rosario, Argentina.",Incendio,-32.911143,-60.678552,21/03/2023
+Hecho 540 en Neuquén,"Hecho sintético registrado en la ciudad de Neuquén, Argentina.",Robo,-38.921077,-68.061617,23/05/2023
+Hecho 541 en La Plata,"Hecho sintético registrado en la ciudad de La Plata, Argentina.",Incendio,-34.92453,-57.915514,26/02/2023
+Hecho 542 en Buenos Aires,"Hecho sintético registrado en la ciudad de Buenos Aires, Argentina.",Evento cultural,-34.638324,-58.361445,05/02/2024
+Hecho 543 en La Plata,"Hecho sintético registrado en la ciudad de La Plata, Argentina.",Manifestación,-34.928646,-57.970743,12/01/2022
+Hecho 544 en Santa Fe,"Hecho sintético registrado en la ciudad de Santa Fe, Argentina.",Robo,-31.616189,-60.715404,14/08/2021
+Hecho 545 en Mar del Plata,"Hecho sintético registrado en la ciudad de Mar del Plata, Argentina.",Manifestación,-38.018659,-57.549506,04/08/2018
+Hecho 546 en Salta,"Hecho sintético registrado en la ciudad de Salta, Argentina.",Incendio,-24.74215,-65.455315,01/08/2023
+Hecho 547 en La Plata,"Hecho sintético registrado en la ciudad de La Plata, Argentina.",Manifestación,-34.897974,-57.96564,20/07/2019
+Hecho 548 en La Plata,"Hecho sintético registrado en la ciudad de La Plata, Argentina.",Emergencia sanitaria,-34.946599,-57.918041,31/12/2019
+Hecho 549 en San Miguel de Tucumán,"Hecho sintético registrado en la ciudad de San Miguel de Tucumán, Argentina.",Corte de servicios,-26.841213,-65.195246,19/07/2021
+Hecho 550 en Neuquén,"Hecho sintético registrado en la ciudad de Neuquén, Argentina.",Evento cultural,-38.968233,-68.082464,23/02/2022
+Hecho 551 en Córdoba,"Hecho sintético registrado en la ciudad de Córdoba, Argentina.",Delito informático,-31.449215,-64.2147,08/03/2019
+Hecho 552 en Córdoba,"Hecho sintético registrado en la ciudad de Córdoba, Argentina.",Hallazgo policial,-31.3882,-64.171762,14/11/2019
+Hecho 553 en Córdoba,"Hecho sintético registrado en la ciudad de Córdoba, Argentina.",Corte de servicios,-31.455405,-64.181068,24/03/2021
+Hecho 554 en Salta,"Hecho sintético registrado en la ciudad de Salta, Argentina.",Robo,-24.782113,-65.40238,27/03/2024
+Hecho 555 en La Plata,"Hecho sintético registrado en la ciudad de La Plata, Argentina.",Incendio,-34.88937,-57.929002,26/07/2024
+Hecho 556 en Santa Fe,"Hecho sintético registrado en la ciudad de Santa Fe, Argentina.",Evento cultural,-31.64849,-60.727158,21/04/2023
+Hecho 557 en Salta,"Hecho sintético registrado en la ciudad de Salta, Argentina.",Evento cultural,-24.76937,-65.434899,23/09/2024
+Hecho 558 en Mar del Plata,"Hecho sintético registrado en la ciudad de Mar del Plata, Argentina.",Corte de servicios,-37.987692,-57.553076,02/02/2021
+Hecho 559 en Santa Fe,"Hecho sintético registrado en la ciudad de Santa Fe, Argentina.",Incendio,-31.66754,-60.716584,13/09/2022
+Hecho 560 en La Plata,"Hecho sintético registrado en la ciudad de La Plata, Argentina.",Emergencia sanitaria,-34.946958,-57.990906,31/10/2018
+Hecho 561 en San Miguel de Tucumán,"Hecho sintético registrado en la ciudad de San Miguel de Tucumán, Argentina.",Evento cultural,-26.801154,-65.195696,01/07/2024
+Hecho 562 en Santa Fe,"Hecho sintético registrado en la ciudad de Santa Fe, Argentina.",Accidente de tránsito,-31.6314,-60.725212,25/09/2019
+Hecho 563 en Córdoba,"Hecho sintético registrado en la ciudad de Córdoba, Argentina.",Accidente de tránsito,-31.400414,-64.176864,31/03/2022
+Hecho 564 en San Miguel de Tucumán,"Hecho sintético registrado en la ciudad de San Miguel de Tucumán, Argentina.",Manifestación,-26.768838,-65.223479,19/04/2019
+Hecho 565 en Neuquén,"Hecho sintético registrado en la ciudad de Neuquén, Argentina.",Manifestación,-38.921448,-68.027471,31/10/2021
+Hecho 566 en Córdoba,"Hecho sintético registrado en la ciudad de Córdoba, Argentina.",Corte de servicios,-31.452225,-64.176529,06/03/2023
+Hecho 567 en Córdoba,"Hecho sintético registrado en la ciudad de Córdoba, Argentina.",Corte de servicios,-31.381911,-64.191976,30/03/2021
+Hecho 568 en La Plata,"Hecho sintético registrado en la ciudad de La Plata, Argentina.",Hallazgo policial,-34.923739,-57.966115,09/03/2020
+Hecho 569 en Santa Fe,"Hecho sintético registrado en la ciudad de Santa Fe, Argentina.",Robo,-31.613595,-60.695908,07/01/2024
+Hecho 570 en Córdoba,"Hecho sintético registrado en la ciudad de Córdoba, Argentina.",Incendio,-31.458806,-64.181631,06/03/2018
+Hecho 571 en Rosario,"Hecho sintético registrado en la ciudad de Rosario, Argentina.",Evento cultural,-32.93831,-60.646043,12/04/2021
+Hecho 572 en Neuquén,"Hecho sintético registrado en la ciudad de Neuquén, Argentina.",Hallazgo policial,-38.946477,-68.052765,05/06/2018
+Hecho 573 en Salta,"Hecho sintético registrado en la ciudad de Salta, Argentina.",Corte de servicios,-24.781628,-65.405933,10/01/2018
+Hecho 574 en La Plata,"Hecho sintético registrado en la ciudad de La Plata, Argentina.",Evento cultural,-34.925864,-57.921827,11/08/2024
+Hecho 575 en Santa Fe,"Hecho sintético registrado en la ciudad de Santa Fe, Argentina.",Robo,-31.598415,-60.713542,03/02/2023
+Hecho 576 en Mendoza,"Hecho sintético registrado en la ciudad de Mendoza, Argentina.",Accidente de tránsito,-32.850389,-68.884741,19/02/2020
+Hecho 577 en Mar del Plata,"Hecho sintético registrado en la ciudad de Mar del Plata, Argentina.",Emergencia sanitaria,-38.008713,-57.518527,06/03/2022
+Hecho 578 en La Plata,"Hecho sintético registrado en la ciudad de La Plata, Argentina.",Evento cultural,-34.903003,-57.932984,13/11/2024
+Hecho 579 en San Miguel de Tucumán,"Hecho sintético registrado en la ciudad de San Miguel de Tucumán, Argentina.",Hallazgo policial,-26.772197,-65.245925,08/01/2019
+Hecho 580 en Mar del Plata,"Hecho sintético registrado en la ciudad de Mar del Plata, Argentina.",Corte de servicios,-37.997821,-57.522484,18/10/2018
+Hecho 581 en Neuquén,"Hecho sintético registrado en la ciudad de Neuquén, Argentina.",Emergencia sanitaria,-38.972746,-68.084912,30/12/2020
+Hecho 582 en La Plata,"Hecho sintético registrado en la ciudad de La Plata, Argentina.",Corte de servicios,-34.94706,-57.990425,19/11/2023
+Hecho 583 en Mar del Plata,"Hecho sintético registrado en la ciudad de Mar del Plata, Argentina.",Delito informático,-38.008777,-57.50484,30/04/2023
+Hecho 584 en Neuquén,"Hecho sintético registrado en la ciudad de Neuquén, Argentina.",Corte de servicios,-38.99041,-68.064803,25/07/2018
+Hecho 585 en Mendoza,"Hecho sintético registrado en la ciudad de Mendoza, Argentina.",Robo,-32.920232,-68.821524,12/03/2021
+Hecho 586 en Buenos Aires,"Hecho sintético registrado en la ciudad de Buenos Aires, Argentina.",Robo,-34.627449,-58.354082,17/12/2018
+Hecho 587 en Córdoba,"Hecho sintético registrado en la ciudad de Córdoba, Argentina.",Delito informático,-31.421732,-64.183497,31/07/2018
+Hecho 588 en La Plata,"Hecho sintético registrado en la ciudad de La Plata, Argentina.",Evento cultural,-34.925038,-57.96414,12/10/2021
+Hecho 589 en Santa Fe,"Hecho sintético registrado en la ciudad de Santa Fe, Argentina.",Evento cultural,-31.605303,-60.68568,20/02/2022
+Hecho 590 en Neuquén,"Hecho sintético registrado en la ciudad de Neuquén, Argentina.",Delito informático,-38.930977,-68.047811,14/01/2018
+Hecho 591 en Rosario,"Hecho sintético registrado en la ciudad de Rosario, Argentina.",Hallazgo policial,-32.96962,-60.677102,22/05/2020
+Hecho 592 en Córdoba,"Hecho sintético registrado en la ciudad de Córdoba, Argentina.",Emergencia sanitaria,-31.414453,-64.212711,19/01/2018
+Hecho 593 en Rosario,"Hecho sintético registrado en la ciudad de Rosario, Argentina.",Incendio,-32.921539,-60.650988,10/04/2018
+Hecho 594 en Buenos Aires,"Hecho sintético registrado en la ciudad de Buenos Aires, Argentina.",Evento cultural,-34.642368,-58.394103,08/04/2024
+Hecho 595 en Córdoba,"Hecho sintético registrado en la ciudad de Córdoba, Argentina.",Accidente de tránsito,-31.459249,-64.176456,15/09/2022
+Hecho 596 en Santa Fe,"Hecho sintético registrado en la ciudad de Santa Fe, Argentina.",Incendio,-31.664079,-60.731655,27/09/2018
+Hecho 597 en Santa Fe,"Hecho sintético registrado en la ciudad de Santa Fe, Argentina.",Incendio,-31.657923,-60.684174,06/08/2024
+Hecho 598 en Mendoza,"Hecho sintético registrado en la ciudad de Mendoza, Argentina.",Evento cultural,-32.850544,-68.877376,03/05/2020
+Hecho 599 en Córdoba,"Hecho sintético registrado en la ciudad de Córdoba, Argentina.",Evento cultural,-31.40553,-64.18565,13/01/2024
+Hecho 600 en San Miguel de Tucumán,"Hecho sintético registrado en la ciudad de San Miguel de Tucumán, Argentina.",Accidente de tránsito,-26.800382,-65.242305,14/06/2018
+Hecho 601 en Santa Fe,"Hecho sintético registrado en la ciudad de Santa Fe, Argentina.",Robo,-31.638258,-60.681884,09/11/2019
+Hecho 602 en Buenos Aires,"Hecho sintético registrado en la ciudad de Buenos Aires, Argentina.",Corte de servicios,-34.567847,-58.36851,09/09/2020
+Hecho 603 en Córdoba,"Hecho sintético registrado en la ciudad de Córdoba, Argentina.",Hallazgo policial,-31.413899,-64.214859,04/12/2022
+Hecho 604 en San Miguel de Tucumán,"Hecho sintético registrado en la ciudad de San Miguel de Tucumán, Argentina.",Emergencia sanitaria,-26.796314,-65.234054,20/12/2021
+Hecho 605 en Mar del Plata,"Hecho sintético registrado en la ciudad de Mar del Plata, Argentina.",Incendio,-37.996452,-57.50684,06/02/2019
+Hecho 606 en Santa Fe,"Hecho sintético registrado en la ciudad de Santa Fe, Argentina.",Accidente de tránsito,-31.596051,-60.730064,02/07/2023
+Hecho 607 en Salta,"Hecho sintético registrado en la ciudad de Salta, Argentina.",Delito informático,-24.815472,-65.440916,18/02/2018
+Hecho 608 en Salta,"Hecho sintético registrado en la ciudad de Salta, Argentina.",Corte de servicios,-24.752727,-65.391721,29/07/2023
+Hecho 609 en Rosario,"Hecho sintético registrado en la ciudad de Rosario, Argentina.",Emergencia sanitaria,-32.948661,-60.676786,22/11/2019
+Hecho 610 en Mendoza,"Hecho sintético registrado en la ciudad de Mendoza, Argentina.",Manifestación,-32.879576,-68.868535,17/09/2020
+Hecho 611 en La Plata,"Hecho sintético registrado en la ciudad de La Plata, Argentina.",Accidente de tránsito,-34.944044,-57.914687,21/11/2020
+Hecho 612 en Salta,"Hecho sintético registrado en la ciudad de Salta, Argentina.",Delito informático,-24.768753,-65.417675,12/10/2019
+Hecho 613 en Rosario,"Hecho sintético registrado en la ciudad de Rosario, Argentina.",Incendio,-32.957618,-60.626831,05/09/2023
+Hecho 614 en La Plata,"Hecho sintético registrado en la ciudad de La Plata, Argentina.",Corte de servicios,-34.950684,-57.934798,20/08/2019
+Hecho 615 en Rosario,"Hecho sintético registrado en la ciudad de Rosario, Argentina.",Incendio,-32.954204,-60.68858,20/04/2024
+Hecho 616 en Salta,"Hecho sintético registrado en la ciudad de Salta, Argentina.",Accidente de tránsito,-24.801076,-65.439681,15/01/2024
+Hecho 617 en Rosario,"Hecho sintético registrado en la ciudad de Rosario, Argentina.",Hallazgo policial,-32.929361,-60.679909,16/08/2019
+Hecho 618 en Córdoba,"Hecho sintético registrado en la ciudad de Córdoba, Argentina.",Manifestación,-31.439178,-64.191052,30/08/2024
+Hecho 619 en Rosario,"Hecho sintético registrado en la ciudad de Rosario, Argentina.",Accidente de tránsito,-32.908267,-60.64743,31/01/2022
+Hecho 620 en Salta,"Hecho sintético registrado en la ciudad de Salta, Argentina.",Delito informático,-24.745113,-65.423565,19/09/2024
+Hecho 621 en Córdoba,"Hecho sintético registrado en la ciudad de Córdoba, Argentina.",Robo,-31.392804,-64.168765,31/01/2018
+Hecho 622 en Salta,"Hecho sintético registrado en la ciudad de Salta, Argentina.",Hallazgo policial,-24.772724,-65.46075,23/10/2024
+Hecho 623 en San Miguel de Tucumán,"Hecho sintético registrado en la ciudad de San Miguel de Tucumán, Argentina.",Evento cultural,-26.822096,-65.217014,07/08/2023
+Hecho 624 en Neuquén,"Hecho sintético registrado en la ciudad de Neuquén, Argentina.",Robo,-38.936389,-68.02411,21/10/2022
+Hecho 625 en Salta,"Hecho sintético registrado en la ciudad de Salta, Argentina.",Incendio,-24.796864,-65.390271,11/12/2023
+Hecho 626 en Salta,"Hecho sintético registrado en la ciudad de Salta, Argentina.",Corte de servicios,-24.77783,-65.438888,20/09/2018
+Hecho 627 en Neuquén,"Hecho sintético registrado en la ciudad de Neuquén, Argentina.",Hallazgo policial,-38.913327,-68.0877,08/01/2020
+Hecho 628 en Córdoba,"Hecho sintético registrado en la ciudad de Córdoba, Argentina.",Delito informático,-31.436394,-64.200424,10/01/2024
+Hecho 629 en Neuquén,"Hecho sintético registrado en la ciudad de Neuquén, Argentina.",Emergencia sanitaria,-38.936124,-68.022313,29/07/2022
+Hecho 630 en Salta,"Hecho sintético registrado en la ciudad de Salta, Argentina.",Delito informático,-24.820278,-65.449023,15/11/2021
+Hecho 631 en Salta,"Hecho sintético registrado en la ciudad de Salta, Argentina.",Corte de servicios,-24.773938,-65.384862,16/02/2019
+Hecho 632 en Córdoba,"Hecho sintético registrado en la ciudad de Córdoba, Argentina.",Emergencia sanitaria,-31.444935,-64.160453,30/06/2018
+Hecho 633 en Santa Fe,"Hecho sintético registrado en la ciudad de Santa Fe, Argentina.",Hallazgo policial,-31.639763,-60.709418,30/06/2022
+Hecho 634 en Santa Fe,"Hecho sintético registrado en la ciudad de Santa Fe, Argentina.",Delito informático,-31.664735,-60.728551,02/06/2019
+Hecho 635 en Rosario,"Hecho sintético registrado en la ciudad de Rosario, Argentina.",Corte de servicios,-32.946034,-60.633669,27/03/2023
+Hecho 636 en San Miguel de Tucumán,"Hecho sintético registrado en la ciudad de San Miguel de Tucumán, Argentina.",Hallazgo policial,-26.77445,-65.2498,24/01/2024
+Hecho 637 en La Plata,"Hecho sintético registrado en la ciudad de La Plata, Argentina.",Delito informático,-34.942294,-57.920179,26/12/2023
+Hecho 638 en Mar del Plata,"Hecho sintético registrado en la ciudad de Mar del Plata, Argentina.",Hallazgo policial,-38.025126,-57.559666,21/04/2022
+Hecho 639 en Salta,"Hecho sintético registrado en la ciudad de Salta, Argentina.",Robo,-24.767183,-65.427467,15/03/2022
+Hecho 640 en Buenos Aires,"Hecho sintético registrado en la ciudad de Buenos Aires, Argentina.",Incendio,-34.603078,-58.369076,20/07/2022
+Hecho 641 en San Miguel de Tucumán,"Hecho sintético registrado en la ciudad de San Miguel de Tucumán, Argentina.",Robo,-26.802146,-65.231531,10/08/2020
+Hecho 642 en Buenos Aires,"Hecho sintético registrado en la ciudad de Buenos Aires, Argentina.",Corte de servicios,-34.584372,-58.358592,20/05/2024
+Hecho 643 en Neuquén,"Hecho sintético registrado en la ciudad de Neuquén, Argentina.",Emergencia sanitaria,-38.958308,-68.049114,10/02/2024
+Hecho 644 en La Plata,"Hecho sintético registrado en la ciudad de La Plata, Argentina.",Evento cultural,-34.948765,-57.950148,05/03/2021
+Hecho 645 en Rosario,"Hecho sintético registrado en la ciudad de Rosario, Argentina.",Incendio,-32.926571,-60.680044,19/09/2018
+Hecho 646 en San Miguel de Tucumán,"Hecho sintético registrado en la ciudad de San Miguel de Tucumán, Argentina.",Incendio,-26.792389,-65.235479,04/12/2024
+Hecho 647 en Córdoba,"Hecho sintético registrado en la ciudad de Córdoba, Argentina.",Manifestación,-31.425119,-64.209005,22/04/2022
+Hecho 648 en Rosario,"Hecho sintético registrado en la ciudad de Rosario, Argentina.",Incendio,-32.939174,-60.643678,31/10/2023
+Hecho 649 en Córdoba,"Hecho sintético registrado en la ciudad de Córdoba, Argentina.",Robo,-31.389708,-64.181737,19/09/2024
+Hecho 650 en San Miguel de Tucumán,"Hecho sintético registrado en la ciudad de San Miguel de Tucumán, Argentina.",Accidente de tránsito,-26.835999,-65.250668,13/09/2018
+Hecho 651 en Córdoba,"Hecho sintético registrado en la ciudad de Córdoba, Argentina.",Evento cultural,-31.411787,-64.189562,07/08/2024
+Hecho 652 en La Plata,"Hecho sintético registrado en la ciudad de La Plata, Argentina.",Evento cultural,-34.899608,-57.987438,16/07/2019
+Hecho 653 en Rosario,"Hecho sintético registrado en la ciudad de Rosario, Argentina.",Manifestación,-32.969568,-60.616684,26/05/2018
+Hecho 654 en Córdoba,"Hecho sintético registrado en la ciudad de Córdoba, Argentina.",Accidente de tránsito,-31.394978,-64.154431,06/02/2019
+Hecho 655 en Rosario,"Hecho sintético registrado en la ciudad de Rosario, Argentina.",Emergencia sanitaria,-32.941584,-60.618957,10/10/2019
+Hecho 656 en Rosario,"Hecho sintético registrado en la ciudad de Rosario, Argentina.",Emergencia sanitaria,-32.933595,-60.659457,03/04/2018
+Hecho 657 en Mar del Plata,"Hecho sintético registrado en la ciudad de Mar del Plata, Argentina.",Corte de servicios,-38.02844,-57.534947,25/07/2019
+Hecho 658 en Salta,"Hecho sintético registrado en la ciudad de Salta, Argentina.",Manifestación,-24.757015,-65.414396,29/09/2022
+Hecho 659 en Salta,"Hecho sintético registrado en la ciudad de Salta, Argentina.",Hallazgo policial,-24.752059,-65.446753,08/03/2019
+Hecho 660 en Rosario,"Hecho sintético registrado en la ciudad de Rosario, Argentina.",Robo,-32.914306,-60.636897,19/04/2022
+Hecho 661 en Mendoza,"Hecho sintético registrado en la ciudad de Mendoza, Argentina.",Corte de servicios,-32.861263,-68.828584,06/04/2022
+Hecho 662 en San Miguel de Tucumán,"Hecho sintético registrado en la ciudad de San Miguel de Tucumán, Argentina.",Hallazgo policial,-26.784144,-65.223668,29/06/2022
+Hecho 663 en Mendoza,"Hecho sintético registrado en la ciudad de Mendoza, Argentina.",Manifestación,-32.912682,-68.824186,27/03/2020
+Hecho 664 en Córdoba,"Hecho sintético registrado en la ciudad de Córdoba, Argentina.",Emergencia sanitaria,-31.39883,-64.159082,22/09/2018
+Hecho 665 en Mar del Plata,"Hecho sintético registrado en la ciudad de Mar del Plata, Argentina.",Manifestación,-38.008305,-57.548907,26/07/2020
+Hecho 666 en Santa Fe,"Hecho sintético registrado en la ciudad de Santa Fe, Argentina.",Evento cultural,-31.63294,-60.699119,03/03/2024
+Hecho 667 en Córdoba,"Hecho sintético registrado en la ciudad de Córdoba, Argentina.",Hallazgo policial,-31.438682,-64.221135,01/05/2023
+Hecho 668 en Mar del Plata,"Hecho sintético registrado en la ciudad de Mar del Plata, Argentina.",Incendio,-37.999305,-57.564595,25/11/2020
+Hecho 669 en Neuquén,"Hecho sintético registrado en la ciudad de Neuquén, Argentina.",Robo,-38.961641,-68.091283,11/06/2021
+Hecho 670 en Santa Fe,"Hecho sintético registrado en la ciudad de Santa Fe, Argentina.",Robo,-31.643858,-60.682921,05/07/2020
+Hecho 671 en Neuquén,"Hecho sintético registrado en la ciudad de Neuquén, Argentina.",Delito informático,-38.965395,-68.09273,27/09/2021
+Hecho 672 en Santa Fe,"Hecho sintético registrado en la ciudad de Santa Fe, Argentina.",Delito informático,-31.599745,-60.680275,30/11/2022
+Hecho 673 en Mar del Plata,"Hecho sintético registrado en la ciudad de Mar del Plata, Argentina.",Delito informático,-37.980245,-57.518892,15/05/2018
+Hecho 674 en Córdoba,"Hecho sintético registrado en la ciudad de Córdoba, Argentina.",Delito informático,-31.440439,-64.149901,26/05/2024
+Hecho 675 en Córdoba,"Hecho sintético registrado en la ciudad de Córdoba, Argentina.",Accidente de tránsito,-31.435516,-64.180397,16/10/2018
+Hecho 676 en San Miguel de Tucumán,"Hecho sintético registrado en la ciudad de San Miguel de Tucumán, Argentina.",Robo,-26.797458,-65.236712,09/03/2021
+Hecho 677 en Neuquén,"Hecho sintético registrado en la ciudad de Neuquén, Argentina.",Accidente de tránsito,-38.960102,-68.083035,04/03/2020
+Hecho 678 en Mar del Plata,"Hecho sintético registrado en la ciudad de Mar del Plata, Argentina.",Corte de servicios,-38.00698,-57.541495,27/03/2024
+Hecho 679 en Santa Fe,"Hecho sintético registrado en la ciudad de Santa Fe, Argentina.",Hallazgo policial,-31.637106,-60.711201,21/05/2022
+Hecho 680 en San Miguel de Tucumán,"Hecho sintético registrado en la ciudad de San Miguel de Tucumán, Argentina.",Corte de servicios,-26.806237,-65.183359,14/04/2021
+Hecho 681 en La Plata,"Hecho sintético registrado en la ciudad de La Plata, Argentina.",Delito informático,-34.924453,-57.920337,18/05/2020
+Hecho 682 en Rosario,"Hecho sintético registrado en la ciudad de Rosario, Argentina.",Evento cultural,-32.905107,-60.647126,23/05/2023
+Hecho 683 en Mar del Plata,"Hecho sintético registrado en la ciudad de Mar del Plata, Argentina.",Incendio,-37.977169,-57.510486,14/06/2019
+Hecho 684 en Córdoba,"Hecho sintético registrado en la ciudad de Córdoba, Argentina.",Emergencia sanitaria,-31.425037,-64.174758,25/01/2019
+Hecho 685 en Santa Fe,"Hecho sintético registrado en la ciudad de Santa Fe, Argentina.",Incendio,-31.648645,-60.679817,09/05/2022
+Hecho 686 en Buenos Aires,"Hecho sintético registrado en la ciudad de Buenos Aires, Argentina.",Incendio,-34.604157,-58.411005,10/10/2024
+Hecho 687 en La Plata,"Hecho sintético registrado en la ciudad de La Plata, Argentina.",Evento cultural,-34.93426,-57.956612,21/07/2024
+Hecho 688 en Mar del Plata,"Hecho sintético registrado en la ciudad de Mar del Plata, Argentina.",Emergencia sanitaria,-37.999492,-57.572821,14/06/2019
+Hecho 689 en Mendoza,"Hecho sintético registrado en la ciudad de Mendoza, Argentina.",Robo,-32.921249,-68.882006,29/05/2024
+Hecho 690 en Córdoba,"Hecho sintético registrado en la ciudad de Córdoba, Argentina.",Incendio,-31.455296,-64.172702,17/04/2023
+Hecho 691 en Buenos Aires,"Hecho sintético registrado en la ciudad de Buenos Aires, Argentina.",Evento cultural,-34.632776,-58.370441,21/02/2022
+Hecho 692 en Rosario,"Hecho sintético registrado en la ciudad de Rosario, Argentina.",Corte de servicios,-32.91347,-60.63088,19/09/2018
+Hecho 693 en Buenos Aires,"Hecho sintético registrado en la ciudad de Buenos Aires, Argentina.",Delito informático,-34.616806,-58.398872,31/12/2022
+Hecho 694 en Neuquén,"Hecho sintético registrado en la ciudad de Neuquén, Argentina.",Accidente de tránsito,-38.966914,-68.072547,28/08/2021
+Hecho 695 en Santa Fe,"Hecho sintético registrado en la ciudad de Santa Fe, Argentina.",Hallazgo policial,-31.609455,-60.66341,27/11/2019
+Hecho 696 en Salta,"Hecho sintético registrado en la ciudad de Salta, Argentina.",Accidente de tránsito,-24.767439,-65.403007,21/04/2018
+Hecho 697 en Santa Fe,"Hecho sintético registrado en la ciudad de Santa Fe, Argentina.",Incendio,-31.668922,-60.682064,06/05/2023
+Hecho 698 en Buenos Aires,"Hecho sintético registrado en la ciudad de Buenos Aires, Argentina.",Incendio,-34.59937,-58.412069,10/02/2019
+Hecho 699 en San Miguel de Tucumán,"Hecho sintético registrado en la ciudad de San Miguel de Tucumán, Argentina.",Evento cultural,-26.830584,-65.193223,15/02/2024
+Hecho 700 en Neuquén,"Hecho sintético registrado en la ciudad de Neuquén, Argentina.",Delito informático,-38.954108,-68.084813,02/04/2021
+Hecho 701 en Neuquén,"Hecho sintético registrado en la ciudad de Neuquén, Argentina.",Corte de servicios,-38.922915,-68.055558,18/05/2018
+Hecho 702 en San Miguel de Tucumán,"Hecho sintético registrado en la ciudad de San Miguel de Tucumán, Argentina.",Incendio,-26.785915,-65.22195,11/07/2024
+Hecho 703 en Salta,"Hecho sintético registrado en la ciudad de Salta, Argentina.",Robo,-24.755009,-65.440327,03/12/2023
+Hecho 704 en Buenos Aires,"Hecho sintético registrado en la ciudad de Buenos Aires, Argentina.",Accidente de tránsito,-34.603003,-58.387496,21/06/2020
+Hecho 705 en Mendoza,"Hecho sintético registrado en la ciudad de Mendoza, Argentina.",Incendio,-32.864285,-68.881111,09/11/2022
+Hecho 706 en Mendoza,"Hecho sintético registrado en la ciudad de Mendoza, Argentina.",Hallazgo policial,-32.909006,-68.848405,17/08/2024
+Hecho 707 en Salta,"Hecho sintético registrado en la ciudad de Salta, Argentina.",Corte de servicios,-24.805141,-65.435374,19/06/2018
+Hecho 708 en La Plata,"Hecho sintético registrado en la ciudad de La Plata, Argentina.",Corte de servicios,-34.944086,-57.971192,29/12/2019
+Hecho 709 en Córdoba,"Hecho sintético registrado en la ciudad de Córdoba, Argentina.",Delito informático,-31.458233,-64.167864,10/09/2024
+Hecho 710 en Buenos Aires,"Hecho sintético registrado en la ciudad de Buenos Aires, Argentina.",Manifestación,-34.576303,-58.367696,03/10/2024
+Hecho 711 en Buenos Aires,"Hecho sintético registrado en la ciudad de Buenos Aires, Argentina.",Manifestación,-34.601174,-58.395864,13/09/2020
+Hecho 712 en La Plata,"Hecho sintético registrado en la ciudad de La Plata, Argentina.",Corte de servicios,-34.885986,-57.968508,26/12/2019
+Hecho 713 en Rosario,"Hecho sintético registrado en la ciudad de Rosario, Argentina.",Accidente de tránsito,-32.948165,-60.648417,01/10/2019
+Hecho 714 en San Miguel de Tucumán,"Hecho sintético registrado en la ciudad de San Miguel de Tucumán, Argentina.",Corte de servicios,-26.790205,-65.234282,23/10/2021
+Hecho 715 en Rosario,"Hecho sintético registrado en la ciudad de Rosario, Argentina.",Delito informático,-32.983403,-60.660888,09/02/2018
+Hecho 716 en Mar del Plata,"Hecho sintético registrado en la ciudad de Mar del Plata, Argentina.",Corte de servicios,-38.005002,-57.576354,03/05/2020
+Hecho 717 en La Plata,"Hecho sintético registrado en la ciudad de La Plata, Argentina.",Accidente de tránsito,-34.905629,-57.952527,26/10/2022
+Hecho 718 en Rosario,"Hecho sintético registrado en la ciudad de Rosario, Argentina.",Robo,-32.943708,-60.659146,17/04/2022
+Hecho 719 en Córdoba,"Hecho sintético registrado en la ciudad de Córdoba, Argentina.",Accidente de tránsito,-31.424267,-64.168647,11/07/2020
+Hecho 720 en Buenos Aires,"Hecho sintético registrado en la ciudad de Buenos Aires, Argentina.",Incendio,-34.594164,-58.351771,25/04/2020
+Hecho 721 en Mar del Plata,"Hecho sintético registrado en la ciudad de Mar del Plata, Argentina.",Emergencia sanitaria,-38.010173,-57.567669,02/03/2024
+Hecho 722 en San Miguel de Tucumán,"Hecho sintético registrado en la ciudad de San Miguel de Tucumán, Argentina.",Incendio,-26.811874,-65.229282,23/08/2020
+Hecho 723 en Neuquén,"Hecho sintético registrado en la ciudad de Neuquén, Argentina.",Incendio,-38.940117,-68.051301,05/03/2020
+Hecho 724 en Rosario,"Hecho sintético registrado en la ciudad de Rosario, Argentina.",Incendio,-32.917507,-60.627227,14/12/2023
+Hecho 725 en Mar del Plata,"Hecho sintético registrado en la ciudad de Mar del Plata, Argentina.",Emergencia sanitaria,-38.014045,-57.574653,10/12/2019
+Hecho 726 en Rosario,"Hecho sintético registrado en la ciudad de Rosario, Argentina.",Evento cultural,-32.980268,-60.650438,07/01/2022
+Hecho 727 en La Plata,"Hecho sintético registrado en la ciudad de La Plata, Argentina.",Accidente de tránsito,-34.952498,-57.986744,15/04/2021
+Hecho 728 en Mar del Plata,"Hecho sintético registrado en la ciudad de Mar del Plata, Argentina.",Evento cultural,-38.041481,-57.517364,05/09/2018
+Hecho 729 en Córdoba,"Hecho sintético registrado en la ciudad de Córdoba, Argentina.",Accidente de tránsito,-31.420417,-64.187772,22/07/2020
+Hecho 730 en Salta,"Hecho sintético registrado en la ciudad de Salta, Argentina.",Evento cultural,-24.800619,-65.409357,10/08/2023
+Hecho 731 en La Plata,"Hecho sintético registrado en la ciudad de La Plata, Argentina.",Robo,-34.886385,-57.987642,13/12/2019
+Hecho 732 en Rosario,"Hecho sintético registrado en la ciudad de Rosario, Argentina.",Accidente de tránsito,-32.915341,-60.66419,22/10/2021
+Hecho 733 en Santa Fe,"Hecho sintético registrado en la ciudad de Santa Fe, Argentina.",Robo,-31.639959,-60.719253,13/06/2018
+Hecho 734 en Neuquén,"Hecho sintético registrado en la ciudad de Neuquén, Argentina.",Robo,-38.944402,-68.024801,30/03/2020
+Hecho 735 en Mendoza,"Hecho sintético registrado en la ciudad de Mendoza, Argentina.",Manifestación,-32.91644,-68.854684,25/05/2019
+Hecho 736 en Mar del Plata,"Hecho sintético registrado en la ciudad de Mar del Plata, Argentina.",Evento cultural,-37.981092,-57.565302,12/06/2024
+Hecho 737 en Salta,"Hecho sintético registrado en la ciudad de Salta, Argentina.",Delito informático,-24.821919,-65.463126,18/03/2019
+Hecho 738 en Santa Fe,"Hecho sintético registrado en la ciudad de Santa Fe, Argentina.",Emergencia sanitaria,-31.61282,-60.667423,31/07/2019
+Hecho 739 en La Plata,"Hecho sintético registrado en la ciudad de La Plata, Argentina.",Evento cultural,-34.917655,-57.939892,11/12/2021
+Hecho 740 en Buenos Aires,"Hecho sintético registrado en la ciudad de Buenos Aires, Argentina.",Corte de servicios,-34.566677,-58.367751,21/02/2018
+Hecho 741 en Santa Fe,"Hecho sintético registrado en la ciudad de Santa Fe, Argentina.",Hallazgo policial,-31.633748,-60.692908,06/05/2019
+Hecho 742 en Mendoza,"Hecho sintético registrado en la ciudad de Mendoza, Argentina.",Accidente de tránsito,-32.893473,-68.876957,24/08/2024
+Hecho 743 en Córdoba,"Hecho sintético registrado en la ciudad de Córdoba, Argentina.",Incendio,-31.43378,-64.152197,22/07/2021
+Hecho 744 en Buenos Aires,"Hecho sintético registrado en la ciudad de Buenos Aires, Argentina.",Hallazgo policial,-34.631155,-58.415208,17/01/2019
+Hecho 745 en Neuquén,"Hecho sintético registrado en la ciudad de Neuquén, Argentina.",Emergencia sanitaria,-38.93027,-68.039935,03/06/2022
+Hecho 746 en Córdoba,"Hecho sintético registrado en la ciudad de Córdoba, Argentina.",Corte de servicios,-31.432359,-64.155065,13/03/2022
+Hecho 747 en Rosario,"Hecho sintético registrado en la ciudad de Rosario, Argentina.",Robo,-32.922002,-60.647247,07/06/2020
+Hecho 748 en La Plata,"Hecho sintético registrado en la ciudad de La Plata, Argentina.",Incendio,-34.942482,-57.961295,29/05/2022
+Hecho 749 en Buenos Aires,"Hecho sintético registrado en la ciudad de Buenos Aires, Argentina.",Emergencia sanitaria,-34.625016,-58.381689,10/04/2018
+Hecho 750 en Córdoba,"Hecho sintético registrado en la ciudad de Córdoba, Argentina.",Manifestación,-31.447597,-64.220196,29/10/2021
+Hecho 751 en Rosario,"Hecho sintético registrado en la ciudad de Rosario, Argentina.",Delito informático,-32.978643,-60.66767,03/03/2018
+Hecho 752 en San Miguel de Tucumán,"Hecho sintético registrado en la ciudad de San Miguel de Tucumán, Argentina.",Evento cultural,-26.830083,-65.247683,22/06/2022
+Hecho 753 en La Plata,"Hecho sintético registrado en la ciudad de La Plata, Argentina.",Delito informático,-34.948705,-57.985053,09/06/2018
+Hecho 754 en Salta,"Hecho sintético registrado en la ciudad de Salta, Argentina.",Robo,-24.745925,-65.402378,16/10/2020
+Hecho 755 en Buenos Aires,"Hecho sintético registrado en la ciudad de Buenos Aires, Argentina.",Accidente de tránsito,-34.638448,-58.369813,29/11/2024
+Hecho 756 en San Miguel de Tucumán,"Hecho sintético registrado en la ciudad de San Miguel de Tucumán, Argentina.",Incendio,-26.833031,-65.211315,03/03/2021
+Hecho 757 en Mar del Plata,"Hecho sintético registrado en la ciudad de Mar del Plata, Argentina.",Manifestación,-37.987124,-57.552901,15/08/2019
+Hecho 758 en Rosario,"Hecho sintético registrado en la ciudad de Rosario, Argentina.",Delito informático,-32.96622,-60.625961,15/09/2020
+Hecho 759 en Rosario,"Hecho sintético registrado en la ciudad de Rosario, Argentina.",Hallazgo policial,-32.955608,-60.685094,30/07/2019
+Hecho 760 en Buenos Aires,"Hecho sintético registrado en la ciudad de Buenos Aires, Argentina.",Incendio,-34.641799,-58.401581,08/07/2023
+Hecho 761 en Rosario,"Hecho sintético registrado en la ciudad de Rosario, Argentina.",Evento cultural,-32.952318,-60.627148,28/09/2018
+Hecho 762 en Neuquén,"Hecho sintético registrado en la ciudad de Neuquén, Argentina.",Emergencia sanitaria,-38.946273,-68.023416,15/06/2019
+Hecho 763 en Rosario,"Hecho sintético registrado en la ciudad de Rosario, Argentina.",Emergencia sanitaria,-32.909659,-60.629785,30/05/2021
+Hecho 764 en Rosario,"Hecho sintético registrado en la ciudad de Rosario, Argentina.",Delito informático,-32.92306,-60.627308,23/09/2020
+Hecho 765 en San Miguel de Tucumán,"Hecho sintético registrado en la ciudad de San Miguel de Tucumán, Argentina.",Emergencia sanitaria,-26.825561,-65.188659,06/06/2023
+Hecho 766 en Mar del Plata,"Hecho sintético registrado en la ciudad de Mar del Plata, Argentina.",Corte de servicios,-37.965582,-57.577,30/11/2019
+Hecho 767 en La Plata,"Hecho sintético registrado en la ciudad de La Plata, Argentina.",Incendio,-34.895874,-57.946264,05/04/2024
+Hecho 768 en Santa Fe,"Hecho sintético registrado en la ciudad de Santa Fe, Argentina.",Incendio,-31.597434,-60.675502,21/01/2024
+Hecho 769 en Buenos Aires,"Hecho sintético registrado en la ciudad de Buenos Aires, Argentina.",Evento cultural,-34.632526,-58.353126,17/04/2023
+Hecho 770 en Salta,"Hecho sintético registrado en la ciudad de Salta, Argentina.",Emergencia sanitaria,-24.791928,-65.416874,12/07/2021
+Hecho 771 en Mendoza,"Hecho sintético registrado en la ciudad de Mendoza, Argentina.",Corte de servicios,-32.900763,-68.833188,20/01/2019
+Hecho 772 en Rosario,"Hecho sintético registrado en la ciudad de Rosario, Argentina.",Delito informático,-32.934191,-60.64921,20/09/2020
+Hecho 773 en Salta,"Hecho sintético registrado en la ciudad de Salta, Argentina.",Incendio,-24.765345,-65.44011,25/05/2020
+Hecho 774 en Mar del Plata,"Hecho sintético registrado en la ciudad de Mar del Plata, Argentina.",Emergencia sanitaria,-38.008797,-57.552327,17/11/2021
+Hecho 775 en La Plata,"Hecho sintético registrado en la ciudad de La Plata, Argentina.",Hallazgo policial,-34.942876,-57.938005,04/07/2023
+Hecho 776 en Neuquén,"Hecho sintético registrado en la ciudad de Neuquén, Argentina.",Accidente de tránsito,-38.924983,-68.08968,22/03/2022
+Hecho 777 en Buenos Aires,"Hecho sintético registrado en la ciudad de Buenos Aires, Argentina.",Robo,-34.611609,-58.393038,14/08/2018
+Hecho 778 en Salta,"Hecho sintético registrado en la ciudad de Salta, Argentina.",Evento cultural,-24.779049,-65.44994,31/03/2023
+Hecho 779 en Salta,"Hecho sintético registrado en la ciudad de Salta, Argentina.",Robo,-24.805964,-65.434947,22/10/2024
+Hecho 780 en Salta,"Hecho sintético registrado en la ciudad de Salta, Argentina.",Manifestación,-24.758752,-65.447738,06/02/2023
+Hecho 781 en Salta,"Hecho sintético registrado en la ciudad de Salta, Argentina.",Corte de servicios,-24.787471,-65.451442,12/12/2022
+Hecho 782 en Mendoza,"Hecho sintético registrado en la ciudad de Mendoza, Argentina.",Incendio,-32.852783,-68.823661,25/10/2020
+Hecho 783 en Mar del Plata,"Hecho sintético registrado en la ciudad de Mar del Plata, Argentina.",Hallazgo policial,-38.034201,-57.534371,15/09/2019
+Hecho 784 en Neuquén,"Hecho sintético registrado en la ciudad de Neuquén, Argentina.",Emergencia sanitaria,-38.949625,-68.044801,23/01/2022
+Hecho 785 en Mendoza,"Hecho sintético registrado en la ciudad de Mendoza, Argentina.",Corte de servicios,-32.86168,-68.841133,24/06/2021
+Hecho 786 en La Plata,"Hecho sintético registrado en la ciudad de La Plata, Argentina.",Delito informático,-34.910531,-57.956112,01/02/2021
+Hecho 787 en Neuquén,"Hecho sintético registrado en la ciudad de Neuquén, Argentina.",Evento cultural,-38.991347,-68.074592,16/10/2023
+Hecho 788 en Santa Fe,"Hecho sintético registrado en la ciudad de Santa Fe, Argentina.",Robo,-31.606857,-60.697457,23/04/2021
+Hecho 789 en Buenos Aires,"Hecho sintético registrado en la ciudad de Buenos Aires, Argentina.",Manifestación,-34.64066,-58.351887,27/10/2024
+Hecho 790 en Rosario,"Hecho sintético registrado en la ciudad de Rosario, Argentina.",Incendio,-32.981473,-60.645179,04/04/2022
+Hecho 791 en Córdoba,"Hecho sintético registrado en la ciudad de Córdoba, Argentina.",Delito informático,-31.395238,-64.194127,19/06/2024
+Hecho 792 en Rosario,"Hecho sintético registrado en la ciudad de Rosario, Argentina.",Hallazgo policial,-32.950023,-60.672357,06/02/2023
+Hecho 793 en Neuquén,"Hecho sintético registrado en la ciudad de Neuquén, Argentina.",Delito informático,-38.930776,-68.034333,26/02/2022
+Hecho 794 en La Plata,"Hecho sintético registrado en la ciudad de La Plata, Argentina.",Accidente de tránsito,-34.91024,-57.991059,06/07/2021
+Hecho 795 en Santa Fe,"Hecho sintético registrado en la ciudad de Santa Fe, Argentina.",Evento cultural,-31.64694,-60.732512,10/05/2018
+Hecho 796 en Buenos Aires,"Hecho sintético registrado en la ciudad de Buenos Aires, Argentina.",Manifestación,-34.598521,-58.417998,12/02/2019
+Hecho 797 en Córdoba,"Hecho sintético registrado en la ciudad de Córdoba, Argentina.",Robo,-31.438746,-64.162585,11/12/2022
+Hecho 798 en Córdoba,"Hecho sintético registrado en la ciudad de Córdoba, Argentina.",Robo,-31.409012,-64.216069,19/04/2019
+Hecho 799 en Rosario,"Hecho sintético registrado en la ciudad de Rosario, Argentina.",Accidente de tránsito,-32.913548,-60.626873,11/06/2021
+Hecho 800 en Santa Fe,"Hecho sintético registrado en la ciudad de Santa Fe, Argentina.",Incendio,-31.634492,-60.710428,15/02/2023
+Hecho 801 en Córdoba,"Hecho sintético registrado en la ciudad de Córdoba, Argentina.",Corte de servicios,-31.400311,-64.155172,11/02/2022
+Hecho 802 en Córdoba,"Hecho sintético registrado en la ciudad de Córdoba, Argentina.",Manifestación,-31.45081,-64.212659,07/01/2020
+Hecho 803 en San Miguel de Tucumán,"Hecho sintético registrado en la ciudad de San Miguel de Tucumán, Argentina.",Incendio,-26.791818,-65.233389,11/06/2018
+Hecho 804 en Santa Fe,"Hecho sintético registrado en la ciudad de Santa Fe, Argentina.",Hallazgo policial,-31.59632,-60.681637,08/01/2022
+Hecho 805 en La Plata,"Hecho sintético registrado en la ciudad de La Plata, Argentina.",Delito informático,-34.91025,-57.928258,21/05/2022
+Hecho 806 en Santa Fe,"Hecho sintético registrado en la ciudad de Santa Fe, Argentina.",Robo,-31.657,-60.703056,05/10/2020
+Hecho 807 en Mendoza,"Hecho sintético registrado en la ciudad de Mendoza, Argentina.",Incendio,-32.874404,-68.862718,04/03/2023
+Hecho 808 en Santa Fe,"Hecho sintético registrado en la ciudad de Santa Fe, Argentina.",Delito informático,-31.61017,-60.720904,20/05/2020
+Hecho 809 en Santa Fe,"Hecho sintético registrado en la ciudad de Santa Fe, Argentina.",Emergencia sanitaria,-31.645252,-60.692206,11/08/2024
+Hecho 810 en Mendoza,"Hecho sintético registrado en la ciudad de Mendoza, Argentina.",Emergencia sanitaria,-32.886321,-68.812369,27/04/2018
+Hecho 811 en La Plata,"Hecho sintético registrado en la ciudad de La Plata, Argentina.",Manifestación,-34.920441,-57.993113,26/06/2024
+Hecho 812 en Buenos Aires,"Hecho sintético registrado en la ciudad de Buenos Aires, Argentina.",Robo,-34.635074,-58.383873,03/04/2024
+Hecho 813 en San Miguel de Tucumán,"Hecho sintético registrado en la ciudad de San Miguel de Tucumán, Argentina.",Emergencia sanitaria,-26.801656,-65.209475,10/11/2024
+Hecho 814 en La Plata,"Hecho sintético registrado en la ciudad de La Plata, Argentina.",Robo,-34.910763,-57.964746,31/12/2022
+Hecho 815 en Neuquén,"Hecho sintético registrado en la ciudad de Neuquén, Argentina.",Delito informático,-38.989682,-68.076623,05/05/2024
+Hecho 816 en Neuquén,"Hecho sintético registrado en la ciudad de Neuquén, Argentina.",Hallazgo policial,-38.919396,-68.023098,04/08/2021
+Hecho 817 en La Plata,"Hecho sintético registrado en la ciudad de La Plata, Argentina.",Manifestación,-34.952538,-57.940476,24/09/2023
+Hecho 818 en Santa Fe,"Hecho sintético registrado en la ciudad de Santa Fe, Argentina.",Accidente de tránsito,-31.598516,-60.702665,28/12/2022
+Hecho 819 en Salta,"Hecho sintético registrado en la ciudad de Salta, Argentina.",Robo,-24.751171,-65.455557,26/11/2019
+Hecho 820 en Mar del Plata,"Hecho sintético registrado en la ciudad de Mar del Plata, Argentina.",Manifestación,-38.009782,-57.528438,22/04/2021
+Hecho 821 en Santa Fe,"Hecho sintético registrado en la ciudad de Santa Fe, Argentina.",Accidente de tránsito,-31.642061,-60.738107,07/11/2021
+Hecho 822 en San Miguel de Tucumán,"Hecho sintético registrado en la ciudad de San Miguel de Tucumán, Argentina.",Hallazgo policial,-26.790346,-65.19272,13/02/2024
+Hecho 823 en Rosario,"Hecho sintético registrado en la ciudad de Rosario, Argentina.",Corte de servicios,-32.959982,-60.627234,12/05/2024
+Hecho 824 en Salta,"Hecho sintético registrado en la ciudad de Salta, Argentina.",Evento cultural,-24.798622,-65.446087,17/02/2024
+Hecho 825 en Rosario,"Hecho sintético registrado en la ciudad de Rosario, Argentina.",Incendio,-32.983974,-60.649831,20/07/2022
+Hecho 826 en Mar del Plata,"Hecho sintético registrado en la ciudad de Mar del Plata, Argentina.",Accidente de tránsito,-37.999311,-57.538433,24/08/2018
+Hecho 827 en Mar del Plata,"Hecho sintético registrado en la ciudad de Mar del Plata, Argentina.",Evento cultural,-38.03973,-57.554656,27/10/2022
+Hecho 828 en Salta,"Hecho sintético registrado en la ciudad de Salta, Argentina.",Corte de servicios,-24.806878,-65.386158,23/03/2022
+Hecho 829 en Salta,"Hecho sintético registrado en la ciudad de Salta, Argentina.",Incendio,-24.775003,-65.397505,08/01/2022
+Hecho 830 en Rosario,"Hecho sintético registrado en la ciudad de Rosario, Argentina.",Accidente de tránsito,-32.907034,-60.616742,23/09/2019
+Hecho 831 en Rosario,"Hecho sintético registrado en la ciudad de Rosario, Argentina.",Evento cultural,-32.914714,-60.660249,07/04/2018
+Hecho 832 en La Plata,"Hecho sintético registrado en la ciudad de La Plata, Argentina.",Evento cultural,-34.919499,-57.985765,27/05/2019
+Hecho 833 en Córdoba,"Hecho sintético registrado en la ciudad de Córdoba, Argentina.",Accidente de tránsito,-31.419212,-64.194382,05/03/2022
+Hecho 834 en La Plata,"Hecho sintético registrado en la ciudad de La Plata, Argentina.",Manifestación,-34.884324,-57.968837,25/07/2021
+Hecho 835 en Neuquén,"Hecho sintético registrado en la ciudad de Neuquén, Argentina.",Accidente de tránsito,-38.990751,-68.038779,13/08/2021
+Hecho 836 en Santa Fe,"Hecho sintético registrado en la ciudad de Santa Fe, Argentina.",Accidente de tránsito,-31.596646,-60.688103,14/12/2019
+Hecho 837 en Salta,"Hecho sintético registrado en la ciudad de Salta, Argentina.",Hallazgo policial,-24.766648,-65.398538,25/09/2022
+Hecho 838 en Rosario,"Hecho sintético registrado en la ciudad de Rosario, Argentina.",Manifestación,-32.955526,-60.629256,22/02/2018
+Hecho 839 en Neuquén,"Hecho sintético registrado en la ciudad de Neuquén, Argentina.",Manifestación,-38.950106,-68.086755,27/02/2019
+Hecho 840 en La Plata,"Hecho sintético registrado en la ciudad de La Plata, Argentina.",Accidente de tránsito,-34.943663,-57.946319,22/05/2023
+Hecho 841 en Buenos Aires,"Hecho sintético registrado en la ciudad de Buenos Aires, Argentina.",Delito informático,-34.568349,-58.421088,10/09/2024
+Hecho 842 en Salta,"Hecho sintético registrado en la ciudad de Salta, Argentina.",Corte de servicios,-24.807903,-65.434585,23/02/2019
+Hecho 843 en Salta,"Hecho sintético registrado en la ciudad de Salta, Argentina.",Robo,-24.805924,-65.445194,22/08/2018
+Hecho 844 en Rosario,"Hecho sintético registrado en la ciudad de Rosario, Argentina.",Manifestación,-32.953983,-60.686336,27/10/2024
+Hecho 845 en La Plata,"Hecho sintético registrado en la ciudad de La Plata, Argentina.",Hallazgo policial,-34.951366,-57.991957,07/07/2024
+Hecho 846 en La Plata,"Hecho sintético registrado en la ciudad de La Plata, Argentina.",Robo,-34.918456,-57.970718,06/06/2023
+Hecho 847 en Mar del Plata,"Hecho sintético registrado en la ciudad de Mar del Plata, Argentina.",Emergencia sanitaria,-37.985012,-57.528678,08/01/2018
+Hecho 848 en Rosario,"Hecho sintético registrado en la ciudad de Rosario, Argentina.",Manifestación,-32.929402,-60.614071,12/01/2024
+Hecho 849 en Neuquén,"Hecho sintético registrado en la ciudad de Neuquén, Argentina.",Manifestación,-38.979107,-68.027065,19/02/2023
+Hecho 850 en Córdoba,"Hecho sintético registrado en la ciudad de Córdoba, Argentina.",Evento cultural,-31.427126,-64.225959,17/09/2020
+Hecho 851 en Neuquén,"Hecho sintético registrado en la ciudad de Neuquén, Argentina.",Hallazgo policial,-38.95331,-68.081571,06/05/2021
+Hecho 852 en Mendoza,"Hecho sintético registrado en la ciudad de Mendoza, Argentina.",Emergencia sanitaria,-32.871739,-68.84942,18/04/2024
+Hecho 853 en Rosario,"Hecho sintético registrado en la ciudad de Rosario, Argentina.",Evento cultural,-32.968271,-60.654412,26/04/2023
+Hecho 854 en San Miguel de Tucumán,"Hecho sintético registrado en la ciudad de San Miguel de Tucumán, Argentina.",Evento cultural,-26.820601,-65.249904,29/11/2018
+Hecho 855 en Rosario,"Hecho sintético registrado en la ciudad de Rosario, Argentina.",Robo,-32.939207,-60.615247,01/12/2021
+Hecho 856 en Neuquén,"Hecho sintético registrado en la ciudad de Neuquén, Argentina.",Emergencia sanitaria,-38.954981,-68.085943,06/01/2022
+Hecho 857 en Neuquén,"Hecho sintético registrado en la ciudad de Neuquén, Argentina.",Incendio,-38.914133,-68.074565,27/02/2018
+Hecho 858 en San Miguel de Tucumán,"Hecho sintético registrado en la ciudad de San Miguel de Tucumán, Argentina.",Hallazgo policial,-26.815717,-65.243615,13/07/2018
+Hecho 859 en Neuquén,"Hecho sintético registrado en la ciudad de Neuquén, Argentina.",Accidente de tránsito,-38.959704,-68.083352,21/01/2020
+Hecho 860 en Mar del Plata,"Hecho sintético registrado en la ciudad de Mar del Plata, Argentina.",Manifestación,-38.027146,-57.520536,25/03/2024
+Hecho 861 en Neuquén,"Hecho sintético registrado en la ciudad de Neuquén, Argentina.",Robo,-38.950938,-68.062207,01/04/2020
+Hecho 862 en Rosario,"Hecho sintético registrado en la ciudad de Rosario, Argentina.",Accidente de tránsito,-32.96446,-60.645641,08/03/2020
+Hecho 863 en La Plata,"Hecho sintético registrado en la ciudad de La Plata, Argentina.",Hallazgo policial,-34.93248,-57.963051,16/08/2019
+Hecho 864 en Mar del Plata,"Hecho sintético registrado en la ciudad de Mar del Plata, Argentina.",Corte de servicios,-38.039669,-57.536846,18/11/2022
+Hecho 865 en Salta,"Hecho sintético registrado en la ciudad de Salta, Argentina.",Accidente de tránsito,-24.780992,-65.408946,20/01/2021
+Hecho 866 en Córdoba,"Hecho sintético registrado en la ciudad de Córdoba, Argentina.",Hallazgo policial,-31.414314,-64.18747,25/06/2023
+Hecho 867 en Neuquén,"Hecho sintético registrado en la ciudad de Neuquén, Argentina.",Emergencia sanitaria,-38.976607,-68.052189,02/10/2022
+Hecho 868 en Neuquén,"Hecho sintético registrado en la ciudad de Neuquén, Argentina.",Emergencia sanitaria,-38.923812,-68.08869,04/06/2020
+Hecho 869 en San Miguel de Tucumán,"Hecho sintético registrado en la ciudad de San Miguel de Tucumán, Argentina.",Accidente de tránsito,-26.788,-65.209397,20/05/2022
+Hecho 870 en Mendoza,"Hecho sintético registrado en la ciudad de Mendoza, Argentina.",Delito informático,-32.893114,-68.820716,12/08/2021
+Hecho 871 en Córdoba,"Hecho sintético registrado en la ciudad de Córdoba, Argentina.",Hallazgo policial,-31.443511,-64.213916,13/10/2018
+Hecho 872 en La Plata,"Hecho sintético registrado en la ciudad de La Plata, Argentina.",Hallazgo policial,-34.928939,-57.979005,13/10/2019
+Hecho 873 en Neuquén,"Hecho sintético registrado en la ciudad de Neuquén, Argentina.",Evento cultural,-38.981168,-68.023502,18/01/2020
+Hecho 874 en Córdoba,"Hecho sintético registrado en la ciudad de Córdoba, Argentina.",Emergencia sanitaria,-31.407608,-64.192782,18/12/2019
+Hecho 875 en Salta,"Hecho sintético registrado en la ciudad de Salta, Argentina.",Manifestación,-24.793512,-65.418859,06/04/2019
+Hecho 876 en Mar del Plata,"Hecho sintético registrado en la ciudad de Mar del Plata, Argentina.",Accidente de tránsito,-38.015405,-57.514399,27/09/2024
+Hecho 877 en San Miguel de Tucumán,"Hecho sintético registrado en la ciudad de San Miguel de Tucumán, Argentina.",Delito informático,-26.814799,-65.18629,27/01/2024
+Hecho 878 en Córdoba,"Hecho sintético registrado en la ciudad de Córdoba, Argentina.",Robo,-31.391776,-64.173758,23/04/2023
+Hecho 879 en Salta,"Hecho sintético registrado en la ciudad de Salta, Argentina.",Hallazgo policial,-24.766897,-65.462347,21/11/2022
+Hecho 880 en La Plata,"Hecho sintético registrado en la ciudad de La Plata, Argentina.",Robo,-34.933997,-57.945239,30/01/2018
+Hecho 881 en Mendoza,"Hecho sintético registrado en la ciudad de Mendoza, Argentina.",Hallazgo policial,-32.885452,-68.838721,08/09/2023
+Hecho 882 en Salta,"Hecho sintético registrado en la ciudad de Salta, Argentina.",Robo,-24.752807,-65.397719,21/12/2020
+Hecho 883 en La Plata,"Hecho sintético registrado en la ciudad de La Plata, Argentina.",Corte de servicios,-34.920734,-57.991149,01/06/2021
+Hecho 884 en Neuquén,"Hecho sintético registrado en la ciudad de Neuquén, Argentina.",Delito informático,-38.967876,-68.020382,19/06/2022
+Hecho 885 en Mar del Plata,"Hecho sintético registrado en la ciudad de Mar del Plata, Argentina.",Hallazgo policial,-37.970363,-57.557799,16/12/2024
+Hecho 886 en Buenos Aires,"Hecho sintético registrado en la ciudad de Buenos Aires, Argentina.",Delito informático,-34.564642,-58.401529,02/08/2023
+Hecho 887 en Mar del Plata,"Hecho sintético registrado en la ciudad de Mar del Plata, Argentina.",Accidente de tránsito,-38.004908,-57.543428,07/06/2021
+Hecho 888 en Buenos Aires,"Hecho sintético registrado en la ciudad de Buenos Aires, Argentina.",Evento cultural,-34.574846,-58.39862,29/08/2020
+Hecho 889 en Rosario,"Hecho sintético registrado en la ciudad de Rosario, Argentina.",Evento cultural,-32.915468,-60.62924,25/11/2024
+Hecho 890 en Mar del Plata,"Hecho sintético registrado en la ciudad de Mar del Plata, Argentina.",Hallazgo policial,-37.987519,-57.503198,10/09/2022
+Hecho 891 en La Plata,"Hecho sintético registrado en la ciudad de La Plata, Argentina.",Delito informático,-34.892322,-57.97019,14/10/2023
+Hecho 892 en Salta,"Hecho sintético registrado en la ciudad de Salta, Argentina.",Manifestación,-24.763483,-65.393547,15/01/2020
+Hecho 893 en Mendoza,"Hecho sintético registrado en la ciudad de Mendoza, Argentina.",Emergencia sanitaria,-32.86536,-68.828231,16/10/2021
+Hecho 894 en Santa Fe,"Hecho sintético registrado en la ciudad de Santa Fe, Argentina.",Delito informático,-31.621271,-60.738347,11/05/2024
+Hecho 895 en Neuquén,"Hecho sintético registrado en la ciudad de Neuquén, Argentina.",Delito informático,-38.912598,-68.091202,19/04/2021
+Hecho 896 en Buenos Aires,"Hecho sintético registrado en la ciudad de Buenos Aires, Argentina.",Delito informático,-34.634027,-58.399878,31/03/2020
+Hecho 897 en Mendoza,"Hecho sintético registrado en la ciudad de Mendoza, Argentina.",Accidente de tránsito,-32.904427,-68.882811,26/01/2021
+Hecho 898 en Mar del Plata,"Hecho sintético registrado en la ciudad de Mar del Plata, Argentina.",Incendio,-37.989733,-57.570473,15/12/2019
+Hecho 899 en San Miguel de Tucumán,"Hecho sintético registrado en la ciudad de San Miguel de Tucumán, Argentina.",Manifestación,-26.845498,-65.189491,17/01/2022
+Hecho 900 en Buenos Aires,"Hecho sintético registrado en la ciudad de Buenos Aires, Argentina.",Robo,-34.609035,-58.389111,05/06/2024
+Hecho 901 en Buenos Aires,"Hecho sintético registrado en la ciudad de Buenos Aires, Argentina.",Emergencia sanitaria,-34.632818,-58.361092,02/07/2023
+Hecho 902 en La Plata,"Hecho sintético registrado en la ciudad de La Plata, Argentina.",Robo,-34.928231,-57.955876,29/01/2024
+Hecho 903 en Mendoza,"Hecho sintético registrado en la ciudad de Mendoza, Argentina.",Emergencia sanitaria,-32.874684,-68.815038,03/07/2023
+Hecho 904 en Mendoza,"Hecho sintético registrado en la ciudad de Mendoza, Argentina.",Emergencia sanitaria,-32.921333,-68.871385,19/01/2018
+Hecho 905 en San Miguel de Tucumán,"Hecho sintético registrado en la ciudad de San Miguel de Tucumán, Argentina.",Accidente de tránsito,-26.8476,-65.239809,09/06/2019
+Hecho 906 en Mendoza,"Hecho sintético registrado en la ciudad de Mendoza, Argentina.",Manifestación,-32.914841,-68.812928,31/05/2022
+Hecho 907 en Córdoba,"Hecho sintético registrado en la ciudad de Córdoba, Argentina.",Robo,-31.391103,-64.206615,06/01/2021
+Hecho 908 en Córdoba,"Hecho sintético registrado en la ciudad de Córdoba, Argentina.",Manifestación,-31.406525,-64.226023,12/10/2020
+Hecho 909 en Buenos Aires,"Hecho sintético registrado en la ciudad de Buenos Aires, Argentina.",Delito informático,-34.567209,-58.345727,31/03/2024
+Hecho 910 en Córdoba,"Hecho sintético registrado en la ciudad de Córdoba, Argentina.",Hallazgo policial,-31.381112,-64.149204,07/11/2021
+Hecho 911 en La Plata,"Hecho sintético registrado en la ciudad de La Plata, Argentina.",Robo,-34.900813,-57.935589,18/03/2018
+Hecho 912 en Salta,"Hecho sintético registrado en la ciudad de Salta, Argentina.",Delito informático,-24.761479,-65.460586,26/09/2024
+Hecho 913 en Salta,"Hecho sintético registrado en la ciudad de Salta, Argentina.",Delito informático,-24.75887,-65.432875,22/05/2020
+Hecho 914 en Santa Fe,"Hecho sintético registrado en la ciudad de Santa Fe, Argentina.",Incendio,-31.627231,-60.728791,19/04/2021
+Hecho 915 en Santa Fe,"Hecho sintético registrado en la ciudad de Santa Fe, Argentina.",Emergencia sanitaria,-31.616103,-60.720517,18/07/2024
+Hecho 916 en San Miguel de Tucumán,"Hecho sintético registrado en la ciudad de San Miguel de Tucumán, Argentina.",Incendio,-26.812751,-65.204628,08/12/2020
+Hecho 917 en Santa Fe,"Hecho sintético registrado en la ciudad de Santa Fe, Argentina.",Delito informático,-31.6289,-60.728687,05/09/2023
+Hecho 918 en San Miguel de Tucumán,"Hecho sintético registrado en la ciudad de San Miguel de Tucumán, Argentina.",Corte de servicios,-26.808264,-65.241069,05/06/2023
+Hecho 919 en Rosario,"Hecho sintético registrado en la ciudad de Rosario, Argentina.",Hallazgo policial,-32.959918,-60.652504,21/12/2024
+Hecho 920 en Mar del Plata,"Hecho sintético registrado en la ciudad de Mar del Plata, Argentina.",Incendio,-37.973727,-57.508973,19/03/2023
+Hecho 921 en Santa Fe,"Hecho sintético registrado en la ciudad de Santa Fe, Argentina.",Manifestación,-31.672599,-60.730809,26/03/2023
+Hecho 922 en Neuquén,"Hecho sintético registrado en la ciudad de Neuquén, Argentina.",Accidente de tránsito,-38.975435,-68.060458,25/09/2024
+Hecho 923 en La Plata,"Hecho sintético registrado en la ciudad de La Plata, Argentina.",Robo,-34.9315,-57.982058,17/07/2018
+Hecho 924 en Santa Fe,"Hecho sintético registrado en la ciudad de Santa Fe, Argentina.",Manifestación,-31.652739,-60.660663,10/11/2022
+Hecho 925 en Buenos Aires,"Hecho sintético registrado en la ciudad de Buenos Aires, Argentina.",Manifestación,-34.629031,-58.344652,24/05/2019
+Hecho 926 en Mar del Plata,"Hecho sintético registrado en la ciudad de Mar del Plata, Argentina.",Accidente de tránsito,-37.987509,-57.514569,17/06/2023
+Hecho 927 en Mendoza,"Hecho sintético registrado en la ciudad de Mendoza, Argentina.",Hallazgo policial,-32.922428,-68.864854,24/06/2023
+Hecho 928 en Mar del Plata,"Hecho sintético registrado en la ciudad de Mar del Plata, Argentina.",Robo,-38.037652,-57.526751,22/04/2023
+Hecho 929 en Buenos Aires,"Hecho sintético registrado en la ciudad de Buenos Aires, Argentina.",Incendio,-34.603961,-58.36825,19/01/2022
+Hecho 930 en Rosario,"Hecho sintético registrado en la ciudad de Rosario, Argentina.",Delito informático,-32.923351,-60.619782,22/08/2021
+Hecho 931 en Neuquén,"Hecho sintético registrado en la ciudad de Neuquén, Argentina.",Manifestación,-38.934626,-68.04854,14/08/2020
+Hecho 932 en Mendoza,"Hecho sintético registrado en la ciudad de Mendoza, Argentina.",Incendio,-32.921798,-68.874737,29/08/2020
+Hecho 933 en La Plata,"Hecho sintético registrado en la ciudad de La Plata, Argentina.",Hallazgo policial,-34.916274,-57.971368,29/01/2019
+Hecho 934 en La Plata,"Hecho sintético registrado en la ciudad de La Plata, Argentina.",Accidente de tránsito,-34.922211,-57.974007,30/11/2022
+Hecho 935 en Buenos Aires,"Hecho sintético registrado en la ciudad de Buenos Aires, Argentina.",Accidente de tránsito,-34.584316,-58.392788,18/10/2022
+Hecho 936 en Rosario,"Hecho sintético registrado en la ciudad de Rosario, Argentina.",Hallazgo policial,-32.958062,-60.617741,14/12/2020
+Hecho 937 en Córdoba,"Hecho sintético registrado en la ciudad de Córdoba, Argentina.",Robo,-31.451171,-64.208783,28/10/2023
+Hecho 938 en Neuquén,"Hecho sintético registrado en la ciudad de Neuquén, Argentina.",Hallazgo policial,-38.941598,-68.097946,03/05/2023
+Hecho 939 en Buenos Aires,"Hecho sintético registrado en la ciudad de Buenos Aires, Argentina.",Evento cultural,-34.571305,-58.383097,20/10/2022
+Hecho 940 en Mendoza,"Hecho sintético registrado en la ciudad de Mendoza, Argentina.",Corte de servicios,-32.859728,-68.864964,11/10/2020
+Hecho 941 en La Plata,"Hecho sintético registrado en la ciudad de La Plata, Argentina.",Corte de servicios,-34.894809,-57.986249,23/03/2018
+Hecho 942 en Córdoba,"Hecho sintético registrado en la ciudad de Córdoba, Argentina.",Accidente de tránsito,-31.424958,-64.214701,02/04/2022
+Hecho 943 en Rosario,"Hecho sintético registrado en la ciudad de Rosario, Argentina.",Delito informático,-32.968177,-60.649723,09/02/2021
+Hecho 944 en Mar del Plata,"Hecho sintético registrado en la ciudad de Mar del Plata, Argentina.",Accidente de tránsito,-38.030727,-57.512088,18/11/2019
+Hecho 945 en Rosario,"Hecho sintético registrado en la ciudad de Rosario, Argentina.",Emergencia sanitaria,-32.91985,-60.638556,02/11/2022
+Hecho 946 en Neuquén,"Hecho sintético registrado en la ciudad de Neuquén, Argentina.",Delito informático,-38.943077,-68.070382,20/03/2022
+Hecho 947 en Buenos Aires,"Hecho sintético registrado en la ciudad de Buenos Aires, Argentina.",Evento cultural,-34.642479,-58.379146,24/06/2020
+Hecho 948 en Buenos Aires,"Hecho sintético registrado en la ciudad de Buenos Aires, Argentina.",Corte de servicios,-34.581296,-58.390314,04/02/2024
+Hecho 949 en Mar del Plata,"Hecho sintético registrado en la ciudad de Mar del Plata, Argentina.",Manifestación,-37.990873,-57.554895,15/11/2020
+Hecho 950 en La Plata,"Hecho sintético registrado en la ciudad de La Plata, Argentina.",Manifestación,-34.935478,-57.983958,25/09/2020
+Hecho 951 en Mendoza,"Hecho sintético registrado en la ciudad de Mendoza, Argentina.",Manifestación,-32.927372,-68.866423,06/11/2019
+Hecho 952 en Mendoza,"Hecho sintético registrado en la ciudad de Mendoza, Argentina.",Manifestación,-32.867675,-68.837008,03/04/2018
+Hecho 953 en Córdoba,"Hecho sintético registrado en la ciudad de Córdoba, Argentina.",Hallazgo policial,-31.421872,-64.227475,22/08/2024
+Hecho 954 en Mendoza,"Hecho sintético registrado en la ciudad de Mendoza, Argentina.",Incendio,-32.926025,-68.87469,26/05/2020
+Hecho 955 en Rosario,"Hecho sintético registrado en la ciudad de Rosario, Argentina.",Manifestación,-32.950688,-60.628625,07/08/2019
+Hecho 956 en Mendoza,"Hecho sintético registrado en la ciudad de Mendoza, Argentina.",Corte de servicios,-32.919527,-68.881401,11/02/2023
+Hecho 957 en Mendoza,"Hecho sintético registrado en la ciudad de Mendoza, Argentina.",Evento cultural,-32.860969,-68.838118,03/05/2022
+Hecho 958 en Santa Fe,"Hecho sintético registrado en la ciudad de Santa Fe, Argentina.",Hallazgo policial,-31.615841,-60.679792,31/07/2019
+Hecho 959 en La Plata,"Hecho sintético registrado en la ciudad de La Plata, Argentina.",Evento cultural,-34.89655,-57.938395,18/09/2021
+Hecho 960 en Mar del Plata,"Hecho sintético registrado en la ciudad de Mar del Plata, Argentina.",Emergencia sanitaria,-37.971139,-57.54768,16/01/2020
+Hecho 961 en Buenos Aires,"Hecho sintético registrado en la ciudad de Buenos Aires, Argentina.",Manifestación,-34.643008,-58.419536,25/06/2023
+Hecho 962 en Córdoba,"Hecho sintético registrado en la ciudad de Córdoba, Argentina.",Hallazgo policial,-31.454264,-64.201769,23/05/2019
+Hecho 963 en San Miguel de Tucumán,"Hecho sintético registrado en la ciudad de San Miguel de Tucumán, Argentina.",Emergencia sanitaria,-26.836308,-65.182072,03/10/2020
+Hecho 964 en Mendoza,"Hecho sintético registrado en la ciudad de Mendoza, Argentina.",Incendio,-32.86624,-68.878533,26/05/2022
+Hecho 965 en Mar del Plata,"Hecho sintético registrado en la ciudad de Mar del Plata, Argentina.",Accidente de tránsito,-38.024232,-57.576294,01/09/2023
+Hecho 966 en Buenos Aires,"Hecho sintético registrado en la ciudad de Buenos Aires, Argentina.",Emergencia sanitaria,-34.583917,-58.39253,21/07/2022
+Hecho 967 en San Miguel de Tucumán,"Hecho sintético registrado en la ciudad de San Miguel de Tucumán, Argentina.",Accidente de tránsito,-26.786761,-65.204772,19/10/2019
+Hecho 968 en Neuquén,"Hecho sintético registrado en la ciudad de Neuquén, Argentina.",Emergencia sanitaria,-38.92364,-68.093855,09/08/2023
+Hecho 969 en Salta,"Hecho sintético registrado en la ciudad de Salta, Argentina.",Emergencia sanitaria,-24.817465,-65.415497,27/01/2024
+Hecho 970 en Neuquén,"Hecho sintético registrado en la ciudad de Neuquén, Argentina.",Evento cultural,-38.970161,-68.079057,25/04/2019
+Hecho 971 en Mar del Plata,"Hecho sintético registrado en la ciudad de Mar del Plata, Argentina.",Corte de servicios,-37.984585,-57.513646,11/10/2022
+Hecho 972 en Salta,"Hecho sintético registrado en la ciudad de Salta, Argentina.",Delito informático,-24.766455,-65.449778,13/01/2022
+Hecho 973 en Neuquén,"Hecho sintético registrado en la ciudad de Neuquén, Argentina.",Accidente de tránsito,-38.962878,-68.047568,20/12/2024
+Hecho 974 en Mendoza,"Hecho sintético registrado en la ciudad de Mendoza, Argentina.",Delito informático,-32.874499,-68.862382,02/03/2019
+Hecho 975 en Mar del Plata,"Hecho sintético registrado en la ciudad de Mar del Plata, Argentina.",Corte de servicios,-37.985537,-57.502805,23/08/2024
+Hecho 976 en Mar del Plata,"Hecho sintético registrado en la ciudad de Mar del Plata, Argentina.",Robo,-37.978634,-57.506406,08/09/2021
+Hecho 977 en Salta,"Hecho sintético registrado en la ciudad de Salta, Argentina.",Robo,-24.748167,-65.46218,27/09/2019
+Hecho 978 en Mendoza,"Hecho sintético registrado en la ciudad de Mendoza, Argentina.",Corte de servicios,-32.880708,-68.831165,20/08/2020
+Hecho 979 en Mendoza,"Hecho sintético registrado en la ciudad de Mendoza, Argentina.",Accidente de tránsito,-32.873256,-68.862504,25/09/2022
+Hecho 980 en Buenos Aires,"Hecho sintético registrado en la ciudad de Buenos Aires, Argentina.",Manifestación,-34.639919,-58.396283,18/04/2020
+Hecho 981 en San Miguel de Tucumán,"Hecho sintético registrado en la ciudad de San Miguel de Tucumán, Argentina.",Corte de servicios,-26.804152,-65.182403,25/06/2021
+Hecho 982 en La Plata,"Hecho sintético registrado en la ciudad de La Plata, Argentina.",Corte de servicios,-34.900339,-57.977841,19/08/2022
+Hecho 983 en Buenos Aires,"Hecho sintético registrado en la ciudad de Buenos Aires, Argentina.",Accidente de tránsito,-34.58781,-58.383068,30/01/2022
+Hecho 984 en Mendoza,"Hecho sintético registrado en la ciudad de Mendoza, Argentina.",Incendio,-32.885961,-68.850415,17/01/2021
+Hecho 985 en Mar del Plata,"Hecho sintético registrado en la ciudad de Mar del Plata, Argentina.",Corte de servicios,-37.994792,-57.52946,06/05/2018
+Hecho 986 en Salta,"Hecho sintético registrado en la ciudad de Salta, Argentina.",Evento cultural,-24.781917,-65.441122,20/12/2023
+Hecho 987 en Mendoza,"Hecho sintético registrado en la ciudad de Mendoza, Argentina.",Incendio,-32.887462,-68.840258,07/10/2021
+Hecho 988 en La Plata,"Hecho sintético registrado en la ciudad de La Plata, Argentina.",Evento cultural,-34.945385,-57.934282,14/01/2023
+Hecho 989 en Salta,"Hecho sintético registrado en la ciudad de Salta, Argentina.",Evento cultural,-24.815109,-65.3953,06/11/2019
+Hecho 990 en San Miguel de Tucumán,"Hecho sintético registrado en la ciudad de San Miguel de Tucumán, Argentina.",Evento cultural,-26.847777,-65.181509,07/02/2018
+Hecho 991 en Salta,"Hecho sintético registrado en la ciudad de Salta, Argentina.",Manifestación,-24.780437,-65.395195,25/08/2019
+Hecho 992 en Neuquén,"Hecho sintético registrado en la ciudad de Neuquén, Argentina.",Emergencia sanitaria,-38.935737,-68.04885,05/01/2022
+Hecho 993 en Salta,"Hecho sintético registrado en la ciudad de Salta, Argentina.",Corte de servicios,-24.770076,-65.457482,05/05/2022
+Hecho 994 en Neuquén,"Hecho sintético registrado en la ciudad de Neuquén, Argentina.",Robo,-38.96422,-68.084934,18/09/2022
+Hecho 995 en Córdoba,"Hecho sintético registrado en la ciudad de Córdoba, Argentina.",Evento cultural,-31.457113,-64.157523,03/12/2022
+Hecho 996 en Buenos Aires,"Hecho sintético registrado en la ciudad de Buenos Aires, Argentina.",Hallazgo policial,-34.603783,-58.352819,19/08/2023
+Hecho 997 en Salta,"Hecho sintético registrado en la ciudad de Salta, Argentina.",Emergencia sanitaria,-24.794971,-65.460973,27/06/2024
+Hecho 998 en Mendoza,"Hecho sintético registrado en la ciudad de Mendoza, Argentina.",Delito informático,-32.896274,-68.818549,22/09/2019
+Hecho 999 en Neuquén,"Hecho sintético registrado en la ciudad de Neuquén, Argentina.",Evento cultural,-38.915118,-68.045657,09/09/2019
+Hecho 1000 en Buenos Aires,"Hecho sintético registrado en la ciudad de Buenos Aires, Argentina.",Evento cultural,-34.638685,-58.354537,17/09/2019

@@ -5,82 +5,105 @@
 
 <body class="bg-primary-100 dark:bg-gray-900 flex flex-col min-h-screen transition-colors duration-300">
 
-<div th:replace="~{layout/base :: header}"></div>
+    <div th:replace="~{layout/base :: header}"></div>
 
-<main class="container mx-auto px-6 py-8 flex-grow">
-    <div class="space-y-6">
-        <h1 class="text-3xl font-bold text-primary-900 dark:text-primary-200">Panel de Administración</h1>
+    <main class="container mx-auto px-6 py-8 flex-grow">
+        <div class="space-y-6">
+            <h1 class="text-3xl font-bold text-primary-900 dark:text-primary-200">Panel de Administración</h1>
 
-        <div th:if="${successMessage}"
-             class="p-4 rounded-xl border flex items-start gap-3 bg-accent-50 dark:bg-accent-900/30 border-accent-200 dark:border-accent-700 text-accent-800 dark:text-accent-300"
-             role="alert">
-            <svg class="w-5 h-5 flex-shrink-0" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                 stroke-width="1.5" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round"
-                      d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
-            </svg>
-            <span th:text="${successMessage}"></span>
-        </div>
+            <div th:if="${successMessage}"
+                class="p-4 rounded-xl border flex items-start gap-3 bg-accent-50 dark:bg-accent-900/30 border-accent-200 dark:border-accent-700 text-accent-800 dark:text-accent-300"
+                role="alert">
+                <svg class="w-5 h-5 flex-shrink-0" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                    stroke-width="1.5" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                        d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                </svg>
+                <span th:text="${successMessage}"></span>
+            </div>
 
-        <div th:if="${errorMessage}"
-             class="p-4 rounded-xl border flex items-start gap-3 bg-red-50 dark:bg-red-900/30 border-red-200 dark:border-red-700 text-red-800 dark:text-red-300"
-             role="alert">
-            <svg class="w-5 h-5 flex-shrink-0" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                 stroke-width="1.5" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round"
-                      d="M12 9v3.75m9-.75a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9 3.75h.008v.008H12v-.008Z" />
-            </svg>
-            <span th:text="${errorMessage}"></span>
-        </div>
+            <div th:if="${errorMessage}"
+                class="p-4 rounded-xl border flex items-start gap-3 bg-red-50 dark:bg-red-900/30 border-red-200 dark:border-red-700 text-red-800 dark:text-red-300"
+                role="alert">
+                <svg class="w-5 h-5 flex-shrink-0" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                    stroke-width="1.5" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                        d="M12 9v3.75m9-.75a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9 3.75h.008v.008H12v-.008Z" />
+                </svg>
+                <span th:text="${errorMessage}"></span>
+            </div>
 
-        <div
+            <div
                 class="admin-tabs-container border-b border-primary-200 dark:border-gray-700 bg-white/50 dark:bg-gray-800/50 rounded-t-xl">
-            <nav class="admin-tabs px-2 pt-2">
-                <a th:href="@{/admin(tab='collections')}"
-                   class="py-2.5 px-5 text-sm font-medium rounded-t-xl transition-all whitespace-nowrap"
-                   th:classappend="${activeTab == 'collections'} ? 'bg-white dark:bg-gray-800 border-t-2 border-x border-primary-500 dark:border-primary-400 text-primary-700 dark:text-white -mb-px' : 'text-gray-600 dark:text-gray-100 hover:text-primary-700 dark:hover:text-white hover:bg-primary-50 dark:hover:bg-gray-700'">
-                    Gestionar Colecciones
-                </a>
-                <a th:href="@{/admin(tab='requests')}"
-                   class="py-2.5 px-5 text-sm font-medium rounded-t-xl transition-all whitespace-nowrap"
-                   th:classappend="${activeTab == 'requests'} ? 'bg-white dark:bg-gray-800 border-t-2 border-x border-primary-500 dark:border-primary-400 text-primary-700 dark:text-white -mb-px' : 'text-gray-600 dark:text-gray-100 hover:text-primary-700 dark:hover:text-white hover:bg-primary-50 dark:hover:bg-gray-700'">
-                    Gestionar Solicitudes
-                </a>
-                <a th:href="@{/admin(tab='static')}"
-                   class="py-2.5 px-5 text-sm font-medium rounded-t-xl transition-all whitespace-nowrap"
-                   th:classappend="${activeTab == 'static'} ? 'bg-white dark:bg-gray-800 border-t-2 border-x border-primary-500 dark:border-primary-400 text-primary-700 dark:text-white -mb-px' : 'text-gray-600 dark:text-gray-100 hover:text-primary-700 dark:hover:text-white hover:bg-primary-50 dark:hover:bg-gray-700'">
-                    Cargar CSV
-                </a>
-                <a th:href="@{/admin(tab='proxy')}"
-                   class="py-2.5 px-5 text-sm font-medium rounded-t-xl transition-all whitespace-nowrap"
-                   th:classappend="${activeTab == 'proxy'} ? 'bg-white dark:bg-gray-800 border-t-2 border-x border-primary-500 dark:border-primary-400 text-primary-700 dark:text-white -mb-px' : 'text-gray-600 dark:text-gray-100 hover:text-primary-700 dark:hover:text-white hover:bg-primary-50 dark:hover:bg-gray-700'">
-                    Fuentes Proxy
-                </a>
-            </nav>
-        </div>
+                <nav class="admin-tabs px-2 pt-2">
+                    <a th:href="@{/admin(tab='collections')}"
+                        class="py-2.5 px-5 text-sm font-medium rounded-t-xl transition-all whitespace-nowrap"
+                        th:classappend="${activeTab == 'collections'} ? 'bg-white dark:bg-gray-800 border-t-2 border-x border-primary-500 dark:border-primary-400 text-primary-700 dark:text-white -mb-px' : 'text-gray-600 dark:text-gray-100 hover:text-primary-700 dark:hover:text-white hover:bg-primary-50 dark:hover:bg-gray-700'">
+                        Gestionar Colecciones
+                    </a>
+                    <a th:href="@{/admin(tab='requests')}"
+                        class="py-2.5 px-5 text-sm font-medium rounded-t-xl transition-all whitespace-nowrap"
+                        th:classappend="${activeTab == 'requests'} ? 'bg-white dark:bg-gray-800 border-t-2 border-x border-primary-500 dark:border-primary-400 text-primary-700 dark:text-white -mb-px' : 'text-gray-600 dark:text-gray-100 hover:text-primary-700 dark:hover:text-white hover:bg-primary-50 dark:hover:bg-gray-700'">
+                        Gestionar Solicitudes
+                    </a>
+                    <a th:href="@{/admin(tab='static')}"
+                        class="py-2.5 px-5 text-sm font-medium rounded-t-xl transition-all whitespace-nowrap"
+                        th:classappend="${activeTab == 'static'} ? 'bg-white dark:bg-gray-800 border-t-2 border-x border-primary-500 dark:border-primary-400 text-primary-700 dark:text-white -mb-px' : 'text-gray-600 dark:text-gray-100 hover:text-primary-700 dark:hover:text-white hover:bg-primary-50 dark:hover:bg-gray-700'">
+                        Cargar CSV
+                    </a>
+                    <a th:href="@{/admin(tab='proxy')}"
+                        class="py-2.5 px-5 text-sm font-medium rounded-t-xl transition-all whitespace-nowrap"
+                        th:classappend="${activeTab == 'proxy'} ? 'bg-white dark:bg-gray-800 border-t-2 border-x border-primary-500 dark:border-primary-400 text-primary-700 dark:text-white -mb-px' : 'text-gray-600 dark:text-gray-100 hover:text-primary-700 dark:hover:text-white hover:bg-primary-50 dark:hover:bg-gray-700'">
+                        Fuentes Proxy
+                    </a>
+                </nav>
+            </div>
 
-        <div class="mt-6">
-            <div th:switch="${activeTab}">
-                <div th:case="'collections'">
-                    <div th:replace="~{admin/manage-collections :: content}"></div>
-                </div>
-                <div th:case="'requests'">
-                    <div th:replace="~{admin/manage-requests :: content}"></div>
-                </div>
-                <div th:case="'static'">
-                    <div th:replace="~{admin/manage-static-source :: content}"></div>
-                </div>
-                <div th:case="'proxy'">
-                    <div th:replace="~{admin/manage-proxy-source :: content}"></div>
+            <div class="mt-6">
+                <div th:switch="${activeTab}">
+                    <div th:case="'collections'">
+                        <div th:replace="~{admin/manage-collections :: content}"></div>
+                    </div>
+                    <div th:case="'requests'">
+                        <div th:replace="~{admin/manage-requests :: content}"></div>
+                    </div>
+                    <div th:case="'static'">
+                        <div th:replace="~{admin/manage-static-source :: content}"></div>
+                    </div>
+                    <div th:case="'proxy'">
+                        <div th:replace="~{admin/manage-proxy-source :: content}"></div>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-</main>
+    </main>
 
-<div th:replace="~{layout/base :: footer}"></div>
+    <div th:replace="~{layout/base :: footer}"></div>
 
-<div th:replace="~{layout/base :: scripts}"></div>
+    <div th:replace="~{layout/base :: scripts}"></div>
+
+    <script th:inline="javascript">
+        var successMessage = /*[[${successMessage}]]*/ '';
+        var errorMessage = /*[[${errorMessage}]]*/ '';
+
+        if (successMessage) {
+            Swal.fire({
+                icon: 'success',
+                title: '¡Éxito!',
+                text: successMessage,
+                confirmButtonColor: '#4A8DC5'
+            });
+        }
+
+        if (errorMessage) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: errorMessage,
+                confirmButtonColor: '#4A8DC5'
+            });
+        }
+    </script>
 </body>
 
 </html>

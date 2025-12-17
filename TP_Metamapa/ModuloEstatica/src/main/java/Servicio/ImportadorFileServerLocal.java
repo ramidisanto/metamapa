@@ -2,6 +2,7 @@ package Servicio;
 
 import Modelos.Entidades.*;
 import Modelos.Exceptions.ValidacionError;
+import Repositorio.ArchivoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -15,6 +16,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
@@ -178,8 +180,15 @@ public class ImportadorFileServerLocal implements Importador{
             }
             return paths;
     }
+
     @Override
-    public void guardarCSV(String originalFilename, MultipartFile file) throws Exception {
+    public Path obtenerPath(String originalFilename) {
+        String filename = System.currentTimeMillis() + "-" + originalFilename;
+        Path filePath = Paths.get(carpetaRelativePath + filename);
+        return filePath;
+    }
+    @Override
+    public List<HechoCSV> guardarCSV(String originalFilename, MultipartFile file) throws Exception {
         try {
             if (!carpeta.exists()) {
                 carpeta.mkdirs();
@@ -196,7 +205,11 @@ public class ImportadorFileServerLocal implements Importador{
                 System.out.println(String.format(
                         "Archivo validado exitosamente. Se encontraron %d registros válidos.",
                         hechos.size()
+
+
                 ));
+
+                return hechos;
             } catch (Exception e) {
                 // Si la validación falla, eliminar el archivo
                 Files.deleteIfExists(filePath);

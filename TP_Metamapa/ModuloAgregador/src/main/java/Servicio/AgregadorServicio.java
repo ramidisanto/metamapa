@@ -46,21 +46,17 @@ public class AgregadorServicio {
     @Value("${url.estatica}") private String urlBaseEstatica;
 
 
-    private final Semaphore ubicacionLimiter = new Semaphore(2); // 2 llamadas simultáneas máx
+    private final Semaphore ubicacionLimiter = new Semaphore(2);
 
 
-    // --- 1. MÉTODO DE ENTRADA (Síncrono - Rápido) ---
     public void actualizarHechos() {
-        // Recolectar datos crudos de las fuentes
         List<HechoDTOInput> hechosRaw = new ArrayList<>();
         try {
-            System.out.println("--- Buscando hechos en fuentes externas... ---");
             hechosRaw.addAll(fetchSafe(urlProxy + "/demo/hechos", OrigenCarga.FUENTE_PROXY));
             hechosRaw.addAll(fetchSafe(urlBaseDinamica + "/dinamica/hechos", OrigenCarga.FUENTE_DINAMICA));
             hechosRaw.addAll(fetchSafe(urlBaseEstatica + "/fuenteEstatica/hechos", OrigenCarga.FUENTE_ESTATICA));
             hechosRaw.addAll(fetchSafe(urlProxy + "/metamapa/hechos", OrigenCarga.FUENTE_PROXY));
 
-            System.out.println("--- Recolectados " + hechosRaw.size() + " hechos. Iniciando Async... ---");
 
             // Disparar proceso asíncrono "Fire and Forget"
             if (!hechosRaw.isEmpty()) {
@@ -71,68 +67,72 @@ public class AgregadorServicio {
         }
     }
 
-    // --- 2. EL PROCESO PESADO (Async + Paralelo) ---
     @Async("executorMetamapa")
     public void procesarYGuardarAsync(List<HechoDTOInput> listaCruda) {
-        try {
+
             for (HechoDTOInput dto : listaCruda) {
                 procesarUnHecho(dto);
             }
-        } finally {
+
             actualizarColecciones();
-        }
+
     }
 
     private void procesarUnHecho(HechoDTOInput dto) {
         try {
 
-            normalizarDTO(dto);
+            normalizarUbicacion(dto);
+
+            // 2. Normalizar Categoría (Nueva llamada)
+            String categoriaNorm = restTemplate.postForObject(
+                    urlNormalizador + "/normalizacion/categorias",
+                    dto.getCategoria(),
+                    String.class
+            );
+            if (categoriaNorm != null) dto.setCategoria(categoriaNorm);
+
+            // 3. Normalizar Título (Nueva llamada)
+            String tituloNorm = restTemplate.postForObject(
+                    urlNormalizador + "/normalizacion/titulos",
+                    dto.getTitulo(),
+                    String.class
+            );
+            if (tituloNorm != null) dto.setTitulo(tituloNorm);
+
+            // 4. Guardar
             convertirYGuardar(dto);
 
         } catch (Exception e) {
-            System.err.println(
-                    "Error procesando hecho idFuente=" + dto.getIdFuente() +
-                            " titulo=" + dto.getTitulo() +
-                            " -> " + e.getMessage()
-            );
+            System.err.println("Error procesando hecho id=" + dto.getIdFuente() + ": " + e.getMessage());
         }
     }
 
 
-    // --- Lógica de Normalización ---
-    private void normalizarDTO(HechoDTOInput dto) {
+    private void normalizarUbicacion(HechoDTOInput dto) {
         try {
-            ubicacionLimiter.acquire();
-            try {
-                UbicacionDTOOutput inputUbi =
-                        new UbicacionDTOOutput(dto.getLatitud(), dto.getLongitud());
 
-                UbicacionDTOInput ubiRes =
-                        restTemplate.postForObject(
-                                urlNormalizador + "/normalizacion/ubicaciones",
-                                inputUbi,
-                                UbicacionDTOInput.class
-                        );
+            UbicacionDTOOutput inputUbi = new UbicacionDTOOutput(dto.getLatitud(), dto.getLongitud());
 
-                if (ubiRes != null) {
-                    dto.setPais(ubiRes.getPais());
-                    dto.setProvincia(ubiRes.getProvincia());
-                    dto.setLocalidad(ubiRes.getLocalidad());
-                }
-            } finally {
-                ubicacionLimiter.release();
+            UbicacionDTOInput ubiRes = restTemplate.postForObject(
+                    urlNormalizador + "/normalizacion/ubicaciones",
+                    inputUbi,
+                    UbicacionDTOInput.class
+            );
+
+            if (ubiRes != null) {
+                dto.setPais(ubiRes.getPais());
+                dto.setProvincia(ubiRes.getProvincia());
+                dto.setLocalidad(ubiRes.getLocalidad());
             }
-
         } catch (Exception e) {
-            System.err.println("Fallo normalización externa");
+            System.err.println("Fallo normalización ubicación: " + e.getMessage());
         }
     }
 
 
-    // --- Conversión y Guardado (Thread Safe) ---
-    private Hecho convertirYGuardar(HechoDTOInput dto) {
-        // synchronized evita que 2 hilos creen el Pais "Argentina" a la vez y de error
-        synchronized(this) {
+
+    private void convertirYGuardar(HechoDTOInput dto) {
+
             Pais pais = crearPais(dto.getPais());
             Provincia provincia = crearProvincia(dto.getProvincia(), pais);
             Localidad localidad = crearLocalidad(dto.getLocalidad(), provincia);
@@ -162,11 +162,11 @@ public class AgregadorServicio {
 
             hecho.setEstadoNormalizacion(EstadoNormalizacion.NORMALIZADO);
 
-            return hechoRepositorio.save(hecho);
-        }
+             hechoRepositorio.save(hecho);
+
     }
 
-    // --- Helpers de Fetch ---
+
     private List<HechoDTOInput> fetchSafe(String url, OrigenCarga origen) {
         try {
             ResponseEntity<List<HechoDTOInput>> response = restTemplate.exchange(url, HttpMethod.GET, null, new ParameterizedTypeReference<>() {});
@@ -179,90 +179,94 @@ public class AgregadorServicio {
         }
     }
 
-    // --- Tus métodos 'crear...' existentes (Asegúrate de que sean seguros) ---
-    // Como los llamamos dentro de un bloque synchronized(this), ahora son seguros.
-    public Pais crearPais(String nombre) {
-        if (nombre == null) return null;
-        Pais pais = paisRepositorio.findByPais(nombre);
-        if (pais == null) {
-            pais = new Pais(nombre);
-            paisRepositorio.save(pais);
-        }
-        return pais;
-    }
-    // ... (Mantén el resto de tus métodos crearProvincia, crearLocalidad, etc. igual que antes) ...
 
-    public Provincia crearProvincia(String nombre, Pais pais) {
-        if (nombre == null) return null;
-        Provincia provincia = provinciaRepositorio.findByProvinciaAndPais(nombre, pais);
-        if (provincia == null) {
-            provincia = new Provincia(nombre, pais);
-            provinciaRepositorio.save(provincia);
-        }
-        return provincia;
+    private synchronized Pais crearPais(String nombre) {
+//        if (nombre == null) return null;
+//        Pais pais = paisRepositorio.findByPais(nombre);
+//        if (pais == null) {
+//            pais = new Pais(nombre);
+//            paisRepositorio.save(pais);
+//        }
+//        return pais;
+        return paisRepositorio.buscarOCrear(nombre);
     }
 
-    public Localidad crearLocalidad(String nombre, Provincia provincia) {
-        if (nombre == null) return null;
-        Localidad localidad = localidadRepositorio.findByLocalidadAndProvincia(nombre, provincia);
-        if (localidad == null) {
-            localidad = new Localidad(nombre, provincia);
-            localidadRepositorio.save(localidad);
-        }
-        return localidad;
+    private synchronized Provincia crearProvincia(String nombre, Pais pais) {
+//        if (nombre == null) return null;
+//        Provincia provincia = provinciaRepositorio.findByProvinciaAndPais(nombre, pais);
+//        if (provincia == null) {
+//            provincia = new Provincia(nombre, pais);
+//            provinciaRepositorio.save(provincia);
+//        }
+//        return provincia;
+        return provinciaRepositorio.buscarOCrear(nombre, pais);
     }
 
-    public Ubicacion crearUbicacion(Double latitud, Double longitud, Localidad localidad, Provincia provincia, Pais pais) {
+    private synchronized Localidad crearLocalidad(String nombre, Provincia provincia) {
+//        if (nombre == null) return null;
+//        Localidad localidad = localidadRepositorio.findByLocalidadAndProvincia(nombre, provincia);
+//        if (localidad == null) {
+//            localidad = new Localidad(nombre, provincia);
+//            localidadRepositorio.save(localidad);
+//        }
+//        return localidad;
+        return localidadRepositorio.buscarOCrear(nombre, provincia);
+    }
+
+    private synchronized Ubicacion crearUbicacion(Double latitud, Double longitud, Localidad localidad, Provincia provincia, Pais pais) {
         // Valida nulos si es necesario
-        Ubicacion ubicacion = ubicacionRepositorio.findByLatitudAndLongitud(latitud, longitud);
-        if (ubicacion == null) {
-            ubicacion = new Ubicacion(localidad, provincia, pais, latitud, longitud);
-            ubicacionRepositorio.save(ubicacion);
-        }
-        return ubicacion;
+//        Ubicacion ubicacion = ubicacionRepositorio.findByLatitudAndLongitud(latitud, longitud);
+//        if (ubicacion == null) {
+//            ubicacion = new Ubicacion(localidad, provincia, pais, latitud, longitud);
+//            ubicacionRepositorio.save(ubicacion);
+//        }
+//        return ubicacion;
+        return ubicacionRepositorio.buscarOCrear(latitud, longitud, localidad, provincia, pais);
     }
 
-    public Categoria crearCategoria(String nombre) {
-        if (nombre == null) return null;
-        Categoria categoria = categoriaRepositorio.findByNombre(nombre);
-        if (categoria == null) {
-            categoria = new Categoria(nombre);
-            categoriaRepositorio.save(categoria);
-        }
-        return categoria;
+    private synchronized Categoria crearCategoria(String nombre) {
+//        if (nombre == null) return null;
+//        Categoria categoria = categoriaRepositorio.findByNombre(nombre);
+//        if (categoria == null) {
+//            categoria = new Categoria(nombre);
+//            categoriaRepositorio.save(categoria);
+//        }
+//        return categoria;
+        return categoriaRepositorio.buscarOCrear(nombre);
+
     }
 
-    public Contribuyente crearContribuyente(String usuario, String nombre, String apellido, LocalDate fechaNacimiento) {
-        if (usuario == null) return null;
-        Contribuyente contribuyente = contribuyenteRepositorio.findByUsuario(usuario);
-        if (contribuyente == null) {
-            contribuyente = new Contribuyente(usuario, nombre, apellido, fechaNacimiento);
-            contribuyenteRepositorio.save(contribuyente);
-        }
-        return contribuyente;
+    private synchronized Contribuyente crearContribuyente(String usuario, String nombre, String apellido, LocalDate fechaNacimiento) {
+//        if (usuario == null) return null;
+//        Contribuyente contribuyente = contribuyenteRepositorio.findByUsuario(usuario);
+//        if (contribuyente == null) {
+//            contribuyente = new Contribuyente(usuario, nombre, apellido, fechaNacimiento);
+//            contribuyenteRepositorio.save(contribuyente);
+//        }
+//        return contribuyente;
+        return contribuyenteRepositorio.buscarOCrear(usuario, nombre, apellido, fechaNacimiento);
     }
 
-    public Contenido crearContenido(String texto, String contenidoMultimedia) {
-        List<Contenido> contenido = contenidoRepositorio.findByTextoAndContenidoMultimedia(texto, contenidoMultimedia);
-        if (contenido == null || contenido.isEmpty()) {
-            Contenido contenido2 = new Contenido(texto, contenidoMultimedia);
-            contenidoRepositorio.save(contenido2);
-            return contenido2;
-        }
-        return contenido.get(0);
+    private synchronized Contenido crearContenido(String texto, String contenidoMultimedia) {
+//        List<Contenido> contenido = contenidoRepositorio.findByTextoAndContenidoMultimedia(texto, contenidoMultimedia);
+//        if (contenido == null || contenido.isEmpty()) {
+//            Contenido contenido2 = new Contenido(texto, contenidoMultimedia);
+//            contenidoRepositorio.save(contenido2);
+//            return contenido2;
+//        }
+//        return contenido.get(0);
+        return contenidoRepositorio.buscarOCrear(texto, contenidoMultimedia);
+
     }
 
     public void actualizarColecciones() {
-        // Tu lógica original de colecciones
         List<Coleccion> colecciones = coleccionRepositorio.findAllWithRelations();
         for (Coleccion c : colecciones) {
             actualizarColeccion(c); // Tu método existente
         }
     }
 
-    // ... Resto de métodos auxiliares (actualizarColeccion, filtrarHechos) déjalos como estaban ...
     public void actualizarColeccion(Coleccion coleccion) {
-        // Copia tu lógica original aquí
         System.out.printf("Procesando colección: {}", coleccion.getTitulo());
 
         CriteriosDePertenencia criterio = coleccion.getCriterio_pertenencia();
@@ -312,7 +316,6 @@ public class AgregadorServicio {
         }
     }
 
-//    @Transactional
     public void cargarColeccionConHechos(Long coleccionId) throws ColeccionNoEncontradaException {
 
         Coleccion coleccion = coleccionRepositorio.findById(coleccionId)

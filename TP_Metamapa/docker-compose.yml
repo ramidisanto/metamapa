@@ -55,10 +55,11 @@ services:
       KC_DB_PASSWORD: root
       KC_DB_ROOT_PASSWORD: root
       KC_HOSTNAME: localhost
-      KC_HOSTNAME_STRICT: "false"
-      KC_HTTP_ENABLED: "true"
       KC_PROXY_HEADERS: "xforwarded"
       JAVA_OPTS: "-Xms256m -Xmx512m"
+      KC_HOSTNAME_STRICT: "false"
+      KC_HOSTNAME_STRICT_HTTPS: "false"
+      KC_HTTP_ENABLED: "true"
 
     healthcheck:
       test: ["CMD-SHELL", "exec 3<>/dev/tcp/127.0.0.1/8080;echo -e 'GET /health/ready HTTP/1.1\r\nhost: localhost\r\nConnection: close\r\n\r\n' >&3;grep 'HTTP/1.1 200 OK' <&3"]
@@ -280,7 +281,7 @@ services:
       SERVER_URL: http://keycloak:8080
       REALM_NAME: spring-boot-realm-pr
       RESOURSE_ID: spring-client-api-rest
-      CLIENT_SECRET: "4RO2Q4lXZgLOoPNMt2GwrIsIWnJgxpmZ"
+      CLIENT_SECRET: "JfP6CEovOqnvN8crVErcZC3thEUlc0Re"
       SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_ISSUER_URI: http://localhost:8080/realms/spring-boot-realm-pr
       SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_JWK_SET_URI: http://keycloak:8080/realms/spring-boot-realm-pr/protocol/openid-connect/certs
     restart: on-failure

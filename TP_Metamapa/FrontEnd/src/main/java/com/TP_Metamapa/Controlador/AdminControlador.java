@@ -1,6 +1,5 @@
 package com.TP_Metamapa.Controlador;
 
-
 import com.TP_Metamapa.DTOS.*;
 import com.TP_Metamapa.Modelos.TipoFuente;
 import com.TP_Metamapa.Servicio.*;
@@ -32,16 +31,13 @@ public class AdminControlador {
     @Autowired
     EstaticaServicio estaticaServicio;
 
-
-
     @GetMapping("/admin")
     public String panelDeAdmin(
             @RequestParam(name = "tab", defaultValue = "collections") String activeTab,
             Model model,
             Authentication authentication,
             HttpSession session,
-            RedirectAttributes redirectAttributes
-    ) {
+            RedirectAttributes redirectAttributes) {
         List<ColeccionDTO> colecciones = new ArrayList<>();
         List<SolicitudDTO> solicitudes = new ArrayList<>();
         List<FuentesDTO> fuentes = new ArrayList<>();
@@ -65,7 +61,7 @@ public class AdminControlador {
                     model.addAttribute("errorMessage", "Tu sesión ha expirado. Por favor, inicia sesión nuevamente.");
                     return "redirect:/auth/login";
                 }
-                  solicitudes = solicitudServicio.obtenerPendientes(accessToken);
+                solicitudes = solicitudServicio.obtenerPendientes(accessToken);
                 break;
             case "static":
                 break;
@@ -90,8 +86,7 @@ public class AdminControlador {
             @RequestParam("file") MultipartFile file,
             RedirectAttributes redirectAttributes,
             Authentication authentication,
-            HttpSession session, Model model
-    ) {
+            HttpSession session, Model model) {
         // Verificación 1: que el archivo no esté vacío
         if (file.isEmpty()) {
             redirectAttributes.addFlashAttribute("errorMessage", "Por favor, seleccione un archivo para cargar.");
@@ -118,16 +113,16 @@ public class AdminControlador {
                 return "redirect:/auth/login";
             }
             // Aquí iría la lógica para leer y procesar el archivo
-            estaticaServicio.crear(file, accessToken); //TODO: HACER ESTO E IMPLEMENTARLO EN EL BACKEND
-            redirectAttributes.addFlashAttribute("successMessage", "¡Archivo '" + file.getOriginalFilename() + "' cargado exitosamente!");
+            estaticaServicio.crear(file, accessToken); // TODO: HACER ESTO E IMPLEMENTARLO EN EL BACKEND
+            redirectAttributes.addFlashAttribute("successMessage",
+                    "¡Archivo '" + file.getOriginalFilename() + "' cargado exitosamente!");
 
         } catch (Exception e) {
-            redirectAttributes.addFlashAttribute("errorMessage",  e.getMessage());
+            redirectAttributes.addFlashAttribute("errorMessage", e.getMessage());
         }
         // Redirigimos de vuelta a la misma pestaña del admin
         return "redirect:/admin?tab=static";
     }
-
 
     @PostMapping("/admin/crear-proxy")
     public String crearFuenteProxy(
@@ -135,8 +130,7 @@ public class AdminControlador {
             @RequestParam TipoFuente tipoFuente,
             RedirectAttributes redirectAttributes,
             Authentication authentication,
-            HttpSession session, Model model
-    ) {
+            HttpSession session, Model model) {
         // Verificación simple para la URL
         if (url == null || url.isBlank()) {
             redirectAttributes.addFlashAttribute("errorMessage", "La URL no puede estar vacía.");
@@ -174,9 +168,8 @@ public class AdminControlador {
             @PathVariable Long id,
             Authentication authentication,
             HttpSession session, Model model,
-            RedirectAttributes redirectAttributes
-    ) {
-        try{
+            RedirectAttributes redirectAttributes) {
+        try {
             if (authentication == null || !authentication.isAuthenticated()) {
                 model.addAttribute("errorMessage", "Debes iniciar sesión para crear un hecho.");
                 return "redirect:/auth/login";
@@ -191,8 +184,9 @@ public class AdminControlador {
             }
 
             coleccionServicio.eliminarColeccion(id, accessToken);
+            redirectAttributes.addFlashAttribute("successMessage", "Colección eliminada correctamente.");
             return "redirect:/admin?tab=collections";
-        }catch (RuntimeException e) {
+        } catch (RuntimeException e) {
             String errorMessage = "Error al procesar su solicitud.";
             redirectAttributes.addFlashAttribute("errorMessage", errorMessage);
             return "redirect:/admin?tab=collections";
@@ -204,25 +198,24 @@ public class AdminControlador {
             @PathVariable Long id,
             Authentication authentication,
             HttpSession session, Model model,
-            RedirectAttributes redirectAttributes
-    ) {
+            RedirectAttributes redirectAttributes) {
         try {
-            if (authentication == null || !authentication.isAuthenticated()) {
-                model.addAttribute("errorMessage", "Debes iniciar sesión para crear un hecho.");
-                return "redirect:/auth/login";
-            }
+//            if (authentication == null || !authentication.isAuthenticated()) {
+//                model.addAttribute("errorMessage", "Debes iniciar sesión para crear un hecho.");
+//                return "redirect:/auth/login";
+//            }
             // 2. Validar sesión/tokens
             String accessToken = (String) session.getAttribute("accessToken");
-            String refreshToken = (String) session.getAttribute("refreshToken");
 
-            if (accessToken == null) {
-                model.addAttribute("errorMessage", "Tu sesión ha expirado. Por favor, inicia sesión nuevamente.");
-                return "redirect:/auth/login";
-            }
+//            if (accessToken == null) {
+//                model.addAttribute("errorMessage", "Tu sesión ha expirado. Por favor, inicia sesión nuevamente.");
+//                return "redirect:/auth/login";
+//            }
 
             solicitudServicio.aceptarSolicitud(id, accessToken);
+            redirectAttributes.addFlashAttribute("successMessage", "Solicitud aprobada correctamente.");
             return "redirect:/admin?tab=requests";
-        }catch (RuntimeException e) {
+        } catch (RuntimeException e) {
             String errorMessage = "Error al procesar su solicitud.";
             redirectAttributes.addFlashAttribute("errorMessage", errorMessage);
             return "redirect:/admin?tab=requests";
@@ -234,24 +227,23 @@ public class AdminControlador {
             @PathVariable Long id,
             Authentication authentication,
             HttpSession session, Model model,
-            RedirectAttributes redirectAttributes
-    ) {
+            RedirectAttributes redirectAttributes) {
         try {
-            if (authentication == null || !authentication.isAuthenticated()) {
-                model.addAttribute("errorMessage", "Debes iniciar sesión para crear un hecho.");
-                return "redirect:/auth/login";
-            }
+//            if (authentication == null || !authentication.isAuthenticated()) {
+//                model.addAttribute("errorMessage", "Debes iniciar sesión para crear un hecho.");
+//                return "redirect:/auth/login";
+//            }
             // 2. Validar sesión/tokens
             String accessToken = (String) session.getAttribute("accessToken");
-            String refreshToken = (String) session.getAttribute("refreshToken");
 
-            if (accessToken == null) {
-                model.addAttribute("errorMessage", "Tu sesión ha expirado. Por favor, inicia sesión nuevamente.");
-                return "redirect:/auth/login";
-            }
+//            if (accessToken == null) {
+//                model.addAttribute("errorMessage", "Tu sesión ha expirado. Por favor, inicia sesión nuevamente.");
+//                return "redirect:/auth/login";
+//            }
             solicitudServicio.rechazarSolicitud(id, accessToken);
+            redirectAttributes.addFlashAttribute("successMessage", "Solicitud rechazada correctamente.");
             return "redirect:/admin?tab=requests";
-        }catch (RuntimeException e) {
+        } catch (RuntimeException e) {
             String errorMessage = "Error al procesar su solicitud.";
             redirectAttributes.addFlashAttribute("errorMessage", errorMessage);
             return "redirect:/admin?tab=requests";
@@ -260,22 +252,21 @@ public class AdminControlador {
 
     @GetMapping("/admin/ver-coleccion/{id}")
     public String verColeccion(@PathVariable("id") Long id,
-                               Authentication authentication,
-                               HttpSession session, Model model,
-                               RedirectAttributes redirectAttributes) {
+            Authentication authentication,
+            HttpSession session, Model model,
+            RedirectAttributes redirectAttributes) {
         try {
-            if (authentication == null || !authentication.isAuthenticated()) {
-                model.addAttribute("errorMessage", "Debes iniciar sesión para crear un hecho.");
-                return "redirect:/auth/login";
-            }
+//            if (authentication == null || !authentication.isAuthenticated()) {
+//                model.addAttribute("errorMessage", "Debes iniciar sesión para crear un hecho.");
+//                return "redirect:/auth/login";
+//            }
             // 2. Validar sesión/tokens
             String accessToken = (String) session.getAttribute("accessToken");
-            String refreshToken = (String) session.getAttribute("refreshToken");
 
-            if (accessToken == null) {
-                model.addAttribute("errorMessage", "Tu sesión ha expirado. Por favor, inicia sesión nuevamente.");
-                return "redirect:/auth/login";
-            }
+//            if (accessToken == null) {
+//                model.addAttribute("errorMessage", "Tu sesión ha expirado. Por favor, inicia sesión nuevamente.");
+//                return "redirect:/auth/login";
+//            }
             Optional<ColeccionDTO> coleccionOpt = coleccionServicio.obtenerColeccion(id, accessToken);
 
             if (coleccionOpt.isPresent()) {
@@ -294,32 +285,32 @@ public class AdminControlador {
 
     @GetMapping("/admin/editar-coleccion/{id}")
     public String mostrarFormularioEdicion(@PathVariable Long id,
-                                           Authentication authentication,
-                                           HttpSession session, Model model,
-                                           RedirectAttributes redirectAttributes) {
+            Authentication authentication,
+            HttpSession session, Model model,
+            RedirectAttributes redirectAttributes) {
         try {
-            if (authentication == null || !authentication.isAuthenticated()) {
-                model.addAttribute("errorMessage", "Debes iniciar sesión para crear un hecho.");
-                return "redirect:/auth/login";
-            }
+//            if (authentication == null || !authentication.isAuthenticated()) {
+//                model.addAttribute("errorMessage", "Debes iniciar sesión para crear un hecho.");
+//                return "redirect:/auth/login";
+//            }
             // 2. Validar sesión/tokens
             String accessToken = (String) session.getAttribute("accessToken");
-            String refreshToken = (String) session.getAttribute("refreshToken");
 
-            if (accessToken == null) {
-                model.addAttribute("errorMessage", "Tu sesión ha expirado. Por favor, inicia sesión nuevamente.");
-                return "redirect:/auth/login";
+//            if (accessToken == null) {
+//                model.addAttribute("errorMessage", "Tu sesión ha expirado. Por favor, inicia sesión nuevamente.");
+//                return "redirect:/auth/login";
+//            }
+            Optional<ColeccionDTO> coleccion = coleccionServicio.obtenerColeccion(id, accessToken);
+            ConsensoDTO consensoDTO = new ConsensoDTO();
+            if (coleccion.isPresent()) {
+                model.addAttribute("consensoDTO", consensoDTO);
+                model.addAttribute("coleccion", coleccion.get());
+                return "editarColeccion";
+            } else {
+                model.addAttribute("errorMessage", "La colección con ID " + id + " no fue encontrada.");
+                return "error/404";
             }
-        Optional<ColeccionDTO> coleccion = coleccionServicio.obtenerColeccion(id, accessToken);
-        ConsensoDTO consensoDTO = new ConsensoDTO();
-        if (coleccion.isPresent() ) {
-            model.addAttribute("consensoDTO", consensoDTO);
-            model.addAttribute("coleccion", coleccion.get());
-            return "editarColeccion";
-        }else{
-        model.addAttribute("errorMessage", "La colección con ID " + id + " no fue encontrada.");
-        return "error/404";
-        } }catch (RuntimeException e) {
+        } catch (RuntimeException e) {
             String errorMessage = "Error al procesar su solicitud.";
             redirectAttributes.addFlashAttribute("errorMessage", errorMessage);
             return "redirect:/admin?tab=collections";
@@ -328,23 +319,22 @@ public class AdminControlador {
 
     @PostMapping("/admin/editar-coleccion/{id}/consenso")
     public String actualizarConsenso(@PathVariable Long id,
-                                     @ModelAttribute("consensoDTO") ConsensoDTO consensoDTO,
-                                     RedirectAttributes redirectAttributes,
-                                     Authentication authentication,
-                                     HttpSession session, Model model) {
+            @ModelAttribute("consensoDTO") ConsensoDTO consensoDTO,
+            RedirectAttributes redirectAttributes,
+            Authentication authentication,
+            HttpSession session, Model model) {
         try {
-            if (authentication == null || !authentication.isAuthenticated()) {
-                model.addAttribute("errorMessage", "Debes iniciar sesión para crear un hecho.");
-                return "redirect:/auth/login";
-            }
+//            if (authentication == null || !authentication.isAuthenticated()) {
+//                model.addAttribute("errorMessage", "Debes iniciar sesión para crear un hecho.");
+//                return "redirect:/auth/login";
+//            }
             // 2. Validar sesión/tokens
             String accessToken = (String) session.getAttribute("accessToken");
-            String refreshToken = (String) session.getAttribute("refreshToken");
-
-            if (accessToken == null) {
-                model.addAttribute("errorMessage", "Tu sesión ha expirado. Por favor, inicia sesión nuevamente.");
-                return "redirect:/auth/login";
-            }
+//
+//            if (accessToken == null) {
+//                model.addAttribute("errorMessage", "Tu sesión ha expirado. Por favor, inicia sesión nuevamente.");
+//                return "redirect:/auth/login";
+//            }
             coleccionServicio.actualizarColeccion(id, consensoDTO.getEstrategia(), accessToken);
             redirectAttributes.addFlashAttribute("mensaje", "Criterio de consenso actualizado correctamente");
         } catch (Exception e) {
@@ -354,30 +344,40 @@ public class AdminControlador {
     }
 
     @PostMapping("/admin/eliminar-hecho/{idHecho}")
-    public String eliminarHecho(@PathVariable Long idHecho ,RedirectAttributes redirectAttributes ,
-                                Authentication authentication,
-                                HttpSession session, Model model) {
+    public String eliminarHecho(@PathVariable Long idHecho,
+            @RequestParam(value = "redirectUrl", required = false) String redirectUrl,
+            RedirectAttributes redirectAttributes,
+            Authentication authentication,
+            HttpSession session, Model model) {
         try {
-            if (authentication == null || !authentication.isAuthenticated()) {
-                model.addAttribute("errorMessage", "Debes iniciar sesión para crear un hecho.");
-                return "redirect:/auth/login";
-            }
+//            if (authentication == null || !authentication.isAuthenticated()) {
+//                model.addAttribute("errorMessage", "Debes iniciar sesión para crear un hecho.");
+//                return "redirect:/auth/login";
+//            }
             // 2. Validar sesión/tokens
             String accessToken = (String) session.getAttribute("accessToken");
-            String refreshToken = (String) session.getAttribute("refreshToken");
 
-            if (accessToken == null) {
-                model.addAttribute("errorMessage", "Tu sesión ha expirado. Por favor, inicia sesión nuevamente.");
-                return "redirect:/auth/login";
+//            if (accessToken == null) {
+//                model.addAttribute("errorMessage", "Tu sesión ha expirado. Por favor, inicia sesión nuevamente.");
+//                return "redirect:/auth/login";
+//            }
+            hechoServicio.eliminarHecho(idHecho, accessToken);
+
+            redirectAttributes.addFlashAttribute("successMessage", "Hecho eliminado exitosamente.");
+
+            // Redirigir a la URL de origen si existe, sino a /navegar
+            if (redirectUrl != null && !redirectUrl.isBlank()) {
+                return "redirect:" + redirectUrl;
             }
-        hechoServicio.eliminarHecho(idHecho, accessToken);
-
-        redirectAttributes.addFlashAttribute("successMessage", "Hecho quitado exitosamente.");
-
-        return "redirect:/navegar" ; } catch (RuntimeException e) {
+            return "redirect:/navegar";
+        } catch (RuntimeException e) {
             String errorMessage = "Error al procesar su solicitud.";
             redirectAttributes.addFlashAttribute("errorMessage", errorMessage);
-            return "redirect:/admin?tab=collections";
+            // Redirigir a la URL de origen si existe
+            if (redirectUrl != null && !redirectUrl.isBlank()) {
+                return "redirect:" + redirectUrl;
+            }
+            return "redirect:/navegar";
         }
     }
 }

@@ -4,6 +4,7 @@ import Modelos.DTOS.HechoDTO;
 import Modelos.Entidades.Archivo;
 
 import java.io.File;
+import java.nio.file.Path;
 import java.time.LocalDateTime ;
 import java.util.List;
 import java.util.ArrayList;
@@ -11,8 +12,6 @@ import java.util.ArrayList;
 import Modelos.Entidades.HechoCSV;
 import Repositorio.HechosRepositorio;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.stereotype.Service;
 import java.util.Date;
@@ -48,7 +47,14 @@ public class FuenteEstatica {
             if (originalFilename == null || !originalFilename.endsWith(".csv")) {
                 throw new Exception("Solo se permiten archivos CSV");
             }
-            importador.guardarCSV(originalFilename, file);
+
+            List<HechoCSV> hechos = importador.guardarCSV(originalFilename, file);
+            Path path = importador.obtenerPath(originalFilename);
+            Archivo nuevoArchivo = new Archivo();
+            nuevoArchivo.setPath(path.toString());
+            archivoRepository.save(nuevoArchivo);
+
+            guardarHechos(hechos, nuevoArchivo);
 
         } catch (Exception e) {
             e.printStackTrace();

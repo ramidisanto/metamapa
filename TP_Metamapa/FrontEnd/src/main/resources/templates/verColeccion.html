@@ -128,6 +128,29 @@
 
     <div th:replace="~{layout/base :: footer}"></div>
     <div th:replace="~{layout/base :: scripts}"></div>
+
+    <script th:inline="javascript">
+        var successMessage = /*[[${successMessage}]]*/ '';
+        var errorMessage = /*[[${errorMessage}]]*/ '';
+
+        if (successMessage) {
+            Swal.fire({
+                icon: 'success',
+                title: '¡Éxito!',
+                text: successMessage,
+                confirmButtonColor: '#4A8DC5'
+            });
+        }
+
+        if (errorMessage) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: errorMessage,
+                confirmButtonColor: '#4A8DC5'
+            });
+        }
+    </script>
 </body>
 
 </html>

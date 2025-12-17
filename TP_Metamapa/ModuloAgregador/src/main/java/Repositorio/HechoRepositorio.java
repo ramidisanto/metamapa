@@ -59,7 +59,7 @@ public interface HechoRepositorio extends JpaRepository<Hecho, Long> {
             @Param("contribuyente") Contribuyente contribuyente,
             @Param("contenido") Contenido contenido);
 
-    // sCONSULTA PARA CRITERIOR DE PERTENENCIA A COLECCION
+    
     @Query("""
             SELECT h FROM Hecho h
             LEFT JOIN h.categoria cat
@@ -98,8 +98,7 @@ public interface HechoRepositorio extends JpaRepository<Hecho, Long> {
             @Param("pais") String pais,
             @Param("provincia") String provincia,
             @Param("localidad") String localidad);
-    // CONSULTA CON PAGINACION
-    // Consulta unificada que soporta búsqueda general Y por colección
+
 
    @Query("""
     SELECT DISTINCT h

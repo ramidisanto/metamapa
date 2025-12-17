@@ -15,8 +15,8 @@ public class AsyncConfig {
     public Executor taskExecutor() {
         ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
 
-        executor.setCorePoolSize(1);
-        executor.setMaxPoolSize(1);
+        executor.setCorePoolSize(5);
+        executor.setMaxPoolSize(10);
         executor.setQueueCapacity(500);
 
         executor.setThreadNamePrefix("MetaMapa-Worker-");

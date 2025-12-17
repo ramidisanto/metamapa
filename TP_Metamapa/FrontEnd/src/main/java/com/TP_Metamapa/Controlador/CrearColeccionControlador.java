@@ -93,12 +93,12 @@ public class CrearColeccionControlador {
             try {
                 authService.getUserData(username, accessToken);
             } catch (TokenExpiredException e) {
-                System.out.println("Token expirado (admin). Intentando refrescar...");
-    
-                if (refreshToken == null) {
-                    return "redirect:/auth/login";
-                }
-    
+//                System.out.println("Token expirado (admin). Intentando refrescar...");
+//
+//                if (refreshToken == null) {
+//                    return "redirect:/auth/login";
+//                }
+//
                 try {
                     KeycloakTokenDTO newTokens = authService.refreshAccessToken(refreshToken);
                     if (newTokens == null) {

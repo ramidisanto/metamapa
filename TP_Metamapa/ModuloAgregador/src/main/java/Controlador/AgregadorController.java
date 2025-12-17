@@ -17,16 +17,6 @@ public class AgregadorController {
     @Autowired
     private AgregadorServicio agregadorServicio;
 
-    @PostMapping("/actualizar-todo")
-    public ResponseEntity<?> actualizarBaseDeDatos() {
-        agregadorServicio.actualizarHechos();
-
-        return ResponseEntity.accepted().body(Map.of(
-                "mensaje", "Actualización iniciada en segundo plano. Los hechos aparecerán progresivamente.",
-                "estado", "PROCESANDO"
-        ));
-    }
-
     @PostMapping("/colecciones/{id}")
     public ResponseEntity<String> cargarHechosAColeccion(@PathVariable Long id) {
         try {
