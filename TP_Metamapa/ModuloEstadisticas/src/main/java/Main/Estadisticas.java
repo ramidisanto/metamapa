@@ -6,7 +6,7 @@ import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.scheduling.annotation.EnableScheduling;
 
-@SpringBootApplication(scanBasePackages = {"Controlador", "Servicio", "Repositorio", "Modelos"})
+@SpringBootApplication(scanBasePackages = {"Controlador", "Servicio", "Repositorio", "Modelos", "Configuracion"})
 @EnableJpaRepositories(basePackages = "Repositorio")
 @EntityScan(basePackages = "Modelos")
 @EnableScheduling

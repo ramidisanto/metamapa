@@ -310,6 +310,13 @@
                 });
             });
 
+                // Ping al servidor cada 30 segundos para mantener la sesión viva
+                // Esto evita que Spring Security mate la sesión por inactividad mientras explicas el video
+                setInterval(() => {
+                console.log("Mateniendo sesión viva...");
+                fetch(window.location.href, { method: 'HEAD' })
+                .catch(e => console.error("Error en keep-alive", e));
+            }, 30000);
         </script>
     </div>
 </body>

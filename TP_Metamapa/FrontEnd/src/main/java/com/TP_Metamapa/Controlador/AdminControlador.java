@@ -200,17 +200,17 @@ public class AdminControlador {
             HttpSession session, Model model,
             RedirectAttributes redirectAttributes) {
         try {
-//            if (authentication == null || !authentication.isAuthenticated()) {
-//                model.addAttribute("errorMessage", "Debes iniciar sesión para crear un hecho.");
-//                return "redirect:/auth/login";
-//            }
+            if (authentication == null || !authentication.isAuthenticated()) {
+                model.addAttribute("errorMessage", "Debes iniciar sesión para crear un hecho.");
+                return "redirect:/auth/login";
+            }
             // 2. Validar sesión/tokens
             String accessToken = (String) session.getAttribute("accessToken");
 
-//            if (accessToken == null) {
-//                model.addAttribute("errorMessage", "Tu sesión ha expirado. Por favor, inicia sesión nuevamente.");
-//                return "redirect:/auth/login";
-//            }
+            if (accessToken == null) {
+                model.addAttribute("errorMessage", "Tu sesión ha expirado. Por favor, inicia sesión nuevamente.");
+                return "redirect:/auth/login";
+            }
 
             solicitudServicio.aceptarSolicitud(id, accessToken);
             redirectAttributes.addFlashAttribute("successMessage", "Solicitud aprobada correctamente.");
@@ -229,17 +229,17 @@ public class AdminControlador {
             HttpSession session, Model model,
             RedirectAttributes redirectAttributes) {
         try {
-//            if (authentication == null || !authentication.isAuthenticated()) {
-//                model.addAttribute("errorMessage", "Debes iniciar sesión para crear un hecho.");
-//                return "redirect:/auth/login";
-//            }
+            if (authentication == null || !authentication.isAuthenticated()) {
+                model.addAttribute("errorMessage", "Debes iniciar sesión para crear un hecho.");
+                return "redirect:/auth/login";
+            }
             // 2. Validar sesión/tokens
             String accessToken = (String) session.getAttribute("accessToken");
 
-//            if (accessToken == null) {
-//                model.addAttribute("errorMessage", "Tu sesión ha expirado. Por favor, inicia sesión nuevamente.");
-//                return "redirect:/auth/login";
-//            }
+            if (accessToken == null) {
+                model.addAttribute("errorMessage", "Tu sesión ha expirado. Por favor, inicia sesión nuevamente.");
+                return "redirect:/auth/login";
+            }
             solicitudServicio.rechazarSolicitud(id, accessToken);
             redirectAttributes.addFlashAttribute("successMessage", "Solicitud rechazada correctamente.");
             return "redirect:/admin?tab=requests";
@@ -263,10 +263,10 @@ public class AdminControlador {
             // 2. Validar sesión/tokens
             String accessToken = (String) session.getAttribute("accessToken");
 
-//            if (accessToken == null) {
-//                model.addAttribute("errorMessage", "Tu sesión ha expirado. Por favor, inicia sesión nuevamente.");
-//                return "redirect:/auth/login";
-//            }
+            if (accessToken == null) {
+                model.addAttribute("errorMessage", "Tu sesión ha expirado. Por favor, inicia sesión nuevamente.");
+                return "redirect:/auth/login";
+            }
             Optional<ColeccionDTO> coleccionOpt = coleccionServicio.obtenerColeccion(id, accessToken);
 
             if (coleccionOpt.isPresent()) {
@@ -289,17 +289,17 @@ public class AdminControlador {
             HttpSession session, Model model,
             RedirectAttributes redirectAttributes) {
         try {
-//            if (authentication == null || !authentication.isAuthenticated()) {
-//                model.addAttribute("errorMessage", "Debes iniciar sesión para crear un hecho.");
-//                return "redirect:/auth/login";
-//            }
+            if (authentication == null || !authentication.isAuthenticated()) {
+                model.addAttribute("errorMessage", "Debes iniciar sesión para crear un hecho.");
+                return "redirect:/auth/login";
+            }
             // 2. Validar sesión/tokens
             String accessToken = (String) session.getAttribute("accessToken");
 
-//            if (accessToken == null) {
-//                model.addAttribute("errorMessage", "Tu sesión ha expirado. Por favor, inicia sesión nuevamente.");
-//                return "redirect:/auth/login";
-//            }
+            if (accessToken == null) {
+                model.addAttribute("errorMessage", "Tu sesión ha expirado. Por favor, inicia sesión nuevamente.");
+                return "redirect:/auth/login";
+            }
             Optional<ColeccionDTO> coleccion = coleccionServicio.obtenerColeccion(id, accessToken);
             ConsensoDTO consensoDTO = new ConsensoDTO();
             if (coleccion.isPresent()) {
@@ -324,17 +324,17 @@ public class AdminControlador {
             Authentication authentication,
             HttpSession session, Model model) {
         try {
-//            if (authentication == null || !authentication.isAuthenticated()) {
-//                model.addAttribute("errorMessage", "Debes iniciar sesión para crear un hecho.");
-//                return "redirect:/auth/login";
-//            }
+            if (authentication == null || !authentication.isAuthenticated()) {
+                model.addAttribute("errorMessage", "Debes iniciar sesión para crear un hecho.");
+                return "redirect:/auth/login";
+            }
             // 2. Validar sesión/tokens
             String accessToken = (String) session.getAttribute("accessToken");
-//
-//            if (accessToken == null) {
-//                model.addAttribute("errorMessage", "Tu sesión ha expirado. Por favor, inicia sesión nuevamente.");
-//                return "redirect:/auth/login";
-//            }
+
+            if (accessToken == null) {
+                model.addAttribute("errorMessage", "Tu sesión ha expirado. Por favor, inicia sesión nuevamente.");
+                return "redirect:/auth/login";
+            }
             coleccionServicio.actualizarColeccion(id, consensoDTO.getEstrategia(), accessToken);
             redirectAttributes.addFlashAttribute("mensaje", "Criterio de consenso actualizado correctamente");
         } catch (Exception e) {
@@ -350,17 +350,17 @@ public class AdminControlador {
             Authentication authentication,
             HttpSession session, Model model) {
         try {
-//            if (authentication == null || !authentication.isAuthenticated()) {
-//                model.addAttribute("errorMessage", "Debes iniciar sesión para crear un hecho.");
-//                return "redirect:/auth/login";
-//            }
+            if (authentication == null || !authentication.isAuthenticated()) {
+                model.addAttribute("errorMessage", "Debes iniciar sesión para crear un hecho.");
+                return "redirect:/auth/login";
+            }
             // 2. Validar sesión/tokens
             String accessToken = (String) session.getAttribute("accessToken");
 
-//            if (accessToken == null) {
-//                model.addAttribute("errorMessage", "Tu sesión ha expirado. Por favor, inicia sesión nuevamente.");
-//                return "redirect:/auth/login";
-//            }
+            if (accessToken == null) {
+                model.addAttribute("errorMessage", "Tu sesión ha expirado. Por favor, inicia sesión nuevamente.");
+                return "redirect:/auth/login";
+            }
             hechoServicio.eliminarHecho(idHecho, accessToken);
 
             redirectAttributes.addFlashAttribute("successMessage", "Hecho eliminado exitosamente.");
