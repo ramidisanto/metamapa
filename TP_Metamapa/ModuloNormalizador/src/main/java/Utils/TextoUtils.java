@@ -6,7 +6,7 @@ import java.util.stream.Collectors;
 public class TextoUtils {
 
     private TextoUtils() {
-        // evita instanciar la clase
+
     }
 
     public static String capitalizarCadaPalabra(String texto) {

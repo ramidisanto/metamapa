@@ -64,7 +64,6 @@
 
                         <div class="flex justify-between items-center mb-4 flex-shrink-0">
                             <h3 class="text-xl font-bold text-primary-900 dark:text-primary-200">Filtros Avanzados</h3>
-                            <!-- Botón cerrar (solo visible en mobile) -->
                             <button type="button" onclick="cerrarFiltrosMobile()"
                                 class="mobile-close-btn hidden p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
                                 <svg class="w-6 h-6 text-gray-600 dark:text-gray-300" fill="none" stroke="currentColor"
@@ -249,23 +248,23 @@
 
         /*<![CDATA[*/
 
-        // --- CONFIGURACIÓN ---
+
         const GRAPHQL_URL = 'http://localhost:8080/graphql';
-        // Capturamos si es admin desde Thymeleaf para usarlo en JS
+
         const IS_ADMIN = /*[[${isAdmin}]]*/ false;
         const CSRF_TOKEN = /*[[${_csrf.token}]]*/ '';
         const CSRF_PARAM_NAME = /*[[${_csrf.parameterName}]]*/ '_csrf';
 
         let map = null;
         let markersLayer = new L.LayerGroup();
-        // --- PAGINACIÓN ---
+
         let currentPage = 0;
-        const pageSize = 20; // debe coincidir con el default del backend
+        const pageSize = 20;
         let lastPagedResponse = null;
 
 
 
-        // DOM Elements Cache
+
         const dom = {
             toggleBtn: document.getElementById('toggleFiltros'),
             toggleText: document.getElementById('toggleText'),
@@ -273,7 +272,7 @@
             contenidoPrincipal: document.getElementById('contenidoPrincipal'),
 
             btnBuscarTexto: document.getElementById('btnBuscarTexto'),
-            btnAplicarFiltros: document.getElementById('btnAplicarFiltros'), // El nuevo botón del panel
+            btnAplicarFiltros: document.getElementById('btnAplicarFiltros'),
             btnLimpiar: document.getElementById('btnLimpiar'),
             inputBusqueda: document.getElementById('inputBusqueda'),
 
@@ -319,7 +318,7 @@
 
 
 
-        // ===== FUNCIONES PARA MANEJAR FILTROS EN MOBILE =====
+
         function isMobile() {
             return window.innerWidth < 768;
         }
@@ -329,12 +328,12 @@
             dom.filtrosPanel.classList.add('flex');
             dom.toggleText.textContent = 'Ocultar Filtros';
 
-            // En mobile, mostrar backdrop y bloquear scroll
+
             if (isMobile()) {
                 document.getElementById('mobileBackdrop').classList.add('active');
                 document.body.classList.add('filtros-open');
             } else {
-                // En desktop, ajustar anchos
+
                 dom.contenidoPrincipal.classList.remove('w-full');
                 dom.contenidoPrincipal.classList.add('md:w-2/3', 'lg:w-3/4');
             }
@@ -347,11 +346,11 @@
             dom.filtrosPanel.classList.remove('flex');
             dom.toggleText.textContent = 'Mostrar Filtros';
 
-            // Ocultar backdrop y restaurar scroll
+
             document.getElementById('mobileBackdrop').classList.remove('active');
             document.body.classList.remove('filtros-open');
 
-            // En desktop, restaurar ancho
+
             dom.contenidoPrincipal.classList.remove('md:w-2/3', 'lg:w-3/4');
             dom.contenidoPrincipal.classList.add('w-full');
 
@@ -359,7 +358,7 @@
         }
 
         function setupEventListeners() {
-            // Toggle Filtros
+
             if (dom.toggleBtn) {
                 dom.toggleBtn.addEventListener('click', () => {
                     const isHidden = dom.filtrosPanel.classList.contains('hidden');
@@ -371,19 +370,19 @@
                 });
             }
 
-            // Eventos de Búsqueda (Texto y Panel)
+
             dom.btnBuscarTexto.addEventListener('click', buscarHechos);
             if (dom.btnAplicarFiltros) {
                 dom.btnAplicarFiltros.addEventListener('click', () => {
                     buscarHechos();
-                    // En mobile, cerrar filtros después de aplicar
+
                     if (isMobile()) {
                         cerrarFiltrosMobile();
                     }
                 });
             }
 
-            // Enter en input
+
             dom.inputBusqueda.addEventListener('keypress', (e) => {
                 if (e.key === 'Enter') buscarHechos();
             });
@@ -550,71 +549,7 @@
             }
 
             const bounds = [];
-            /*
-                    hechos.forEach(h => {
-                        // CARD HTML (Recreando el estilo de tu fragmento)
-                        const card = document.createElement('div');
-                        card.className = "group relative bg-white dark:bg-gray-800 rounded-xl shadow-sm hover:shadow-md border border-gray-100 dark:border-gray-700 transition-all duration-300 overflow-hidden mb-3";
-            
-                        let fecha = h.fechaAcontecimiento ? new Date(h.fechaAcontecimiento).toLocaleDateString() : 'S/F';
-                        let categoria = h.categoria || 'General';
-            
-                        // Botón de eliminar condicional
-                        let deleteButton = '';
-                        if (IS_ADMIN) {
-                            deleteButton = `
-                                <form action="/admin/solicitudes/crear" method="post" class="inline" onsubmit="return confirm('¿Solicitar baja de este hecho?')">
-                                    <input type="hidden" name="idEntidad" value="${h.idHecho}" />
-                                    <input type="hidden" name="tipoEntidad" value="HECHO" />
-                                    <input type="hidden" name="tipoSolicitud" value="BAJA" />
-                                    <button type="submit" class="text-red-500 hover:text-red-700 p-1" title="Solicitar Baja">
-                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
-                                    </button>
-                                </form>
-                            `;
-                        }
-            
-                        card.innerHTML = `
-                            <div class="p-4">
-                                <div class="flex justify-between items-start mb-2">
-                                    <div class="flex flex-wrap gap-2">
-                                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-pastel-blue-100 text-pastel-blue-800 dark:bg-pastel-blue-900 dark:text-pastel-blue-200">
-                                            ${categoria}
-                                        </span>
-                                         <span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] text-gray-400 border border-gray-200">
-                                            ${h.origenCarga || 'N/A'}
-                                        </span>
-                                    </div>
-            
-                                    <div class="flex items-center gap-2">
-                                        ${deleteButton}
-                                        <a href="/ver-hecho/${h["idHecho"]}" class="text-pastel-blue-600 hover:text-pastel-blue-800">
-                                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path></svg>
-                                        </a>
-                                    </div>
-                                </div>
-            
-                                <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2 leading-tight group-hover:text-pastel-blue-600 transition-colors">
-                                    <a href="/ver-hecho/${h["idHecho"]}">${h.titulo}</a>
-                                </h3>
-            
-                                <p class="text-sm text-gray-600 dark:text-gray-300 line-clamp-2 mb-4">
-                                    ${h.descripcion || 'Sin descripción disponible.'}
-                                </p>
-            
-                                <div class="flex items-center justify-between text-xs text-gray-500 dark:text-gray-400 border-t border-gray-100 dark:border-gray-700 pt-3">
-                                    <div class="flex items-center gap-1">
-                                        <span class="truncate max-w-[150px]" title="${h.localidad}, ${h.pais}">
-                                            ${h.localidad || ''}, ${h.pais || ''}
-                                        </span>
-                                    </div>
-                                    <div class="flex items-center gap-1">
-                                        <span>${fecha}</span>
-                                    </div>
-                                </div>
-                            </div>
-                        `;
-            */
+
             hechos.forEach(h => {
                 const card = document.createElement('div');
                 card.className =
@@ -717,7 +652,7 @@
                 </div>
             </div>`;
 
-                // Centrar mapa al hacer click en la card (excepto en botones)
+
                 card.addEventListener('click', (e) => {
                     if (!e.target.closest('a') && !e.target.closest('button') && h.latitud && h.longitud) {
                         map.flyTo([h.latitud, h.longitud], 10);
@@ -738,7 +673,7 @@
             if (bounds.length > 0) map.fitBounds(bounds, { padding: [50, 50] });
         }
 
-        // UTILS
+
         function getValue(id) { const e = document.getElementById(id); return e && e.value ? e.value : null; }
         function getBoolean(id) { const v = getValue(id); return v === 'true' ? true : v === 'false' ? false : null; }
         function getDateISO(id) {

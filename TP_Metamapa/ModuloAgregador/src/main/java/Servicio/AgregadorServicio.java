@@ -50,7 +50,6 @@ public class AgregadorServicio {
 
 
     public void actualizarHechos() {
-        // Recolectar datos crudos de las fuentes
         List<HechoDTOInput> hechosRaw = new ArrayList<>();
         try {
             System.out.println("--- Buscando hechos en fuentes externas... ---");
@@ -61,7 +60,6 @@ public class AgregadorServicio {
 
             System.out.println("--- Recolectados " + hechosRaw.size() + " hechos. Iniciando Async... ---");
 
-            // Disparar proceso asíncrono "Fire and Forget"
             if (!hechosRaw.isEmpty()) {
                 procesarYGuardarAsync(hechosRaw);
             }
@@ -70,7 +68,6 @@ public class AgregadorServicio {
         }
     }
 
-    // --- 2. EL PROCESO PESADO (Async + Paralelo) ---
     @Async("executorMetamapa")
     public void procesarYGuardarAsync(List<HechoDTOInput> listaCruda) {
         try {
@@ -98,7 +95,6 @@ public class AgregadorServicio {
     }
 
 
-    // --- Lógica de Normalización ---
     private void normalizarDTO(HechoDTOInput dto) {
         try {
             ubicacionLimiter.acquire();
@@ -118,7 +114,6 @@ public class AgregadorServicio {
                     dto.setLocalidad(ubiRes.getLocalidad());
                 }
 
-                // 2. Normalizar Categoría (Nueva llamada)
                 String categoriaNorm = restTemplate.postForObject(
                         urlNormalizador + "/normalizacion/categorias",
                         dto.getCategoria(),
@@ -126,7 +121,6 @@ public class AgregadorServicio {
                 );
                 if (categoriaNorm != null) dto.setCategoria(categoriaNorm);
 
-                // 3. Normalizar Título (Nueva llamada)
                 String tituloNorm = restTemplate.postForObject(
                         urlNormalizador + "/normalizacion/titulos",
                         dto.getTitulo(),
@@ -145,9 +139,7 @@ public class AgregadorServicio {
     }
 
 
-    // --- Conversión y Guardado (Thread Safe) ---
     private Hecho convertirYGuardar(HechoDTOInput dto) {
-        // synchronized evita que 2 hilos creen el Pais "Argentina" a la vez y de error
         synchronized(this) {
             Pais pais = crearPais(dto.getPais());
             Provincia provincia = crearProvincia(dto.getProvincia(), pais);
@@ -197,80 +189,36 @@ public class AgregadorServicio {
 
 
     public Pais crearPais(String nombre) {
-//        if (nombre == null) return null;
-//        Pais pais = paisRepositorio.findByPais(nombre);
-//        if (pais == null) {
-//            pais = new Pais(nombre);
-//            paisRepositorio.save(pais);
-//        }
-//        return pais;
+
         return paisRepositorio.buscarOCrear(nombre);
     }
 
     public  Provincia crearProvincia(String nombre, Pais pais) {
-//        if (nombre == null) return null;
-//        Provincia provincia = provinciaRepositorio.findByProvinciaAndPais(nombre, pais);
-//        if (provincia == null) {
-//            provincia = new Provincia(nombre, pais);
-//            provinciaRepositorio.save(provincia);
-//        }
-//        return provincia;
         return provinciaRepositorio.buscarOCrear(nombre, pais);
     }
 
     public  Localidad crearLocalidad(String nombre, Provincia provincia) {
-//        if (nombre == null) return null;
-//        Localidad localidad = localidadRepositorio.findByLocalidadAndProvincia(nombre, provincia);
-//        if (localidad == null) {
-//            localidad = new Localidad(nombre, provincia);
-//            localidadRepositorio.save(localidad);
-//        }
-//        return localidad;
         return localidadRepositorio.buscarOCrear(nombre, provincia);
     }
 
     public  Ubicacion crearUbicacion(Double latitud, Double longitud, Localidad localidad, Provincia provincia, Pais pais) {
-        // Valida nulos si es necesario
-//        Ubicacion ubicacion = ubicacionRepositorio.findByLatitudAndLongitud(latitud, longitud);
-//        if (ubicacion == null) {
-//            ubicacion = new Ubicacion(localidad, provincia, pais, latitud, longitud);
-//            ubicacionRepositorio.save(ubicacion);
-//        }
-//        return ubicacion;
+
         return ubicacionRepositorio.buscarOCrear(latitud, longitud, localidad, provincia, pais);
     }
 
     public  Categoria crearCategoria(String nombre) {
-//        if (nombre == null) return null;
-//        Categoria categoria = categoriaRepositorio.findByNombre(nombre);
-//        if (categoria == null) {
-//            categoria = new Categoria(nombre);
-//            categoriaRepositorio.save(categoria);
-//        }
-//        return categoria;
+
         return categoriaRepositorio.buscarOCrear(nombre);
 
     }
 
     public  Contribuyente crearContribuyente(String usuario, String nombre, String apellido, LocalDate fechaNacimiento) {
-//        if (usuario == null) return null;
-//        Contribuyente contribuyente = contribuyenteRepositorio.findByUsuario(usuario);
-//        if (contribuyente == null) {
-//            contribuyente = new Contribuyente(usuario, nombre, apellido, fechaNacimiento);
-//            contribuyenteRepositorio.save(contribuyente);
-//        }
-//        return contribuyente;
+
         return contribuyenteRepositorio.buscarOCrear(usuario, nombre, apellido, fechaNacimiento);
     }
 
     public  Contenido crearContenido(String texto, String contenidoMultimedia) {
-//        List<Contenido> contenido = contenidoRepositorio.findByTextoAndContenidoMultimedia(texto, contenidoMultimedia);
-//        if (contenido == null || contenido.isEmpty()) {
-//            Contenido contenido2 = new Contenido(texto, contenidoMultimedia);
-//            contenidoRepositorio.save(contenido2);
-//            return contenido2;
-//        }
-//        return contenido.get(0);
+
         return contenidoRepositorio.buscarOCrear(texto, contenidoMultimedia);
 
     }
@@ -278,7 +226,7 @@ public class AgregadorServicio {
     public void actualizarColecciones() {
         List<Coleccion> colecciones = coleccionRepositorio.findAllWithRelations();
         for (Coleccion c : colecciones) {
-            actualizarColeccion(c); // Tu método existente
+            actualizarColeccion(c);
         }
     }
 

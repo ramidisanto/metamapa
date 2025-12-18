@@ -48,8 +48,7 @@ public class ImportadorFileServerLocal implements Importador{
        int numeroLinea = 0;
 
        try {
-           // br = new BufferedReader(new FileReader(ruta));
-           br = new BufferedReader( // antes estaba el de arriba, en mi compu tomaba mal los tildes
+           br = new BufferedReader(
                    new InputStreamReader(
                            new FileInputStream(ruta),
                            StandardCharsets.UTF_8
@@ -58,7 +57,6 @@ public class ImportadorFileServerLocal implements Importador{
            String linea;
            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
-           // Leer y validar encabezado
            String lineaEncabezado = br.readLine();
            numeroLinea++;
 
@@ -73,28 +71,24 @@ public class ImportadorFileServerLocal implements Importador{
                );
            }
 
-           // Procesar líneas de datos
            while ((linea = br.readLine()) != null) {
                numeroLinea++;
 
-               // Ignorar líneas vacías
                if (linea.trim().isEmpty()) {
                    continue;
                }
 
                String[] campos = linea.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)");
 
-               // Validar la línea
                ResultadoValidacion resultado = validador.validarLinea(campos, numeroLinea);
 
                if (!resultado.isValido()) {
                    for (ErrorValidacion error : resultado.getErrores()) {
                        erroresValidacion.add(error.toString());
                    }
-                   continue; // Saltar esta línea y continuar con la siguiente
+                   continue;
                }
 
-               // Si la validación paso, procesar el hecho
                try {
                    String titulo = unquoteCsvField(campos[0]);
                    String descripcion = unquoteCsvField(campos[1]);
@@ -121,7 +115,6 @@ public class ImportadorFileServerLocal implements Importador{
                }
            }
 
-           // Si hubo errores de validación, lanzar excepción con todos los errores
            if (!erroresValidacion.isEmpty()) {
                StringBuilder mensajeError = new StringBuilder();
                mensajeError.append(String.format(
@@ -135,7 +128,6 @@ public class ImportadorFileServerLocal implements Importador{
                throw new ValidacionError("Formato del archivo inválido, debe respetar el formato especificado.");
            }
 
-           // Si no se procesó ningún hecho válido
            if (hechos.getHechos().isEmpty()) {
                throw new ValidacionError("No se encontraron registros válidos en el archivo CSV");
            }
@@ -155,11 +147,9 @@ public class ImportadorFileServerLocal implements Importador{
             return null;
         }
         s = s.trim();
-        // Quita comillas envolventes "..."
         if (s.length() >= 2 && s.startsWith("\"") && s.endsWith("\"")) {
             s = s.substring(1, s.length() - 1);
         }
-        // Convierte comillas escapadas CSV ("") a una sola (")
         s = s.replace("\"\"", "\"");
         return s;
     }
@@ -197,7 +187,6 @@ public class ImportadorFileServerLocal implements Importador{
             String filename = System.currentTimeMillis() + "-" + originalFilename;
             Path filePath = Paths.get(carpetaRelativePath + filename);
 
-            // Guardar el archivo
             Files.copy(file.getInputStream(), filePath,
                     StandardCopyOption.REPLACE_EXISTING);
             try {
@@ -211,7 +200,7 @@ public class ImportadorFileServerLocal implements Importador{
 
                 return hechos;
             } catch (Exception e) {
-                // Si la validación falla, eliminar el archivo
+
                 Files.deleteIfExists(filePath);
                 throw new ValidacionError( e.getMessage());
             }

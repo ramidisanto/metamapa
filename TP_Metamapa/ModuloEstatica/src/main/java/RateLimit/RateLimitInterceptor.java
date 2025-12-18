@@ -23,15 +23,13 @@ public class RateLimitInterceptor implements HandlerInterceptor {
         ConsumptionProbe probe = tokenBucket.tryConsumeAndReturnRemaining(1);
 
         if (probe.isConsumed()) {
-            // Si hay tokens, agregamos un header informativo de cuántos le quedan
             response.addHeader("X-Rate-Limit-Remaining", String.valueOf(probe.getRemainingTokens()));
-            return true; // Continua la ejecución hacia el Controlador
+            return true;
         } else {
-            // Si no hay tokens, devolvemos HTTP 429 Too Many Requests
             long waitForRefill = probe.getNanosToWaitForRefill() / 1_000_000_000;
             response.addHeader("X-Rate-Limit-Retry-After-Seconds", String.valueOf(waitForRefill));
             response.sendError(HttpStatus.TOO_MANY_REQUESTS.value(), "Has excedido el limite de solicitudes. Intenta de nuevo en " + waitForRefill + " segundos.");
-            return false; // Bloquea la petición
+            return false;
         }
     }
 }

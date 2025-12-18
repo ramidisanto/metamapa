@@ -18,7 +18,6 @@ public class RateLimitInterceptor implements HandlerInterceptor {
 
     @Autowired
     private RateLimitService rateLimiterService;
-    // 1. Declarar el Logger
     private static final Logger logger = LoggerFactory.getLogger(RateLimitInterceptor.class);
 
     @Override
@@ -27,7 +26,7 @@ public class RateLimitInterceptor implements HandlerInterceptor {
         if (ip == null || ip.isEmpty() || "unknown".equalsIgnoreCase(ip)) {
             ip = request.getRemoteAddr();
         } else {
-            // A veces viene una lista "IP_Cliente, IP_Proxy1, IP_Proxy2", nos quedamos con la primera
+
             ip = ip.split(",")[0].trim();
         }
 
@@ -53,9 +52,8 @@ public class RateLimitInterceptor implements HandlerInterceptor {
             limit = 20;
         }
 
-        // --------------------------------------------
 
-         // 3. CONSUMO DE TOKENS
+         // CONSUMO DE TOKENS
         Bucket tokenBucket = rateLimiterService.resolveBucket(bucketKey, limit);
         ConsumptionProbe probe = tokenBucket.tryConsumeAndReturnRemaining(1);
 
@@ -78,7 +76,7 @@ public class RateLimitInterceptor implements HandlerInterceptor {
                     + "}";
 
             response.getWriter().write(body);
-            response.flushBuffer(); // CORTA EL RESTO DEL CICLO, Spring no puede meter 401
+            response.flushBuffer();
 
             return false;
         }

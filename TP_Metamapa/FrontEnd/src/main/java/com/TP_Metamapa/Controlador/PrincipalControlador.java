@@ -20,7 +20,7 @@ public class PrincipalControlador {
     @GetMapping("/")
     public String paginaPrincipal(Model model) {
         List<HechoDTO> hechosDePrueba = hechoService.hechosRecientes();
-//
+
         model.addAttribute("hechos", hechosDePrueba);
 
         model.addAttribute("activePage", "inicio");

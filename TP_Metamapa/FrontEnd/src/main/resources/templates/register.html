@@ -92,7 +92,7 @@
                     <span id="email-error" class="text-red-500 text-xs mt-1 hidden">Este campo es obligatorio</span>
                 </div>
 
-                <!-- Name and Last Name -->
+                <!-- Nombre y Apellido -->
                 <div class="grid grid-cols-2 gap-4">
                     <div>
                         <label for="firstName"
@@ -117,7 +117,7 @@
                     </div>
                 </div>
 
-                <!-- Birthdate -->
+                <!-- Nacimento -->
                 <div>
                     <label for="birthdate" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Fecha
                         de nacimiento <span class="text-red-500">*</span></label>
@@ -126,7 +126,7 @@
                     <span id="birthdate-error" class="text-red-500 text-xs mt-1 hidden">Este campo es obligatorio</span>
                 </div>
 
-                <!-- Password -->
+                <!-- Contraseña -->
                 <div>
                     <label for="password"
                         class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Contraseña <span
@@ -154,7 +154,6 @@
                     <span id="password-error" class="text-red-500 text-xs mt-1 hidden">Este campo es obligatorio</span>
                 </div>
 
-                <!-- Messages -->
                 <div th:if="${successMessage}"
                     class="p-4 rounded-xl border flex items-start gap-3 bg-accent-50 dark:bg-accent-900/30 border-accent-200 dark:border-accent-700 text-accent-800 dark:text-accent-300 animate-fade-in">
                     <svg class="w-5 h-5 flex-shrink-0" xmlns="http://www.w3.org/2000/svg" fill="none"
@@ -175,7 +174,6 @@
                     <span th:text="${errorMessage}"></span>
                 </div>
 
-                <!-- Submit Button -->
                 <button type="submit"
                     class="w-full py-3.5 text-lg mt-6 px-6 bg-gradient-to-r from-primary-600 to-primary-700 text-white font-semibold rounded-xl shadow-md hover:from-primary-700 hover:to-primary-800 hover:shadow-lg transition-all duration-300">
                     Registrarse
@@ -208,9 +206,6 @@
             }
         }
 
-        // ==========================================
-        // Validación del formulario de registro
-        // ==========================================
         document.addEventListener('DOMContentLoaded', function () {
             const form = document.getElementById('registerForm');
             const requiredFields = [
@@ -222,7 +217,6 @@
                 { id: 'password', errorId: 'password-error' }
             ];
 
-            // Función para mostrar/ocultar error
             function showError(errorElement, show) {
                 if (show) {
                     errorElement.classList.remove('hidden');
@@ -231,7 +225,6 @@
                 }
             }
 
-            // Función para marcar input como inválido
             function setFieldInvalid(field, isInvalid) {
                 if (isInvalid) {
                     field.classList.add('border-red-500', 'focus:border-red-500', 'focus:ring-red-500/20');
@@ -242,7 +235,6 @@
                 }
             }
 
-            // Validar campo individual
             function validateField(fieldConfig) {
                 const field = document.getElementById(fieldConfig.id);
                 const errorElement = document.getElementById(fieldConfig.errorId);
@@ -254,7 +246,6 @@
                 return !isEmpty;
             }
 
-            // Agregar listener para validar al perder el foco
             requiredFields.forEach(fieldConfig => {
                 const field = document.getElementById(fieldConfig.id);
                 field.addEventListener('blur', () => validateField(fieldConfig));
@@ -267,7 +258,6 @@
                 });
             });
 
-            // Validar formulario al enviar
             form.addEventListener('submit', function (e) {
                 let isValid = true;
 
@@ -279,7 +269,6 @@
 
                 if (!isValid) {
                     e.preventDefault();
-                    // Hacer scroll al primer campo con error
                     const firstError = document.querySelector('.border-red-500');
                     if (firstError) {
                         firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
@@ -288,7 +277,6 @@
                 }
             });
 
-            // Restricción de fecha futura para fecha de nacimiento
             const birthdateInput = document.getElementById('birthdate');
             const today = new Date();
             const year = today.getFullYear();

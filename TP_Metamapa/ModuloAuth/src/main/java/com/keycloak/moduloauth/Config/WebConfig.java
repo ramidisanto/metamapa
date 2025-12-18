@@ -13,11 +13,11 @@ public class WebConfig implements WebMvcConfigurer {
     private IpAccessInterceptor ipAccessInterceptor;
 
     @Autowired
-    private RateLimitInterceptor rateLimitInterceptor; // <--- Inyección directa
+    private RateLimitInterceptor rateLimitInterceptor;
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        // Registro explícito
+
         registry.addInterceptor(ipAccessInterceptor).addPathPatterns("/**");
         registry.addInterceptor(rateLimitInterceptor).addPathPatterns("/**");
     }

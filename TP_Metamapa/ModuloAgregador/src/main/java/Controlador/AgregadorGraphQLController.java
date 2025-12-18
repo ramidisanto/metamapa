@@ -26,7 +26,6 @@ public class AgregadorGraphQLController {
     public PagedHechoResponse listarHechos(@Argument HechoFilterInput filtro) {
         if (filtro == null) filtro = new HechoFilterInput();
 
-        // El flujo es Controller -> Servicio Nuevo -> Repositorio
         return agregadorServicio.listarHechos(filtro);
     }
 
@@ -36,7 +35,7 @@ public class AgregadorGraphQLController {
     }
 
     @QueryMapping
-    public HechoDTOoutput obtenerHecho(@Argument String id) { // GraphQL manda ID como String a veces
+    public HechoDTOoutput obtenerHecho(@Argument String id) {
         return agregadorServicio.obtenerHechoPorId(Long.parseLong(id));
     }
 }

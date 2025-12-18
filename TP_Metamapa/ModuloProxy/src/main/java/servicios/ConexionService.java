@@ -29,54 +29,10 @@ public class ConexionService implements IConexionService {
         } catch (Exception e) {
             e.printStackTrace();
             return null;
-            //return ResponseEntity.status(500).body("url incorrecta");
+
         }
     }
 }
 
 
 
-
-//@Override
-//public Map<String, Object> siguienteHecho(URL url, LocalDateTime  fechaUltimaConsulta) {
-//    try {
-//        // Construcción segura de la URI con parámetros
-//        UriComponentsBuilder builder = UriComponentsBuilder.fromUri(url.toURI());
-//
-//        if (fechaUltimaConsulta != null) {
-//            builder.queryParam("ultima_consulta", fechaUltimaConsulta.toString());
-//        }
-//
-//        // Realiza la request con método GET y espera un Map<String, Object> como respuesta
-//        ResponseEntity<Map<String, Object>> response = restTemplate.exchange(
-//                builder.build().toUri(),                 // URL armada
-//                HttpMethod.GET,                          // método GET
-//                null,                                    // sin headers ni body
-//                new ParameterizedTypeReference<>() {}    // tipo esperado
-//        );
-//
-//        return response.getBody();
-//
-//    } catch (URISyntaxException e) {
-//        throw new IllegalArgumentException("URL mal formada: " + url.toString(), e);
-//    } catch (RestClientException e) {
-//        throw new RuntimeException("Error al conectar con la fuente externa: " + e.getMessage(), e);
-//    }
-//}
-
-//@Service
-//public class ConexionService implements IConexionService {
-//
-//    private final
-//
-//    @Override
-//    public Map<String, Object> siguienteHecho(URL url, LocalDateTime  fechaUltimaConsulta) {
-//        Map<String, Object> hechos = new HashMap<>();
-//        // Implementar la lógica para obtener el siguiente hecho desde la URL
-//        return hechos;
-//
-//        // api mock
-//        // pipedream
-//
-//    }
-//}

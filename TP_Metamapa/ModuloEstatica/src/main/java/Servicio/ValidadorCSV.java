@@ -17,11 +17,9 @@ public class ValidadorCSV {
     private static final double LON_MAX = 180.0;
 
 
-    /*Valida una línea del CSV*/
     public ResultadoValidacion validarLinea(String[] campos, int numeroLinea) {
         List<ErrorValidacion> errores = new ArrayList<>();
 
-        // Validar que tenga 6 campos
         if (campos.length != 6) {
             errores.add(new ErrorValidacion(
                     numeroLinea,
@@ -31,25 +29,21 @@ public class ValidadorCSV {
             return new ResultadoValidacion(false, errores);
         }
 
-        // Validar Título (campo 0)
         String titulo = campos[0].trim();
         if (titulo.isEmpty() || titulo.replaceAll("\"", "").trim().isEmpty()) {
             errores.add(new ErrorValidacion(numeroLinea, "Título", "El título no puede estar vacío"));
         }
 
-        // Validar Descripción (campo 1)
         String descripcion = campos[1].trim();
         if (descripcion.isEmpty() || descripcion.replaceAll("\"", "").trim().isEmpty()) {
             errores.add(new ErrorValidacion(numeroLinea, "Descripción", "La descripción no puede estar vacía"));
         }
 
-        // Validar Categoría (campo 2)
         String categoria = campos[2].trim();
         if (categoria.isEmpty() || categoria.replaceAll("\"", "").trim().isEmpty()) {
             errores.add(new ErrorValidacion(numeroLinea, "Categoría", "La categoría no puede estar vacía"));
         }
 
-        // Validar Latitud (campo 3)
         String latitudStr = campos[3].trim();
         if (!validarCoordenada(latitudStr, LAT_MIN, LAT_MAX)) {
             errores.add(new ErrorValidacion(
@@ -59,7 +53,6 @@ public class ValidadorCSV {
             ));
         }
 
-        // Validar Longitud (campo 4)
         String longitudStr = campos[4].trim();
         if (!validarCoordenada(longitudStr, LON_MIN, LON_MAX)) {
             errores.add(new ErrorValidacion(
@@ -69,7 +62,6 @@ public class ValidadorCSV {
             ));
         }
 
-        // Validar Fecha (campo 5)
         String fechaStr = campos[5].trim();
         if (!validarFecha(fechaStr)) {
             errores.add(new ErrorValidacion(
@@ -82,9 +74,6 @@ public class ValidadorCSV {
         return new ResultadoValidacion(errores.isEmpty(), errores);
     }
 
-    /**
-     * Valida que una coordenada sea un número válido dentro del rango
-     */
     private boolean validarCoordenada(String coordenada, double min, double max) {
         if (coordenada == null || coordenada.isEmpty()) {
             return false;
@@ -98,9 +87,6 @@ public class ValidadorCSV {
         }
     }
 
-    /**
-     * Valida que una fecha sea válida y esté en el formato correcto
-     */
     private boolean validarFecha(String fecha) {
         if (fecha == null || fecha.isEmpty()) {
             return false;
@@ -114,9 +100,6 @@ public class ValidadorCSV {
         }
     }
 
-    /**
-     * Valida el encabezado del CSV
-     */
     public boolean validarEncabezado(String[] encabezado) {
         if (encabezado.length != 6) {
             return false;

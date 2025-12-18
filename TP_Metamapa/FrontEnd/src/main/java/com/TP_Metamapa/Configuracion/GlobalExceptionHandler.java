@@ -15,14 +15,13 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(HttpClientErrorException.class)
     public Object handleHttpClientError(HttpClientErrorException e) {
 
-        // Caso especial: 429 Too Many Requests → mostrar 429.html
+        // Caso especial: 429 Too Many Requests
         if (e.getStatusCode().value() == 429) {
 
             ModelAndView mav = new ModelAndView();
             mav.setViewName("error/429");
             mav.setStatus(HttpStatus.TOO_MANY_REQUESTS);
 
-            // Pasar retry-after si existe
             String retryAfter = null;
             if (e.getResponseHeaders() != null) {
                 retryAfter = e.getResponseHeaders().getFirst("Retry-After");
@@ -32,7 +31,6 @@ public class GlobalExceptionHandler {
             return mav;
         }
 
-        // Para otros errores, devolvés ResponseEntity como antes
         return ResponseEntity
                 .status(e.getStatusCode())
                 .body(e.getResponseBodyAsString());

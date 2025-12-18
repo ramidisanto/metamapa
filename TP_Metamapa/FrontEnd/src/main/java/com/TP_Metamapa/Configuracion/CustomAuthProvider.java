@@ -44,7 +44,6 @@ public class CustomAuthProvider implements AuthenticationProvider {
         loginRequest.setPassword(password);
 
         try {
-            // Llamada a servicio externo para obtener tokens
             KeycloakTokenDTO authResponse = authService.login(loginRequest); //rta con token
             if (authResponse == null) {
                 throw new BadCredentialsException("Usuario o contraseña inválidos");
@@ -78,8 +77,7 @@ public class CustomAuthProvider implements AuthenticationProvider {
 
             String lowerMsg = errorMsg.toLowerCase();
 
-            // --- 1) Detectar bloqueo por rate limit (prioridad absoluta) ---
-            // Buscamos cualquier indicio de 429 en TODO el mensaje
+
             if (lowerMsg.contains("429") ||
                     lowerMsg.contains("too many requests") ||
                     lowerMsg.contains("rate") ||
@@ -91,7 +89,6 @@ public class CustomAuthProvider implements AuthenticationProvider {
                 throw new BadCredentialsException("BLOQUEO_RATELIMIT");
             }
 
-            // --- 2) Error de credenciales inválidas (401) ---
             if (lowerMsg.contains("401") ||
                     lowerMsg.contains("unauthorized") ||
                     lowerMsg.contains("usuario") && lowerMsg.contains("contraseña")) {
@@ -99,7 +96,6 @@ public class CustomAuthProvider implements AuthenticationProvider {
                 throw new BadCredentialsException("Usuario o contraseña incorrectos");
             }
 
-            // --- 3) Otros errores genéricos ---
             throw new BadCredentialsException("Error en el sistema de autenticación: " + errorMsg);
         }
     }

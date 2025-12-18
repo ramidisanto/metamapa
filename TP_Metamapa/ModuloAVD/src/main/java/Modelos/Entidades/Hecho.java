@@ -16,9 +16,8 @@ public class Hecho{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id; //Cambiar a long
-
-    private Long idFuente; // Cambiar a long
+    private Long id;
+    private Long idFuente;
     @Column(length = 1000)
     private String titulo;
     @Column(columnDefinition = "TEXT")
@@ -80,7 +79,6 @@ public class Hecho{
         this.visible = estaVisible;
         this.contribuyente = contribuyente;
         this.anonimo = anonimo;
-        //this.estadoNormalizacion = EstadoNormalizacion.PENDIENTE;
         this.mostrarNombre = mostrarNombre;
         this.mostrarApellido = mostrarApellido;
         this.mostrarFechaNacimiento = mostrarFechaNacimiento;

@@ -14,7 +14,6 @@ public interface UbicacionRepositorio extends JpaRepository<Ubicacion, Long> {
     Optional<Ubicacion> findByLatitudAndLongitud(Double latitud, Double longitud);
 
     default Ubicacion buscarOCrear(Double latitud, Double longitud, Localidad localidad, Provincia provincia, Pais pais) {
-        // Si no hay coordenadas, no tiene sentido buscar o crear una ubicación fija
         if (latitud == null || longitud == null) return null;
 
         return findByLatitudAndLongitud(latitud, longitud)

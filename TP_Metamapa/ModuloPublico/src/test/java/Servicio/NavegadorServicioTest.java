@@ -37,7 +37,6 @@ class NavegadorServicioTest {
         MockitoAnnotations.openMocks(this);
     }
 
-    // ---- crearOrigen ----
     @Test
     void crearOrigen_devuelveEnumCorrecto() {
         OrigenCarga origen = navegadorServicio.crearOrigen("FUENTE_DINAMICA");
@@ -49,7 +48,7 @@ class NavegadorServicioTest {
         assertNull(navegadorServicio.crearOrigen(null));
     }
 
-    // ---- validarColeccion ----
+
     @Test
     void validarColeccion_existente_noLanzaExcepcion() {
         Coleccion coleccion = new Coleccion();
@@ -65,7 +64,7 @@ class NavegadorServicioTest {
         assertThrows(ColeccionNotFoundException.class, () -> navegadorServicio.validarColeccion(1L));
     }
 
-    // ---- obtenerHechoPorId ----
+
     @Test
     void obtenerHechoPorId_existente_devuelveDTO() {
         Hecho hecho = mockHecho();
@@ -83,7 +82,7 @@ class NavegadorServicioTest {
         assertThrows(HechosNoEncontradosException.class, () -> navegadorServicio.obtenerHechoPorId(2L));
     }
 
-    // ---- transformarAHechoDTO ----
+
     @Test
     void transformarAHechoDTO_devuelveDatosCorrectos() {
         Hecho hecho = mockHecho();
@@ -95,7 +94,7 @@ class NavegadorServicioTest {
         assertEquals("Avellaneda", dto.getLocalidad());
     }
 
-    // ---- convertirConsenso ----
+
     @Test
     void convertirConsenso_tiposValidos_devuelveCorrecto() {
         assertEquals("ABSOLUTA", navegadorServicio.convertirConsenso(new ConsensoAbsoluta()));
@@ -132,7 +131,7 @@ class NavegadorServicioTest {
         assertTrue(resultados.isEmpty());
     }
 
-    // ---- obtenerPaises/Provincias/Localidades/Categorias ----
+
     @Test
     void obtenerPaises_devuelveNombres() {
         Pais p = new Pais(); p.setPais("Argentina");
@@ -151,7 +150,7 @@ class NavegadorServicioTest {
         assertEquals(List.of("Política"), resultado);
     }
 
-    // ---- filtrarHechos ----
+
     @Test
     void filtrarHechos_sinColeccion_llamaHechoRepositorio() {
         when(hechoRepositorio.filtrarHechos(

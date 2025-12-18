@@ -17,9 +17,9 @@ public class Hecho{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id; //Cambiar a long
+    private Long id;
 
-    private Long idFuente; // Cambiar a long
+    private Long idFuente;
     @Column(length = 1000)
     private String titulo;
     @Column(columnDefinition = "TEXT")
@@ -43,7 +43,7 @@ public class Hecho{
 
     @Enumerated(EnumType.STRING)
     @Column()
-    private OrigenCarga origen; //enum
+    private OrigenCarga origen;
 
     private boolean visible ;
 
@@ -68,7 +68,7 @@ public class Hecho{
     public Hecho(Long idFuente, String unTitulo, String unaDescripcion, Contenido unContenido, Categoria unaCategoria, LocalDateTime unaFechaOcurrencia,
                  Ubicacion unaUbicacion, LocalDateTime  unaFechaCarga, OrigenCarga unOrigen, boolean estaVisible,Contribuyente contribuyente, Boolean anonimo,
                  Boolean mostrarNombre, Boolean mostrarApellido, 
-                    Boolean mostrarFechaNacimiento){ //Lista etiquetas
+                    Boolean mostrarFechaNacimiento){
         this.id = null;
         this.idFuente = idFuente;
         this.titulo = unTitulo;
@@ -85,7 +85,6 @@ public class Hecho{
         this.mostrarNombre = mostrarNombre;
         this.mostrarApellido = mostrarApellido;
         this.mostrarFechaNacimiento = mostrarFechaNacimiento;
-        //this.estadoNormalizacion = EstadoNormalizacion.PENDIENTE;
     }
 
 

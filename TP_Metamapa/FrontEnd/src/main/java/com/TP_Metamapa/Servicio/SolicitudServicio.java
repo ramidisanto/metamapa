@@ -79,19 +79,10 @@ public class SolicitudServicio {
                 requestEntity,
                 String.class
         );
-
-        // ver si hacer algo con la respuesta
     }
 
     public void aceptarSolicitud(Long idSolicitud, String accessToken){
         UriComponentsBuilder urlSolicitudes = UriComponentsBuilder.fromHttpUrl(urlBaseAVD +"/solicitudes/pendientes/" + idSolicitud);
-       /* HttpEntity<String> requestEntity = new HttpEntity<>("ACEPTADA");
-        ResponseEntity<String> respuesta = restTemplate.exchange(
-                urlSolicitudes.toUriString(),
-                HttpMethod.PUT,
-                requestEntity,
-                String.class
-        );*/
         HttpHeaders headers = new HttpHeaders();
         headers.setBearerAuth(accessToken);
         HttpEntity<EstadoDTO> requestEntity = new HttpEntity<>(new EstadoDTO("ACEPTADA"), headers);
@@ -101,7 +92,5 @@ public class SolicitudServicio {
                 requestEntity,
                 String.class
         );
-
-        // ver si hacer algo con la respuesta
     }
 }

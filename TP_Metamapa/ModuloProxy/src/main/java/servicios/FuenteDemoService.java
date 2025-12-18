@@ -78,7 +78,7 @@ public class FuenteDemoService {
         entity.setLocalidad((String) data.get("localidad"));
         entity.setLatitud((Double) data.get("latitud"));
         entity.setLongitud((Double) data.get("longitud"));
-        // falta asociar la fuente
+
         return entity;
     }
 
@@ -107,7 +107,7 @@ public class FuenteDemoService {
                 (String) data.get("contenido"),
                 (String) data.get("contenidoMultimedia"),
                 (String) data.get("categoria"),
-                (LocalDateTime) data.get("fecha"), // Si tu JSON devuelve esto como string, hay que parsearlo
+                (LocalDateTime) data.get("fecha"),
                 (String) data.get("pais"),
                 (String) data.get("provincia"),
                 (String) data.get("localidad"),

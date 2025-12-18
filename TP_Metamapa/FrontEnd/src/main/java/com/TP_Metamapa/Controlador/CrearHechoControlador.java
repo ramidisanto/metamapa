@@ -167,7 +167,6 @@ public class CrearHechoControlador {
             List<String> categorias = categoriaServicio.getCategoriasUnicas();
             model.addAttribute("categorias", categorias);
 
-            // Volvemos a la misma página (los datos del usuario se mantienen solos)
             return "crearHecho";
         }
     }
@@ -205,7 +204,6 @@ public class CrearHechoControlador {
             model.addAttribute("errorMessage", "Debes iniciar sesión para crear un hecho.");
             return "redirect:/auth/login";
         }
-        // 2. Validar sesión/tokens
         String accessToken = (String) session.getAttribute("accessToken");
         String refreshToken = (String) session.getAttribute("refreshToken");
 
@@ -214,7 +212,6 @@ public class CrearHechoControlador {
             return "redirect:/auth/login";
         }
 
-        // extraer username desde el Authentication
         String username = authentication.getName();
         List<HechoDTO> hechosPendientes = hechoServicio.obtenerHechoPendiente(username, accessToken);
 

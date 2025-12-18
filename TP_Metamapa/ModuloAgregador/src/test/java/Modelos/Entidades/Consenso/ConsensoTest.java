@@ -28,7 +28,6 @@ class ConsensoTest {
 
     @BeforeEach
     void setUp() {
-        // Crear objetos de ejemplo para los tests
         categoriaEjemplo = new Categoria();
         ubicacionEjemplo = new Ubicacion();
         contenidoEjemplo = new Contenido();
@@ -54,7 +53,7 @@ class ConsensoTest {
         );
     }
 
-    // ==================== TESTS CONSENSO ABSOLUTA ====================
+
 
     @Test
     void cuandoTodasLasFuentesTienenElHecho_consensoAbsolutaDeberiaRetornarTrue() {
@@ -111,7 +110,6 @@ class ConsensoTest {
         assertFalse(resultado);
     }
 
-    // ==================== TESTS CONSENSO MAYORIA SIMPLE ====================
 
     @Test
     void cuandoMayoriaSimpleTieneElHecho_deberiaRetornarTrue() {
@@ -177,7 +175,7 @@ class ConsensoTest {
         assertTrue(resultado); // 5 >= 9/2 (4.5)
     }
 
-    // ==================== TESTS CONSENSO MULTIPLES MENCIONES ====================
+
 
     @Test
     void cuandoHayDosMencionesYNoHayConflictos_deberiaRetornarTrue() {
@@ -191,10 +189,8 @@ class ConsensoTest {
                 any(Ubicacion.class), any(Contribuyente.class), any(Contenido.class)
         )).thenReturn(0L);
 
-        // Act
         Boolean resultado = consenso.tieneConsenso(hechoEjemplo);
 
-        // Assert
         assertTrue(resultado);
     }
 
@@ -210,10 +206,9 @@ class ConsensoTest {
                 any(Ubicacion.class), any(Contribuyente.class), any(Contenido.class)
         )).thenReturn(0L);
 
-        // Act
+        //
         Boolean resultado = consenso.tieneConsenso(hechoEjemplo);
 
-        // Assert
         assertTrue(resultado);
     }
 
@@ -229,16 +224,14 @@ class ConsensoTest {
                 any(Ubicacion.class), any(Contribuyente.class), any(Contenido.class)
         )).thenReturn(1L);
 
-        // Act
         Boolean resultado = consenso.tieneConsenso(hechoEjemplo);
 
-        // Assert
         assertFalse(resultado);
     }
 
     @Test
     void cuandoHayUnaSolaMencion_deberiaRetornarFalse() {
-        // Arrange
+
         ConsensoMultiplesMenciones consenso = new ConsensoMultiplesMenciones(repositorioMock);
         when(repositorioMock.cantidadDeFuentesConHecho(
                 anyString(), any(Categoria.class), any(LocalDateTime.class), any(Ubicacion.class)
@@ -248,10 +241,10 @@ class ConsensoTest {
                 any(Ubicacion.class), any(Contribuyente.class), any(Contenido.class)
         )).thenReturn(0L);
 
-        // Act
+
         Boolean resultado = consenso.tieneConsenso(hechoEjemplo);
 
-        // Assert
+
         assertFalse(resultado);
     }
 
@@ -267,18 +260,17 @@ class ConsensoTest {
                 any(Ubicacion.class), any(Contribuyente.class), any(Contenido.class)
         )).thenReturn(0L);
 
-        // Act
+
         Boolean resultado = consenso.tieneConsenso(hechoEjemplo);
 
-        // Assert
+
         assertFalse(resultado);
     }
 
-    // ==================== TESTS MÉTODO tieneConsenso CON REPOSITORIO ====================
 
     @Test
     void cuandoSeInvocaTieneConsensoConRepositorio_deberiaUsarRepositorioProvisto() {
-        // Arrange
+
         HechoRepositorio otroRepositorioMock = mock(HechoRepositorio.class);
         ConsensoAbsoluta consenso = new ConsensoAbsoluta(repositorioMock);
 
@@ -287,10 +279,10 @@ class ConsensoTest {
                 anyString(), any(Categoria.class), any(LocalDateTime.class), any(Ubicacion.class)
         )).thenReturn(3L);
 
-        // Act
+
         Boolean resultado = consenso.tieneConsenso(hechoEjemplo, otroRepositorioMock);
 
-        // Assert
+
         assertTrue(resultado);
         verify(otroRepositorioMock).cantidadFuentes();
         verify(otroRepositorioMock).cantidadDeFuentesConHecho(
@@ -304,10 +296,9 @@ class ConsensoTest {
 
     @Test
     void cuandoSeInvocaTieneConsensoConRepositorioNull_deberiaLanzarExcepcion() {
-        // Arrange
+
         ConsensoAbsoluta consenso = new ConsensoAbsoluta(repositorioMock);
 
-        // Act & Assert
         IllegalArgumentException excepcion = assertThrows(
                 IllegalArgumentException.class,
                 () -> consenso.tieneConsenso(hechoEjemplo, null)
@@ -327,14 +318,11 @@ class ConsensoTest {
                 anyString(), any(Categoria.class), any(LocalDateTime.class), any(Ubicacion.class)
         )).thenReturn(1L);
 
-        // Act
         consenso.tieneConsenso(hechoEjemplo, otroRepositorioMock);
 
-        // Assert
         assertEquals(repositorioMock, consenso.getRepositorio());
     }
 
-    // ==================== TESTS MÉTODO cantidadFuentesConHecho ====================
 
     @Test
     void cuandoSeLlamaCantidadFuentesConHecho_deberiaInvocarMetodoDelRepositorio() {

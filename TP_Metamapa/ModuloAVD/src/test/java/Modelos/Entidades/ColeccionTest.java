@@ -27,7 +27,7 @@ class ColeccionTest {
         Hecho hecho = new Hecho();
 
         coleccion.agregarHecho(hecho);
-        coleccion.agregarHecho(hecho); // intento duplicado
+        coleccion.agregarHecho(hecho);
 
         List<Hecho> hechos = coleccion.getHechos();
         assertEquals(1, hechos.size(), "No debe agregarse el mismo hecho dos veces");

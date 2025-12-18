@@ -60,17 +60,7 @@ public class ColeccionControlador {
             return ResponseEntity.status(500).body("Error al eliminar el hecho" + e.getMessage());
         }
     }
-    /*
-    @PreAuthorize("hasRole('admin_client_role')")
-    @DeleteMapping("/coleccion/{id_coleccion}/hecho/{id_hecho}")
-    public ResponseEntity<String> eliminarHechoDeColeccion(@PathVariable Long id_coleccion, @PathVariable Long id_hecho) {
-        try {
-            coleccionServicio.eliminarHechoDeColeccion(id_coleccion, id_hecho);
-            return ResponseEntity.status(200).body("Hecho eliminado exitosamente");
-        } catch (Exception e){
-            return ResponseEntity.status(500).body("Error al eliminar el hecho" + e.getMessage());
-        }
-    }*/
+
     @PreAuthorize("hasRole('admin_client_role')")
     @PutMapping ("/coleccion/{id}/Consenso/{estrategia}")
     public ResponseEntity<String> modificarAlgoritmoConsenso(@PathVariable Long id, @PathVariable String estrategia) {
@@ -81,30 +71,6 @@ public class ColeccionControlador {
             return ResponseEntity.status(500).body("Error al modificar el consenso: " + e.getMessage());
         }
     }
-    /*
-    @PreAuthorize("hasRole('admin_client_role')")
-    @PostMapping ("/coleccion/{id_coleccion}/fuentes")
-    public ResponseEntity<String>agregarFuente(@RequestBody FuenteDTO fuenteDTO, @PathVariable Long id_coleccion) {
-        try{
-            coleccionServicio.agregarFuente(id_coleccion,fuenteDTO.getIdFuente(), fuenteDTO.getOrigenCarga());
-            return ResponseEntity.status(200).body("Hechos de la fuente " + fuenteDTO.getIdFuente() + "del origen carga: " + fuenteDTO.getOrigenCarga() + "agregado exitosamente");
-        } catch (Exception e) {
-            return ResponseEntity.status(500).body("Error al agregar hechos de la fuente " + fuenteDTO.getIdFuente() + "del origen carga: " + fuenteDTO.getOrigenCarga() + ":" + e.getMessage());
-        }
-    }
-    @PreAuthorize("hasRole('admin_client_role')")
-    @DeleteMapping ("/coleccion/{id_coleccion}/fuentes")
-    public ResponseEntity<String> eliminarFuente(@PathVariable Long id_coleccion, @RequestBody FuenteDTO fuenteDTO) {
-        try{
-            coleccionServicio.eliminarFuente(id_coleccion, fuenteDTO.getIdFuente(), fuenteDTO.getOrigenCarga());
-            return ResponseEntity.status(200).body("Hechos de la fuente " + fuenteDTO.getIdFuente() + "del origen carga: " + fuenteDTO.getOrigenCarga() + " eliminada exitosamente");
-        } catch (Exception e) {
-            return ResponseEntity.status(500).body("Error al eliminar hechos de la fuente " + fuenteDTO.getIdFuente() + "del origen carga: " + fuenteDTO.getOrigenCarga() + ":" + e.getMessage());
-        }
-    }
-¨*/
-
-    ///  modificar criterio de pertenencia
 
 
 }

@@ -27,7 +27,6 @@ import static org.mockito.Mockito.*;
 @ExtendWith(MockitoExtension.class)
 class EstadisticasServicioTest {
 
-    // --- Mocks para todas las dependencias ---
     @Mock
     private ProvinciaRepositorio provinciaRepositorio;
     @Mock
@@ -177,7 +176,7 @@ class EstadisticasServicioTest {
         Long resultado = estadisticasServicio.cantidadSolicitudesSpam();
 
 
-        assertEquals(0L, resultado); // Verifica el manejo de nulos
+        assertEquals(0L, resultado);
     }
 
     @Test
@@ -191,7 +190,7 @@ class EstadisticasServicioTest {
 
 
         assertNotNull(resultado);
-        assertSame(dtoMock, resultado); // Verifica que es la misma instancia
+        assertSame(dtoMock, resultado);
     }
 
     @Test

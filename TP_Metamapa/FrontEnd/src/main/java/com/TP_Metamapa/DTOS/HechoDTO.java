@@ -26,8 +26,8 @@ public class HechoDTO {
         public Double latitud;
         public Double longitud;
         public String usuario;
-        private String nombre; // Nombre del usuario
-        private String apellido; // Apellido del usuario
+        private String nombre;
+        private String apellido;
         @DateTimeFormat(pattern = "dd/MM/yyyy")
         private LocalDate fecha_nacimiento;
         public Boolean anonimo;

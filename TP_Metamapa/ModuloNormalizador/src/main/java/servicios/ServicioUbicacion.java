@@ -28,7 +28,7 @@ public class ServicioUbicacion {
     @Cacheable(value = "ubicaciones", key = "#latitud + ',' + #longitud")
     public UbicacionDTOoutput normalizarUbicacion(Double latitud, Double longitud) {
         try {
-            // Georef no necesita API Key, solo latitud y longitud
+
             ResponseEntity<String> response = restTemplate.getForEntity(
                     GEOREF_URL,
                     String.class,
@@ -39,14 +39,12 @@ public class ServicioUbicacion {
             JsonNode root = objectMapper.readTree(response.getBody());
             JsonNode ubicacionNode = root.path("ubicacion");
 
-            // Georef devuelve siempre "Argentina" implícitamente, pero extraemos los datos locales
             String provincia = ubicacionNode.path("provincia").path("nombre").asText("Desconocida");
 
-            // Lógica para localidad: A veces es 'municipio', a veces 'departamento' (zonas rurales)
             String localidad = obtenerLocalidad(ubicacionNode);
 
             return new UbicacionDTOoutput(
-                    "Argentina", // País fijo
+                    "Argentina",
                     provincia,
                     localidad,
                     latitud,
@@ -55,19 +53,18 @@ public class ServicioUbicacion {
 
         } catch (Exception e) {
             System.err.println("[WARN] Georef falló o timeout: " + e.getMessage());
-            // En caso de error, devolvemos nulls pero mantenemos lat/lon
+
             return new UbicacionDTOoutput(null, null, null, latitud, longitud);
         }
     }
 
     private String obtenerLocalidad(JsonNode ubicacionNode) {
-        // Intentar obtener municipio primero (ej. "Lomas de Zamora")
+
         JsonNode municipio = ubicacionNode.path("municipio");
         if (!municipio.isMissingNode() && !municipio.path("nombre").isNull()) {
             return municipio.path("nombre").asText();
         }
 
-        // Si no hay municipio, intentar con departamento (ej. zonas menos pobladas)
         JsonNode departamento = ubicacionNode.path("departamento");
         if (!departamento.isMissingNode() && !departamento.path("nombre").isNull()) {
             return departamento.path("nombre").asText();

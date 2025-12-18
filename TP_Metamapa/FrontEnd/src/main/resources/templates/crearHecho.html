@@ -109,7 +109,6 @@
                     <input type="hidden" name="localidad" id="localidad" th:field="*{localidad}" />
                 </div>
 
-                <!-- Anonymous checkbox -->
                 <div class="flex items-center gap-3">
                     <input type="checkbox" name="anonimo" id="anonimo" th:field="*{anonimo}"
                         class="w-5 h-5 rounded border-gray-300 dark:border-gray-600 text-primary-600 focus:ring-primary-500 dark:bg-gray-700" />
@@ -121,7 +120,6 @@
                     </p>
                 </div>
 
-                 <!-- Opciones de datos a mostrar (solo visible si NO es anónimo) -->
                     <div id="datosPersonalesOptions" class="space-y-3 pl-8 hidden">
                         <p class="text-sm text-gray-700 dark:text-gray-300 font-medium mb-2">
                             Selecciona qué información personal deseas mostrar:
@@ -218,9 +216,7 @@
                 }
             });
 
-            // ==========================================
-            // Restricción de fecha/hora futura
-            // ==========================================
+
             const fechaInput = document.getElementById('fechaAcontecimiento');
             function setMaxDateTime() {
                 const now = new Date();
@@ -234,12 +230,9 @@
                 fechaInput.setAttribute('max', maxDateTime);
             }
             setMaxDateTime();
-            // Actualizar cada minuto por si el usuario pasa mucho tiempo en la página
             setInterval(setMaxDateTime, 60000);
 
-            // ==========================================
-            // Validación del formulario
-            // ==========================================
+
             const form = document.getElementById('crearHechoForm');
             const requiredFields = [
                 { id: 'titulo', errorId: 'titulo-error' },
@@ -247,7 +240,6 @@
                 { id: 'fechaAcontecimiento', errorId: 'fechaAcontecimiento-error' }
             ];
 
-            // Función para mostrar/ocultar error
             function showError(errorElement, show) {
                 if (show) {
                     errorElement.classList.remove('hidden');
@@ -256,7 +248,6 @@
                 }
             }
 
-            // Función para marcar input como inválido
             function setFieldInvalid(field, isInvalid) {
                 if (isInvalid) {
                     field.classList.add('border-red-500', 'focus:border-red-500', 'focus:ring-red-500/20');
@@ -267,7 +258,6 @@
                 }
             }
 
-            // Validar campo individual
             function validateField(fieldConfig) {
                 const field = document.getElementById(fieldConfig.id);
                 const errorElement = document.getElementById(fieldConfig.errorId);
@@ -279,14 +269,12 @@
                 return !isEmpty;
             }
 
-            // Validar categoría
             function validateCategoria() {
                 const categoriaError = document.getElementById('categoria-error');
                 const customCategoriaError = document.getElementById('customCategoria-error');
                 const isOtra = categoriaSelect.value === 'Otra';
                 const categoriaEmpty = !categoriaSelect.value;
 
-                // Validar si no se seleccionó nada
                 if (categoriaEmpty) {
                     showError(categoriaError, true);
                     setFieldInvalid(categoriaSelect, true);
@@ -296,7 +284,6 @@
                     setFieldInvalid(categoriaSelect, false);
                 }
 
-                // Si seleccionó "Otra", validar que ingrese la nueva categoría
                 if (isOtra && !customCategoriaInput.value.trim()) {
                     showError(customCategoriaError, true);
                     setFieldInvalid(customCategoriaInput, true);
@@ -309,7 +296,6 @@
                 return true;
             }
 
-            // Validar ubicación
             function validateUbicacion() {
                 const ubicacionError = document.getElementById('ubicacion-error');
                 const latInput = document.getElementById('latitud');
@@ -331,7 +317,6 @@
                 }
             }
 
-            // Agregar listener para validar al perder el foco
             requiredFields.forEach(fieldConfig => {
                 const field = document.getElementById(fieldConfig.id);
                 field.addEventListener('blur', () => validateField(fieldConfig));
@@ -344,12 +329,10 @@
                 });
             });
 
-            // Validar categoría al cambiar
             categoriaSelect.addEventListener('change', function () {
                 validateCategoria();
             });
 
-            // Validar customCategoria al escribir
             customCategoriaInput.addEventListener('input', function () {
                 if (categoriaSelect.value === 'Otra' && this.value.trim()) {
                     const customCategoriaError = document.getElementById('customCategoria-error');
@@ -358,7 +341,6 @@
                 }
             });
 
-            // Validar tamaño del archivo
             function validateFileSize() {
                 const fileInput = document.getElementById('archivos');
                 const fileError = document.getElementById('archivos-error');
@@ -380,12 +362,10 @@
                 return true;
             }
 
-            // Validar archivo al seleccionar
             document.getElementById('archivos').addEventListener('change', function () {
                 validateFileSize();
             });
 
-            // Validar formulario al enviar
             form.addEventListener('submit', function (e) {
                 let isValid = true;
 
@@ -395,17 +375,14 @@
                     }
                 });
 
-                // Validar categoría
                 if (!validateCategoria()) {
                     isValid = false;
                 }
 
-                // Validar ubicación
                 if (!validateUbicacion()) {
                     isValid = false;
                 }
 
-                // Validar fecha futura
                 const fechaValue = new Date(fechaInput.value);
                 const now = new Date();
                 if (fechaValue > now) {
@@ -416,14 +393,12 @@
                     isValid = false;
                 }
 
-                // Validar tamaño del archivo
                 if (!validateFileSize()) {
                     isValid = false;
                 }
 
                 if (!isValid) {
                     e.preventDefault();
-                    // Hacer scroll al primer campo con error
                     const firstError = document.querySelector('.border-red-500');
                     if (firstError) {
                         firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });

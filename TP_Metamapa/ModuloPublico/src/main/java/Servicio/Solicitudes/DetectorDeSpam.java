@@ -11,27 +11,24 @@ public class DetectorDeSpam {
             Pattern.CASE_INSENSITIVE
     );
     private static final String[] PALABRAS_SPAM = {
-            // --- FINANCIERO / CRYPTO (Muy común hoy en día) ---
             "bitcoin", "btc", "crypto", "criptomoneda", "ethereum", "eth",
             "investment", "inversión", "forex", "trading", "ganar dinero",
             "earn money", "passive income", "ingresos pasivos", "loan", "préstamo",
             "wallet", "billetera", "binance", "coinbase", "nft",
 
-            // --- COMERCIAL / VENTAS AGRESIVAS ---
             "buy now", "comprar ahora", "discount", "descuento", "offer", "oferta",
             "free", "gratis", "cheap", "barato", "best price", "mejor precio",
             "promo", "promoción", "gift card", "tarjeta de regalo", "giveaway", "sorteo",
             "winner", "ganador", "prize", "premio", "limited time", "tiempo limitado",
 
-            // --- SALUD / FARMACIA (Clásico spam de bots) ---
+
             "viagra", "cialis", "weight loss", "perder peso", "diet", "dieta",
             "pills", "pastillas", "pharmacy", "farmacia", "doctor", "treatment",
             "keta", "ketamina", "cbd", "thc",
 
-            // --- ADULTOS / APUESTAS ---
+
             "casino", "poker", "bet", "apuesta", "slots", "tragamonedas",
 
-            // --- ACCIONES (Llamadas a la acción típicas de bots) ---
             "click here", "clic aquí", "click below", "haz clic", "link in bio",
             "visit my", "visita mi", "check out", "mira esto", "subscribe", "suscríbete",
             "follow me", "sígueme", "sign up", "regístrate"
@@ -59,22 +56,9 @@ public class DetectorDeSpam {
             }
         }
 
-        // 3. REGLA DE COMPORTAMIENTO (Rate Limiting)
-        // Verificar si el usuario mandó muchas solicitudes recientemente.
-        // Esto asume que tienes acceso al historial del usuario.
-//        if (usuarioTieneDemasiadasSolicitudesRecientes(usuario)) {
-//            return true;
-//        }
+
 
         return false;
     }
 
-//    private boolean usuarioTieneDemasiadasSolicitudesRecientes(Usuario usuario) {
-//        // Ejemplo: Si mandó más de 5 solicitudes en los últimos 10 minutos
-//        LocalDateTime limite = LocalDateTime.now().minusMinutes(10);
-//        long count = usuario.getSolicitudes().stream()
-//                .filter(s -> s.getFechaCreacion().isAfter(limite))
-//                .count();
-//        return count >= 5;
-//    }
 }

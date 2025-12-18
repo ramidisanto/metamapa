@@ -14,7 +14,6 @@ public class RestTemplateConfig {
 
         RestTemplate rt = builder.build();
 
-        // Restauramos el comportamiento normal (errores 4xx y 5xx lanzan excepción)
         rt.setErrorHandler(new DefaultResponseErrorHandler());
 
         return rt;

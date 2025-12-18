@@ -44,24 +44,19 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests(authorize -> authorize
-                        // Páginas públicas
                         .requestMatchers("/actuator/**", "/rate-limit-error").permitAll()
                         .requestMatchers(HttpMethod.GET, "/css/**", "/js/**", "/images/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/", "/navegargraphql", "/navegar/**", "/estadisticas", "/ver-hecho/{id}", "/csv").permitAll()
                         .requestMatchers("/auth/iniciar-sesion", "/auth/login", "/auth/register").permitAll()
                         .requestMatchers("/error/**").permitAll()
 
-                        // Admin
                         .requestMatchers("/admin/**").hasRole("admin_client_role")
 
-                        // Usuarios autenticados
                         .requestMatchers(HttpMethod.GET, "/crear-hecho", "/solicitarEliminacion/{id}").authenticated()
                         .requestMatchers(HttpMethod.POST, "/crear-hecho", "/crearSolicitud").authenticated()
 
-                        // Resto requiere autenticación
                         .anyRequest().authenticated()
                 )
-                // CRÍTICO: Configuración de sesiones mejorada
                 .sessionManagement(session -> session
                         .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED)
                         .invalidSessionUrl("/auth/login?session=expired")
@@ -69,18 +64,15 @@ public class SecurityConfig {
                         .maxSessionsPreventsLogin(false)
                         .expiredUrl("/auth/login?session=expired")
                 )
-                // Manejo de excepciones mejorado
                 .exceptionHandling(exception -> exception
                         .authenticationEntryPoint((request, response, authException) -> {
                             String requestURI = request.getRequestURI();
 
-                            // Si es una petición AJAX
                             if ("XMLHttpRequest".equals(request.getHeader("X-Requested-With"))) {
                                 response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
                                 response.setContentType("application/json");
                                 response.getWriter().write("{\"error\":\"Sesión expirada. Por favor, inicia sesión nuevamente.\"}");
                             } else {
-                                // Redirige al login
                                 response.sendRedirect("/auth/login?returnUrl=" + requestURI);
                             }
                         })

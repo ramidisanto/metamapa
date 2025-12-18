@@ -23,7 +23,7 @@ public class EstaticaServicio {
     @Value("${url.estatica}")
     private String urlBaseEstatica;
 
-    public void crear(MultipartFile file, String accessToken) { // Ya no hace falta 'throws Exception' porque lo manejamos adentro
+    public void crear(MultipartFile file, String accessToken) {
 
         UriComponentsBuilder url = UriComponentsBuilder.fromHttpUrl(urlBaseEstatica + "/fuenteEstatica/CSV");
 
@@ -31,7 +31,6 @@ public class EstaticaServicio {
         headers.setContentType(MediaType.MULTIPART_FORM_DATA);
         headers.setBearerAuth(accessToken);
         try {
-            // Convertir MultipartFile a ByteArrayResource
             ByteArrayResource fileResource = new ByteArrayResource(file.getBytes()) {
                 @Override
                 public String getFilename() {
@@ -39,14 +38,11 @@ public class EstaticaServicio {
                 }
             };
 
-            // Crear el body multipart
             MultiValueMap<String, Object> body = new LinkedMultiValueMap<>();
             body.add("csv", fileResource);
 
-            // Crear la request
             HttpEntity<MultiValueMap<String, Object>> requestEntity = new HttpEntity<>(body, headers);
 
-            // Enviar la petición
             ResponseEntity<String> response = restTemplate.exchange(
                     url.toUriString(),
                     HttpMethod.POST,
@@ -56,7 +52,6 @@ public class EstaticaServicio {
             System.out.println(response.getBody());
 
         } catch (HttpClientErrorException e) {
-            // Capturamos el error 400/4xx que manda el backend (ej: "CSV mal formado")
             String mensajeError = e.getResponseBodyAsString();
             throw new RuntimeException(mensajeError); // Reenviamos solo el mensaje útil
 

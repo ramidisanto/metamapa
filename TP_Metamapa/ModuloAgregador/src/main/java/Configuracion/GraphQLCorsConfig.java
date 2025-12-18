@@ -18,8 +18,6 @@ public class GraphQLCorsConfig {
         config.setAllowCredentials(true);
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-//        source.registerCorsConfiguration("/graphql", config);
-//        source.registerCorsConfiguration("/graphql/**", config);
           source.registerCorsConfiguration("/**", config);  // ← CAMBIO: /** para todas las rutas
 
 

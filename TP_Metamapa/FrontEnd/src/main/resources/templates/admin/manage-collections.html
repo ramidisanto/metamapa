@@ -16,7 +16,6 @@
     </div>
 
     <th:block th:if="${colecciones != null and !#lists.isEmpty(colecciones)}">
-        <!-- Mobile Card View -->
         <div class="mobile-card-view space-y-4">
             <div th:each="col : ${colecciones}"
                  class="bg-white dark:bg-gray-800 rounded-xl p-4 shadow-soft border border-primary-200 dark:border-gray-700">
@@ -57,7 +56,6 @@
             </div>
         </div>
 
-        <!-- Desktop Table View -->
         <div class="desktop-table-view overflow-x-auto card">
             <table class="min-w-full">
                 <thead class="bg-primary-50 dark:bg-gray-700 border-b border-primary-200 dark:border-gray-600">

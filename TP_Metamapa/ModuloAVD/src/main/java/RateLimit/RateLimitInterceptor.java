@@ -20,7 +20,6 @@ public class RateLimitInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
 
-        // 1. IP Real (Soporte Nube)
         String ip = request.getHeader("X-Forwarded-For");
         if (ip == null || ip.isEmpty() || "unknown".equalsIgnoreCase(ip)) {
             ip = request.getRemoteAddr();
@@ -28,27 +27,21 @@ public class RateLimitInterceptor implements HandlerInterceptor {
             ip = ip.split(",")[0].trim();
         }
 
-        String method = request.getMethod(); // GET, POST, PUT, DELETE...
+        String method = request.getMethod();
         String bucketKey;
         long limit;
 
-        // 2. REGLAS PARA MODULO AVD
-        // Separamos operaciones de Lectura (inofensivas) de las de Escritura (críticas)
 
         if ("GET".equalsIgnoreCase(method)) {
-            // ZONA DE LECTURA (Ver solicitudes, ver colecciones)
-            // Límite: 50 peticiones por minuto (ágil para administración)
+
             bucketKey = ip + "_AVD_READ";
             limit = 50;
         } else {
-            // ZONA DE ESCRITURA (Crear, Borrar, Modificar, Aprobar)
-            // Métodos: POST, PUT, DELETE, PATCH
-            // Límite: 20 peticiones por minuto (seguridad estricta)
+
             bucketKey = ip + "_AVD_WRITE";
             limit = 20;
         }
 
-        // 3. Consumo
         Bucket tokenBucket = rateLimiterService.resolveBucket(bucketKey, limit);
         ConsumptionProbe probe = tokenBucket.tryConsumeAndReturnRemaining(1);
 

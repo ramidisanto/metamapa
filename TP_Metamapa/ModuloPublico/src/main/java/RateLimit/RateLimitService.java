@@ -20,7 +20,6 @@ public class RateLimitService {
     }
 
     private Bucket newBucket(long limitPerMinute) {
-        // Rellenamos "X" tokens cada 1 minuto
         Bandwidth limit = Bandwidth.classic(limitPerMinute, Refill.intervally(limitPerMinute, Duration.ofMinutes(1)));
 
         return Bucket4j.builder()

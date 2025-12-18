@@ -1,7 +1,5 @@
 package Modelos;
 
-//import Modelos.Conversores.ConsensoConversor;
-//import Modelos.Entidades.Consenso.Consenso;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -26,13 +24,7 @@ public class Coleccion {
     @ManyToMany()
     @JoinTable()
     private List<Hecho> hechos;
-    //@ManyToOne()
-    //@JoinColumn()
-    //@Convert(converter = ConsensoConversor.class)
-    //private Consenso consenso;
-    //@ManyToMany()
-    //@JoinTable()
-    //private List<Hecho> hechosConsensuados ;
+
 
     public Coleccion(Long id, String titulo, String descripcion, CriteriosDePertenencia criterio_pertenencia, List<Hecho> hechos) {
         this.id = id;
@@ -40,8 +32,7 @@ public class Coleccion {
         this.descripcion = descripcion;
         this.criterio_pertenencia = criterio_pertenencia;
         this.hechos = hechos;
-        //this.consenso = null;
-        //this.hechosConsensuados = hechos;
+
     }
 
     public Coleccion() {}

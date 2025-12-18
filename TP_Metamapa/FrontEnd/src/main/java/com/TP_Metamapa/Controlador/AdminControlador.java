@@ -53,7 +53,7 @@ public class AdminControlador {
                     model.addAttribute("errorMessage", "Debes iniciar sesión para crear un hecho.");
                     return "redirect:/auth/login";
                 }
-                // 2. Validar sesión/tokens
+
                 String accessToken = (String) session.getAttribute("accessToken");
                 String refreshToken = (String) session.getAttribute("refreshToken");
 
@@ -80,20 +80,17 @@ public class AdminControlador {
         return "admin"; // Siempre renderiza la misma vista principal
     }
 
-    // NUEVO MÉTODO para procesar la subida del archivo CSV
     @PostMapping("/admin/cargar-csv")
     public String cargarArchivoCsv(
             @RequestParam("file") MultipartFile file,
             RedirectAttributes redirectAttributes,
             Authentication authentication,
             HttpSession session, Model model) {
-        // Verificación 1: que el archivo no esté vacío
         if (file.isEmpty()) {
             redirectAttributes.addFlashAttribute("errorMessage", "Por favor, seleccione un archivo para cargar.");
             return "redirect:/admin?tab=static";
         }
 
-        // Verificación 2: que sea un archivo CSV
         if (!"text/csv".equals(file.getContentType())) {
             redirectAttributes.addFlashAttribute("errorMessage", "Error: El archivo debe ser de formato CSV.");
             return "redirect:/admin?tab=static";
@@ -104,7 +101,6 @@ public class AdminControlador {
                 model.addAttribute("errorMessage", "Debes iniciar sesión para crear un hecho.");
                 return "redirect:/auth/login";
             }
-            // 2. Validar sesión/tokens
             String accessToken = (String) session.getAttribute("accessToken");
             String refreshToken = (String) session.getAttribute("refreshToken");
 
@@ -112,7 +108,6 @@ public class AdminControlador {
                 model.addAttribute("errorMessage", "Tu sesión ha expirado. Por favor, inicia sesión nuevamente.");
                 return "redirect:/auth/login";
             }
-            // Aquí iría la lógica para leer y procesar el archivo
             estaticaServicio.crear(file, accessToken); // TODO: HACER ESTO E IMPLEMENTARLO EN EL BACKEND
             redirectAttributes.addFlashAttribute("successMessage",
                     "¡Archivo '" + file.getOriginalFilename() + "' cargado exitosamente!");
@@ -120,7 +115,6 @@ public class AdminControlador {
         } catch (Exception e) {
             redirectAttributes.addFlashAttribute("errorMessage", e.getMessage());
         }
-        // Redirigimos de vuelta a la misma pestaña del admin
         return "redirect:/admin?tab=static";
     }
 
@@ -131,7 +125,6 @@ public class AdminControlador {
             RedirectAttributes redirectAttributes,
             Authentication authentication,
             HttpSession session, Model model) {
-        // Verificación simple para la URL
         if (url == null || url.isBlank()) {
             redirectAttributes.addFlashAttribute("errorMessage", "La URL no puede estar vacía.");
             return "redirect:/admin?tab=proxy";
@@ -142,7 +135,6 @@ public class AdminControlador {
                 model.addAttribute("errorMessage", "Debes iniciar sesión para crear un hecho.");
                 return "redirect:/auth/login";
             }
-            // 2. Validar sesión/tokens
             String accessToken = (String) session.getAttribute("accessToken");
             String refreshToken = (String) session.getAttribute("refreshToken");
 
@@ -174,7 +166,6 @@ public class AdminControlador {
                 model.addAttribute("errorMessage", "Debes iniciar sesión para crear un hecho.");
                 return "redirect:/auth/login";
             }
-            // 2. Validar sesión/tokens
             String accessToken = (String) session.getAttribute("accessToken");
             String refreshToken = (String) session.getAttribute("refreshToken");
 
@@ -204,7 +195,6 @@ public class AdminControlador {
                 model.addAttribute("errorMessage", "Debes iniciar sesión para crear un hecho.");
                 return "redirect:/auth/login";
             }
-            // 2. Validar sesión/tokens
             String accessToken = (String) session.getAttribute("accessToken");
 
             if (accessToken == null) {
@@ -233,7 +223,6 @@ public class AdminControlador {
                 model.addAttribute("errorMessage", "Debes iniciar sesión para crear un hecho.");
                 return "redirect:/auth/login";
             }
-            // 2. Validar sesión/tokens
             String accessToken = (String) session.getAttribute("accessToken");
 
             if (accessToken == null) {
@@ -256,11 +245,7 @@ public class AdminControlador {
             HttpSession session, Model model,
             RedirectAttributes redirectAttributes) {
         try {
-//            if (authentication == null || !authentication.isAuthenticated()) {
-//                model.addAttribute("errorMessage", "Debes iniciar sesión para crear un hecho.");
-//                return "redirect:/auth/login";
-//            }
-            // 2. Validar sesión/tokens
+//
             String accessToken = (String) session.getAttribute("accessToken");
 
             if (accessToken == null) {
@@ -293,7 +278,6 @@ public class AdminControlador {
                 model.addAttribute("errorMessage", "Debes iniciar sesión para crear un hecho.");
                 return "redirect:/auth/login";
             }
-            // 2. Validar sesión/tokens
             String accessToken = (String) session.getAttribute("accessToken");
 
             if (accessToken == null) {
@@ -328,7 +312,6 @@ public class AdminControlador {
                 model.addAttribute("errorMessage", "Debes iniciar sesión para crear un hecho.");
                 return "redirect:/auth/login";
             }
-            // 2. Validar sesión/tokens
             String accessToken = (String) session.getAttribute("accessToken");
 
             if (accessToken == null) {
@@ -354,7 +337,6 @@ public class AdminControlador {
                 model.addAttribute("errorMessage", "Debes iniciar sesión para crear un hecho.");
                 return "redirect:/auth/login";
             }
-            // 2. Validar sesión/tokens
             String accessToken = (String) session.getAttribute("accessToken");
 
             if (accessToken == null) {
@@ -365,7 +347,6 @@ public class AdminControlador {
 
             redirectAttributes.addFlashAttribute("successMessage", "Hecho eliminado exitosamente.");
 
-            // Redirigir a la URL de origen si existe, sino a /navegar
             if (redirectUrl != null && !redirectUrl.isBlank()) {
                 return "redirect:" + redirectUrl;
             }
@@ -373,7 +354,6 @@ public class AdminControlador {
         } catch (RuntimeException e) {
             String errorMessage = "Error al procesar su solicitud.";
             redirectAttributes.addFlashAttribute("errorMessage", errorMessage);
-            // Redirigir a la URL de origen si existe
             if (redirectUrl != null && !redirectUrl.isBlank()) {
                 return "redirect:" + redirectUrl;
             }

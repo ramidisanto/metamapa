@@ -54,7 +54,6 @@ public class ColeccionServicio {
                 requestEntity,
                 String.class
         );
-        // Ver si hacer algo con la respuesta
     }
 
 

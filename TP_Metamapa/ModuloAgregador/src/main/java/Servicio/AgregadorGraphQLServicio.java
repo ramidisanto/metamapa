@@ -29,24 +29,13 @@ public class AgregadorGraphQLServicio {
     @Autowired
     private ColeccionRepositorio coleccionRepositorio;
 
-//    @Transactional(readOnly = true)
     public PagedHechoResponse listarHechos(HechoFilterInput filtro) {
         List<Hecho> hechos;
         int pageNum = filtro.getPage() != null ? filtro.getPage() : 0;
         int size = filtro.getSize() != null ? filtro.getSize() : 20;
         Pageable pageable = PageRequest.of(pageNum, size);
-        // if (filtro.getIdColeccion() != null /*&&
-        // !filtro.getIdColeccion().isEmpty()*/) {
-        // // Caso A: Buscar dentro de una colección específica
-        // //Long idCol = Long.parseLong(filtro.getIdColeccion());
-        // Long idCol = Long.parseLong(filtro.getIdColeccion());
-        // hechos = new ArrayList<>(coleccionRepositorio.findById(idCol)
-        // .map(c -> c.getHechos())
-        // .orElse(new ArrayList<>()));
-        // } else {
-        // Caso B: Búsqueda general en la base de datos usando filtros
 
-        // Conversión segura de String a Enum
+
         OrigenCarga origenEnum = null;
         if (filtro.getOrigenCarga() != null && !filtro.getOrigenCarga().isBlank()) {
             try {
@@ -58,7 +47,7 @@ public class AgregadorGraphQLServicio {
 
         LocalDateTime cargaDesde = parseFecha(filtro.getFechaCargaDesde());
         LocalDateTime cargaHasta = parseFecha(filtro.getFechaCargaHasta());
-        LocalDateTime hechoDesde = parseFecha(filtro.getFechaHechoDesde()); // O getFechaAcontecimientoDesde
+        LocalDateTime hechoDesde = parseFecha(filtro.getFechaHechoDesde());
         LocalDateTime hechoHasta = parseFecha(filtro.getFechaHechoHasta());
         Long idCol = null;
         if (filtro.getIdColeccion() != null && !filtro.getIdColeccion().isBlank()) {
@@ -82,32 +71,7 @@ public class AgregadorGraphQLServicio {
 
         System.out.println("Total Hechos Encontrados: " + page.getTotalElements());
 
-        // hechos = hechoRepositorio.filtrarHechos(
-        // filtro.getCategoria(),
-        // filtro.getContenidoMultimedia(),
-        // cargaDesde, cargaHasta,
-        // hechoDesde, hechoHasta,
-        // origenEnum,
-        // filtro.getTitulo(),
-        // filtro.getPais(),
-        // filtro.getProvincia(),
-        // filtro.getLocalidad(),
-        // pageable
-        // );
-        // }
 
-        // 2. Filtrado en Memoria (Búsqueda de texto libre)
-        // Esto cubre campos que quizas el repositorio no busca con LIKE (descripcion,
-        // contenido)
-        // if (filtro.getBusquedaGeneral() != null &&
-        // !filtro.getBusquedaGeneral().isBlank()) {
-        // String query = filtro.getBusquedaGeneral().toLowerCase();
-        // hechos = hechos.stream()
-        // .filter(h -> buscarEnTexto(h, query))
-        // .collect(Collectors.toList());
-        // }
-
-        // 3. Conversión a DTO
         List<HechoDTOoutput> content = page.getContent().stream()
                 .map(this::convertirAHechoDTO)
                 .collect(Collectors.toList());
@@ -129,16 +93,12 @@ public class AgregadorGraphQLServicio {
                 .orElse(null);
     }
 
-    // --- Métodos Privados de Utilidad ---
-
     private LocalDateTime parseFecha(String fechaStr) {
         if (fechaStr == null || fechaStr.isBlank())
             return null;
         try {
-            // Intenta parsear ISO-8601 (ej: 2023-10-05T14:30:00)
             return LocalDateTime.parse(fechaStr);
         } catch (Exception e) {
-            // Si falla, podrías intentar LocalDate.parse(fechaStr).atStartOfDay()
             return null;
         }
     }
@@ -154,7 +114,6 @@ public class AgregadorGraphQLServicio {
         return false;
     }
 
-    // Método PÚBLICO para que el servicio de Colecciones pueda reusarlo
     public HechoDTOoutput convertirAHechoDTO(Hecho h) {
         String loc = null, prov = null, pais = null;
         Double lat = null, lon = null;

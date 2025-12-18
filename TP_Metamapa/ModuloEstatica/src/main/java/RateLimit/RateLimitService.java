@@ -13,9 +13,6 @@ import java.util.concurrent.ConcurrentHashMap;
 @Service
 public class RateLimitService {
 
-    // Cache para guardar los buckets de cada IP.
-    // En un entorno real de nube distribuida, esto debería ser Redis,
-    // pero para la entrega en memoria está bien.
     private final Map<String, Bucket> cache = new ConcurrentHashMap<>();
 
     public Bucket resolveBucket(String apiKey) {

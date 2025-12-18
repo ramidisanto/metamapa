@@ -16,14 +16,9 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import java.time.LocalDateTime;
 import java.util.Optional;
 
-/**
- * Controlador para manejar las vistas de Solicitudes en el Módulo Público.
- */
 @Controller
 public class CreacionSolicitudControlador {
 
-    // Nota: Se asume que estos repositorios/servicios están correctamente inyectados mediante un constructor o @Autowired.
-    // Para simplificar, mantengo la estructura del código anterior.
     @Autowired
     NavegacionServicio navegadorServicio;
 
@@ -41,7 +36,6 @@ public class CreacionSolicitudControlador {
             return "crearSolicitud";
         }else{
             model.addAttribute("errorMessage", "El hecho con ID " + idHecho + " no fue encontrado.");
-            // Devolvemos el nombre de tu vista 404
             return "error/404";
         }
     }
@@ -55,7 +49,6 @@ public class CreacionSolicitudControlador {
                 model.addAttribute("errorMessage", "Debes iniciar sesión para crear un hecho.");
                 return "redirect:/auth/login";
             }
-            // 2. Validar sesión/tokens
             String accessToken = (String) session.getAttribute("accessToken");
             String refreshToken = (String) session.getAttribute("refreshToken");
 

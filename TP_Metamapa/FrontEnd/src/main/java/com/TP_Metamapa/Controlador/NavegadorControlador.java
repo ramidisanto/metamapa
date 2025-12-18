@@ -25,7 +25,6 @@ public class NavegadorControlador {
     @GetMapping("/navegar")
     public String navegar(Model model, HttpServletRequest request) {
 
-        // Carga de listas para los selects
         model.addAttribute("categorias", categoriaServicio.getCategoriasUnicas());
         model.addAttribute("paises", paisServicio.getPaisesUnicos());
         model.addAttribute("provincias", provinciaServicio.getProvinciasUnicas());
@@ -40,7 +39,6 @@ public class NavegadorControlador {
 
         model.addAttribute("colecciones", coleccionServicio.getColecciones());
 
-        // Verificar si es admin para mostrar opciones de borrado en el JS
         boolean isAdmin = request.isUserInRole("admin_client_role");
         model.addAttribute("isAdmin", isAdmin);
 

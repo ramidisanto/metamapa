@@ -72,7 +72,6 @@ public class ColeccionServicio {
         Coleccion coleccion = new Coleccion(coleccionDTO.getTitulo(), coleccionDTO.getDescripcion(),consenso,criterio_pertenencia);
         coleccionRepositorio.save(coleccion);
         this.avisarAgregador(coleccion.getId());
-      // avisarle al agregador que hay una nueva coleccion y que le agregue los hechos que correspondan
 
 
     }
@@ -330,7 +329,6 @@ public class ColeccionServicio {
         }
         return new ColeccionDTOOutput(coleccion.getId(), coleccion.getTitulo(), coleccion.getDescripcion(), criterio, hechosDTO, consenso,hechosConsensuadosDTO );
     }
-    //TODO :REVISAR QUE EL ELIMINAR FUENTE DEBERIA HACERLO PRO LA COMBINACION DE ID Y DE FUENTE
 
     public String convertirConsenso(Consenso atributo) {
         if (atributo == null) {

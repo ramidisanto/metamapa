@@ -31,10 +31,10 @@ public class HechoServicio {
     @Autowired
     RestTemplate restTemplate;
 
-    @Value("${file.upload-dir}") // Directorio para guardar archivos
+    @Value("${file.upload-dir}")
     private String uploadDir;
 
-    @Value("${file.upload-url}") // URL base para acceder a los archivos
+    @Value("${file.upload-url}")
     private String uploadUrl;
 
     @Value("${url.publico}")
@@ -79,34 +79,34 @@ public class HechoServicio {
 
     public String guardarMultimediaLocalmente(MultipartFile file) throws IOException {
         if (file == null || file.isEmpty()) {
-            return null; // No hay archivo para guardar
+            return null;
         }
 
         Path uploadPath = Paths.get(uploadDir);
 
-        // Crear directorio si no existe
+
         if (!Files.exists(uploadPath)) {
             Files.createDirectories(uploadPath);
         }
 
-        // Generar nombre único
+
         String originalFilename = file.getOriginalFilename();
         String extension = "";
         if (originalFilename != null && originalFilename.contains(".")) {
             extension = originalFilename.substring(originalFilename.lastIndexOf("."));
         }
 
-        // Generar nombre tipo MetaMapa_timestamp
+
         String timestamp = String.valueOf(System.currentTimeMillis());
         String uniqueFilename = "MetaMapa_" + timestamp + extension;
 
-        // Guardar el archivo
+
         Path filePath = uploadPath.resolve(uniqueFilename);
         try (InputStream inputStream = file.getInputStream()) {
             Files.copy(inputStream, filePath, StandardCopyOption.REPLACE_EXISTING);
         }
 
-        // Devolver la URL relativa para usar en <img> y guardar en BD (vía backend)
+
         return uploadUrl + uniqueFilename;
     }
 
@@ -129,24 +129,23 @@ public class HechoServicio {
             );
 
         } catch (HttpClientErrorException e) {
-            // Errores 4xx (400 Bad Request, 404 Not Found, etc.)
-            // El backend suele enviar el mensaje de error en el cuerpo de la respuesta
+
             String mensajeDelBackend = e.getResponseBodyAsString();
 
-            // Si el mensaje viene vacio, usamos el status code
+
             if (mensajeDelBackend == null || mensajeDelBackend.isEmpty()) {
                 mensajeDelBackend = "Error en la validación de datos (" + e.getStatusCode() + ")";
             }
 
-            // Lanzamos una excepcion con el mensaje LIMPIO para que el controlador lo muestre
+
             throw new RuntimeException(mensajeDelBackend);
 
         } catch (HttpServerErrorException e) {
-            // Errores 5xx (500 Internal Server Error)
+
             throw new RuntimeException(e.getResponseBodyAsString());
 
         } catch (Exception e) {
-            // Otros errores (conexión rechazada, timeout, etc.)
+
             throw new RuntimeException("Error inesperado al conectar con el servidor: " + e.getMessage(), e);
         }
     }

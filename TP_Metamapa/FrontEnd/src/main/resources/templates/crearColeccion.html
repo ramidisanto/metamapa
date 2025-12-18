@@ -228,7 +228,6 @@
                 { id: 'descripcion', errorId: 'descripcion-error' }
             ];
 
-            // Función para mostrar/ocultar error
             function showError(errorElement, show) {
                 if (show) {
                     errorElement.classList.remove('hidden');
@@ -237,7 +236,6 @@
                 }
             }
 
-            // Función para marcar input como inválido
             function setFieldInvalid(field, isInvalid) {
                 if (isInvalid) {
                     field.classList.add('border-red-500', 'focus:border-red-500', 'focus:ring-red-500/20');
@@ -248,7 +246,6 @@
                 }
             }
 
-            // Validar campo individual
             function validateField(fieldConfig) {
                 const field = document.getElementById(fieldConfig.id);
                 const errorElement = document.getElementById(fieldConfig.errorId);
@@ -260,7 +257,6 @@
                 return !isEmpty;
             }
 
-            // Agregar listener para validar al perder el foco
             requiredFields.forEach(fieldConfig => {
                 const field = document.getElementById(fieldConfig.id);
                 field.addEventListener('blur', () => validateField(fieldConfig));
@@ -273,7 +269,6 @@
                 });
             });
 
-            // Validar formulario al enviar
             form.addEventListener('submit', function (e) {
                 let isValid = true;
 
@@ -295,7 +290,7 @@
             });
         })
 
-        // UBICACION
+
         const buscarBtn = document.getElementById("buscarUbicacion");
         const inputBuscar = document.getElementById("searchDireccion");
 

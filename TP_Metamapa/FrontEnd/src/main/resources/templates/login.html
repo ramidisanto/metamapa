@@ -36,7 +36,6 @@
         }
     </style>
 
-    <!-- Theme initialization -->
     <script>
         (function () {
             const theme = localStorage.getItem('theme') || 'light';
@@ -49,7 +48,6 @@
 
 <body class="min-h-screen flex flex-col">
 
-    <!-- Main Content -->
     <main class="flex-grow flex items-center justify-center px-4 py-10">
         <div
             class="bg-white/90 dark:bg-gray-800/90 backdrop-blur-xl shadow-soft-lg rounded-3xl p-8 md:p-10 w-full max-w-md border border-white/60 dark:border-gray-700 animate-fade-in">
@@ -94,14 +92,12 @@
             </div>
 
             <form th:action="@{/login}" th:object="${credenciales}" method="post" class="space-y-5">
-                <!-- Username -->
                 <div>
                     <label for="username" class="input-label">Usuario</label>
                     <input th:field="*{username}" type="text" id="username" name="username" required class="input"
                         placeholder="Ingresa tu usuario">
                 </div>
 
-                <!-- Password -->
                 <div>
                     <label for="password" class="input-label">Contraseña</label>
                     <div class="relative">

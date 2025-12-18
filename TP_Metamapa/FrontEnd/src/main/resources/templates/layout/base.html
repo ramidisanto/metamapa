@@ -7,7 +7,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title th:text="${title} ?: 'MetaMapa'">MetaMapa</title>
 
-    <!-- Theme initialization - MUST BE FIRST to prevent flash -->
     <script>
         (function () {
             const theme = localStorage.getItem('theme') || 'light';
@@ -17,9 +16,7 @@
         })();
     </script>
 
-    <!-- Tailwind / build CSS -->
     <link rel="stylesheet" th:href="@{/css/style.css}">
-    <!-- Custom overrides -->
     <link rel="stylesheet" th:href="@{/css/custom.css}">
 
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
@@ -44,7 +41,7 @@
     <header th:fragment="header"
         class="bg-gradient-to-r from-primary-50 via-white to-primary-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 shadow-soft sticky top-0 z-[1000] border-b border-primary-100 dark:border-gray-700 transition-colors duration-300">
         <div class="container mx-auto px-4 py-3 flex justify-between items-center">
-            <!-- Logo -->
+
             <div class="flex items-center gap-3">
                 <div class="w-11 h-11 flex items-center justify-center">
                     <img th:src="@{/images/logo.png}" alt="MetaMapa Logo" class="w-10 h-10 block dark:hidden">
@@ -56,7 +53,7 @@
                 </a>
             </div>
 
-            <!-- Desktop Navigation -->
+
             <nav class="hidden md:flex items-center gap-1">
                 <a th:href="@{/}" th:classappend="${activePage == 'inicio'} ? 'nav-link-active' : ''" class="nav-link">
                     <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
@@ -86,18 +83,15 @@
                 </a>
             </nav>
 
-            <!-- Actions -->
+
             <div class="flex items-center gap-3">
-                <!-- Theme Toggle -->
                 <button id="theme-toggle"
                     class="w-10 h-10 rounded-xl bg-primary-100 dark:bg-gray-700 flex items-center justify-center text-primary-700 dark:text-yellow-400 hover:bg-primary-200 dark:hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-primary-500 transition-all duration-300">
-                    <!-- Sun icon (shown in dark mode) -->
                     <svg id="theme-icon-sun" class="w-5 h-5 hidden dark:block" xmlns="http://www.w3.org/2000/svg"
                         fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round"
                             d="M12 3v2.25m6.364.386-1.591 1.591M21 12h-2.25m-.386 6.364-1.591-1.591M12 18.75V21m-4.773-4.227-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0Z" />
                     </svg>
-                    <!-- Moon icon (shown in light mode) -->
                     <svg id="theme-icon-moon" class="w-5 h-5 block dark:hidden" xmlns="http://www.w3.org/2000/svg"
                         fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round"
@@ -105,7 +99,6 @@
                     </svg>
                 </button>
 
-                <!-- Authenticated Actions -->
                 <div sec:authorize="isAuthenticated()" class="nav-buttons-container flex items-center gap-2 md:gap-3">
                     <a th:href="@{/crear-hecho}" class="hidden md:inline-flex btn btn-primary text-sm">
                         <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
@@ -123,7 +116,6 @@
                         </svg>
                         Admin
                     </a>
-                    <!-- Profile Dropdown -->
                     <div class="relative" id="profile-menu-container">
                         <button id="profile-menu-button"
                             class="w-10 h-10 rounded-xl bg-gradient-to-br from-primary-400 to-primary-600 flex items-center justify-center text-white hover:from-primary-500 hover:to-primary-700 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 transition-all duration-300 shadow-md hover:shadow-lg hover:scale-105">
@@ -167,7 +159,6 @@
                     </div>
                 </div>
 
-                <!-- Anonymous Actions -->
                 <div sec:authorize="isAnonymous()" class="hidden md:flex items-center gap-2">
                     <a th:href="@{/auth/login}" class="btn btn-primary text-sm">
                         Iniciar Sesión
@@ -177,7 +168,6 @@
                     </a>
                 </div>
 
-                <!-- Mobile Menu Button -->
                 <button id="mobile-menu-btn" class="md:hidden hamburger">
                     <span></span>
                     <span></span>
@@ -186,7 +176,6 @@
             </div>
         </div>
 
-        <!-- Mobile Menu -->
         <div id="mobile-menu" class="mobile-menu">
             <div class="mobile-menu-content dark:bg-gray-800">
                 <div class="flex justify-between items-center mb-6 pb-4 border-b border-gray-200 dark:border-gray-700">
@@ -216,7 +205,6 @@
         </div>
     </header>
 
-    <!-- MAIN -->
     <main class="w-full flex justify-center my-8">
         <div class="content-wrapper w-full max-w-screen-xl px-6 md:px-10 lg:px-16" th:fragment="content"></div>
     </main>
@@ -240,7 +228,6 @@
             };
 
             document.addEventListener('DOMContentLoaded', function () {
-                // Theme Toggle
                 const themeToggle = document.getElementById('theme-toggle');
                 if (themeToggle) {
                     themeToggle.addEventListener('click', function () {
@@ -255,7 +242,6 @@
                     });
                 }
 
-                // Profile dropdown
                 const profileMenuButton = document.getElementById('profile-menu-button');
                 const profileMenuDropdown = document.getElementById('profile-menu-dropdown');
 
@@ -310,8 +296,7 @@
                 });
             });
 
-                // Ping al servidor cada 30 segundos para mantener la sesión viva
-                // Esto evita que Spring Security mate la sesión por inactividad mientras explicas el video
+
                 setInterval(() => {
                 console.log("Mateniendo sesión viva...");
                 fetch(window.location.href, { method: 'HEAD' })

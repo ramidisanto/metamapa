@@ -17,9 +17,7 @@ public class WebConfig implements WebMvcConfigurer {
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        // Expone la carpeta de subidas bajo la URL /images/hechos/**
-        // Asegúrate de que uploadDir tenga una barra al final si es necesario
-        // El 'file:' es importante para indicar que es una ruta del sistema de archivos
+
         registry.addResourceHandler(uploadUrl + "**")
                 .addResourceLocations("file:" + uploadDir + "/");
 

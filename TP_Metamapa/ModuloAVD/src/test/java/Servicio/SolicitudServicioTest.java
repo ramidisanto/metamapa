@@ -48,7 +48,7 @@ class SolicitudServicioTest {
     // ---- TEST solicitudesPendientes ----
     @Test
     void solicitudesPendientes_devuelveListaDeDTOs() {
-        // Arrange
+
         Solicitud solicitud = new Solicitud();
         solicitud.setIdSolcitud(1L);
         solicitud.setMotivo("Motivo de prueba");
@@ -59,10 +59,9 @@ class SolicitudServicioTest {
         when(solicitudRepositorio.findByEstado(Estado.PENDIENTE))
                 .thenReturn(List.of(solicitud));
 
-        // Act
         List<SolicitudDTOOutput> resultado = solicitudServicio.solicitudesPendientes();
 
-        // Assert
+
         assertEquals(1, resultado.size());
         assertEquals("Motivo de prueba", resultado.get(0).getMotivo());
         verify(solicitudRepositorio, times(1)).findByEstado(Estado.PENDIENTE);
@@ -79,10 +78,9 @@ class SolicitudServicioTest {
 
         when(solicitudRepositorio.findById(10L)).thenReturn(Optional.of(solicitud));
 
-        // Act
+
         solicitudServicio.actualizarEstadoSolicitud(10L, "ACEPTADA");
 
-        // Assert
         verify(coleccionServicio, times(1)).eliminarHecho(hecho.getId());
         verify(solicitudRepositorio, times(1)).save(solicitud);
         assertEquals(Estado.ACEPTADA, solicitud.getEstado());
@@ -106,7 +104,7 @@ class SolicitudServicioTest {
         assertEquals(hecho.getUbicacion().getPais().getPais(), dto.getPais());
     }
 
-    // ---- Helper ----
+
     private Hecho mockHecho() {
         Hecho hecho = new Hecho();
         hecho.setId(1L);

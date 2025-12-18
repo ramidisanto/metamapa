@@ -21,13 +21,4 @@ public class WebConfig implements WebMvcConfigurer {
                 .addPathPatterns("/**"); 
     }
 
-//    @Override
-//    public void addCorsMappings(CorsRegistry registry) {
-//        registry.addMapping("/**")  // ← Todas las rutas
-//                .allowedOrigins("http://localhost:8088")
-//                .allowedMethods("*")  // ← Todos los métodos
-//                .allowedHeaders("*")
-//                .allowCredentials(true)
-//                .maxAge(3600);
-//    }
 }

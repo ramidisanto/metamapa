@@ -46,7 +46,6 @@ public class AuthService {
                 .build();
     }
 
-     // listar todos los usuarios de Keycloak
 
     public List<UserRepresentation> findAllUsers(){
         return keycloakProvider.getRealmResource()
@@ -54,16 +53,12 @@ public class AuthService {
                 .list();
     }
 
-    // buscar un usuario por su username
-
     public List<UserRepresentation> searchUserByUsername(String username) {
         System.out.println("Entro al service");
         return keycloakProvider.getRealmResource()
                 .users()
                 .searchByUsername(username, true);
     }
-
-     // Login de usuario
 
     public KeycloakToken loginUser(@NonNull LoginDTO loginDTO) {
         System.out.println("entre al service login");
@@ -92,13 +87,11 @@ public class AuthService {
             String errorBody = e.getResponseBodyAsString();
             System.err.println("ERROR REAL DE KEYCLOAK: " + errorBody);
 
-            // Lo lanzamos para verlo en el Postman/Frontend
             throw new RuntimeException("Keycloak Error: " + errorBody);
 
         }
     }
 
-    // Metodo para crear un usuario en keycloak - registrar
 
     public String createUser(@NonNull RegistroDTO userDTO) {
 

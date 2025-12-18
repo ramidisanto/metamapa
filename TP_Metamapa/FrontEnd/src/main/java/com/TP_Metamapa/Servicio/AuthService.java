@@ -73,7 +73,6 @@ public class AuthService {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
 
-        // Crear el cuerpo de la petición con el refreshToken
         Map<String, String> refreshRequest = new HashMap<>();
         refreshRequest.put("refreshToken", refreshToken);
 
@@ -155,7 +154,6 @@ public class AuthService {
                 }
             }
 
-            // Para otros errores HTTP
             return "Error creando al usuario";
         } catch (Exception e) {
             return "Error creando al usuario";
@@ -166,7 +164,7 @@ public class AuthService {
         String urlCompleta = baseUrl.concat("/auth/search/" + username);
 
         HttpHeaders headers = new HttpHeaders();
-        headers.setBearerAuth(accessToken); // Agregar token Bearer
+        headers.setBearerAuth(accessToken);
 
         HttpEntity<Void> requestEntity = new HttpEntity<>(headers);
 
@@ -176,7 +174,6 @@ public class AuthService {
                     HttpMethod.GET,
                     requestEntity,
                     List.class
-                    //new ParameterizedTypeReference<List<Map<String, Object>>>() {}
             );
 
             List<Map<String, Object>> users = respuesta.getBody();

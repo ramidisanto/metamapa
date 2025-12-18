@@ -20,17 +20,16 @@ public class RateLimitInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
 
-        // --- LOG DE DEBUG ---
+
         System.out.println(">>> [Interceptor] Nueva petición entrante!");
         System.out.println(">>> URI: " + request.getRequestURI());
         System.out.println(">>> Método: " + request.getMethod());
 
-        // 1. OBTENER IP REAL (Clave para despliegue en Nube/Render)
+
         String ip = request.getHeader("X-Forwarded-For");
         if (ip == null || ip.isEmpty() || "unknown".equalsIgnoreCase(ip)) {
             ip = request.getRemoteAddr();
         } else {
-            // A veces viene una lista "IP_Cliente, Proxy1, Proxy2", nos quedamos con la primera
             ip = ip.split(",")[0].trim();
         }
 
@@ -39,22 +38,18 @@ public class RateLimitInterceptor implements HandlerInterceptor {
         long limit;
 
 
-        // ZONA CRÍTICA: Login y Creación de Usuario
-        // Rutas: /auth/iniciar-sesion y /auth/create
+        //  Login y Creación de Usuario
         if (uri.contains("/iniciar-sesion") || uri.contains("/create")) {
             // Protección contra fuerza bruta y creación masiva de cuentas basura
             bucketKey = ip + "_AUTH_CRITICAL";
             limit = 5; // 10 intentos por minuto
         }
-        // ZONA CONSULTA: Buscar usuarios o ver roles
-        // Rutas: /auth/search o /auth/role
+        // Buscar usuarios o ver roles
         else if (uri.contains("/search") || uri.contains("/role")) {
-            // Operaciones de lectura, permitimos más fluidez
             bucketKey = ip + "_AUTH_READ";
             limit = 50;
         }
         else {
-            // DEFAULT (Cualquier otra cosa no mapeada)
             bucketKey = ip + "_AUTH_DEFAULT";
             limit = 30;
         }
@@ -82,7 +77,7 @@ public class RateLimitInterceptor implements HandlerInterceptor {
                     + "}";
 
             response.getWriter().write(body);
-            response.flushBuffer(); // CORTA EL RESTO DEL CICLO, Spring no puede meter 401
+            response.flushBuffer();
 
             return false;
         }

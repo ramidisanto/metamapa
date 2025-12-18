@@ -38,7 +38,7 @@ public class HechoCSV {
                                        String latitud, String longitud) {
 
         HechoCSV hechoConEseTitulo = hechosConTitulos.get(unTitulo);
-        if (hechoConEseTitulo == null) { // TODO: arreglar con bases de datos
+        if (hechoConEseTitulo == null) {
             hechoConEseTitulo = new HechoCSV(unTitulo, unaDescripcion, unaCategoria, unaFechaAcontecimiento, latitud, longitud);
             hechosConTitulos.put(unTitulo, hechoConEseTitulo);
         } else {
@@ -46,7 +46,6 @@ public class HechoCSV {
         }
         return hechoConEseTitulo;
     }
-    //para crear se hace el getInstance(...)
 
     public void sobreescribirse(String unTitulo, String unaDescripcion,  String unaCategoria, LocalDate unaFechaAcontecimiento,
                                 String latitud, String longitud) {
@@ -57,7 +56,6 @@ public class HechoCSV {
         this.latitud = latitud;
         this.longitud = longitud;
     }
-    //public void admitirSolicitudDeEliminacion(Solicitud unaSolicitud){;}
 
 }
 
