@@ -1,20 +1,15 @@
 package Servicio;
 
-import Modelos.DTOs.ColeccionDTO;
 import Modelos.DTOs.ColeccionDTOOutput;
 import Modelos.DTOs.CriterioDTO;
 import Modelos.DTOs.HechoDTO;
 import Modelos.Entidades.*;
-import Modelos.Entidades.Consenso.*;
 import Repositorio.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.*;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
-import java.time.LocalDateTime ;
 import java.time.LocalDateTime ;
 import java.util.*;
 
@@ -50,7 +45,6 @@ class ColeccionServicioTest {
         MockitoAnnotations.openMocks(this);
     }
 
-    /*** ELIMINAR COLECCION ***/
     @Test
     void eliminarColeccion_DeberiaLlamarDeleteById() {
         Long id = 1L;
@@ -58,7 +52,6 @@ class ColeccionServicioTest {
         verify(coleccionRepositorio).deleteById(id);
     }
 
-    /*** MODIFICAR CONSENSO ***/
     @Test
     void modificarConsenso_DeberiaActualizarConsenso() {
         Coleccion coleccion = new Coleccion("Titulo", "Descripcion", null,null);
@@ -71,7 +64,6 @@ class ColeccionServicioTest {
         verify(coleccionRepositorio).save(coleccion);
     }
 
-    /*** AGREGAR FUENTE ***/
     @Test
     void agregarFuente_DeberiaAgregarHechosALaColeccion() {
         Coleccion coleccion = new Coleccion("Titulo", "Desc", null, null);
@@ -86,7 +78,6 @@ class ColeccionServicioTest {
         verify(coleccionRepositorio).save(coleccion);
     }
 
-    /*** ELIMINAR FUENTE ***/
     @Test
     void eliminarFuente_DeberiaEliminarHechosSegunFuenteYOrigen() {
         Hecho hecho1 = mock(Hecho.class);
@@ -104,7 +95,6 @@ class ColeccionServicioTest {
         verify(coleccionRepositorio).save(coleccion);
     }
 
-    /*** OBTENER COLECCION ***/
     @Test
     void obtenerColeccion_DeberiaRetornarDTO() {
         CriteriosDePertenencia criteriosDePertenencia = new CriteriosDePertenencia();
@@ -118,7 +108,6 @@ class ColeccionServicioTest {
         assertEquals("D", dto.getDescripcion());
     }
 
-    /*** TRANSFORMAR CRITERIO A DTO ***/
     @Test
     void transformarCriterioADTO_DeberiaTransformar() {
         CriteriosDePertenencia criterio = mock(CriteriosDePertenencia.class);
@@ -131,7 +120,6 @@ class ColeccionServicioTest {
         assertTrue(dto.getContenido_multimedia());
     }
 
-    /*** TRANSFORMAR HECHO A DTO ***/
     @Test
     void transformarHechoDTO_DeberiaIncluirDatosUsuarioSiNoEsAnonimo() {
         Contribuyente contribuyente = new Contribuyente();

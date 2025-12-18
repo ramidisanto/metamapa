@@ -1,7 +1,6 @@
 package Repositorio;
 
 import Modelos.Hecho;
-import Modelos.Provincia;
 
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;

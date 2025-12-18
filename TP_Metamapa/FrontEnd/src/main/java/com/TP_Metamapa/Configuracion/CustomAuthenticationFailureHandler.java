@@ -17,16 +17,14 @@ public class CustomAuthenticationFailureHandler extends SimpleUrlAuthenticationF
 
         String errorMessage = exception.getMessage();
 
-        // Buscamos la "señal" que nos manda el CustomAuthProvider
         if (errorMessage != null && (
                 errorMessage.contains("BLOQUEO_RATELIMIT") ||
                         errorMessage.contains("429") ||
                         errorMessage.contains("Too Many Requests")
         )) {
-            // Redirigimos a la pantalla roja
+
             getRedirectStrategy().sendRedirect(request, response, "/rate-limit-error");
         } else {
-            // Si es contraseña incorrecta, volvemos al login con error=true
             setDefaultFailureUrl("/auth/login?error=true");
             super.onAuthenticationFailure(request, response, exception);
         }

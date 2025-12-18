@@ -61,7 +61,7 @@ public class AuthService {
             return respuesta.getBody();
 
         } catch (Exception ex) {
-            // LOG CRUDO – fundamental para ver si el 429 se convierte en 401
+
             log.error(">>> EXCEPCIÓN CRUDA RECIBIDA DESDE RESTTEMPLATE:", ex);
             throw ex;
         }

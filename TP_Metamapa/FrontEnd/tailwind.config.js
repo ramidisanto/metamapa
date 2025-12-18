@@ -7,7 +7,6 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        // Primary modern blue/indigo palette
         'primary': {
           '50': '#eef2ff',
           '100': '#e0e7ff',
@@ -21,7 +20,6 @@ module.exports = {
           '900': '#312e81',
           '950': '#1e1b4b',
         },
-        // Accent emerald/teal palette
         'accent': {
           '50': '#ecfdf5',
           '100': '#d1fae5',
@@ -35,7 +33,6 @@ module.exports = {
           '900': '#064e3b',
           '950': '#022c22',
         },
-        // Keep pastel-blue for backwards compatibility
         'pastel-blue': {
           '50': '#eef2ff',
           '100': '#e0e7ff',
@@ -49,7 +46,6 @@ module.exports = {
           '900': '#312e81',
           '950': '#1e1b4b',
         },
-        // Warm accent for highlights
         'warm': {
           '50': '#fffbeb',
           '100': '#fef3c7',
@@ -62,7 +58,6 @@ module.exports = {
           '800': '#92400e',
           '900': '#78350f',
         },
-        // Red for danger/delete actions
         'red': {
           '50': '#fef2f2',
           '100': '#fee2e2',

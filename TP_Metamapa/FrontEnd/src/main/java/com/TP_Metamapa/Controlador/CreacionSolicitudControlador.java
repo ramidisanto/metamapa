@@ -1,8 +1,6 @@
 package com.TP_Metamapa.Controlador;
 
 import com.TP_Metamapa.DTOS.*;
-import com.TP_Metamapa.Modelos.*;
-import com.TP_Metamapa.Servicio.*;
 import com.TP_Metamapa.Servicio.NavegacionServicio;
 import com.TP_Metamapa.Servicio.SolicitudServicio;
 import jakarta.servlet.http.HttpSession;
@@ -13,7 +11,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.time.LocalDateTime;
 import java.util.Optional;
 
 @Controller

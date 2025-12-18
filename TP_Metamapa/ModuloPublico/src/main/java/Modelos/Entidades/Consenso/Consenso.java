@@ -17,6 +17,4 @@ public abstract class Consenso {
     protected Consenso() {
     }
 
-    // CUANDO SE USA EL CONSENSO SE LE DEBE SETAR EL REPOSITORIO
-    // VER COMO MEJORAR
 }

@@ -1,9 +1,5 @@
 package Modelos.DTOs;
 
-import Modelos.Conversores.ConsensoConversor;
-import Modelos.Entidades.Consenso.Consenso;
-import Modelos.Entidades.Hecho;
-import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 

@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public class HechoDTO {
         public Long idHecho;
-        public Long idFuente;//VER COMO MANEJAR ESTO
+        public Long idFuente;
         public String titulo;
         public String descripcion;
         public String contenido;

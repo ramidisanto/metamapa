@@ -57,17 +57,17 @@ class ConsensoTest {
 
     @Test
     void cuandoTodasLasFuentesTienenElHecho_consensoAbsolutaDeberiaRetornarTrue() {
-        // Arrange
+
         ConsensoAbsoluta consenso = new ConsensoAbsoluta(repositorioMock);
         when(repositorioMock.cantidadFuentes()).thenReturn(5L);
         when(repositorioMock.cantidadDeFuentesConHecho(
                 anyString(), any(Categoria.class), any(LocalDateTime.class), any(Ubicacion.class)
         )).thenReturn(5L);
 
-        // Act
+
         Boolean resultado = consenso.tieneConsenso(hechoEjemplo);
 
-        // Assert
+
         assertTrue(resultado);
         verify(repositorioMock).cantidadFuentes();
         verify(repositorioMock).cantidadDeFuentesConHecho(
@@ -80,106 +80,105 @@ class ConsensoTest {
 
     @Test
     void cuandoNoTodasLasFuentesTienenElHecho_consensoAbsolutaDeberiaRetornarFalse() {
-        // Arrange
+
         ConsensoAbsoluta consenso = new ConsensoAbsoluta(repositorioMock);
         when(repositorioMock.cantidadFuentes()).thenReturn(5L);
         when(repositorioMock.cantidadDeFuentesConHecho(
                 anyString(), any(Categoria.class), any(LocalDateTime.class), any(Ubicacion.class)
         )).thenReturn(3L);
 
-        // Act
+
         Boolean resultado = consenso.tieneConsenso(hechoEjemplo);
 
-        // Assert
+
         assertFalse(resultado);
     }
 
     @Test
     void cuandoNingunaFuenteTieneElHecho_consensoAbsolutaDeberiaRetornarFalse() {
-        // Arrange
+
         ConsensoAbsoluta consenso = new ConsensoAbsoluta(repositorioMock);
         when(repositorioMock.cantidadFuentes()).thenReturn(5L);
         when(repositorioMock.cantidadDeFuentesConHecho(
                 anyString(), any(Categoria.class), any(LocalDateTime.class), any(Ubicacion.class)
         )).thenReturn(0L);
 
-        // Act
+
         Boolean resultado = consenso.tieneConsenso(hechoEjemplo);
 
-        // Assert
+
         assertFalse(resultado);
     }
 
 
     @Test
     void cuandoMayoriaSimpleTieneElHecho_deberiaRetornarTrue() {
-        // Arrange
+
         ConsensoMayoriaSimple consenso = new ConsensoMayoriaSimple(repositorioMock);
         when(repositorioMock.cantidadFuentes()).thenReturn(10L);
         when(repositorioMock.cantidadDeFuentesConHecho(
                 anyString(), any(Categoria.class), any(LocalDateTime.class), any(Ubicacion.class)
         )).thenReturn(6L);
 
-        // Act
+
         Boolean resultado = consenso.tieneConsenso(hechoEjemplo);
 
-        // Assert
         assertTrue(resultado);
     }
 
     @Test
     void cuandoExactamenteLaMitadTieneElHecho_deberiaRetornarTrue() {
-        // Arrange
+
         ConsensoMayoriaSimple consenso = new ConsensoMayoriaSimple(repositorioMock);
         when(repositorioMock.cantidadFuentes()).thenReturn(10L);
         when(repositorioMock.cantidadDeFuentesConHecho(
                 anyString(), any(Categoria.class), any(LocalDateTime.class), any(Ubicacion.class)
         )).thenReturn(5L);
 
-        // Act
+
         Boolean resultado = consenso.tieneConsenso(hechoEjemplo);
 
-        // Assert
+
         assertTrue(resultado);
     }
 
     @Test
     void cuandoMenosDeLaMitadTieneElHecho_deberiaRetornarFalse() {
-        // Arrange
+
         ConsensoMayoriaSimple consenso = new ConsensoMayoriaSimple(repositorioMock);
         when(repositorioMock.cantidadFuentes()).thenReturn(10L);
         when(repositorioMock.cantidadDeFuentesConHecho(
                 anyString(), any(Categoria.class), any(LocalDateTime.class), any(Ubicacion.class)
         )).thenReturn(4L);
 
-        // Act
+
         Boolean resultado = consenso.tieneConsenso(hechoEjemplo);
 
-        // Assert
+
         assertFalse(resultado);
     }
 
     @Test
     void cuandoHayNumeroImparDeFuentes_mayoriaSimpleDeberiaCalcularCorrectamente() {
-        // Arrange
+
         ConsensoMayoriaSimple consenso = new ConsensoMayoriaSimple(repositorioMock);
         when(repositorioMock.cantidadFuentes()).thenReturn(9L);
         when(repositorioMock.cantidadDeFuentesConHecho(
                 anyString(), any(Categoria.class), any(LocalDateTime.class), any(Ubicacion.class)
         )).thenReturn(5L);
 
-        // Act
+
         Boolean resultado = consenso.tieneConsenso(hechoEjemplo);
 
-        // Assert
-        assertTrue(resultado); // 5 >= 9/2 (4.5)
+
+        assertTrue(resultado);
     }
 
 
 
     @Test
     void cuandoHayDosMencionesYNoHayConflictos_deberiaRetornarTrue() {
-        // Arrange
+
         ConsensoMultiplesMenciones consenso = new ConsensoMultiplesMenciones(repositorioMock);
         when(repositorioMock.cantidadDeFuentesConHecho(
                 anyString(), any(Categoria.class), any(LocalDateTime.class), any(Ubicacion.class)
@@ -196,7 +195,7 @@ class ConsensoTest {
 
     @Test
     void cuandoHayMasDeDOsMencionesYNoHayConflictos_deberiaRetornarTrue() {
-        // Arrange
+
         ConsensoMultiplesMenciones consenso = new ConsensoMultiplesMenciones(repositorioMock);
         when(repositorioMock.cantidadDeFuentesConHecho(
                 anyString(), any(Categoria.class), any(LocalDateTime.class), any(Ubicacion.class)
@@ -206,7 +205,6 @@ class ConsensoTest {
                 any(Ubicacion.class), any(Contribuyente.class), any(Contenido.class)
         )).thenReturn(0L);
 
-        //
         Boolean resultado = consenso.tieneConsenso(hechoEjemplo);
 
         assertTrue(resultado);
@@ -214,7 +212,7 @@ class ConsensoTest {
 
     @Test
     void cuandoHayDosMencionesConConflictos_deberiaRetornarFalse() {
-        // Arrange
+
         ConsensoMultiplesMenciones consenso = new ConsensoMultiplesMenciones(repositorioMock);
         when(repositorioMock.cantidadDeFuentesConHecho(
                 anyString(), any(Categoria.class), any(LocalDateTime.class), any(Ubicacion.class)
@@ -250,7 +248,6 @@ class ConsensoTest {
 
     @Test
     void cuandoNoHayMenciones_deberiaRetornarFalse() {
-        // Arrange
         ConsensoMultiplesMenciones consenso = new ConsensoMultiplesMenciones(repositorioMock);
         when(repositorioMock.cantidadDeFuentesConHecho(
                 anyString(), any(Categoria.class), any(LocalDateTime.class), any(Ubicacion.class)
@@ -309,7 +306,7 @@ class ConsensoTest {
 
     @Test
     void cuandoSeInvocaTieneConsensoConRepositorio_deberiaRestaurarRepositorioOriginal() {
-        // Arrange
+
         HechoRepositorio otroRepositorioMock = mock(HechoRepositorio.class);
         ConsensoAbsoluta consenso = new ConsensoAbsoluta(repositorioMock);
 
@@ -326,16 +323,14 @@ class ConsensoTest {
 
     @Test
     void cuandoSeLlamaCantidadFuentesConHecho_deberiaInvocarMetodoDelRepositorio() {
-        // Arrange
+
         ConsensoAbsoluta consenso = new ConsensoAbsoluta(repositorioMock);
         when(repositorioMock.cantidadDeFuentesConHecho(
                 anyString(), any(Categoria.class), any(LocalDateTime.class), any(Ubicacion.class)
         )).thenReturn(7L);
 
-        // Act
         Long resultado = consenso.cantidadFuentesConHecho(hechoEjemplo);
 
-        // Assert
         assertEquals(7L, resultado);
         verify(repositorioMock).cantidadDeFuentesConHecho(
                 hechoEjemplo.getTitulo(),

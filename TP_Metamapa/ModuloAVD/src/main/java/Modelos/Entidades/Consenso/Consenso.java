@@ -1,6 +1,4 @@
 package Modelos.Entidades.Consenso;
-import Modelos.Entidades.Hecho;
-import Repositorio.HechoRepositorio;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;

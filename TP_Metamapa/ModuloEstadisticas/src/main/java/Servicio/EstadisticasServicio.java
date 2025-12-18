@@ -55,7 +55,6 @@ public class EstadisticasServicio{
         return resultado == null ? 0 : resultado;
     }
 
-    //cada una hora
     @Scheduled(fixedRate = 3600000)
     public void recalcularEstadisticas() {
         

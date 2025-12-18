@@ -88,11 +88,9 @@ class HechoServicioTest {
         hechoEjemplo.setIdHecho(1L);
     }
 
-    // ==================== TESTS CREAR HECHO ====================
 
     @Test
     void crearHecho_conDatosValidos_deberiaCrearHechoExitosamente() throws Exception {
-        // Arrange
         configurarMocksParaCreacionExitosa();
 
 
@@ -143,7 +141,6 @@ class HechoServicioTest {
         assertTrue(exception.getMessage().contains("localidad"));
     }
 
-    // ==================== TESTS CREAR CATEGORIA ====================
 
     @Test
     void crearCategoria_cuandoNoExiste_deberiaCrearYRetornar() {
@@ -166,7 +163,6 @@ class HechoServicioTest {
         verify(categoriaRepositorio, never()).save(any(Categoria.class));
     }
 
-    // ==================== TESTS CREAR CONTRIBUYENTE ====================
 
     @Test
     void crearContribuyente_cuandoNoExiste_deberiaCrearYRetornar() {
@@ -193,8 +189,6 @@ class HechoServicioTest {
         assertEquals(contribuyenteEjemplo, resultado);
         verify(contribuyenteRepositorio, never()).save(any(Contribuyente.class));
     }
-
-    // ==================== TESTS CREAR PAIS ====================
 
     @Test
     void crearPais_conNombreValido_deberiaCrearSiNoExiste() throws Exception {
@@ -225,7 +219,6 @@ class HechoServicioTest {
         assertTrue(exception.getMessage().contains("pais"));
     }
 
-    // ==================== TESTS CREAR PROVINCIA ====================
 
     @Test
     void crearProvincia_conDatosValidos_deberiaCrearSiNoExiste() throws Exception {
@@ -251,7 +244,6 @@ class HechoServicioTest {
         assertTrue(exception.getMessage().contains("provincia"));
     }
 
-    // ==================== TESTS CREAR LOCALIDAD ====================
 
     @Test
     void crearLocalidad_conDatosValidos_deberiaCrearSiNoExiste() throws Exception {
@@ -277,7 +269,6 @@ class HechoServicioTest {
         assertTrue(exception.getMessage().contains("localidad"));
     }
 
-    // ==================== TESTS CREAR UBICACION ====================
 
     @Test
     void crearUbicacion_cuandoNoExiste_deberiaCrearYRetornar() {
@@ -311,8 +302,6 @@ class HechoServicioTest {
         assertEquals(ubicacionEjemplo, resultado);
         verify(ubicacionRepositorio, never()).save(any(Ubicacion.class));
     }
-
-    // ==================== TESTS OBTENER HECHOS ====================
 
     @Test
     void obtenerHechos_deberiaRetornarListaYMarcarComoPublicado() {
@@ -348,8 +337,6 @@ class HechoServicioTest {
         verify(hechoRepositorio).saveAll(anyList());
     }
 
-    // ==================== TESTS OBTENER HECHOS PENDIENTES DE USUARIO ====================
-
     @Test
     void obtenerHechosPendientesDeUsuario_usuarioExiste_deberiaRetornarHechos() {
 
@@ -377,8 +364,6 @@ class HechoServicioTest {
         assertTrue(resultado.isEmpty());
     }
 
-    // ==================== TESTS TRANSFORMAR A DTO ====================
-
     @Test
     void transformarADTOLista_deberiaConvertirCorrectamente() {
 
@@ -400,8 +385,6 @@ class HechoServicioTest {
 
         assertTrue(resultado.isEmpty());
     }
-
-    // ==================== MÉTODOS AUXILIARES ====================
 
     private void configurarMocksParaCreacionExitosa() {
         when(categoriaRepositorio.findByNombre("Deportes")).thenReturn(categoriaEjemplo);

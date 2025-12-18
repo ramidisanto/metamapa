@@ -1,8 +1,6 @@
 
 package Modelos.DTOs;
 
-
-import jakarta.persistence.Entity;
 import lombok.Getter;
 import lombok.Setter;
 

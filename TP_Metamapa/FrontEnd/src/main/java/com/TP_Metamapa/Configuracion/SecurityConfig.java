@@ -34,7 +34,6 @@ public class SecurityConfig {
         return new BCryptPasswordEncoder();
     }
 
-    // CRÍTICO: Esto ayuda a manejar la expiración de sesiones
     @Bean
     public HttpSessionEventPublisher httpSessionEventPublisher() {
         return new HttpSessionEventPublisher();
@@ -60,7 +59,7 @@ public class SecurityConfig {
                 .sessionManagement(session -> session
                         .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED)
                         .invalidSessionUrl("/auth/login?session=expired")
-                        .maximumSessions(5) // Permite múltiples sesiones por usuario
+                        .maximumSessions(5)
                         .maxSessionsPreventsLogin(false)
                         .expiredUrl("/auth/login?session=expired")
                 )

@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -77,7 +76,7 @@ public class AdminControlador {
         model.addAttribute("tiposFuente", tipoFuentes);
         model.addAttribute("activeTab", activeTab);
 
-        return "admin"; // Siempre renderiza la misma vista principal
+        return "admin";
     }
 
     @PostMapping("/admin/cargar-csv")
@@ -245,7 +244,7 @@ public class AdminControlador {
             HttpSession session, Model model,
             RedirectAttributes redirectAttributes) {
         try {
-//
+
             String accessToken = (String) session.getAttribute("accessToken");
 
             if (accessToken == null) {

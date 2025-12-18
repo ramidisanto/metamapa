@@ -17,7 +17,7 @@ import java.util.List;
 public class HechoControlador {
 
     @Autowired
-     HechoServicio hechoServicio;
+    HechoServicio hechoServicio;
     @PreAuthorize("hasAnyRole('admin_client_role', 'user_client_role')")
     @PostMapping("/hechos")
     public ResponseEntity<String> crearHecho(@RequestBody HechoDTOInput hechoDTO) {

@@ -78,7 +78,6 @@ public class Hecho{
         this.mostrarNombre = mostrarNombre;
         this.mostrarApellido = mostrarApellido;
         this.mostrarFechaNacimiento = mostrarFechaNacimiento;
-        //this.estadoNormalizacion = EstadoNormalizacion.PENDIENTE;
     }
     public Hecho(){}
 

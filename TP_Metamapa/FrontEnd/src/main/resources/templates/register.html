@@ -11,7 +11,6 @@
 
 
     <script>
-        // Check dark mode before page loads to prevent FOUC
         if (localStorage.getItem('theme') === 'dark') {
             document.documentElement.classList.add('dark');
         }
@@ -72,7 +71,6 @@
             <form id="registerForm" th:action="@{/auth/register}" th:object="${registerForm}" method="post"
                 class="space-y-5">
 
-                <!-- Username -->
                 <div>
                     <label for="username" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Nombre
                         de usuario <span class="text-red-500">*</span></label>
@@ -82,7 +80,6 @@
                     <span id="username-error" class="text-red-500 text-xs mt-1 hidden">Este campo es obligatorio</span>
                 </div>
 
-                <!-- Email -->
                 <div>
                     <label for="email" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Correo
                         electrónico <span class="text-red-500">*</span></label>
@@ -92,7 +89,6 @@
                     <span id="email-error" class="text-red-500 text-xs mt-1 hidden">Este campo es obligatorio</span>
                 </div>
 
-                <!-- Nombre y Apellido -->
                 <div class="grid grid-cols-2 gap-4">
                     <div>
                         <label for="firstName"
@@ -117,7 +113,6 @@
                     </div>
                 </div>
 
-                <!-- Nacimento -->
                 <div>
                     <label for="birthdate" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Fecha
                         de nacimiento <span class="text-red-500">*</span></label>
@@ -126,7 +121,6 @@
                     <span id="birthdate-error" class="text-red-500 text-xs mt-1 hidden">Este campo es obligatorio</span>
                 </div>
 
-                <!-- Contraseña -->
                 <div>
                     <label for="password"
                         class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Contraseña <span

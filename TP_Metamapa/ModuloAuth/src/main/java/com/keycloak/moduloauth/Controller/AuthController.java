@@ -48,13 +48,11 @@ public class AuthController {
             errorResponse.put("error", "authentication_failed");
             errorResponse.put("message", e.getMessage());
 
-            //401 si se intenta iniciar sesion con datos incorrectos
             if (e.getMessage().contains("Usuario o contraseña incorrectos")) {
                 return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(errorResponse);
             }
 
-            //500 para otros errores
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorResponse);
+           return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorResponse);
         }
     }
 
@@ -67,7 +65,6 @@ public class AuthController {
                 Map<String, String> successResponse = new HashMap<>();
                 successResponse.put("message", response);
                 return ResponseEntity.status(HttpStatus.CREATED).body(successResponse);
-                //return ResponseEntity.created(new URI("/keycloak/user/create")).body(response);
             } else if (response.contains("already exists") || response.contains("exist already")) {
                 Map<String, String> errorResponse = new HashMap<>();
                 errorResponse.put("error", "user_exists");

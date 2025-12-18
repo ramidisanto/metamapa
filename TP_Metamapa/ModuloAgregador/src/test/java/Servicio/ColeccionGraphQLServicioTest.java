@@ -47,16 +47,16 @@ class ColeccionGraphQLServicioTest {
 
     @BeforeEach
     void setUp() {
-        // Crear entidades de ubicación
+
         paisEjemplo = new Pais("Argentina");
         provinciaEjemplo = new Provincia("Buenos Aires", paisEjemplo);
         localidadEjemplo = new Localidad("CABA", provinciaEjemplo);
         ubicacionEjemplo = new Ubicacion(localidadEjemplo, provinciaEjemplo, paisEjemplo, -34.6037, -58.3816);
 
-        // Crear categoría
+
         categoriaEjemplo = new Categoria("Deportes");
 
-        // Crear hechos de ejemplo
+
         hechoEjemplo1 = new Hecho(
                 1L,
                 "Hecho 1",
@@ -95,7 +95,7 @@ class ColeccionGraphQLServicioTest {
         );
         hechoEjemplo2.setId(2L);
 
-        // Crear HechoDTOoutput de ejemplo
+
         hechoDTOEjemplo = new HechoDTOoutput(
                 1L,
                 "Hecho 1",
@@ -120,7 +120,6 @@ class ColeccionGraphQLServicioTest {
                 false
         );
 
-        // Crear criterio de pertenencia
         criterioEjemplo = new CriteriosDePertenencia(
                 "Deportes en CABA",
                 false,
@@ -132,8 +131,6 @@ class ColeccionGraphQLServicioTest {
                 LocalDateTime.of(2024, 12, 31, 23, 59),
                 OrigenCarga.FUENTE_DINAMICA
         );
-
-        // Crear colección de ejemplo
         coleccionEjemplo = new Coleccion(
                 1L,
                 "Colección Deportes",
@@ -145,20 +142,17 @@ class ColeccionGraphQLServicioTest {
         coleccionEjemplo.setHechosConsensuados(Arrays.asList(hechoEjemplo1));
     }
 
-    // ==================== TESTS LISTAR COLECCIONES ====================
 
     @Test
     void listarColecciones_conColeccionesExistentes_deberiaRetornarListaDTO() {
-        // Arrange
+
         List<Coleccion> colecciones = Arrays.asList(coleccionEjemplo);
         when(coleccionRepositorio.findAll()).thenReturn(colecciones);
         when(agregadorGraphQLServicio.convertirAHechoDTO(any(Hecho.class)))
                 .thenReturn(hechoDTOEjemplo);
 
-        // Act
         List<ColeccionDTO> resultado = coleccionGraphQLServicio.listarColecciones();
 
-        // Assert
         assertNotNull(resultado);
         assertEquals(1, resultado.size());
 
@@ -176,13 +170,13 @@ class ColeccionGraphQLServicioTest {
 
     @Test
     void listarColecciones_sinColecciones_deberiaRetornarListaVacia() {
-        // Arrange
+
         when(coleccionRepositorio.findAll()).thenReturn(new ArrayList<>());
 
-        // Act
+
         List<ColeccionDTO> resultado = coleccionGraphQLServicio.listarColecciones();
 
-        // Assert
+
         assertNotNull(resultado);
         assertTrue(resultado.isEmpty());
         verify(coleccionRepositorio).findAll();
@@ -190,7 +184,7 @@ class ColeccionGraphQLServicioTest {
 
     @Test
     void listarColecciones_conMultiplesColecciones_deberiaRetornarTodas() {
-        // Arrange
+
         Coleccion coleccion2 = new Coleccion(
                 2L,
                 "Colección Política",
@@ -204,27 +198,23 @@ class ColeccionGraphQLServicioTest {
         when(agregadorGraphQLServicio.convertirAHechoDTO(any(Hecho.class)))
                 .thenReturn(hechoDTOEjemplo);
 
-        // Act
         List<ColeccionDTO> resultado = coleccionGraphQLServicio.listarColecciones();
 
-        // Assert
         assertEquals(2, resultado.size());
     }
 
-    // ==================== TESTS CONVERTIR A COLECCION DTO ====================
-
     @Test
     void convertirAColeccionDTO_conDatosCompletos_deberiaMapearCorrectamente() {
-        // Arrange
+
         when(agregadorGraphQLServicio.convertirAHechoDTO(any(Hecho.class)))
                 .thenReturn(hechoDTOEjemplo);
 
-        // Act
+
         List<Coleccion> colecciones = Arrays.asList(coleccionEjemplo);
         when(coleccionRepositorio.findAll()).thenReturn(colecciones);
         List<ColeccionDTO> resultado = coleccionGraphQLServicio.listarColecciones();
 
-        // Assert
+
         ColeccionDTO dto = resultado.get(0);
         assertEquals(1L, dto.getColeccionId());
         assertEquals("Colección Deportes", dto.getTitulo());
@@ -236,15 +226,13 @@ class ColeccionGraphQLServicioTest {
 
     @Test
     void convertirAColeccionDTO_conHechosNull_deberiaRetornarListaVacia() {
-        // Arrange
+
         coleccionEjemplo.setHechos(null);
         List<Coleccion> colecciones = Arrays.asList(coleccionEjemplo);
         when(coleccionRepositorio.findAll()).thenReturn(colecciones);
 
-        // Act
         List<ColeccionDTO> resultado = coleccionGraphQLServicio.listarColecciones();
 
-        // Assert
         ColeccionDTO dto = resultado.get(0);
         assertNotNull(dto.getHechos());
         assertTrue(dto.getHechos().isEmpty());
@@ -252,17 +240,15 @@ class ColeccionGraphQLServicioTest {
 
     @Test
     void convertirAColeccionDTO_conHechosConsensuadosNull_deberiaRetornarListaVacia() {
-        // Arrange
+
         coleccionEjemplo.setHechosConsensuados(null);
         List<Coleccion> colecciones = Arrays.asList(coleccionEjemplo);
         when(coleccionRepositorio.findAll()).thenReturn(colecciones);
         when(agregadorGraphQLServicio.convertirAHechoDTO(any(Hecho.class)))
                 .thenReturn(hechoDTOEjemplo);
 
-        // Act
         List<ColeccionDTO> resultado = coleccionGraphQLServicio.listarColecciones();
 
-        // Assert
         ColeccionDTO dto = resultado.get(0);
         assertNotNull(dto.getHechosConsensuados());
         assertTrue(dto.getHechosConsensuados().isEmpty());
@@ -270,52 +256,49 @@ class ColeccionGraphQLServicioTest {
 
     @Test
     void convertirAColeccionDTO_conCriterioNull_deberiaRetornarCriterioNull() {
-        // Arrange
+
         coleccionEjemplo.setCriterio_pertenencia(null);
         List<Coleccion> colecciones = Arrays.asList(coleccionEjemplo);
         when(coleccionRepositorio.findAll()).thenReturn(colecciones);
         when(agregadorGraphQLServicio.convertirAHechoDTO(any(Hecho.class)))
                 .thenReturn(hechoDTOEjemplo);
 
-        // Act
+
         List<ColeccionDTO> resultado = coleccionGraphQLServicio.listarColecciones();
 
-        // Assert
+
         ColeccionDTO dto = resultado.get(0);
         assertNull(dto.getCriterio());
     }
 
     @Test
     void convertirAColeccionDTO_conConsensoNull_deberiaRetornarNinguno() {
-        // Arrange
+
         coleccionEjemplo.setConsenso(null);
         List<Coleccion> colecciones = Arrays.asList(coleccionEjemplo);
         when(coleccionRepositorio.findAll()).thenReturn(colecciones);
         when(agregadorGraphQLServicio.convertirAHechoDTO(any(Hecho.class)))
                 .thenReturn(hechoDTOEjemplo);
 
-        // Act
+
         List<ColeccionDTO> resultado = coleccionGraphQLServicio.listarColecciones();
 
-        // Assert
+
         ColeccionDTO dto = resultado.get(0);
         assertEquals("Ninguno", dto.getConsenso());
     }
 
-    // ==================== TESTS CONVERTIR A CRITERIO DTO ====================
-
     @Test
     void convertirACriterioDTO_conDatosCompletos_deberiaMapearCorrectamente() {
-        // Arrange
+
         List<Coleccion> colecciones = Arrays.asList(coleccionEjemplo);
         when(coleccionRepositorio.findAll()).thenReturn(colecciones);
         when(agregadorGraphQLServicio.convertirAHechoDTO(any(Hecho.class)))
                 .thenReturn(hechoDTOEjemplo);
 
-        // Act
+
         List<ColeccionDTO> resultado = coleccionGraphQLServicio.listarColecciones();
 
-        // Assert
         CriterioDTO criterioDTO = resultado.get(0).getCriterio();
         assertNotNull(criterioDTO);
         assertEquals("Deportes en CABA", criterioDTO.getTitulo());
@@ -333,17 +316,17 @@ class ColeccionGraphQLServicioTest {
 
     @Test
     void convertirACriterioDTO_conUbicacionNull_deberiaRetornarUbicacionesNull() {
-        // Arrange
+
         criterioEjemplo.setUbicacion(null);
         List<Coleccion> colecciones = Arrays.asList(coleccionEjemplo);
         when(coleccionRepositorio.findAll()).thenReturn(colecciones);
         when(agregadorGraphQLServicio.convertirAHechoDTO(any(Hecho.class)))
                 .thenReturn(hechoDTOEjemplo);
 
-        // Act
+
         List<ColeccionDTO> resultado = coleccionGraphQLServicio.listarColecciones();
 
-        // Assert
+
         CriterioDTO criterioDTO = resultado.get(0).getCriterio();
         assertNotNull(criterioDTO);
         assertNull(criterioDTO.getLocalidad());
@@ -353,7 +336,7 @@ class ColeccionGraphQLServicioTest {
 
     @Test
     void convertirACriterioDTO_conUbicacionParcial_deberiaManejarNulos() {
-        // Arrange
+
         Ubicacion ubicacionParcial = new Ubicacion();
         ubicacionParcial.setPais(paisEjemplo);
         criterioEjemplo.setUbicacion(ubicacionParcial);
@@ -363,10 +346,9 @@ class ColeccionGraphQLServicioTest {
         when(agregadorGraphQLServicio.convertirAHechoDTO(any(Hecho.class)))
                 .thenReturn(hechoDTOEjemplo);
 
-        // Act
         List<ColeccionDTO> resultado = coleccionGraphQLServicio.listarColecciones();
 
-        // Assert
+
         CriterioDTO criterioDTO = resultado.get(0).getCriterio();
         assertNotNull(criterioDTO);
         assertNull(criterioDTO.getLocalidad());
@@ -376,17 +358,17 @@ class ColeccionGraphQLServicioTest {
 
     @Test
     void convertirACriterioDTO_conCategoriaNull_deberiaRetornarCategoriaNull() {
-        // Arrange
+
         criterioEjemplo.setCategoria(null);
         List<Coleccion> colecciones = Arrays.asList(coleccionEjemplo);
         when(coleccionRepositorio.findAll()).thenReturn(colecciones);
         when(agregadorGraphQLServicio.convertirAHechoDTO(any(Hecho.class)))
                 .thenReturn(hechoDTOEjemplo);
 
-        // Act
+
         List<ColeccionDTO> resultado = coleccionGraphQLServicio.listarColecciones();
 
-        // Assert
+
         CriterioDTO criterioDTO = resultado.get(0).getCriterio();
         assertNotNull(criterioDTO);
         assertNull(criterioDTO.getCategoria());
@@ -394,60 +376,52 @@ class ColeccionGraphQLServicioTest {
 
     @Test
     void convertirACriterioDTO_conOrigenNull_deberiaRetornarOrigenNull() {
-        // Arrange
+
         criterioEjemplo.setOrigen(null);
         List<Coleccion> colecciones = Arrays.asList(coleccionEjemplo);
         when(coleccionRepositorio.findAll()).thenReturn(colecciones);
         when(agregadorGraphQLServicio.convertirAHechoDTO(any(Hecho.class)))
                 .thenReturn(hechoDTOEjemplo);
 
-        // Act
+
         List<ColeccionDTO> resultado = coleccionGraphQLServicio.listarColecciones();
 
-        // Assert
+
         CriterioDTO criterioDTO = resultado.get(0).getCriterio();
         assertNotNull(criterioDTO);
         assertNull(criterioDTO.getOrigen_carga());
     }
 
-    // ==================== TESTS DE INTEGRACIÓN ====================
-
     @Test
     void listarColecciones_deberiaLlamarConvertirHechoDTOParaCadaHecho() {
-        // Arrange
+
         List<Coleccion> colecciones = Arrays.asList(coleccionEjemplo);
         when(coleccionRepositorio.findAll()).thenReturn(colecciones);
         when(agregadorGraphQLServicio.convertirAHechoDTO(any(Hecho.class)))
                 .thenReturn(hechoDTOEjemplo);
 
-        // Act
         coleccionGraphQLServicio.listarColecciones();
 
-        // Assert
-        // 2 hechos normales + 1 hecho consensuado = 3 llamadas
+
         verify(agregadorGraphQLServicio, times(3)).convertirAHechoDTO(any(Hecho.class));
     }
 
     @Test
     void listarColecciones_conColeccionVacia_noDeberiaLlamarConvertirHecho() {
-        // Arrange
+
         coleccionEjemplo.setHechos(new ArrayList<>());
         coleccionEjemplo.setHechosConsensuados(new ArrayList<>());
         List<Coleccion> colecciones = Arrays.asList(coleccionEjemplo);
         when(coleccionRepositorio.findAll()).thenReturn(colecciones);
 
-        // Act
         coleccionGraphQLServicio.listarColecciones();
 
-        // Assert
         verify(agregadorGraphQLServicio, never()).convertirAHechoDTO(any(Hecho.class));
     }
 
-    // ==================== TESTS DE CASOS ESPECIALES ====================
-
     @Test
     void listarColecciones_conColeccionesMixtas_deberiaManejarTodasCorrectamente() {
-        // Arrange
+
         Coleccion coleccionCompleta = coleccionEjemplo;
 
         Coleccion coleccionSinHechos = new Coleccion();
@@ -469,10 +443,9 @@ class ColeccionGraphQLServicioTest {
         when(agregadorGraphQLServicio.convertirAHechoDTO(any(Hecho.class)))
                 .thenReturn(hechoDTOEjemplo);
 
-        // Act
+
         List<ColeccionDTO> resultado = coleccionGraphQLServicio.listarColecciones();
 
-        // Assert
         assertEquals(3, resultado.size());
         assertEquals("ConsensoAbsoluta", resultado.get(0).getConsenso());
         assertTrue(resultado.get(1).getHechos().isEmpty());

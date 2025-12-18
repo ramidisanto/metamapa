@@ -9,7 +9,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 
-import java.time.Duration;
 
 @Component
 public class RateLimitInterceptor implements HandlerInterceptor {
@@ -38,13 +37,11 @@ public class RateLimitInterceptor implements HandlerInterceptor {
         long limit;
 
 
-        //  Login y Creación de Usuario
         if (uri.contains("/iniciar-sesion") || uri.contains("/create")) {
-            // Protección contra fuerza bruta y creación masiva de cuentas basura
             bucketKey = ip + "_AUTH_CRITICAL";
-            limit = 5; // 10 intentos por minuto
+            limit = 5;
         }
-        // Buscar usuarios o ver roles
+
         else if (uri.contains("/search") || uri.contains("/role")) {
             bucketKey = ip + "_AUTH_READ";
             limit = 50;
@@ -54,7 +51,6 @@ public class RateLimitInterceptor implements HandlerInterceptor {
             limit = 30;
         }
 
-        // 3. CONSUMO DE TOKENS
         Bucket tokenBucket = rateLimiterService.resolveBucket(bucketKey, limit);
         ConsumptionProbe probe = tokenBucket.tryConsumeAndReturnRemaining(1);
 

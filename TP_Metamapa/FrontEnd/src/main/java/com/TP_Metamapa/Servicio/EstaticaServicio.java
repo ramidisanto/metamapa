@@ -53,7 +53,7 @@ public class EstaticaServicio {
 
         } catch (HttpClientErrorException e) {
             String mensajeError = e.getResponseBodyAsString();
-            throw new RuntimeException(mensajeError); // Reenviamos solo el mensaje útil
+            throw new RuntimeException(mensajeError);
 
         } catch (HttpServerErrorException e) {
             throw new RuntimeException("Error en el servidor de estática");

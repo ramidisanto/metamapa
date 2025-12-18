@@ -5,7 +5,6 @@ import lombok.Setter;
 
 
 import java.time.LocalDate;
-import java.time.LocalDateTime ;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -17,7 +16,7 @@ public class HechoCSV {
 
     private String titulo;
     private String descripcion;
-    private Long fuente; // ID
+    private Long fuente;
     private String categoria;
     private String latitud;
     private String longitud;

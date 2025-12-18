@@ -179,7 +179,7 @@ class NavegadorServicioTest {
                 .filtrarHechosCuradosEnColeccion(anyLong(), any(), any(), any(), any(), any(), any(), any(), any(), any(), any(), any());
     }
 
-    // ---- Helpers ----
+
     private Hecho mockHecho() {
         Hecho hecho = new Hecho();
         hecho.setId(1L);

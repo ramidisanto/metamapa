@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 @Setter
 @AllArgsConstructor
 public class HechoDTOInput {
-    // Campos que coinciden con el backend
+
     private String titulo;
     private String descripcion;
     private String contenido;

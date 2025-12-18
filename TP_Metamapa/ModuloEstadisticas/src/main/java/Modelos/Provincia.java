@@ -1,6 +1,5 @@
 package Modelos;
 
-import Modelos.Pais;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;

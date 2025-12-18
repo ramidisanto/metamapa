@@ -53,7 +53,6 @@ public class RateLimitInterceptor implements HandlerInterceptor {
         }
 
 
-         // CONSUMO DE TOKENS
         Bucket tokenBucket = rateLimiterService.resolveBucket(bucketKey, limit);
         ConsumptionProbe probe = tokenBucket.tryConsumeAndReturnRemaining(1);
 

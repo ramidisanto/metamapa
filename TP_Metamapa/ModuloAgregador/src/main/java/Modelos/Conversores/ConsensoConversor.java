@@ -32,7 +32,7 @@ public class ConsensoConversor implements AttributeConverter<Consenso, String> {
     @Override
     public Consenso convertToEntityAttribute(String valor) {
         if (valor == null || valor.isBlank()) {
-            return null; // o instancia por defecto: new ConsensoMayoriaSimple();
+            return null;
         }
         switch (valor) {
             case "ABSOLUTA": return new ConsensoAbsoluta();

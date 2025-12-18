@@ -1,6 +1,5 @@
 package Modelos.DTOs;
 
-import Modelos.Entidades.Estado;
 import lombok.Getter;
 import lombok.Setter;
 

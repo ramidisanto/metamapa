@@ -4,7 +4,6 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
-import Modelos.Entidades.*;
 import java.time.LocalDateTime ;
 
 @Getter

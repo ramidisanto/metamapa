@@ -32,7 +32,6 @@ class SolicitudServicioTest {
         MockitoAnnotations.openMocks(this);
     }
 
-    // ---- TEST crearEstado ----
     @Test
     void crearEstado_valido_devuelveEnumCorrecto() {
         Estado estado = solicitudServicio.crearEstado("ACEPTADA");
@@ -45,7 +44,6 @@ class SolicitudServicioTest {
                 solicitudServicio.crearEstado("OTRO_ESTADO"));
     }
 
-    // ---- TEST solicitudesPendientes ----
     @Test
     void solicitudesPendientes_devuelveListaDeDTOs() {
 

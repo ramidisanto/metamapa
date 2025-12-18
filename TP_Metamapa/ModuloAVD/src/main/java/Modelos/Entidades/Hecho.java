@@ -5,7 +5,6 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDateTime ;
-import java.time.LocalDateTime ;
 
 
 @Getter
@@ -41,7 +40,7 @@ public class Hecho{
 
     @Enumerated(EnumType.STRING)
     @Column()
-    private OrigenCarga origen; //enum
+    private OrigenCarga origen;
 
     private Boolean visible ;
 

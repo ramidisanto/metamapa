@@ -8,8 +8,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
-import java.net.URI;
-import java.util.Objects;
 
 @Service
 public class ServicioUbicacion {
@@ -17,7 +15,6 @@ public class ServicioUbicacion {
     private final RestTemplate restTemplate;
     private final ObjectMapper objectMapper;
 
-    // URL base de la API de Gobierno de Argentina
     private static final String GEOREF_URL = "https://apis.datos.gob.ar/georef/api/ubicacion?lat={lat}&lon={lon}";
 
     public ServicioUbicacion(RestTemplate restTemplate, ObjectMapper objectMapper) {

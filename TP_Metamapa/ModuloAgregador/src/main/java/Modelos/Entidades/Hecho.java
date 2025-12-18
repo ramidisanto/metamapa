@@ -15,9 +15,9 @@ public class Hecho{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id; //Cambiar a long
+    private Long id;
 
-    private Long idFuente; // Cambiar a long
+    private Long idFuente;
     @Column(length = 1000)
     private String titulo;
     @Column(columnDefinition = "TEXT")
@@ -41,7 +41,7 @@ public class Hecho{
 
     @Enumerated(EnumType.STRING)
     @Column()
-    private OrigenCarga origen; //enum
+    private OrigenCarga origen;
 
     private Boolean visible ;
 

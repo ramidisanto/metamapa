@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -150,8 +149,7 @@ public class CrearHechoControlador {
             } else {
                 hechoParaBackend.setCategoria(hechoFormData.getCategoria());
             }
-            System.out.println("ACCESS TOKEN ------------------------: " + accessToken);
-            // 5. Enviar al Backend (Aquí puede saltar la excepción del Servicio)
+
             hechoServicio.enviarHechoAlBackend(hechoParaBackend, accessToken);
 
             redirectAttributes.addFlashAttribute("successMessage", "¡Hecho creado con éxito!");

@@ -15,7 +15,7 @@ public class Solicitud {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idSolcitud;
 
-    private LocalDateTime fecha_creacion; //date
+    private LocalDateTime fecha_creacion;
     @Column(length = 500)
     private String motivo;
     @ManyToOne

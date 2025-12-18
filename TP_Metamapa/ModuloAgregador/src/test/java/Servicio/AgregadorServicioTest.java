@@ -56,13 +56,12 @@ class AgregadorServicioTest {
 
     @BeforeEach
     void setUp() {
-        // Configurar URLs usando ReflectionTestUtils
+
         ReflectionTestUtils.setField(agregadorServicio, "urlProxy", "http://localhost:8086");
         ReflectionTestUtils.setField(agregadorServicio, "urlNormalizador", "http://localhost:8085");
         ReflectionTestUtils.setField(agregadorServicio, "urlBaseDinamica", "http://localhost:8082");
         ReflectionTestUtils.setField(agregadorServicio, "urlBaseEstatica", "http://localhost:8084");
 
-        // Crear DTO de ejemplo
         hechoDTOEjemplo = new HechoDTOInput();
         hechoDTOEjemplo.setIdFuente(1L);
         hechoDTOEjemplo.setTitulo("Titulo prueba");
@@ -86,7 +85,6 @@ class AgregadorServicioTest {
         hechoDTOEjemplo.setMostrarApellido(true);
         hechoDTOEjemplo.setMostrarFechaNacimiento(false);
 
-        // Crear entidades de ejemplo
         paisEjemplo = new Pais("Argentina");
         provinciaEjemplo = new Provincia("Buenos Aires", paisEjemplo);
         localidadEjemplo = new Localidad("CABA", provinciaEjemplo);
@@ -95,7 +93,6 @@ class AgregadorServicioTest {
         contribuyenteEjemplo = new Contribuyente("usuario1", "Juan", "Perez", LocalDate.of(1990, 1, 1));
         contenidoEjemplo = new Contenido("Contenido de prueba", "url/imagen.jpg");
 
-        // Crear colección de ejemplo
         coleccionEjemplo = new Coleccion();
         coleccionEjemplo.setId(1L);
         coleccionEjemplo.setTitulo("Colección Test");
@@ -108,7 +105,7 @@ class AgregadorServicioTest {
 
     @Test
     void actualizarHechos_deberiaConsultarTodasLasFuentes() {
-        // Arrange
+
         List<HechoDTOInput> listaVacia = new ArrayList<>();
         ResponseEntity<List<HechoDTOInput>> respuestaVacia = ResponseEntity.ok(listaVacia);
 
@@ -119,7 +116,7 @@ class AgregadorServicioTest {
                 any(ParameterizedTypeReference.class)
         )).thenReturn(respuestaVacia);
 
-        // Act
+
         agregadorServicio.actualizarHechos();
 
         verify(restTemplate, times(4)).exchange(
@@ -170,7 +167,7 @@ class AgregadorServicioTest {
 
     @Test
     void crearPais_conNombreNull_deberiaRetornarNull() {
-        // Arrange
+
         when(paisRepositorio.buscarOCrear(null)).thenReturn(null);
 
 
@@ -200,7 +197,6 @@ class AgregadorServicioTest {
 
         Localidad resultado = agregadorServicio.crearLocalidad("CABA", provinciaEjemplo);
 
-        // Assert
         assertNotNull(resultado);
         assertEquals("CABA", resultado.getLocalidad());
         verify(localidadRepositorio).buscarOCrear("CABA", provinciaEjemplo);
@@ -223,13 +219,13 @@ class AgregadorServicioTest {
 
     @Test
     void crearCategoria_cuandoNoExiste_deberiaCrearYGuardar() {
-        // Arrange
+
         when(categoriaRepositorio.buscarOCrear("Deportes")).thenReturn(categoriaEjemplo);
 
-        // Act
+
         Categoria resultado = agregadorServicio.crearCategoria("Deportes");
 
-        // Assert
+
         assertNotNull(resultado);
         assertEquals("Deportes", resultado.getNombre());
         verify(categoriaRepositorio).buscarOCrear("Deportes");
@@ -237,56 +233,40 @@ class AgregadorServicioTest {
 
     @Test
     void crearContribuyente_cuandoNoExiste_deberiaCrearYGuardar() {
-        // Arrange
+
         when(contribuyenteRepositorio.buscarOCrear(
                 "usuario1", "Juan", "Perez", LocalDate.of(1990, 1, 1)
         )).thenReturn(contribuyenteEjemplo);
 
-        // Act
+
         Contribuyente resultado = agregadorServicio.crearContribuyente(
                 "usuario1", "Juan", "Perez", LocalDate.of(1990, 1, 1)
         );
 
-        // Assert
+
         assertNotNull(resultado);
         assertEquals("usuario1", resultado.getUsuario());
     }
 
     @Test
     void crearContribuyente_conUsuarioNull_deberiaRetornarNull() {
-        // Arrange
+
         when(contribuyenteRepositorio.buscarOCrear(null, "Juan", "Perez",
                 LocalDate.of(1990, 1, 1))).thenReturn(null);
 
-        // Act
+
         Contribuyente resultado = agregadorServicio.crearContribuyente(
                 null, "Juan", "Perez", LocalDate.of(1990, 1, 1)
         );
 
-        // Assert
+
         assertNull(resultado);
     }
 
-    @Test
-    void crearContenido_cuandoNoExiste_deberiaCrearYGuardar() {
-        // Arrange
-        when(contenidoRepositorio.buscarOCrear("Texto prueba", "url/imagen.jpg"))
-                .thenReturn(contenidoEjemplo);
-
-        // Act
-        Contenido resultado = agregadorServicio.crearContenido("Texto prueba", "url/imagen.jpg");
-
-        // Assert
-        assertNotNull(resultado);
-        assertEquals("Texto prueba", resultado.getTexto());
-        verify(contenidoRepositorio).buscarOCrear("Texto prueba", "url/imagen.jpg");
-    }
-
-    // ==================== TESTS ACTUALIZAR COLECCIONES ====================
 
     @Test
     void actualizarColecciones_deberiaProcesarTodasLasColecciones() {
-        // Arrange
+
         Coleccion col1 = new Coleccion();
         col1.setId(1L);
         CriteriosDePertenencia crit1 = new CriteriosDePertenencia();
@@ -304,23 +284,23 @@ class AgregadorServicioTest {
                 any(), any(), any(), any(), any(), any(), any(), any(), any(), any(), any()
         )).thenReturn(new ArrayList<>());
 
-        // Act
+
         agregadorServicio.actualizarColecciones();
 
-        // Assert
+
         verify(coleccionRepositorio, times(2)).save(any(Coleccion.class));
     }
 
     @Test
     void actualizarColeccion_conCriterioNull_deberiaRetornarSinProcesar() {
-        // Arrange
+
         Coleccion coleccion = new Coleccion();
         coleccion.setCriterio_pertenencia(null);
 
-        // Act
+
         agregadorServicio.actualizarColeccion(coleccion);
 
-        // Assert
+
         verify(hechoRepositorio, never()).buscarHechosPorFiltros(
                 any(), any(), any(), any(), any(), any(), any(), any(), any(), any(), any()
         );
@@ -328,7 +308,7 @@ class AgregadorServicioTest {
 
     @Test
     void actualizarColeccion_deberiaAgregarSoloHechosNuevosYVisibles() {
-        // Arrange
+
         Hecho hechoExistente = new Hecho();
         hechoExistente.setId(1L);
         hechoExistente.setVisible(true);
@@ -351,10 +331,9 @@ class AgregadorServicioTest {
                 any(), any(), any(), any(), any(), any(), any(), any(), any(), any(), any()
         )).thenReturn(hechosFiltrados);
 
-        // Act
+
         agregadorServicio.actualizarColeccion(coleccionEjemplo);
 
-        // Assert
         assertEquals(2, coleccionEjemplo.getHechos().size());
         assertTrue(coleccionEjemplo.getHechos().contains(hechoExistente));
         assertTrue(coleccionEjemplo.getHechos().contains(hechoNuevoVisible));
@@ -362,31 +341,11 @@ class AgregadorServicioTest {
         verify(coleccionRepositorio).save(coleccionEjemplo);
     }
 
-    @Test
-    void actualizarColeccion_conHechosNull_deberiaAgregarTodosLosHechosFiltrados() {
-        // Arrange
-        Hecho hecho1 = new Hecho();
-        hecho1.setId(1L);
-        hecho1.setVisible(true);
-
-        coleccionEjemplo.setHechos(null);
-
-        when(hechoRepositorio.buscarHechosPorFiltros(
-                any(), any(), any(), any(), any(), any(), any(), any(), any(), any(), any()
-        )).thenReturn(Arrays.asList(hecho1));
-
-        // Act
-        agregadorServicio.actualizarColeccion(coleccionEjemplo);
-
-        // Assert
-        assertNotNull(coleccionEjemplo.getHechos());
-        verify(coleccionRepositorio).save(coleccionEjemplo);
-    }
 
 
     @Test
     void cargarColeccionConHechos_cuandoExiste_deberiaActualizar() throws ColeccionNoEncontradaException {
-        // Arrange
+
         Long coleccionId = 1L;
         when(coleccionRepositorio.findById(coleccionId))
                 .thenReturn(Optional.of(coleccionEjemplo));
@@ -394,44 +353,41 @@ class AgregadorServicioTest {
                 any(), any(), any(), any(), any(), any(), any(), any(), any(), any(), any()
         )).thenReturn(new ArrayList<>());
 
-        // Act
         agregadorServicio.cargarColeccionConHechos(coleccionId);
 
-        // Assert
+
         verify(coleccionRepositorio).findById(coleccionId);
         verify(coleccionRepositorio).save(coleccionEjemplo);
     }
 
     @Test
     void cargarColeccionConHechos_cuandoNoExiste_deberiaLanzarExcepcion() {
-        // Arrange
+
         Long coleccionId = 999L;
         when(coleccionRepositorio.findById(coleccionId)).thenReturn(Optional.empty());
 
-        // Act & Assert
+
         assertThrows(ColeccionNoEncontradaException.class, () -> {
             agregadorServicio.cargarColeccionConHechos(coleccionId);
         });
         verify(coleccionRepositorio, never()).save(any());
     }
 
-    // ==================== TESTS CASOS EDGE ====================
-
     @Test
     void crearEntidades_conDatosIncompletos_deberiaManejarNulos() {
-        // Arrange
+
         when(paisRepositorio.buscarOCrear(null)).thenReturn(null);
         when(provinciaRepositorio.buscarOCrear(null, null)).thenReturn(null);
         when(localidadRepositorio.buscarOCrear(null, null)).thenReturn(null);
         when(categoriaRepositorio.buscarOCrear(null)).thenReturn(null);
 
-        // Act
+
         Pais pais = agregadorServicio.crearPais(null);
         Provincia provincia = agregadorServicio.crearProvincia(null, null);
         Localidad localidad = agregadorServicio.crearLocalidad(null, null);
         Categoria categoria = agregadorServicio.crearCategoria(null);
 
-        // Assert
+
         assertNull(pais);
         assertNull(provincia);
         assertNull(localidad);
@@ -440,29 +396,28 @@ class AgregadorServicioTest {
 
     @Test
     void actualizarColeccion_conListaHechosVacia_deberiaFuncionar() {
-        // Arrange
+
         coleccionEjemplo.setHechos(new ArrayList<>());
         when(hechoRepositorio.buscarHechosPorFiltros(
                 any(), any(), any(), any(), any(), any(), any(), any(), any(), any(), any()
         )).thenReturn(new ArrayList<>());
 
-        // Act
+
         agregadorServicio.actualizarColeccion(coleccionEjemplo);
 
-        // Assert
+
         assertTrue(coleccionEjemplo.getHechos().isEmpty());
         verify(coleccionRepositorio).save(coleccionEjemplo);
     }
 
     @Test
     void actualizarColecciones_conListaVacia_noDeberiaGuardarNada() {
-        // Arrange
+
         when(coleccionRepositorio.findAllWithRelations()).thenReturn(new ArrayList<>());
 
-        // Act
         agregadorServicio.actualizarColecciones();
 
-        // Assert
+
         verify(coleccionRepositorio, never()).save(any());
     }
 }

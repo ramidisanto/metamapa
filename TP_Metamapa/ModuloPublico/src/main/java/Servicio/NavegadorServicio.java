@@ -18,7 +18,6 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime ;
-import java.time.LocalDateTime ;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -82,7 +81,6 @@ public class NavegadorServicio {
     public HechoDTO transformarAHechoDTO(Hecho hecho) {
         if (hecho == null) return null;
 
-        // Protecciones contra null en objetos relacionados
         String texto = hecho.getContenido() != null ? hecho.getContenido().getTexto() : null;
         String contenidoMultimedia = hecho.getContenido() != null ? hecho.getContenido().getContenidoMultimedia() : null;
         String categoria = hecho.getCategoria() != null ? hecho.getCategoria().getNombre() : null;
@@ -140,8 +138,6 @@ public class NavegadorServicio {
                 hecho.getMostrarApellido(),
                 hecho.getMostrarFechaNacimiento()
         );
-
-        // Si el hecho es anónimo, ocultar usuario
         if (hecho.getAnonimo() != null && hecho.getAnonimo()) {
             hechoDTO.setUsuario(null);
         }

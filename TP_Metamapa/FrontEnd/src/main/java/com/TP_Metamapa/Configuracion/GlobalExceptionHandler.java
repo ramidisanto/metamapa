@@ -15,7 +15,6 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(HttpClientErrorException.class)
     public Object handleHttpClientError(HttpClientErrorException e) {
 
-        // Caso especial: 429 Too Many Requests
         if (e.getStatusCode().value() == 429) {
 
             ModelAndView mav = new ModelAndView();

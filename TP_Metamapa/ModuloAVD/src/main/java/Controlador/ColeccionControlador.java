@@ -1,8 +1,6 @@
 package Controlador;
 
 import Modelos.DTOs.ColeccionDTO;
-import Modelos.DTOs.ColeccionDTOOutput;
-import Modelos.DTOs.FuenteDTO;
 import Modelos.Exceptions.CriterioDuplicadoException;
 import Servicio.ColeccionServicio;
 import org.springframework.beans.factory.annotation.Autowired;

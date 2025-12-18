@@ -1,7 +1,5 @@
 package com.TP_Metamapa.Controlador;
 
-import com.TP_Metamapa.DTOS.ColeccionDTO;
-import com.TP_Metamapa.Modelos.OrigenCarga;
 import com.TP_Metamapa.Servicio.*;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +9,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-import java.util.List;
 
 @Controller
 public class NavegadorControlador {
@@ -44,7 +41,6 @@ public class NavegadorControlador {
 
         model.addAttribute("activePage", "navegar");
 
-        // Apunta a tu archivo HTML
         return "navegarGraphQL";
     }
 }
