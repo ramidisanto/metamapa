@@ -64,50 +64,42 @@ public class AgregadorGraphQLServicio {
         if (filtro.getIdColeccion() != null && !filtro.getIdColeccion().isBlank()) {
             idCol = Long.parseLong(filtro.getIdColeccion());
         }
-        Page<Hecho> page = hechoRepositorio.filtrarHechos(
-                idCol,
-                filtro.getCategoria(),
-                filtro.getContenidoMultimedia(),
-                cargaDesde,
-                cargaHasta,
-                hechoDesde,
-                hechoHasta,
-                origenEnum,
-                filtro.getTitulo(),
-                filtro.getPais(),
-                filtro.getProvincia(),
-                filtro.getLocalidad(),
-                filtro.getBusquedaGeneral(),
-                pageable);
+        Page<Hecho> page = null;
 
-        System.out.println("Total Hechos Encontrados: " + page.getTotalElements());
+        if(filtro.getNavegacionCurada()){
+            page = hechoRepositorio.filtrarHechosCurados(
+                    idCol,
+                    filtro.getCategoria(),
+                    filtro.getContenidoMultimedia(),
+                    cargaDesde,
+                    cargaHasta,
+                    hechoDesde,
+                    hechoHasta,
+                    origenEnum,
+                    filtro.getTitulo(),
+                    filtro.getPais(),
+                    filtro.getProvincia(),
+                    filtro.getLocalidad(),
+                    filtro.getBusquedaGeneral(),
+                    pageable);
+        }else{
+             page = hechoRepositorio.filtrarHechos(
+                    idCol,
+                    filtro.getCategoria(),
+                    filtro.getContenidoMultimedia(),
+                    cargaDesde,
+                    cargaHasta,
+                    hechoDesde,
+                    hechoHasta,
+                    origenEnum,
+                    filtro.getTitulo(),
+                    filtro.getPais(),
+                    filtro.getProvincia(),
+                    filtro.getLocalidad(),
+                    filtro.getBusquedaGeneral(),
+                    pageable);
+        }
 
-        // hechos = hechoRepositorio.filtrarHechos(
-        // filtro.getCategoria(),
-        // filtro.getContenidoMultimedia(),
-        // cargaDesde, cargaHasta,
-        // hechoDesde, hechoHasta,
-        // origenEnum,
-        // filtro.getTitulo(),
-        // filtro.getPais(),
-        // filtro.getProvincia(),
-        // filtro.getLocalidad(),
-        // pageable
-        // );
-        // }
-
-        // 2. Filtrado en Memoria (Búsqueda de texto libre)
-        // Esto cubre campos que quizas el repositorio no busca con LIKE (descripcion,
-        // contenido)
-        // if (filtro.getBusquedaGeneral() != null &&
-        // !filtro.getBusquedaGeneral().isBlank()) {
-        // String query = filtro.getBusquedaGeneral().toLowerCase();
-        // hechos = hechos.stream()
-        // .filter(h -> buscarEnTexto(h, query))
-        // .collect(Collectors.toList());
-        // }
-
-        // 3. Conversión a DTO
         List<HechoDTOoutput> content = page.getContent().stream()
                 .map(this::convertirAHechoDTO)
                 .collect(Collectors.toList());

@@ -24,7 +24,7 @@ public class SecurityConfig {
         return httpSecurity
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(http -> {
-                    http.requestMatchers("/actuator/health").permitAll();
+                    http.requestMatchers("/actuator/**").permitAll();
                     http.anyRequest().hasRole("admin_client_role");
                 })
                 .oauth2ResourceServer(oauth -> {

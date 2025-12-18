@@ -155,4 +155,67 @@ Page<Hecho> filtrarHechos(
         @Param("provincia") String provincia,
         @Param("localidad") String localidad,
         @Param("busquedaGeneral") String busquedaGeneral,
-        Pageable pageable);}
+        Pageable pageable);
+
+
+        @Query("""
+        SELECT DISTINCT h
+        FROM Hecho h
+        LEFT JOIN h.contenido c
+        LEFT JOIN h.ubicacion u
+        LEFT JOIN u.pais p
+        LEFT JOIN u.provincia prov
+        LEFT JOIN u.localidad l
+        LEFT JOIN h.categoria cat
+        WHERE
+            (:idColeccion IS NULL
+             OR EXISTS (
+                SELECT 1 
+                FROM Coleccion col 
+                WHERE col.id = :idColeccion 
+                AND h MEMBER OF col.hechosConsensuados
+             ))
+        AND (:categoria IS NULL OR cat.nombre = :categoria)
+        AND (
+            :contenidoMultimedia IS NULL
+            OR (:contenidoMultimedia = TRUE AND c.contenidoMultimedia IS NOT NULL AND c.contenidoMultimedia <> '')
+            OR (:contenidoMultimedia = FALSE AND (c.contenidoMultimedia IS NULL OR c.contenidoMultimedia = ''))
+        )
+        AND (cast(:fechaCargaDesde as timestamp) IS NULL OR h.fecha_carga >= :fechaCargaDesde)
+        AND (cast(:fechaCargaHasta as timestamp) IS NULL OR h.fecha_carga <= :fechaCargaHasta)
+        AND (cast(:fechaHechoDesde as timestamp) IS NULL OR h.fecha >= :fechaHechoDesde)
+        AND (cast(:fechaHechoHasta as timestamp) IS NULL OR h.fecha <= :fechaHechoHasta)
+        AND (:origenCarga IS NULL OR h.origen = :origenCarga)
+        AND (:titulo IS NULL OR LOWER(h.titulo) LIKE LOWER(CONCAT('%', :titulo, '%')))
+        AND (:pais IS NULL OR p.pais = :pais)
+        AND (:provincia IS NULL OR prov.provincia = :provincia)
+        AND (:localidad IS NULL OR l.localidad = :localidad)
+        AND (
+            :busquedaGeneral IS NULL
+            OR LOWER(h.titulo) LIKE LOWER(CONCAT('%', :busquedaGeneral, '%'))
+            OR LOWER(h.descripcion) LIKE LOWER(CONCAT('%', :busquedaGeneral, '%'))
+            OR (c.texto IS NOT NULL AND LOWER(c.texto) LIKE LOWER(CONCAT('%', :busquedaGeneral, '%')))
+        )
+        AND (h.visible = true)
+        AND (h.estadoNormalizacion = 'NORMALIZADO' OR :busquedaGeneral IS NOT NULL) 
+    """)
+        Page<Hecho> filtrarHechosCurados(
+                @Param("idColeccion") Long idColeccion,
+                @Param("categoria") String categoria,
+                @Param("contenidoMultimedia") Boolean contenidoMultimedia,
+                @Param("fechaCargaDesde") LocalDateTime fechaCargaDesde,
+                @Param("fechaCargaHasta") LocalDateTime fechaCargaHasta,
+                @Param("fechaHechoDesde") LocalDateTime fechaHechoDesde,
+                @Param("fechaHechoHasta") LocalDateTime fechaHechoHasta,
+                @Param("origenCarga") OrigenCarga origenCarga,
+                @Param("titulo") String titulo,
+                @Param("pais") String pais,
+                @Param("provincia") String provincia,
+                @Param("localidad") String localidad,
+                @Param("busquedaGeneral") String busquedaGeneral,
+                Pageable pageable);
+
+
+}
+
+

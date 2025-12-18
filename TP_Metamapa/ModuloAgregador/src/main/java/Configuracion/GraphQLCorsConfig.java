@@ -13,6 +13,7 @@ public class GraphQLCorsConfig {
     public CorsFilter corsFilter() {
         CorsConfiguration config = new CorsConfiguration();
         config.addAllowedOrigin("http://localhost:8088");
+        config.addAllowedOrigin("http://165.232.153.148:8088");
         config.addAllowedMethod("*");
         config.addAllowedHeader("*");
         config.setAllowCredentials(true);

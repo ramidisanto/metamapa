@@ -24,7 +24,7 @@ public class SecurityConfig {
         return httpSecurity
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(http -> {
-                    http.requestMatchers("/actuator/health").permitAll();
+                    http.requestMatchers("/actuator/**").permitAll();
                     http.requestMatchers(HttpMethod.GET,
                             "/dinamica/hechos"
                     ).permitAll();

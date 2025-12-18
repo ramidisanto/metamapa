@@ -26,7 +26,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(http -> {
                     http.requestMatchers("/agregador/colecciones/**").permitAll();
                     http.requestMatchers("/graphql").permitAll();
-                    http.requestMatchers("/actuator/health").permitAll();
+                    http.requestMatchers("/actuator/**").permitAll();
                     http.anyRequest().authenticated();
                 })
                 .oauth2ResourceServer(oauth -> {
