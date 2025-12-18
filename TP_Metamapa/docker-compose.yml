@@ -54,7 +54,7 @@ services:
       KC_DB_USERNAME: root
       KC_DB_PASSWORD: root
       KC_DB_ROOT_PASSWORD: root
-      KC_HOSTNAME: 165.232.153.148
+      KC_HOSTNAME: metamapa.app
       KC_PROXY_HEADERS: "xforwarded"
       JAVA_OPTS: "-Xms256m -Xmx512m"
       KC_HOSTNAME_STRICT: "false"
@@ -94,7 +94,7 @@ services:
       DB_URL: jdbc:mysql://db_general:3306/comun
       DB_USER: root
       DB_PASSWORD: root
-      SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_ISSUER_URI: http://165.232.153.148:8080/realms/spring-boot-realm-pr
+      SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_ISSUER_URI: http://metamapa.app:8080/realms/spring-boot-realm-pr
       SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_JWK_SET_URI: http://keycloak:8080/realms/spring-boot-realm-pr/protocol/openid-connect/certs
     ports:
       - "8080:8080"
@@ -122,7 +122,7 @@ services:
       DB_USER: root
       DB_PASSWORD : root
       AGREGADOR_URL: http://moduloagregador:8080
-      SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_ISSUER_URI: http://165.232.153.148:8080/realms/spring-boot-realm-pr
+      SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_ISSUER_URI: http://metamapa.app:8080/realms/spring-boot-realm-pr
       SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_JWK_SET_URI: http://keycloak:8080/realms/spring-boot-realm-pr/protocol/openid-connect/certs
     ports:
       - "8081:8081"
@@ -147,7 +147,7 @@ services:
       DB_URL: jdbc:mysql://db_general:3306/dinamica
       DB_USER: root
       DB_PASSWORD : root
-      SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_ISSUER_URI: http://165.232.153.148:8080/realms/spring-boot-realm-pr
+      SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_ISSUER_URI: http://metamapa.app:8080/realms/spring-boot-realm-pr
       SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_JWK_SET_URI: http://keycloak:8080/realms/spring-boot-realm-pr/protocol/openid-connect/certs
     ports:
       - "8082:8082"
@@ -199,7 +199,7 @@ services:
       DB_PASSWORD : root
       PATH_ARCHIVOS: "/app/data/"
       JAVA_OPTS: -Xmx1536m -Xms512m
-      SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_ISSUER_URI: http://165.232.153.148:8080/realms/spring-boot-realm-pr
+      SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_ISSUER_URI: http://metamapa.app:8080/realms/spring-boot-realm-pr
       SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_JWK_SET_URI: http://keycloak:8080/realms/spring-boot-realm-pr/protocol/openid-connect/certs
     volumes:
       - ./archivos_data:/app/data
@@ -241,7 +241,7 @@ services:
       DB_URL: jdbc:mysql://db_general:3306/proxy
       DB_USER: root
       DB_PASSWORD : root
-      SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_ISSUER_URI: http://165.232.153.148:8080/realms/spring-boot-realm-pr
+      SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_ISSUER_URI: http://metamapa.app:8080/realms/spring-boot-realm-pr
       SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_JWK_SET_URI: http://keycloak:8080/realms/spring-boot-realm-pr/protocol/openid-connect/certs
     ports:
       - "8086:8086"
@@ -268,7 +268,7 @@ services:
       DB_URL: jdbc:mysql://db_general:3306/comun
       DB_USER: root
       DB_PASSWORD : root
-      SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_ISSUER_URI: http://165.232.153.148:8080/realms/spring-boot-realm-pr
+      SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_ISSUER_URI: http://metamapa.app:8080/realms/spring-boot-realm-pr
       SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_JWK_SET_URI: http://keycloak:8080/realms/spring-boot-realm-pr/protocol/openid-connect/certs
     ports:
       - "8087:8087"
@@ -295,7 +295,7 @@ services:
       REALM_NAME: spring-boot-realm-pr
       RESOURSE_ID: spring-client-api-rest
       CLIENT_SECRET: "BcauRIGE0bZwW94QnpIf5laiaaHM5i1w"
-      SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_ISSUER_URI: http://165.232.153.148:8080/realms/spring-boot-realm-pr
+      SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_ISSUER_URI: http://metamapa.app:8080/realms/spring-boot-realm-pr
       SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_JWK_SET_URI: http://keycloak:8080/realms/spring-boot-realm-pr/protocol/openid-connect/certs
     restart: on-failure
     healthcheck:
@@ -330,7 +330,7 @@ services:
       KEYCLOAK_PUBLIC_URL: http://localhost:9090
       KEYCLOAK_URL: http://keycloak:8080
       AUTH_URL: http://moduloauth:9092
-      SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_ISSUER_URI: http://165.232.153.148:8080/realms/spring-boot-realm-pr
+      SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_ISSUER_URI: http://metamapa.app:8080/realms/spring-boot-realm-pr
       SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_JWK_SET_URI: http://keycloak:8080/realms/spring-boot-realm-pr/protocol/openid-connect/certs
     ports:
       - "8088:8088"
