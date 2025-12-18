@@ -15,7 +15,10 @@ public class GraphQLCorsConfig {
         config.addAllowedOrigin("http://localhost:8088");
         config.addAllowedOrigin("http://165.232.153.148:8088");
         config.addAllowedOrigin("http://metamapa.app:8088");
-        config.addAllowedMethod("*");
+        config.addAllowedOrigin("https://metamapa.app");
+	config.addAllowedOrigin("https://www.metamapa.app");
+	config.addAllowedOrigin("http://metamapa.app");
+	config.addAllowedMethod("*");
         config.addAllowedHeader("*");
         config.setAllowCredentials(true);
 
