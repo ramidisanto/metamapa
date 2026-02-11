@@ -4,7 +4,7 @@ Metamapa es una plataforma web educativa desarrollada para la visualización de 
 
 ## 🚀 Tecnologías y Herramientas
 
-* **Backend:** Java con Spring Boot[cite: 36, 37].
+* **Backend:** Java con Spring Boot.
 * **Frontend:** Server-Side Rendering (SSR) con Thymeleaf y Tailwind CSS.
 * **Seguridad:** Gestión de identidad con Keycloak y autorización basada en JWT.
 * **Bases de Datos:** MySQL.
